@@ -123,8 +123,8 @@ var Tags = React.createClass({
             selectedIndex = this.state.selectedIndex,
             suggestions = [];
 
-        // min-length of search query that is required
-        if (query.length > 0) {
+        // min-length of search query that is required - 2
+        if (query.length > 1) {
             suggestions = this.state.suggestions.map(function(item, i) {
                 return (
                     <li key={i} 
