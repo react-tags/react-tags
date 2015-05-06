@@ -12,7 +12,7 @@
       color: black;
       font-size: 12px;
       font-family: 'Helvetica Neue', 'Arial', sans-serif;
-      float: left;
+      display: inline-block;
       padding: 5px;
       margin-right: 5px;
       margin-bottom: 5px;
@@ -24,39 +24,46 @@
       margin-left: 5px;
       cursor: pointer;
     }
+    div.selected-tags {
+      float: left;
+    }
 
     div.tagInput {
-      border: 1px solid #eee;
+      width: 200px;
       border-radius: 2px;
-      padding: 5px 8px;
+      display: inline-block;
     }
     div.tagInput input, div.tagInput input:focus{
-      border: 0;
-      height: 35px;
-      margin: 0;
-      font-size: 14px;
+        height: 31px;
+        margin: 0;
+        font-size: 12px;
+        width: 100%;
+        border: 1px solid #eee;
     }
     div.suggestions ul {
         list-style-type: none;
         background: linear-gradient(to bottom right, white, hsla(0,0%,100%,.8));
-        box-shadow: .05em .2em .2em rgba(0,0,0,.2);
+        box-shadow: .05em .01em .5em rgba(0,0,0,.2);
     }
     div.suggestions ul li {
         border-bottom: 1px solid #ddd;
         padding: 5px 10px;
         margin: 0;
     }
+    div.suggestions li mark {
+        text-decoration: underline;
+        background: none;
+        font-weight: 600;
+    }
     div.suggestions ul li.active {
-        background: #3D6D8F;
-        color: white;
+        background: #b7cfe0;
     }
     </style>
 </head>
 <body>
     <div class='container'>
         <hr/>
-        <h3>Tag Input</h3>
-        <h3>React Tags</h3>
+        <h4>React Tags</h4>
         <p>What all countries have you visited?</p>
         <div id='app'></div>
     </div>
@@ -67,7 +74,7 @@
     <script>
     // Set up test data
     var tags = ["Thailand", "India", "Malaysia"];
-    var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas"
+    var suggestions = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas"
           ,"Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands"
           ,"Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Cape Verde","Cayman Islands","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica"
           ,"Cote D Ivoire","Croatia","Cruise Ship","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea"

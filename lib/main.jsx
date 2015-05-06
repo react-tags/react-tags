@@ -136,16 +136,17 @@ var Tags = React.createClass({
         }
 
         return ( 
-            <div className="tags">
-                <div className="tagInput"> {tagItems} 
+            <div className="tags"> 
+              <div className="selected-tags">{tagItems}</div>
+                <div className="tagInput">
                     <input ref="input" 
                         type="text" 
                         placeholder="Add new country"
                         onChange={this.handleChange}
                         onKeyDown={this.handleKeyDown}/>
-                </div>
-                <div className="suggestions">
-                  { suggestions.length > 0 ? <ul> {suggestions} </ul>  : "" }
+                    <div className="suggestions">
+                      { suggestions.length > 0 ? <ul> {suggestions} </ul>  : "" }
+                    </div>
                 </div>
             </div>
         )
@@ -153,6 +154,6 @@ var Tags = React.createClass({
 });
 
 React.render(
-    <Tags tags={tags} suggestions={countries} />, 
+    <Tags tags={tags} suggestions={suggestions} />, 
     document.getElementById("app")
 );
