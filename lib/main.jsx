@@ -120,6 +120,12 @@ var Tags = React.createClass({
     handleSuggestionClick: function(i, e) {
         this.addTag(this.state.suggestions[i]);
     },
+    handleSuggestionHover: function(i, e) {
+        this.setState({
+            selectedIndex: i,
+            selectionMode: true
+        });
+    },
     render: function() {
         var tagItems = this.state.tags.map(function(item, i) {
             return (
@@ -140,6 +146,7 @@ var Tags = React.createClass({
             suggestions = this.state.suggestions.map(function(item, i) {
                 return (
                     <li key={i} onClick={this.handleSuggestionClick.bind(this, i)}
+                        onMouseOver={this.handleSuggestionHover.bind(this, i)}
                         className={i == selectedIndex ? "active" : ""}>
                         <span dangerouslySetInnerHTML={this.markIt(item, query)} />
                      </li>
