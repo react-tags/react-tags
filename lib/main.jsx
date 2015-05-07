@@ -57,14 +57,7 @@ var Tags = React.createClass({
             if (this.state.selectionMode) {
                 query = this.state.suggestions[this.state.selectedIndex];               
             }
-            tags.push(query);
-            input.value = "";
-            this.setState({ 
-              tags: tags, 
-              query: "",
-              selectionMode: false,
-              selectedIndex: -1
-            });
+            this.addTag(query);
         }
 
         // when backspace key is pressed and query is blank, delete tag
@@ -108,6 +101,25 @@ var Tags = React.createClass({
             }
         }
     },
+    addTag: function(tag) {
+        var tags = this.state.tags;
+        var input = this.refs.input.getDOMNode();
+
+        tags.push(tag);
+        input.value = "";
+
+        // reset the state
+        this.setState({
+            tags: tags,
+            query: "",
+            selectionMode: false,
+            selectedIndex: -1
+        });
+        input.focus();
+    },
+    handleSuggestionClick: function(i, e) {
+        this.addTag(this.state.suggestions[i]);
+    },
     render: function() {
         var tagItems = this.state.tags.map(function(item, i) {
             return (
@@ -127,7 +139,7 @@ var Tags = React.createClass({
         if (query.length > 1) {
             suggestions = this.state.suggestions.map(function(item, i) {
                 return (
-                    <li key={i} 
+                    <li key={i} onClick={this.handleSuggestionClick.bind(this, i)}
                         className={i == selectedIndex ? "active" : ""}>
                         <span dangerouslySetInnerHTML={this.markIt(item, query)} />
                      </li>
