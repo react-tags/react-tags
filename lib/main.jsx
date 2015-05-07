@@ -3,7 +3,8 @@ var Keys = {
     TAB: 9,
     BACKSPACE: 8,
     UP_ARROW: 38,
-    DOWN_ARROW: 40
+    DOWN_ARROW: 40,
+    ESCAPE: 27
 };
 
 var Tags = React.createClass({
@@ -50,6 +51,16 @@ var Tags = React.createClass({
         var input = this.refs.input.getDOMNode();
         var query = this.state.query;
         var selectedIndex = this.state.selectedIndex;
+
+        // hide suggestions menu on escape
+        if (e.keyCode === Keys.ESCAPE) {
+            e.preventDefault();
+            this.setState({
+                selectedIndex: -1,
+                selectionMode: false,
+                suggestions: []
+            });
+        }
 
         // when enter or tab is pressed add query to tags
         if ((e.keyCode === Keys.ENTER || e.keyCode === Keys.TAB) && query != "") {
