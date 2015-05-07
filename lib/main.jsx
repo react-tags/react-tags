@@ -68,7 +68,7 @@ var Tags = React.createClass({
         }
 
         // when backspace key is pressed and query is blank, delete tag
-        if (e.keyCode === 8 && query == "") { //
+        if (e.keyCode === Keys.BACKSPACE && query == "") { //
             this.handleDelete(tags.length - 1);
         }
 
