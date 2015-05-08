@@ -40,10 +40,17 @@
         width: 100%;
         border: 1px solid #eee;
     }
+    div.tags {
+        position: relative;
+    }
+    div.suggestions {
+        position: absolute;
+    }
     div.suggestions ul {
         list-style-type: none;
         background: linear-gradient(to bottom right, white, hsla(0,0%,100%,.8));
         box-shadow: .05em .01em .5em rgba(0,0,0,.2);
+        width: 200px;
     }
     div.suggestions ul li {
         border-bottom: 1px solid #ddd;
@@ -67,6 +74,11 @@
         <h4>React Tags</h4>
         <p>What all countries have you visited?</p>
         <div id='app'></div>
+        <hr />
+        <a href="http://github.com/prakhar1989/react-tags" class="button">View Source</a>
+        <pre>
+          React.render();
+        </pre>
     </div>
 
     <script src="dist/react.min.js"></script>
