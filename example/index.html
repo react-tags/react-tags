@@ -1,1 +1,94 @@
-<h4>hello world</h4>
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="http://getskeleton.com/dist/css/normalize.css">
+    <link rel="stylesheet" href="http://getskeleton.com/dist/css/skeleton.css">
+    <style type="text/css">
+    
+    span.tag {
+      border: 1px solid #ddd;
+      background: #eee;
+      color: black;
+      font-size: 12px;
+      font-family: 'Helvetica Neue', 'Arial', sans-serif;
+      display: inline-block;
+      padding: 5px;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      text-decoration: none;
+      cursor: move;
+      border-radius: 2px;
+    }
+    span.tag a.remove {
+      color: #aaa;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+    div.selected-tags {
+      float: left;
+    }
+
+    div.tagInput {
+      width: 200px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+    div.tagInput input, div.tagInput input:focus{
+        height: 31px;
+        margin: 0;
+        font-size: 12px;
+        width: 100%;
+        border: 1px solid #eee;
+    }
+    div.tags {
+        position: relative;
+    }
+    div.suggestions {
+        position: absolute;
+    }
+    div.suggestions ul {
+        list-style-type: none;
+        background: linear-gradient(to bottom right, white, hsla(0,0%,100%,.8));
+        box-shadow: .05em .01em .5em rgba(0,0,0,.2);
+        width: 200px;
+    }
+    div.suggestions ul li {
+        border-bottom: 1px solid #ddd;
+        padding: 5px 10px;
+        margin: 0;
+    }
+    div.suggestions li mark {
+        text-decoration: underline;
+        background: none;
+        font-weight: 600;
+    }
+    div.suggestions ul li.active {
+        background: #b7cfe0;
+        cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <hr/>
+        <h4>React Tags</h4>
+        <p>What all countries have you visited?</p>
+        <div id='app'></div>
+        <hr />
+        <a href="http://github.com/prakhar1989/react-tags" class="button">View Source</a>
+    </div>
+
+    <script type="text/javascript" src="vendor/react.min.js"></script>
+    <script type="text/javascript" src="vendor/ReactDND.min.js"></script>
+    <script type="text/javascript" src="bundle.js"></script>
+    <script type="text/javascript">
+    // Set up test data
+          /*
+    React.render(
+        React.createElement(Tags, {tags: tags, suggestions: suggestions}), 
+        document.getElementById("app")
+    );
+    */
+    </script>
+</body>
+</html>
