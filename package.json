@@ -1,0 +1,23 @@
+{
+  "name": "react-tags",
+  "version": "0.0.1",
+  "description": "React tags is a fantastically simple tagging component for your React projects",
+  "main": "reactTags.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "watchify -t babelify ./js/app.js -o ./build/bundle.js -v",
+    "build": "NODE_ENV=production browserify -t babelify ./lib/reactTags.js | ./node_modules/uglify-js/bin/uglifyjs -mc  warnings=false > dist/reactTags.min.js"
+  },
+  "author": "Prakhar Srivastav",
+  "license": "MIT",
+  "repository": "https://github.com/prakhar1989/react-tags",
+  "dependencies": {
+    "babelify": "^6.0.2",
+    "browserify": "^9.0.3",
+    "gulp": "^3.8.11",
+    "react": "^0.13.1",
+    "react-dnd": "^0.9.8",
+    "uglify-js": "^2.4.20",
+    "watchify": "^3.1.0"
+  }
+}

@@ -11,7 +11,7 @@ var Keys = {
 var ItemTypes = { TAG: 'tag' };
 
 // Components
-var Tag = React.createClass({
+var Tag = React.createClass({displayName: "Tag",
     mixins: [ReactDND.DragDropMixin],
     propTypes: {
         onDelete: React.PropTypes.func.isRequired,
@@ -41,16 +41,16 @@ var Tag = React.createClass({
     render: function() {
         var isDragging = this.getDragState(ItemTypes.TAG).isDragging;
         return (
-            <span className="tag"
-                  {...this.dragSourceFor(ItemTypes.TAG)}
-                  {...this.dropTargetFor(ItemTypes.TAG)}>{this.props.tag.text}
-                <a className="remove" onClick={this.props.onDelete}>x</a>
-            </span>
+            React.createElement("span", React.__spread({className: "tag"}, 
+                  this.dragSourceFor(ItemTypes.TAG), 
+                  this.dropTargetFor(ItemTypes.TAG)), this.props.tag.text, 
+                React.createElement("a", {className: "remove", onClick: this.props.onDelete}, "x")
+            )
         )
     }
 });
 
-var Tags = React.createClass({
+var Tags = React.createClass({displayName: "Tags",
     componentDidMount: function() {
         this.refs.input.getDOMNode().focus();
     },
@@ -198,9 +198,9 @@ var Tags = React.createClass({
     },
     render: function() {
         var tagItems = this.state.tags.map(function(tag, i) {
-            return <Tag tag={tag} 
-                        onDelete={this.handleDelete.bind(this, i)}
-                        moveTag={this.moveTag}/>
+            return React.createElement(Tag, {tag: tag, 
+                        onDelete: this.handleDelete.bind(this, i), 
+                        moveTag: this.moveTag})
         }.bind(this));
 
         // get the suggestions for the given query
@@ -212,35 +212,30 @@ var Tags = React.createClass({
         if (query.length > 1) {
             suggestions = this.state.suggestions.map(function(item, i) {
                 return (
-                    <li key={i} onClick={this.handleSuggestionClick.bind(this, i)}
-                        onMouseOver={this.handleSuggestionHover.bind(this, i)}
-                        className={i == selectedIndex ? "active" : ""}>
-                        <span dangerouslySetInnerHTML={this.markIt(item, query)} />
-                     </li>
+                    React.createElement("li", {key: i, onClick: this.handleSuggestionClick.bind(this, i), 
+                        onMouseOver: this.handleSuggestionHover.bind(this, i), 
+                        className: i == selectedIndex ? "active" : ""}, 
+                        React.createElement("span", {dangerouslySetInnerHTML: this.markIt(item, query)})
+                     )
                 )
             }.bind(this));
         }
 
         return ( 
-            <div className="tags"> 
-              <div className="selected-tags">{tagItems}</div>
-                <div className="tagInput">
-                    <input ref="input" 
-                        type="text" 
-                        placeholder="Add new country"
-                        onChange={this.handleChange}
-                        onKeyDown={this.handleKeyDown}/>
-                    <div className="suggestions">
-                      { suggestions.length > 0 ? <ul> {suggestions} </ul>  : "" }
-                    </div>
-                </div>
-                  <pre> <code> {JSON.stringify(this.state.tags, null, 2)} </code> </pre>
-            </div>
+            React.createElement("div", {className: "tags"}, 
+              React.createElement("div", {className: "selected-tags"}, tagItems), 
+                React.createElement("div", {className: "tagInput"}, 
+                    React.createElement("input", {ref: "input", 
+                        type: "text", 
+                        placeholder: "Add new country", 
+                        onChange: this.handleChange, 
+                        onKeyDown: this.handleKeyDown}), 
+                    React.createElement("div", {className: "suggestions"}, 
+                       suggestions.length > 0 ? React.createElement("ul", null, " ", suggestions, " ")  : ""
+                    )
+                ), 
+                  React.createElement("pre", null, " ", React.createElement("code", null, " ", JSON.stringify(this.state.tags, null, 2), " "), " ")
+            )
         )
     }
 });
-
-React.render(
-    <Tags tags={tags} suggestions={suggestions} />, 
-    document.getElementById("app")
-);

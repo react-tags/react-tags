@@ -79,9 +79,8 @@
     </div>
 
     <script src="dist/react.min.js"></script>
-    <script src="dist/JSXTransformer.js"></script>
     <script src="dist/ReactDND.min.js"></script>
-    <script type="text/jsx" src="lib/main.js"></script>
+    <script src="dist/reactTags.min.js"></script>
     <script>
     // Set up test data
     var tags = [{id: 1, text: "Thailand"}, {id: 2, text: "India"}, {id: 3, text: "Malaysia"}];
@@ -101,6 +100,14 @@
           ,"Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad &amp; Tobago","Tunisia"
           ,"Turkey","Turkmenistan","Turks &amp; Caicos","Uganda","Ukraine","United Arab Emirates","United Kingdom","Uruguay","Uzbekistan","Venezuela","Vietnam","Virgin Islands (US)"
           ,"Yemen","Zambia","Zimbabwe"];
+
+    // render component
+          /*
+    React.render(
+        React.createElement(Tags, {tags: tags, suggestions: suggestions}), 
+        document.getElementById("app")
+    );
+    */
     </script>
 </body>
 </html>
