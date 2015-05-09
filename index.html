@@ -6,7 +6,6 @@
     <style type="text/css">
     
     span.tag {
-      display: block;
       border: 1px solid #ddd;
       background: #eee;
       color: black;
@@ -17,6 +16,7 @@
       margin-right: 5px;
       margin-bottom: 5px;
       text-decoration: none;
+      cursor: move;
       border-radius: 2px;
     }
     span.tag a.remove {
@@ -76,9 +76,6 @@
         <div id='app'></div>
         <hr />
         <a href="http://github.com/prakhar1989/react-tags" class="button">View Source</a>
-        <pre>
-          React.render();
-        </pre>
     </div>
 
     <script src="dist/react.min.js"></script>
@@ -87,7 +84,8 @@
     <script type="text/jsx" src="lib/main.js"></script>
     <script>
     // Set up test data
-    var tags = ["Thailand", "India", "Malaysia"];
+    var tags = [{id: 1, text: "Thailand"}, {id: 2, text: "India"}, {id: 3, text: "Malaysia"}];
+
     var suggestions = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas"
           ,"Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands"
           ,"Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Cape Verde","Cayman Islands","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica"
