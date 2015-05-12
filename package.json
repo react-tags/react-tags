@@ -6,18 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "watchify -t babelify ./js/reactTags.js -o ./dist/reactTags.min.js -v",
-    "build": "NODE_ENV=production browserify -t babelify ./lib/reactTags.js | ./node_modules/uglify-js/bin/uglifyjs -mc  warnings=false > dist/reactTags.min.js",
-    "build-example": "NODE_ENV=production browserify -t babelify ./example/main.js | ./node_modules/uglify-js/bin/uglifyjs -mc warnings=false > ./example/bundle.js"
+    "build": "webpack -p"
   },
   "author": "Prakhar Srivastav",
   "license": "MIT",
   "repository": "https://github.com/prakhar1989/react-tags",
   "dependencies": {
-    "babelify": "^6.0.2",
-    "browserify": "^9.0.3",
     "react": "^0.13.1",
-    "react-dnd": "^0.9.8",
-    "uglify-js": "^2.4.20",
-    "watchify": "^3.1.0"
+    "react-dnd": "^0.9.8"
+  },
+  "devDependencies": {
+    "jsx-loader": "^0.13.2",
+    "webpack": "^1.9.4"
   }
 }
