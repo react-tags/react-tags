@@ -25,7 +25,7 @@ The preferred way of using the component is via NPM
 ```
 npm install --save react-tags
 ```
-It is, however, also available to be used separately (dist/ReactTags.min.js). If you prefer this method remember to include [ReactDND](https://github.com/gaearon/react-dnd) as a dependancy. Refer to the [demo](http://prakhar.me/react-tags) as an example.
+It is, however, also available to be used separately (`dist/ReactTags.min.js`). If you prefer this method remember to include [ReactDND](https://github.com/gaearon/react-dnd) as a dependancy. Refer to the [demo](http://prakhar.me/react-tags/example) to see how this works.
 
 ### Usage
 
