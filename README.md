@@ -29,7 +29,7 @@ It is, however, also available to be used separately (`dist/ReactTags.min.js`). 
 Here's a sample implementation that initializes the component with a list of initial `tags` and `suggestions` list. Apart from this, there are multiple events, handlers for which need to be set. For more details, go through the [API](#Options).
 
 ```javascript
-var ReactTags = require('react-tags');
+var ReactTags = require('react-tag-input');
 
 var App = React.createClass({
     getInitialState: function() {
@@ -78,6 +78,7 @@ var App = React.createClass({
 React.render(<App />, document.getElementById('app'));
 ```
 
+<a name="Options"></a>
 ### Options
 
 - [`tags`](#tagsOption)
@@ -102,6 +103,46 @@ An array of suggestions that are used as basis for showing suggestions. At the m
 var suggestions = ["mango", "pineapple", "orange", "pear"];
 ```
 
+<a name="handleAdditionOption"></a>
+##### handleAddition (required)
+Function called when the user wants to add a tag (either a click, a tab press or carriage return)
+
+```js
+function(tag) {
+    // add the tag to the tag list
+}
+```
+
+<a name="handleDeleteOption"></a>
+##### handleDelete (required)
+Function called when the user wants to delete a tag
+
+```js
+function(i) {
+    // delete the tag at index i 
+}
+```
+
+<a name="handleDragOption"></a>
+##### handleDrag (required)
+Function called when the user drags a tag.
+
+```js
+function(tag, currPos, newPos) {
+    // remove tag from currPos and add in newPos
+}
+```
+
+### Dev
+The component is written in ES6 and uses [Webpack](http://webpack.github.io/) as its build tool. 
+```
+npm install 
+npm run dev
+python -m SimpleHTTPServer ### open in browser
+```
+
+### Contributing
+Got ideas on how to make this better? Open an issue! I'm yet to add tests so keep your PRs on hold :grinning:
 
 ### Thanks
 The autocomplete dropdown is inspired by Lea Verou's [awesomeplete](https://github.com/LeaVerou/awesomplete) library. The Drag and drop functionality is provided by Dan Abramov's insanely useful [ReactDND](https://github.com/gaearon/react-dnd) library.
