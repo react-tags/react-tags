@@ -4,46 +4,35 @@
     <link rel="stylesheet" href="http://getskeleton.com/dist/css/normalize.css">
     <link rel="stylesheet" href="http://getskeleton.com/dist/css/skeleton.css">
     <style type="text/css">
-    
-    div.selected-tags {
-      float: left;
+    /* Example Styles for React Tags*/
+    div.ReactTags__tagInput {
+        width: 200px;
+        border-radius: 2px;
+        display: inline-block;
     }
-
-    div.tagInput {
-      width: 200px;
-      border-radius: 2px;
-      display: inline-block;
-    }
-    div.tagInput input, div.tagInput input:focus{
+    div.ReactTags__tagInput input, 
+    div.ReactTags__tagInput input:focus {
         height: 31px;
         margin: 0;
         font-size: 12px;
         width: 100%;
         border: 1px solid #eee;
     }
-    div.tags {
+    div.ReactTags__tags {
         position: relative;
     }
-    div.suggestions {
+    div.ReactTags__selected {
+      float: left;
+    }
+    div.ReactTags__suggestions {
         position: absolute;
     }
-    div.suggestions ul {
-        list-style-type: none;
-        box-shadow: .05em .01em .5em rgba(0,0,0,.2);
-        background: white;
-        width: 200px;
-    }
-    div.suggestions ul li {
-        border-bottom: 1px solid #ddd;
-        padding: 5px 10px;
-        margin: 0;
-    }
-    div.suggestions li mark {
+    div.ReactTags__suggestions li mark {
         text-decoration: underline;
         background: none;
         font-weight: 600;
     }
-    div.suggestions ul li.active {
+    div.ReactTags__suggestions ul li.active {
         background: #b7cfe0;
         cursor: pointer;
     }
@@ -64,11 +53,8 @@
     <script type="text/javascript" src="vendor/ReactDND.min.js"></script>
 
     <!-- webpack dev scripts -->
-    <!--
     <script type="text/javascript" src="http://localhost:8090/webpack-dev-server.js"></script>
     <script type="text/javascript" src="http://localhost:8090/dist/ReactTags.min.js"></script>
-    -->
-    <script type="text/jsx" src="/dist/ReactTags.min.js"></script>
 
     <!-- bootstrap app -->
     <script type="text/jsx" src="main.js"></script>
