@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 
 module.exports = {
-    entry: "./lib/reactTags.js",
+    entry: "./lib/ReactTags.js",
     module: {
         loaders: [
             { test: /\.js$/, loader: 'jsx-loader?harmony', exclude: /node_modules/ }
