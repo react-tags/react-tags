@@ -5,7 +5,7 @@
   "main": "reactTags.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "watchify -t babelify ./js/reactTags.js -o ./dist/reactTags.min.js -v",
+    "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors --port 8090",
     "build": "webpack -p"
   },
   "author": "Prakhar Srivastav",
@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "jsx-loader": "^0.13.2",
+    "webpack-dev-server": "^1.8.2",
     "webpack": "^1.9.4"
   }
 }

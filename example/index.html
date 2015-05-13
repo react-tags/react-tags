@@ -5,25 +5,6 @@
     <link rel="stylesheet" href="http://getskeleton.com/dist/css/skeleton.css">
     <style type="text/css">
     
-    span.tag {
-      border: 1px solid #ddd;
-      background: #eee;
-      color: black;
-      font-size: 12px;
-      font-family: 'Helvetica Neue', 'Arial', sans-serif;
-      display: inline-block;
-      padding: 5px;
-      margin-right: 5px;
-      margin-bottom: 5px;
-      text-decoration: none;
-      cursor: move;
-      border-radius: 2px;
-    }
-    span.tag a.remove {
-      color: #aaa;
-      margin-left: 5px;
-      cursor: pointer;
-    }
     div.selected-tags {
       float: left;
     }
@@ -48,8 +29,8 @@
     }
     div.suggestions ul {
         list-style-type: none;
-        background: linear-gradient(to bottom right, white, hsla(0,0%,100%,.8));
         box-shadow: .05em .01em .5em rgba(0,0,0,.2);
+        background: white;
         width: 200px;
     }
     div.suggestions ul li {
@@ -69,13 +50,12 @@
     </style>
 </head>
 <body>
+    <a href="https://github.com/prakhar1989/react-tags"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
     <div class='container'>
         <hr/>
         <h4>React Tags</h4>
         <p>What all countries have you visited?</p>
         <div id='app'></div>
-        <hr />
-        <a href="http://github.com/prakhar1989/react-tags" class="button">View Source</a>
     </div>
 
     <!-- include dependancies -->
@@ -83,8 +63,9 @@
     <script type="text/javascript" src="vendor/JSXTransformer.js"></script>
     <script type="text/javascript" src="vendor/ReactDND.min.js"></script>
 
-    <!-- include library -->
-    <script type="text/javascript" src="/dist/reactTags.min.js"></script>
+    <!-- webpack dev scripts -->
+    <script type="text/javascript" src="http://localhost:8090/webpack-dev-server.js"></script>
+    <script type="text/javascript" src="http://localhost:8090/dist/ReactTags.min.js"></script>
 
     <!-- bootstrap app -->
     <script type="text/jsx" src="main.js"></script>
