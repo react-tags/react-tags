@@ -49,6 +49,7 @@ var App = React.createClass({
             id: tags.length + 1,
             text: tag
         });
+        this.setState({tags: tags});
     },
     handleDrag: function(tag, currPos, newPos) {
         var tags = this.state.tags;

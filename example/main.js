@@ -34,6 +34,7 @@ var App = React.createClass({
             id: tags.length + 1,
             text: tag
         });
+        this.setState({tags: tags});
     },
     handleDrag: function(tag, currPos, newPos) {
         var tags = this.state.tags;
@@ -56,7 +57,9 @@ var App = React.createClass({
                     handleAddition={this.handleAddition}
                     handleDrag={this.handleDrag} />
                 <hr />
-                <pre> <code> {JSON.stringify(this.state.tags, null, 2)} </code> </pre>
+                <pre>
+                    <code>{JSON.stringify(tags, null, 2)}</code>
+                </pre>
             </div>
         )
     }
