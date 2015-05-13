@@ -15,9 +15,51 @@ var Countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla"
       ,"Turkey","Turkmenistan","Turks &amp; Caicos","Uganda","Ukraine","United Arab Emirates","United Kingdom","Uruguay","Uzbekistan","Venezuela","Vietnam","Virgin Islands (US)"
       ,"Yemen","Zambia","Zimbabwe"];
 
-var tags = [{id: 1, text: "Thailand"}, {id: 2, text: "India"}, {id: 3, text: "Malaysia"}];
 
-React.render(
-    <ReactTags tags={tags} suggestions={Countries} />,
-    document.getElementById("app")
-);
+var App = React.createClass({
+    getInitialState: function() {
+        return {
+            tags: [ {id: 1, text: "Thailand"}, {id: 2, text: "India"} ],
+            suggestions: Countries
+        }
+    },
+    handleDelete: function(i) {
+        var tags = this.state.tags;
+        tags.splice(i, 1);
+        this.setState({tags: tags});
+    },
+    handleAddition: function(tag) {
+        var tags = this.state.tags;
+        tags.push({
+            id: tags.length + 1,
+            text: tag
+        });
+    },
+    handleDrag: function(tag, currPos, newPos) {
+        var tags = this.state.tags;
+
+        // mutate array
+        tags.splice(currPos, 1);
+        tags.splice(newPos, 0, tag);
+
+        // re-render
+        this.setState({ tags: tags });
+    },
+    render: function() {
+        var tags = this.state.tags;
+        var suggestions = this.state.suggestions;
+        return (
+            <div>
+                <ReactTags tags={tags} 
+                    suggestions={Countries}
+                    handleDelete={this.handleDelete}
+                    handleAddition={this.handleAddition}
+                    handleDrag={this.handleDrag} />
+                <hr />
+                <pre> <code> {JSON.stringify(this.state.tags, null, 2)} </code> </pre>
+            </div>
+        )
+    }
+});
+
+React.render(<App />, document.getElementById("app"));
