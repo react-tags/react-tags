@@ -1,14 +1,21 @@
 {
   "name": "react-tag-input",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React tags is a fantastically simple tagging component for your React projects",
-  "main": "reactTags.js",
+  "main": "dist-modules/reactTags.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors --port 8090",
-    "build": "webpack -p"
+    "build": "webpack -p && ./node_modules/babel/bin/babel/index.js ./lib --out-dir dist-modules"
   },
-  "keywords": [ "react", "drag-drop", "tags", "tag input", "react-component", "autosuggest" ],
+  "keywords": [
+    "react",
+    "drag-drop",
+    "tags",
+    "tag input",
+    "react-component",
+    "autosuggest"
+  ],
   "author": "Prakhar Srivastav",
   "license": "MIT",
   "repository": "https://github.com/prakhar1989/react-tags",
@@ -18,6 +25,7 @@
   },
   "devDependencies": {
     "jsx-loader": "^0.13.2",
+    "babel": "^5.3.3",
     "webpack-dev-server": "^1.8.2",
     "webpack": "^1.9.4"
   }

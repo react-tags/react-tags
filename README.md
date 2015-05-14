@@ -35,7 +35,7 @@ var App = React.createClass({
     getInitialState: function() {
         return {
             tags: [ {id: 1, text: "Apples"} ],
-            suggestions: ["Banana", "Mango", "Pear", "Apricot"];
+            suggestions: ["Banana", "Mango", "Pear", "Apricot"]
         }
     },
     handleDelete: function(i) {
