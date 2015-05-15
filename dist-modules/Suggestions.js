@@ -44,8 +44,8 @@ var Suggestions = React.createClass({
                 'li',
                 { key: i,
                     style: styles.listItem,
-                    onClick: props.handleClick.bind(this, i),
-                    onMouseOver: props.handleHover.bind(this, i),
+                    onClick: props.handleClick.bind(null, i),
+                    onMouseOver: props.handleHover.bind(null, i),
                     className: i == props.selectedIndex ? 'active' : '' },
                 React.createElement('span', { dangerouslySetInnerHTML: this.markIt(item, props.query) })
             );

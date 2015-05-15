@@ -19,6 +19,7 @@ var ReactTags = React.createClass({
 
     propTypes: {
         tags: React.PropTypes.array,
+        placeholder: React.PropTypes.string,
         suggestions: React.PropTypes.array,
         handleDelete: React.PropTypes.func.isRequired,
         handleAddition: React.PropTypes.func.isRequired,
@@ -26,6 +27,7 @@ var ReactTags = React.createClass({
     },
     getDefaultProps: function getDefaultProps() {
         return {
+            placeholder: 'Add new tag',
             tags: [],
             suggestions: []
         };
@@ -159,15 +161,18 @@ var ReactTags = React.createClass({
     },
     render: function render() {
         var tagItems = this.props.tags.map((function (tag, i) {
-            return React.createElement(Tag, { tag: tag,
+            return React.createElement(Tag, { key: i,
+                tag: tag,
                 onDelete: this.handleDelete.bind(this, i),
+                onDelete: this.handleDelete,
                 moveTag: this.moveTag });
         }).bind(this));
 
         // get the suggestions for the given query
         var query = this.state.query.trim(),
             selectedIndex = this.state.selectedIndex,
-            suggestions = this.state.suggestions;
+            suggestions = this.state.suggestions,
+            placeholder = this.props.placeholder;
 
         return React.createElement(
             'div',
@@ -182,7 +187,7 @@ var ReactTags = React.createClass({
                 { className: 'ReactTags__tagInput' },
                 React.createElement('input', { ref: 'input',
                     type: 'text',
-                    placeholder: 'Add new country',
+                    placeholder: placeholder,
                     onChange: this.handleChange,
                     onKeyDown: this.handleKeyDown }),
                 React.createElement(Suggestions, { query: query,

@@ -86,6 +86,7 @@ React.render(<App />, document.getElementById('app'));
 
 - [`tags`](#tagsOption)
 - [`suggestions`](#suggestionsOption)
+- [`placeholder`](#placeholderOption)
 - [`handleAddition`](#handleAdditionOption)
 - [`handleDelete`](#handleDeleteOption)
 - [`handleDrag`](#handleDragOption)
@@ -104,6 +105,14 @@ An array of suggestions that are used as basis for showing suggestions. At the m
 
 ```js
 var suggestions = ["mango", "pineapple", "orange", "pear"];
+```
+
+<a name="placeholderOption"></a>
+##### placeholder (optional)
+The placeholder shown for the input. Defaults to 'Add new tag'.
+
+```
+var placeholder = "Add new country"
 ```
 
 <a name="handleAdditionOption"></a>
