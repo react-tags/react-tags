@@ -164,7 +164,6 @@ var ReactTags = React.createClass({
             return React.createElement(Tag, { key: i,
                 tag: tag,
                 onDelete: this.handleDelete.bind(this, i),
-                onDelete: this.handleDelete,
                 moveTag: this.moveTag });
         }).bind(this));
 
