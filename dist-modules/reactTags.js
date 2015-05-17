@@ -20,6 +20,7 @@ var ReactTags = React.createClass({
     propTypes: {
         tags: React.PropTypes.array,
         placeholder: React.PropTypes.string,
+        labelField: React.PropTypes.string,
         suggestions: React.PropTypes.array,
         handleDelete: React.PropTypes.func.isRequired,
         handleAddition: React.PropTypes.func.isRequired,
@@ -163,6 +164,7 @@ var ReactTags = React.createClass({
         var tagItems = this.props.tags.map((function (tag, i) {
             return React.createElement(Tag, { key: i,
                 tag: tag,
+                labelField: this.props.labelField,
                 onDelete: this.handleDelete.bind(this, i),
                 moveTag: this.moveTag });
         }).bind(this));

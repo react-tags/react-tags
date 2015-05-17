@@ -24,9 +24,9 @@
     "react-dnd": "0.9.8"
   },
   "devDependencies": {
-    "jsx-loader": "^0.13.2",
     "babel": "^5.3.3",
     "webpack-dev-server": "^1.8.2",
-    "webpack": "^1.9.4"
+    "webpack": "^1.9.4",
+    "babel-loader": "^5.1.2"
   }
 }
