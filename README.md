@@ -87,6 +87,7 @@ React.render(<App />, document.getElementById('app'));
 - [`tags`](#tagsOption)
 - [`suggestions`](#suggestionsOption)
 - [`placeholder`](#placeholderOption)
+- [`labelField`](#labelFieldOption)
 - [`handleAddition`](#handleAdditionOption)
 - [`handleDelete`](#handleDeleteOption)
 - [`handleDrag`](#handleDragOption)
@@ -109,11 +110,24 @@ var suggestions = ["mango", "pineapple", "orange", "pear"];
 
 <a name="placeholderOption"></a>
 ##### placeholder (optional)
-The placeholder shown for the input. Defaults to 'Add new tag'.
+The placeholder shown for the input. Defaults to `Add new tag`.
 
 ```
 var placeholder = "Add new country"
 ```
+
+<a name="labelFieldOption"></a>
+##### labelField (optional)
+Provide an alternative `label` property for the tags. Defaults to `text`.
+
+```
+<ReactTags tags={tags} 
+    suggestions={}
+    labelField={'name'}
+    handleDrag={} />
+```
+This is useful if your data uses the `text` property for something else.
+
 
 <a name="handleAdditionOption"></a>
 ##### handleAddition (required)
