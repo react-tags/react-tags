@@ -159,6 +159,18 @@ function(tag, currPos, newPos) {
 }
 ```
 
+### Styling
+`<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. The component provides the following classes with which you can style - 
+
+- `ReactTags__tags`
+- `ReactTags__tagInput`
+- `ReactTags__selected`
+- `ReactTags__selected ReactTags__tag`
+- `ReactTags__selected ReactTags__remove`
+- `ReactTags__suggestions`
+
+An example can be found in `/example/reactTags.css`.
+
 ### Dev
 The component is written in ES6 and uses [Webpack](http://webpack.github.io/) as its build tool. 
 ```
