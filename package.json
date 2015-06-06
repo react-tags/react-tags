@@ -20,6 +20,7 @@
   "license": "MIT",
   "repository": "https://github.com/prakhar1989/react-tags",
   "dependencies": {
+    "lodash": "^3.9.3",
     "react": "^0.13.1",
     "react-dnd": "0.9.8"
   },
