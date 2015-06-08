@@ -1,6 +1,6 @@
 {
   "name": "react-tag-input",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React tags is a fantastically simple tagging component for your React projects",
   "main": "dist-modules/reactTags.js",
   "scripts": {
@@ -22,7 +22,7 @@
   "dependencies": {
     "lodash": "^3.9.3",
     "react": "^0.13.1",
-    "react-dnd": "0.9.8"
+    "react-dnd": "1.1.0"
   },
   "devDependencies": {
     "babel": "^5.3.3",
