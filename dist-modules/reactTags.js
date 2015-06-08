@@ -4,6 +4,12 @@ var React = require('react');
 var Tag = require('./Tag');
 var Suggestions = require('./Suggestions');
 
+var _require = require('react-dnd');
+
+var DragDropContext = _require.DragDropContext;
+
+var HTML5Backend = require('react-dnd/modules/backends/HTML5');
+
 // Constants
 var Keys = {
     ENTER: 13,
@@ -201,4 +207,4 @@ var ReactTags = React.createClass({
     }
 });
 
-module.exports = ReactTags;
+module.exports = DragDropContext(HTML5Backend)(ReactTags);

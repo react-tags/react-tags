@@ -1,16 +1,47 @@
 'use strict';
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var ReactDND = require('react-dnd');
 var React = require('react');
 
+var _require = require('react-dnd');
+
+var DragSource = _require.DragSource;
+var DropTarget = _require.DropTarget;
+
+var flow = require('lodash/function/flow');
+
 var ItemTypes = { TAG: 'tag' };
+
+var tagSource = {
+    beginDrag: function beginDrag(props) {
+        return { id: props.tag.id };
+    }
+};
+
+var tagTarget = {
+    hover: function hover(props, monitor) {
+        var draggedId = monitor.getItem().id;
+        if (draggedId !== props.id) {
+            props.moveTag(draggedId, props.tag.id);
+        }
+    }
+};
+
+function dragCollect(connect, monitor) {
+    return {
+        connectDragSource: connect.dragSource(),
+        isDragging: monitor.isDragging()
+    };
+}
+
+function dropCollect(connect, monitor) {
+    return {
+        connectDropTarget: connect.dropTarget()
+    };
+}
 
 var Tag = React.createClass({
     displayName: 'Tag',
 
-    mixins: [ReactDND.DragDropMixin],
     propTypes: {
         labelField: React.PropTypes.string,
         onDelete: React.PropTypes.func.isRequired,
@@ -22,32 +53,17 @@ var Tag = React.createClass({
             labelField: 'text'
         };
     },
-    statics: {
-        configureDragDrop: function configureDragDrop(register) {
-            register(ItemTypes.TAG, {
-                dragSource: {
-                    beginDrag: function beginDrag(component) {
-                        return {
-                            item: {
-                                id: component.props.tag.id
-                            }
-                        };
-                    }
-                },
-                dropTarget: {
-                    over: function over(component, item) {
-                        component.props.moveTag(item.id, component.props.tag.id);
-                    }
-                }
-            });
-        }
-    },
     render: function render() {
         var label = this.props.tag[this.props.labelField];
-        return React.createElement(
+        var _props = this.props;
+        var connectDragSource = _props.connectDragSource;
+        var isDragging = _props.isDragging;
+        var connectDropTarget = _props.connectDropTarget;
+
+        return connectDragSource(connectDropTarget(React.createElement(
             'span',
-            _extends({ className: 'ReactTags__tag'
-            }, this.dragSourceFor(ItemTypes.TAG), this.dropTargetFor(ItemTypes.TAG)),
+            { style: { opacity: isDragging ? 0 : 1 },
+                className: 'ReactTags__tag' },
             label,
             React.createElement(
                 'a',
@@ -55,8 +71,8 @@ var Tag = React.createClass({
                     onClick: this.props.onDelete },
                 'x'
             )
-        );
+        )));
     }
 });
 
-module.exports = Tag;
+module.exports = flow(DragSource(ItemTypes.TAG, tagSource, dragCollect), DropTarget(ItemTypes.TAG, tagTarget, dropCollect))(Tag);
