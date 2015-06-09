@@ -62,7 +62,8 @@ var ReactTags = React.createClass({
 
         this.setState({
             query: query,
-            suggestions: suggestions });
+            suggestions: suggestions
+        });
     },
     handleKeyDown: function handleKeyDown(e) {
         var _state = this.state;
@@ -207,4 +208,8 @@ var ReactTags = React.createClass({
     }
 });
 
-module.exports = DragDropContext(HTML5Backend)(ReactTags);
+//module.exports = DragDropContext(HTML5Backend)(ReactTags);
+module.exports = {
+    WithContext: DragDropContext(HTML5Backend)(ReactTags),
+    WithOutContext: ReactTags
+};
