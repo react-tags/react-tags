@@ -15,14 +15,15 @@ var Countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla"
       ,"Turkey","Turkmenistan","Turks &amp; Caicos","Uganda","Ukraine","United Arab Emirates","United Kingdom","Uruguay","Uzbekistan","Venezuela","Vietnam","Virgin Islands (US)"
       ,"Yemen","Zambia","Zimbabwe"];
 
-// Available in global scope due to the ReactDnD import.
-// In production, use this 
-//    var { DragDropContext } = require('react-dnd');
-//    var HTML5Backend = require('react-dnd/modules/backends/HTML5');
-var DragDropContext = ReactDnD.DragDropContext;
-var HTML5Backend = ReactDnD.HTML5;
-var Tags = ReactTags.WithOutContext;
-//var Tags = ReactTags.WithContext;
+/*
+ * If your app already uses react-dnd, then having multiple
+ * backend will raise an integrity violation exception. In such cases
+ * use the WithOutContext version of the component. 
+ * var Tags = ReactTags.WithOutContext;
+ * The example below uses the `WithContext` since this the sole component 
+ * using the react-dnd component.
+*/
+var Tags = ReactTags.WithContext;
 
 var App = React.createClass({
     getInitialState: function() {
@@ -73,6 +74,4 @@ var App = React.createClass({
     }
 });
 
-var AppContext = DragDropContext(HTML5Backend)(App);
-React.render(<AppContext />, document.getElementById("app"));
-//React.render(<App />, document.getElementById('app'));
+React.render(<App />, document.getElementById('app'));
