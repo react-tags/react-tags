@@ -28,6 +28,7 @@ var ReactTags = React.createClass({
         placeholder: React.PropTypes.string,
         labelField: React.PropTypes.string,
         suggestions: React.PropTypes.array,
+        autofocus: React.PropTypes.bool,
         handleDelete: React.PropTypes.func.isRequired,
         handleAddition: React.PropTypes.func.isRequired,
         handleDrag: React.PropTypes.func.isRequired
@@ -36,11 +37,14 @@ var ReactTags = React.createClass({
         return {
             placeholder: 'Add new tag',
             tags: [],
-            suggestions: []
+            suggestions: [],
+            autofocus: true
         };
     },
     componentDidMount: function componentDidMount() {
-        this.refs.input.getDOMNode().focus();
+        if (this.props.autofocus) {
+            this.refs.input.getDOMNode().focus();
+        }
     },
     getInitialState: function getInitialState() {
         return {
@@ -208,7 +212,6 @@ var ReactTags = React.createClass({
     }
 });
 
-//module.exports = DragDropContext(HTML5Backend)(ReactTags);
 module.exports = {
     WithContext: DragDropContext(HTML5Backend)(ReactTags),
     WithOutContext: ReactTags
