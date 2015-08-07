@@ -1,5 +1,5 @@
 {
-  "name": "react-tag-input-picryl",
+  "name": "react-tag-input",
   "version": "1.0.12",
   "description": "React tags is a fantastically simple tagging component for your React projects",
   "main": "dist-modules/reactTags.js",
