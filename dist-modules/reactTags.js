@@ -54,6 +54,18 @@ var ReactTags = React.createClass({
             selectionMode: false
         };
     },
+    componentWillReceiveProps: function componentWillReceiveProps(props) {
+        var _this = this;
+
+        var suggestions = props.suggestions.filter(function (item) {
+            return item.toLowerCase().search(_this.state.query.toLowerCase()) === 0;
+        });
+
+        this.setState({
+            suggestions: suggestions
+        });
+    },
+
     handleDelete: function handleDelete(i, e) {
         this.props.handleDelete(i);
         this.setState({ query: '' });
@@ -64,6 +76,7 @@ var ReactTags = React.createClass({
             return item.toLowerCase().search(query.toLowerCase()) === 0;
         });
 
+        this.props.handleChange(query);
         this.setState({
             query: query,
             suggestions: suggestions
@@ -173,7 +186,7 @@ var ReactTags = React.createClass({
     },
     render: function render() {
         var tagItems = this.props.tags.map((function (tag, i) {
-            return React.createElement(Tag, { key: i,
+            return React.createElement(Tag, { key: tag.id,
                 tag: tag,
                 labelField: this.props.labelField,
                 onDelete: this.handleDelete.bind(this, i),
