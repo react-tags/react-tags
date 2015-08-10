@@ -49,7 +49,7 @@ var ReactTags = React.createClass({
     getInitialState: function getInitialState() {
         return {
             suggestions: this.props.suggestions,
-            query: '',
+            query: "",
             selectedIndex: -1,
             selectionMode: false
         };
@@ -68,7 +68,7 @@ var ReactTags = React.createClass({
 
     handleDelete: function handleDelete(i, e) {
         this.props.handleDelete(i);
-        this.setState({ query: '' });
+        this.setState({ query: "" });
     },
     handleChange: function handleChange(e) {
         var query = e.target.value.trim();
@@ -99,7 +99,7 @@ var ReactTags = React.createClass({
         }
 
         // when enter or tab is pressed add query to tags
-        if ((e.keyCode === Keys.ENTER || e.keyCode === Keys.TAB) && query != '') {
+        if ((e.keyCode === Keys.ENTER || e.keyCode === Keys.TAB) && query != "") {
             e.preventDefault();
             if (this.state.selectionMode) {
                 query = this.state.suggestions[this.state.selectedIndex];
@@ -108,7 +108,7 @@ var ReactTags = React.createClass({
         }
 
         // when backspace key is pressed and query is blank, delete tag
-        if (e.keyCode === Keys.BACKSPACE && query == '') {
+        if (e.keyCode === Keys.BACKSPACE && query == "") {
             //
             this.handleDelete(this.props.tags.length - 1);
         }
@@ -148,13 +148,13 @@ var ReactTags = React.createClass({
 
         // reset the state
         this.setState({
-            query: '',
+            query: "",
             selectionMode: false,
             selectedIndex: -1
         });
 
         // focus back on the input box
-        input.value = '';
+        input.value = "";
         input.focus();
     },
     handleSuggestionClick: function handleSuggestionClick(i, e) {
@@ -205,21 +205,21 @@ var ReactTags = React.createClass({
             React.createElement(
                 'div',
                 { className: 'ReactTags__selected' },
-                tagItems
-            ),
-            React.createElement(
-                'div',
-                { className: 'ReactTags__tagInput' },
-                React.createElement('input', { ref: 'input',
-                    type: 'text',
-                    placeholder: placeholder,
-                    onChange: this.handleChange,
-                    onKeyDown: this.handleKeyDown }),
-                React.createElement(Suggestions, { query: query,
-                    suggestions: suggestions,
-                    selectedIndex: selectedIndex,
-                    handleClick: this.handleSuggestionClick,
-                    handleHover: this.handleSuggestionHover })
+                tagItems,
+                React.createElement(
+                    'div',
+                    { className: 'ReactTags__tagInput' },
+                    React.createElement('input', { ref: 'input',
+                        type: 'text',
+                        placeholder: placeholder,
+                        onChange: this.handleChange,
+                        onKeyDown: this.handleKeyDown }),
+                    React.createElement(Suggestions, { query: query,
+                        suggestions: suggestions,
+                        selectedIndex: selectedIndex,
+                        handleClick: this.handleSuggestionClick,
+                        handleHover: this.handleSuggestionHover })
+                )
             )
         );
     }
