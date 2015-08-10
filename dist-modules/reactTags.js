@@ -29,6 +29,7 @@ var ReactTags = React.createClass({
         labelField: React.PropTypes.string,
         suggestions: React.PropTypes.array,
         autofocus: React.PropTypes.bool,
+        inline: React.PropTypes.bool,
         handleDelete: React.PropTypes.func.isRequired,
         handleAddition: React.PropTypes.func.isRequired,
         handleDrag: React.PropTypes.func.isRequired
@@ -38,7 +39,8 @@ var ReactTags = React.createClass({
             placeholder: 'Add new tag',
             tags: [],
             suggestions: [],
-            autofocus: true
+            autofocus: true,
+            inline: true
         };
     },
     componentDidMount: function componentDidMount() {
@@ -199,6 +201,21 @@ var ReactTags = React.createClass({
             suggestions = this.state.suggestions,
             placeholder = this.props.placeholder;
 
+        var tagInput = React.createElement(
+            'div',
+            { className: 'ReactTags__tagInput' },
+            React.createElement('input', { ref: 'input',
+                type: 'text',
+                placeholder: placeholder,
+                onChange: this.handleChange,
+                onKeyDown: this.handleKeyDown }),
+            React.createElement(Suggestions, { query: query,
+                suggestions: suggestions,
+                selectedIndex: selectedIndex,
+                handleClick: this.handleSuggestionClick,
+                handleHover: this.handleSuggestionHover })
+        );
+
         return React.createElement(
             'div',
             { className: 'ReactTags__tags' },
@@ -206,21 +223,9 @@ var ReactTags = React.createClass({
                 'div',
                 { className: 'ReactTags__selected' },
                 tagItems,
-                React.createElement(
-                    'div',
-                    { className: 'ReactTags__tagInput' },
-                    React.createElement('input', { ref: 'input',
-                        type: 'text',
-                        placeholder: placeholder,
-                        onChange: this.handleChange,
-                        onKeyDown: this.handleKeyDown }),
-                    React.createElement(Suggestions, { query: query,
-                        suggestions: suggestions,
-                        selectedIndex: selectedIndex,
-                        handleClick: this.handleSuggestionClick,
-                        handleHover: this.handleSuggestionHover })
-                )
-            )
+                this.props.inline && tagInput
+            ),
+            !this.props.inline && tagInput
         );
     }
 });
