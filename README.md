@@ -173,9 +173,9 @@ function(tag, currPos, newPos) {
 Optional boolean param to control whether the text-input should be autofocused on mount.
 
 ```js
-<ReacTags
+<ReactTags
     autofocus={false}
-    ...>
+    ...>        
 ```
 
 <a name="allowDeleteFromEmptyInput"></a>
