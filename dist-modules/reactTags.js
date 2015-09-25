@@ -31,14 +31,16 @@ var ReactTags = React.createClass({
         autofocus: React.PropTypes.bool,
         handleDelete: React.PropTypes.func.isRequired,
         handleAddition: React.PropTypes.func.isRequired,
-        handleDrag: React.PropTypes.func.isRequired
+        handleDrag: React.PropTypes.func.isRequired,
+        allowDeleteFromEmptyInput: React.PropTypes.bool
     },
     getDefaultProps: function getDefaultProps() {
         return {
             placeholder: 'Add new tag',
             tags: [],
             suggestions: [],
-            autofocus: true
+            autofocus: true,
+            allowDeleteFromEmptyInput: true
         };
     },
     componentDidMount: function componentDidMount() {
@@ -95,7 +97,7 @@ var ReactTags = React.createClass({
         }
 
         // when backspace key is pressed and query is blank, delete tag
-        if (e.keyCode === Keys.BACKSPACE && query == '') {
+        if (e.keyCode === Keys.BACKSPACE && query == '' && this.props.allowDeleteFromEmptyInput) {
             //
             this.handleDelete(this.props.tags.length - 1);
         }
