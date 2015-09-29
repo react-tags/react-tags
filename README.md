@@ -101,6 +101,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`handleDrag`](#handleDragOption)
 - [`autofocus`](#autofocus)
 - [`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput)
+- [`handleInputChange`](#handleInputChange)
 
 <a name="tagsOption"></a>
 ##### tags (optional)
@@ -185,6 +186,16 @@ Optional boolean param to control whether tags should be deleted when the 'Delet
 ```js
 <ReactTags
     allowDeleteFromEmptyInput={false}
+    ...>
+```
+
+<a name="handleInputChange"></a>
+##### handleInputChange (optional)
+Optional event handler for input onChange
+
+```js
+<ReactTags
+    handleInputChange={this.handleInputChange}
     ...>
 ```
     
