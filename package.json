@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors --port 8090",
-    "build": "webpack -p && ./node_modules/babel/bin/babel/index.js ./lib --out-dir dist-modules"
+    "build": "webpack -p && ./node_modules/.bin/babel ./lib --out-dir dist-modules"
   },
   "keywords": [
     "react",
