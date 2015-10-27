@@ -1,6 +1,6 @@
 "use strict";
 
-var React = require("react");
+var React = require('react');
 
 // determines the min query length for which
 // suggestions are displayed
