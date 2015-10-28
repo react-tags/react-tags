@@ -8,7 +8,7 @@ var _require = require('react-dnd');
 
 var DragDropContext = _require.DragDropContext;
 
-var HTML5Backend = require('react-dnd/modules/backends/HTML5');
+var HTML5Backend = require('react-dnd-html5-backend');
 
 // Constants
 var Keys = {
