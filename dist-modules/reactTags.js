@@ -45,7 +45,7 @@ var ReactTags = React.createClass({
     },
     componentDidMount: function componentDidMount() {
         if (this.props.autofocus) {
-            this.refs.input.getDOMNode().focus();
+            this.refs.input.focus();
         }
     },
     getInitialState: function getInitialState() {
@@ -143,7 +143,7 @@ var ReactTags = React.createClass({
         }
     },
     addTag: function addTag(tag) {
-        var input = this.refs.input.getDOMNode();
+        var input = this.refs.input;
 
         // call method to add
         this.props.handleAddition(tag);
