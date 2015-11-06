@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors --port 8090",
+    "postinstall": "npm run build",
     "build": "webpack -p && babel ./lib --out-dir dist-modules"
   },
   "keywords": [
