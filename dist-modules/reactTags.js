@@ -8,7 +8,7 @@ var _require = require('react-dnd');
 
 var DragDropContext = _require.DragDropContext;
 
-var HTML5Backend = require('react-dnd/modules/backends/HTML5');
+var HTML5Backend = require('react-dnd-html5-backend');
 
 // Constants
 var Keys = {
@@ -52,18 +52,18 @@ var ReactTags = React.createClass({
     getInitialState: function getInitialState() {
         return {
             suggestions: this.props.suggestions,
-            query: '',
+            query: "",
             selectedIndex: -1,
             selectionMode: false
         };
     },
     handleDelete: function handleDelete(i, e) {
         this.props.handleDelete(i);
-        this.setState({ query: '' });
+        this.setState({ query: "" });
     },
     handleChange: function handleChange(e) {
-        if (this.props.handleInputChange){
-            this.props.handleInputChange(e.target.value.trim())
+        if (this.props.handleInputChange) {
+            this.props.handleInputChange(e.target.value.trim());
         }
 
         var query = e.target.value.trim();
@@ -93,7 +93,7 @@ var ReactTags = React.createClass({
         }
 
         // when enter or tab is pressed add query to tags
-        if ((e.keyCode === Keys.ENTER || e.keyCode === Keys.TAB) && query != '') {
+        if ((e.keyCode === Keys.ENTER || e.keyCode === Keys.TAB) && query != "") {
             e.preventDefault();
             if (this.state.selectionMode) {
                 query = this.state.suggestions[this.state.selectedIndex];
@@ -102,7 +102,7 @@ var ReactTags = React.createClass({
         }
 
         // when backspace key is pressed and query is blank, delete tag
-        if (e.keyCode === Keys.BACKSPACE && query == '' && this.props.allowDeleteFromEmptyInput) {
+        if (e.keyCode === Keys.BACKSPACE && query == "" && this.props.allowDeleteFromEmptyInput) {
             //
             this.handleDelete(this.props.tags.length - 1);
         }
@@ -142,13 +142,13 @@ var ReactTags = React.createClass({
 
         // reset the state
         this.setState({
-            query: '',
+            query: "",
             selectionMode: false,
             selectedIndex: -1
         });
 
         // focus back on the input box
-        input.value = '';
+        input.value = "";
         input.focus();
     },
     handleSuggestionClick: function handleSuggestionClick(i, e) {
@@ -180,7 +180,7 @@ var ReactTags = React.createClass({
     },
     render: function render() {
         var tagItems = this.props.tags.map((function (tag, i) {
-            return React.createElement(Tag, { key: i,
+            return React.createElement(Tag, { key: tag.id,
                 tag: tag,
                 labelField: this.props.labelField,
                 onDelete: this.handleDelete.bind(this, i),
