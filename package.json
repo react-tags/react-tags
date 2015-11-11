@@ -1,12 +1,12 @@
 {
   "name": "@picryl/react-tag-input",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "React tags is a fantastically simple tagging component for your React projects",
   "main": "dist-modules/reactTags.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors --port 8090",
-    "postinstall": "npm run build",
+    "prepublish": "npm run build",
     "build": "webpack -p && babel ./lib --out-dir dist-modules"
   },
   "keywords": [
