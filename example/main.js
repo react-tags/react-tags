@@ -64,7 +64,8 @@ var App = React.createClass({
                     suggestions={Countries}
                     handleDelete={this.handleDelete}
                     handleAddition={this.handleAddition}
-                    handleDrag={this.handleDrag} />
+                    handleDrag={this.handleDrag}
+                    minQueryLength={2} />
                 <hr />
                 <pre>
                     <code>{JSON.stringify(tags, null, 2)}</code>
