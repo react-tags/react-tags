@@ -12,15 +12,15 @@ var Countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla"
       ,"Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre &amp; Miquelon","Samoa","San Marino","Satellite","Saudi Arabia","Senegal","Serbia","Seychelles"
       ,"Sierra Leone","Singapore","Slovakia","Slovenia","South Africa","South Korea","Spain","Sri Lanka","St Kitts &amp; Nevis","St Lucia","St Vincent","St. Lucia","Sudan"
       ,"Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad &amp; Tobago","Tunisia"
-      ,"Turkey","Turkmenistan","Turks &amp; Caicos","Uganda","Ukraine","United Arab Emirates","United Kingdom","Uruguay","Uzbekistan","Venezuela","Vietnam","Virgin Islands (US)"
+      ,"Turkey","Turkmenistan","Turks &amp; Caicos","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Venezuela","Vietnam","Virgin Islands (US)"
       ,"Yemen","Zambia","Zimbabwe"];
 
 /*
  * If your app already uses react-dnd, then having multiple
  * backend will raise an integrity violation exception. In such cases
- * use the WithOutContext version of the component. 
+ * use the WithOutContext version of the component.
  * var Tags = ReactTags.WithOutContext;
- * The example below uses the `WithContext` since this the sole component 
+ * The example below uses the `WithContext` since this the sole component
  * using the react-dnd component.
 */
 var Tags = ReactTags.WithContext;
@@ -60,7 +60,7 @@ var App = React.createClass({
         var suggestions = this.state.suggestions;
         return (
             <div>
-                <Tags tags={tags} 
+                <Tags tags={tags}
                     suggestions={Countries}
                     handleDelete={this.handleDelete}
                     handleAddition={this.handleAddition}
@@ -74,4 +74,4 @@ var App = React.createClass({
     }
 });
 
-React.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));
