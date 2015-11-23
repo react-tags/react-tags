@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Tag = require('./Tag');
 var Suggestions = require('./Suggestions');
 
@@ -33,7 +34,8 @@ var ReactTags = React.createClass({
         handleDelete: React.PropTypes.func.isRequired,
         handleAddition: React.PropTypes.func.isRequired,
         handleDrag: React.PropTypes.func.isRequired,
-        handleChange: React.PropTypes.func,
+        allowDeleteFromEmptyInput: React.PropTypes.bool,
+        handleInputChange: React.PropTypes.func,
         minQueryLength: React.PropTypes.number
     },
     getDefaultProps: function getDefaultProps() {
@@ -42,7 +44,9 @@ var ReactTags = React.createClass({
             tags: [],
             suggestions: [],
             autofocus: true,
-            inline: true
+            inline: true,
+            allowDeleteFromEmptyInput: true,
+            minQueryLength: 2
         };
     },
     componentDidMount: function componentDidMount() {
@@ -75,6 +79,10 @@ var ReactTags = React.createClass({
         this.setState({ query: "" });
     },
     handleChange: function handleChange(e) {
+        if (this.props.handleInputChange) {
+            this.props.handleInputChange(e.target.value.trim());
+        }
+
         var query = e.target.value.trim();
         var suggestions = this.props.suggestions.filter(function (item) {
             return item.toLowerCase().search(query.toLowerCase()) === 0;
@@ -112,7 +120,7 @@ var ReactTags = React.createClass({
         }
 
         // when backspace key is pressed and query is blank, delete tag
-        if (e.keyCode === Keys.BACKSPACE && query == "") {
+        if (e.keyCode === Keys.BACKSPACE && query == "" && this.props.allowDeleteFromEmptyInput) {
             //
             this.handleDelete(this.props.tags.length - 1);
         }

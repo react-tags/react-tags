@@ -100,6 +100,8 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`handleDelete`](#handleDeleteOption)
 - [`handleDrag`](#handleDragOption)
 - [`autofocus`](#autofocus)
+- [`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput)
+- [`handleInputChange`](#handleInputChange)
 
 <a name="tagsOption"></a>
 ##### tags (optional)
@@ -172,11 +174,31 @@ function(tag, currPos, newPos) {
 Optional boolean param to control whether the text-input should be autofocused on mount.
 
 ```js
-<ReacTags
+<ReactTags
     autofocus={false}
+    ...>        
+```
+
+<a name="allowDeleteFromEmptyInput"></a>
+##### allowDeleteFromEmptyInput (optional)
+Optional boolean param to control whether tags should be deleted when the 'Delete' key is pressed in an empty Input Box.
+
+```js
+<ReactTags
+    allowDeleteFromEmptyInput={false}
     ...>
 ```
 
+<a name="handleInputChange"></a>
+##### handleInputChange (optional)
+Optional event handler for input onChange
+
+```js
+<ReactTags
+    handleInputChange={this.handleInputChange}
+    ...>
+```
+    
 ### Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. The component provides the following classes with which you can style - 
 
