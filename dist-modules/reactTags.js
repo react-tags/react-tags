@@ -88,7 +88,6 @@ var ReactTags = React.createClass({
             return item.toLowerCase().search(query.toLowerCase()) === 0;
         });
 
-        if (this.props.handleChange) this.props.handleChange(query);
         this.setState({
             query: query,
             suggestions: suggestions
