@@ -32,7 +32,9 @@ var ReactTags = React.createClass({
         inline: React.PropTypes.bool,
         handleDelete: React.PropTypes.func.isRequired,
         handleAddition: React.PropTypes.func.isRequired,
-        handleDrag: React.PropTypes.func.isRequired
+        handleDrag: React.PropTypes.func.isRequired,
+        handleChange: React.PropTypes.func,
+        minQueryLength: React.PropTypes.number
     },
     getDefaultProps: function getDefaultProps() {
         return {
@@ -78,7 +80,7 @@ var ReactTags = React.createClass({
             return item.toLowerCase().search(query.toLowerCase()) === 0;
         });
 
-        this.props.handleChange(query);
+        if (this.props.handleChange) this.props.handleChange(query);
         this.setState({
             query: query,
             suggestions: suggestions
@@ -213,7 +215,8 @@ var ReactTags = React.createClass({
                 suggestions: suggestions,
                 selectedIndex: selectedIndex,
                 handleClick: this.handleSuggestionClick,
-                handleHover: this.handleSuggestionHover })
+                handleHover: this.handleSuggestionHover,
+                minQueryLength: this.props.minQueryLength })
         );
 
         return React.createElement(
