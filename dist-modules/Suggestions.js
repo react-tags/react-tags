@@ -2,10 +2,6 @@
 
 var React = require('react');
 
-// determines the min query length for which
-// suggestions are displayed
-var MIN_QUERY_LENGTH = 2;
-
 var Suggestions = React.createClass({
     displayName: "Suggestions",
 
@@ -14,7 +10,8 @@ var Suggestions = React.createClass({
         selectedIndex: React.PropTypes.number.isRequired,
         suggestions: React.PropTypes.array.isRequired,
         handleClick: React.PropTypes.func.isRequired,
-        handleHover: React.PropTypes.func.isRequired
+        handleHover: React.PropTypes.func.isRequired,
+        minQueryLength: React.PropTypes.number
     },
     markIt: function markIt(input, query) {
         var escapedRegex = query.trim().replace(/[-\\^$*+?.()|[\]{}]/g, "\\$&");
@@ -36,7 +33,8 @@ var Suggestions = React.createClass({
             );
         }).bind(this));
 
-        if (suggestions.length === 0 || props.query.length < MIN_QUERY_LENGTH) {
+        var minQueryLength = props.minQueryLength || 2;
+        if (suggestions.length === 0 || props.query.length < minQueryLength) {
             return React.createElement(
                 "div",
                 { className: "ReactTags__suggestions" },

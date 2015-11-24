@@ -1,11 +1,12 @@
 {
   "name": "react-tag-input",
-  "version": "1.0.3",
+  "version": "2.0.1",
   "description": "React tags is a fantastically simple tagging component for your React projects",
   "main": "dist-modules/reactTags.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors --port 8090",
+    "prepublish": "npm run build",
     "build": "webpack -p && ./node_modules/.bin/babel ./lib --out-dir dist-modules"
   },
   "keywords": [
@@ -20,7 +21,7 @@
   "license": "MIT",
   "repository": "https://github.com/prakhar1989/react-tags",
   "dependencies": {
-    "lodash": "^3.9.3"
+    "lodash": "^3.10.1"
   },
   "peerDependencies": {
     "react": "^0.14.0",

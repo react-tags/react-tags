@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Tag = require('./Tag');
 var Suggestions = require('./Suggestions');
 
@@ -29,11 +30,13 @@ var ReactTags = React.createClass({
         labelField: React.PropTypes.string,
         suggestions: React.PropTypes.array,
         autofocus: React.PropTypes.bool,
+        inline: React.PropTypes.bool,
         handleDelete: React.PropTypes.func.isRequired,
         handleAddition: React.PropTypes.func.isRequired,
         handleDrag: React.PropTypes.func.isRequired,
         allowDeleteFromEmptyInput: React.PropTypes.bool,
-        handleInputChange: React.PropTypes.func
+        handleInputChange: React.PropTypes.func,
+        minQueryLength: React.PropTypes.number
     },
     getDefaultProps: function getDefaultProps() {
         return {
@@ -41,12 +44,14 @@ var ReactTags = React.createClass({
             tags: [],
             suggestions: [],
             autofocus: true,
-            allowDeleteFromEmptyInput: true
+            inline: true,
+            allowDeleteFromEmptyInput: true,
+            minQueryLength: 2
         };
     },
     componentDidMount: function componentDidMount() {
         if (this.props.autofocus) {
-            this.refs.input.getDOMNode().focus();
+            this.refs.input.focus();
         }
     },
     getInitialState: function getInitialState() {
@@ -57,6 +62,18 @@ var ReactTags = React.createClass({
             selectionMode: false
         };
     },
+    componentWillReceiveProps: function componentWillReceiveProps(props) {
+        var _this = this;
+
+        var suggestions = props.suggestions.filter(function (item) {
+            return item.toLowerCase().search(_this.state.query.toLowerCase()) === 0;
+        });
+
+        this.setState({
+            suggestions: suggestions
+        });
+    },
+
     handleDelete: function handleDelete(i, e) {
         this.props.handleDelete(i);
         this.setState({ query: "" });
@@ -135,7 +152,7 @@ var ReactTags = React.createClass({
         }
     },
     addTag: function addTag(tag) {
-        var input = this.refs.input.getDOMNode();
+        var input = this.refs.input;
 
         // call method to add
         this.props.handleAddition(tag);
@@ -193,28 +210,32 @@ var ReactTags = React.createClass({
             suggestions = this.state.suggestions,
             placeholder = this.props.placeholder;
 
+        var tagInput = React.createElement(
+            'div',
+            { className: 'ReactTags__tagInput' },
+            React.createElement('input', { ref: 'input',
+                type: 'text',
+                placeholder: placeholder,
+                onChange: this.handleChange,
+                onKeyDown: this.handleKeyDown }),
+            React.createElement(Suggestions, { query: query,
+                suggestions: suggestions,
+                selectedIndex: selectedIndex,
+                handleClick: this.handleSuggestionClick,
+                handleHover: this.handleSuggestionHover,
+                minQueryLength: this.props.minQueryLength })
+        );
+
         return React.createElement(
             'div',
             { className: 'ReactTags__tags' },
             React.createElement(
                 'div',
                 { className: 'ReactTags__selected' },
-                tagItems
+                tagItems,
+                this.props.inline && tagInput
             ),
-            React.createElement(
-                'div',
-                { className: 'ReactTags__tagInput' },
-                React.createElement('input', { ref: 'input',
-                    type: 'text',
-                    placeholder: placeholder,
-                    onChange: this.handleChange,
-                    onKeyDown: this.handleKeyDown }),
-                React.createElement(Suggestions, { query: query,
-                    suggestions: suggestions,
-                    selectedIndex: selectedIndex,
-                    handleClick: this.handleSuggestionClick,
-                    handleHover: this.handleSuggestionHover })
-            )
+            !this.props.inline && tagInput
         );
     }
 });
