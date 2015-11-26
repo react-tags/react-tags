@@ -29,6 +29,7 @@ var ReactTags = React.createClass({
         placeholder: React.PropTypes.string,
         labelField: React.PropTypes.string,
         suggestions: React.PropTypes.array,
+        delimeters: React.PropTypes.array,
         autofocus: React.PropTypes.bool,
         inline: React.PropTypes.bool,
         handleDelete: React.PropTypes.func.isRequired,
@@ -43,6 +44,7 @@ var ReactTags = React.createClass({
             placeholder: 'Add new tag',
             tags: [],
             suggestions: [],
+            delimeters: [Keys.ENTER, Keys.TAB],
             autofocus: true,
             inline: true,
             allowDeleteFromEmptyInput: true,
@@ -109,18 +111,21 @@ var ReactTags = React.createClass({
             });
         }
 
-        // when enter or tab is pressed add query to tags
-        if ((e.keyCode === Keys.ENTER || e.keyCode === Keys.TAB) && query != "") {
+        // When one of the terminating keys is pressed, add current query to the tags.
+        // If no text is typed in so far, ignore the action - so we don't end up with a terminating
+        // character typed in.
+        if (this.props.delimeters.indexOf(e.keyCode) !== -1) {
             e.preventDefault();
-            if (this.state.selectionMode) {
-                query = this.state.suggestions[this.state.selectedIndex];
+            if (query !== "") {
+                if (this.state.selectionMode) {
+                    query = this.state.suggestions[this.state.selectedIndex];
+                }
+                this.addTag(query);
             }
-            this.addTag(query);
         }
 
         // when backspace key is pressed and query is blank, delete tag
         if (e.keyCode === Keys.BACKSPACE && query == "" && this.props.allowDeleteFromEmptyInput) {
-            //
             this.handleDelete(this.props.tags.length - 1);
         }
 
@@ -242,5 +247,6 @@ var ReactTags = React.createClass({
 
 module.exports = {
     WithContext: DragDropContext(HTML5Backend)(ReactTags),
-    WithOutContext: ReactTags
+    WithOutContext: ReactTags,
+    Keys: Keys
 };
