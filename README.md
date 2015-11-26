@@ -103,6 +103,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`autofocus`](#autofocus)
 - [`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput)
 - [`handleInputChange`](#handleInputChange)
+- [`minQueryLength`](#minQueryLength)
 
 <a name="tagsOption"></a>
 ##### tags (optional)
@@ -205,6 +206,11 @@ Optional event handler for input onChange
     ...>
 ```
     
+<a name="minQueryLength"></a>
+##### minQueryLength (optional)
+How many characters are needed for suggestions to appear (default: 2).
+
+
 ### Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. The component provides the following classes with which you can style - 
 
