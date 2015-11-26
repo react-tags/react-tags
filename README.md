@@ -94,6 +94,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 
 - [`tags`](#tagsOption)
 - [`suggestions`](#suggestionsOption)
+- [`delimeters`](#delimeters)
 - [`placeholder`](#placeholderOption)
 - [`labelField`](#labelFieldOption)
 - [`handleAddition`](#handleAdditionOption)
@@ -118,6 +119,11 @@ An array of suggestions that are used as basis for showing suggestions. At the m
 ```js
 var suggestions = ["mango", "pineapple", "orange", "pear"];
 ```
+
+<a name="delimeters"></a>
+##### delimeters (optional)
+Specifies which characters should terminate tags input (default: enter and tab). A list of character codes.
+
 
 <a name="placeholderOption"></a>
 ##### placeholder (optional)
