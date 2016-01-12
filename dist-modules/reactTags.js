@@ -64,13 +64,13 @@ var ReactTags = React.createClass({
             selectionMode: false
         };
     },
-    componentWillReceiveProps: function componentWillReceiveProps(props) {
-        var _this = this;
-
-        var suggestions = props.suggestions.filter(function (item) {
-            return item.toLowerCase().search(_this.state.query.toLowerCase()) === 0;
+    filteredSuggestions: function filteredSuggestions(query, suggestions) {
+        return suggestions.filter(function (item) {
+            return item.toLowerCase().startsWith(query.toLowerCase());
         });
-
+    },
+    componentWillReceiveProps: function componentWillReceiveProps(props) {
+        var suggestions = this.filteredSuggestions(this.state.query, props.suggestions);
         this.setState({
             suggestions: suggestions
         });
@@ -86,9 +86,7 @@ var ReactTags = React.createClass({
         }
 
         var query = e.target.value.trim();
-        var suggestions = this.props.suggestions.filter(function (item) {
-            return item.toLowerCase().startsWith(query.toLowerCase());
-        });
+        var suggestions = this.filteredSuggestions(query, this.props.suggestions);
 
         this.setState({
             query: query,
