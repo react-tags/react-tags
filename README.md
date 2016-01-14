@@ -254,7 +254,7 @@ This option has no effect if there are no [`suggestions`](#suggestionsOption).
 Renders the component in read-only mode without the input box and `removeComponent`. This also disables the drag-n-drop feature.
 
 ### Styling
-`<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. The component provides the following classes with which you can style -
+`<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style - 
 
 - `ReactTags__tags`
 - `ReactTags__tagInput`
@@ -264,6 +264,23 @@ Renders the component in read-only mode without the input box and `removeCompone
 - `ReactTags__suggestions`
 
 An example can be found in `/example/reactTags.css`.
+
+If you need to set your own class names on the component, you may pass in
+a `classNames` prop.
+
+```js
+  <ReactTags
+    classNames={{
+      tags: 'tagsClass',
+      tagInput: 'tagInputClass',
+      selected: 'selectedClass',
+      tag: 'tagClass',
+      remove: 'removeClass',
+      suggestions: 'suggestionsClass'
+    }}
+    ...>
+```
+
 
 ### Dev
 The component is written in ES6 and uses [Webpack](http://webpack.github.io/) as its build tool.
