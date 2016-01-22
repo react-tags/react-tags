@@ -46,7 +46,8 @@ var Tag = React.createClass({
         labelField: React.PropTypes.string,
         onDelete: React.PropTypes.func.isRequired,
         tag: React.PropTypes.object.isRequired,
-        moveTag: React.PropTypes.func.isRequired
+        moveTag: React.PropTypes.func.isRequired,
+        removeComponent: React.PropTypes.func
     },
     getDefaultProps: function getDefaultProps() {
         return {
@@ -60,17 +61,29 @@ var Tag = React.createClass({
         var isDragging = _props.isDragging;
         var connectDropTarget = _props.connectDropTarget;
 
+        var CustomRemoveComponent = this.props.removeComponent;
+        var RemoveComponent = React.createClass({
+            displayName: 'RemoveComponent',
+
+            render: function render() {
+                if (CustomRemoveComponent) {
+                    return React.createElement(CustomRemoveComponent, this.props);
+                }
+                return React.createElement(
+                    'a',
+                    this.props,
+                    'x'
+                );
+            }
+        });
+
         return connectDragSource(connectDropTarget(React.createElement(
             'span',
             { style: { opacity: isDragging ? 0 : 1 },
                 className: 'ReactTags__tag' },
             label,
-            React.createElement(
-                'a',
-                { className: 'ReactTags__remove',
-                    onClick: this.props.onDelete },
-                'x'
-            )
+            React.createElement(RemoveComponent, { className: 'ReactTags__remove',
+                onClick: this.props.onDelete })
         )));
     }
 });

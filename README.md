@@ -2,7 +2,7 @@
 
 [![NPM](https://nodei.co/npm/react-tag-input.png?downloads=true)](https://www.npmjs.com/package/react-tag-input)
 
-React tags is a simple tagging component ready to drop in your React projects. The component is inspired by GMail's *To* field in the compose window. 
+React tags is a simple tagging component ready to drop in your React projects. The component is inspired by GMail's *To* field in the compose window.
 
 ### Features
 - Autocomplete based on a suggestion list
@@ -68,7 +68,7 @@ var App = React.createClass({
         var suggestions = this.state.suggestions;
         return (
             <div>
-                <ReactTags tags={tags} 
+                <ReactTags tags={tags}
                     suggestions={suggestions}
                     handleDelete={this.handleDelete}
                     handleAddition={this.handleAddition}
@@ -104,6 +104,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput)
 - [`handleInputChange`](#handleInputChange)
 - [`minQueryLength`](#minQueryLength)
+- [`removeComponent`](#removeComponent)
 
 <a name="tagsOption"></a>
 ##### tags (optional)
@@ -115,7 +116,7 @@ var tags =  [ {id: 1, text: "Apples"} ]
 
 <a name="suggestionsOption"></a>
 ##### suggestions (optional)
-An array of suggestions that are used as basis for showing suggestions. At the moment, this should be an array of strings. 
+An array of suggestions that are used as basis for showing suggestions. At the moment, this should be an array of strings.
 
 ```js
 var suggestions = ["mango", "pineapple", "orange", "pear"];
@@ -139,7 +140,7 @@ var placeholder = "Add new country"
 Provide an alternative `label` property for the tags. Defaults to `text`.
 
 ```
-<ReactTags tags={tags} 
+<ReactTags tags={tags}
     suggestions={}
     labelField={'name'}
     handleDrag={} />
@@ -163,7 +164,7 @@ Function called when the user wants to delete a tag
 
 ```js
 function(i) {
-    // delete the tag at index i 
+    // delete the tag at index i
 }
 ```
 
@@ -205,14 +206,39 @@ Optional event handler for input onChange
     handleInputChange={this.handleInputChange}
     ...>
 ```
-    
+
 <a name="minQueryLength"></a>
 ##### minQueryLength (optional)
 How many characters are needed for suggestions to appear (default: 2).
 
+<a name="removeComponent"></a>
+##### removeComponent (optional)
+If you'd like to supply your own tag delete/remove element, create a React component and pass it as a property to ReactTags using the `removeComponent` option. By default, a simple anchor link with an "x" text node as its only child is rendered, but if you'd like to, say, replace this with a `<button>` element that uses an image instead of text, your markup may look something like this:
+
+```javascript
+import {WithContext as ReactTags} from 'react-tag-input'
+
+class Foo extends React.Component {
+   render() {
+      return <ReactTags removeComponent={RemoveComponent}/>
+   }
+}
+
+class RemoveComponent extends React.Component {
+   render() {
+      return (
+         <button {...this.props}>
+            <img src="my-icon.png" />
+         </button>
+      )
+   }
+}
+```
+
+The "ReactTags__remove" className and `onClick` handler properties can be automatically included on the `<button>` by using the [JSX spread attribute](https://facebook.github.io/react/docs/jsx-spread.html), as illustrated above.
 
 ### Styling
-`<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. The component provides the following classes with which you can style - 
+`<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. The component provides the following classes with which you can style -
 
 - `ReactTags__tags`
 - `ReactTags__tagInput`
@@ -224,9 +250,9 @@ How many characters are needed for suggestions to appear (default: 2).
 An example can be found in `/example/reactTags.css`.
 
 ### Dev
-The component is written in ES6 and uses [Webpack](http://webpack.github.io/) as its build tool. 
+The component is written in ES6 and uses [Webpack](http://webpack.github.io/) as its build tool.
 ```
-npm install 
+npm install
 npm run dev
 python -m SimpleHTTPServer ### open in browser
 ```
