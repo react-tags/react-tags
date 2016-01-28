@@ -105,6 +105,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`handleInputChange`](#handleInputChange)
 - [`minQueryLength`](#minQueryLength)
 - [`removeComponent`](#removeComponent)
+- [`autocomplete`](#autocomplete)
 
 <a name="tagsOption"></a>
 ##### tags (optional)
@@ -236,6 +237,16 @@ class RemoveComponent extends React.Component {
 ```
 
 The "ReactTags__remove" className and `onClick` handler properties can be automatically included on the `<button>` by using the [JSX spread attribute](https://facebook.github.io/react/docs/jsx-spread.html), as illustrated above.
+
+<a name="autocomplete"></a>
+##### autocomplete (optional)
+Useful for enhancing data entry workflows for your users by ensuring the first matching suggestion is automatically converted to a tag when a [delimeter](#delimeters) key is pressed (such as the enter key). This option has three possible values:
+
+- `true` - when delimeter key (such as enter) is pressed, first matching suggestion is used.
+- `1` - when delimeter key (such as enter) is pressed, matching suggestion is used only if there is a single matching suggestion
+- `false` (default) - tags are not autocompleted on enter/delimeter
+
+This option has no effect if there are no [`suggestions`](#suggestionsOption).
 
 ### Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. The component provides the following classes with which you can style -
