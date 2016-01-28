@@ -38,7 +38,8 @@ var ReactTags = React.createClass({
         allowDeleteFromEmptyInput: React.PropTypes.bool,
         handleInputChange: React.PropTypes.func,
         minQueryLength: React.PropTypes.number,
-        removeComponent: React.PropTypes.func
+        removeComponent: React.PropTypes.func,
+        autocomplete: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.number])
     },
     getDefaultProps: function getDefaultProps() {
         return {
@@ -49,7 +50,8 @@ var ReactTags = React.createClass({
             autofocus: true,
             inline: true,
             allowDeleteFromEmptyInput: true,
-            minQueryLength: 2
+            minQueryLength: 2,
+            autocomplete: false
         };
     },
     componentDidMount: function componentDidMount() {
@@ -158,6 +160,14 @@ var ReactTags = React.createClass({
     addTag: function addTag(tag) {
         var input = this.refs.input;
 
+        if (this.props.autocomplete) {
+            var possibleMatches = this.filteredSuggestions(tag, this.props.suggestions);
+
+            if (this.props.autocomplete === 1 && possibleMatches.length === 1 || this.props.autocomplete === true) {
+                tag = possibleMatches[0];
+            }
+        }
+
         // call method to add
         this.props.handleAddition(tag);
 
@@ -221,6 +231,7 @@ var ReactTags = React.createClass({
             React.createElement('input', { ref: 'input',
                 type: 'text',
                 placeholder: placeholder,
+                'aria-label': placeholder,
                 onChange: this.handleChange,
                 onKeyDown: this.handleKeyDown }),
             React.createElement(Suggestions, { query: query,
