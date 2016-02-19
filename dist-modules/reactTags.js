@@ -166,7 +166,7 @@ var ReactTags = React.createClass({
         if (this.props.autocomplete) {
             var possibleMatches = this.filteredSuggestions(tag, this.props.suggestions);
 
-            if (this.props.autocomplete === 1 && possibleMatches.length === 1 || this.props.autocomplete === true) {
+            if (this.props.autocomplete === 1 && possibleMatches.length === 1 || this.props.autocomplete === true && possibleMatches.length) {
                 tag = possibleMatches[0];
             }
         }
