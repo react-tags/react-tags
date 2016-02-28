@@ -60,12 +60,17 @@ var Tag = React.createClass({
         var connectDragSource = _props.connectDragSource;
         var isDragging = _props.isDragging;
         var connectDropTarget = _props.connectDropTarget;
+        var readOnly = _props.readOnly;
 
         var CustomRemoveComponent = this.props.removeComponent;
         var RemoveComponent = React.createClass({
             displayName: 'RemoveComponent',
 
             render: function render() {
+                if (readOnly) {
+                    return React.createElement('span', null);
+                }
+
                 if (CustomRemoveComponent) {
                     return React.createElement(CustomRemoveComponent, this.props);
                 }
