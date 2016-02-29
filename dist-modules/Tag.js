@@ -14,6 +14,9 @@ var ItemTypes = { TAG: 'tag' };
 var tagSource = {
     beginDrag: function beginDrag(props) {
         return { id: props.tag.id };
+    },
+    canDrag: function canDrag(props) {
+        return !props.readOnly;
     }
 };
 
@@ -23,6 +26,9 @@ var tagTarget = {
         if (draggedId !== props.id) {
             props.moveTag(draggedId, props.tag.id);
         }
+    },
+    canDrop: function canDrop(props) {
+        return !props.readOnly;
     }
 };
 
