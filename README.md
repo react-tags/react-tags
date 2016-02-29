@@ -106,6 +106,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`minQueryLength`](#minQueryLength)
 - [`removeComponent`](#removeComponent)
 - [`autocomplete`](#autocomplete)
+- [`readOnly`](#readOnly)
 
 <a name="tagsOption"></a>
 ##### tags (optional)
@@ -247,6 +248,10 @@ Useful for enhancing data entry workflows for your users by ensuring the first m
 - `false` (default) - tags are not autocompleted on enter/delimeter
 
 This option has no effect if there are no [`suggestions`](#suggestionsOption).
+
+<a name="readOnly"></a>
+##### readOnly (optional)
+Renders the component in read-only mode without the input box and `removeComponent`. This also disables the drag-n-drop feature.
 
 ### Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. The component provides the following classes with which you can style -

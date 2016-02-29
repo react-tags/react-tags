@@ -39,7 +39,8 @@ var ReactTags = React.createClass({
         handleInputChange: React.PropTypes.func,
         minQueryLength: React.PropTypes.number,
         removeComponent: React.PropTypes.func,
-        autocomplete: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.number])
+        autocomplete: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.number]),
+        readOnly: React.PropTypes.bool
     },
     getDefaultProps: function getDefaultProps() {
         return {
@@ -51,7 +52,8 @@ var ReactTags = React.createClass({
             inline: true,
             allowDeleteFromEmptyInput: true,
             minQueryLength: 2,
-            autocomplete: false
+            autocomplete: false,
+            readOnly: false
         };
     },
     componentDidMount: function componentDidMount() {
@@ -219,7 +221,8 @@ var ReactTags = React.createClass({
                 labelField: this.props.labelField,
                 onDelete: this.handleDelete.bind(this, i),
                 moveTag: this.moveTag,
-                removeComponent: this.props.removeComponent });
+                removeComponent: this.props.removeComponent,
+                readOnly: this.props.readOnly });
         }).bind(this));
 
         // get the suggestions for the given query
@@ -228,7 +231,7 @@ var ReactTags = React.createClass({
             suggestions = this.state.suggestions,
             placeholder = this.props.placeholder;
 
-        var tagInput = React.createElement(
+        var tagInput = !this.props.readOnly ? React.createElement(
             'div',
             { className: 'ReactTags__tagInput' },
             React.createElement('input', { ref: 'input',
@@ -243,7 +246,7 @@ var ReactTags = React.createClass({
                 handleClick: this.handleSuggestionClick,
                 handleHover: this.handleSuggestionHover,
                 minQueryLength: this.props.minQueryLength })
-        );
+        ) : null;
 
         return React.createElement(
             'div',
