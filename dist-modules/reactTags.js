@@ -10,6 +10,7 @@ var _require = require('react-dnd');
 var DragDropContext = _require.DragDropContext;
 
 var HTML5Backend = require('react-dnd-html5-backend');
+var merge = require('lodash/object/merge');
 
 // Constants
 var Keys = {
@@ -19,6 +20,15 @@ var Keys = {
     UP_ARROW: 38,
     DOWN_ARROW: 40,
     ESCAPE: 27
+};
+
+var DefaultClassNames = {
+    tags: 'ReactTags__tags',
+    tagInput: 'ReactTags__tagInput',
+    selected: 'ReactTags__selected',
+    tag: 'ReactTags__tag',
+    remove: 'ReactTags__remove',
+    suggestions: 'ReactTags__suggestions'
 };
 
 var ReactTags = React.createClass({
@@ -40,7 +50,8 @@ var ReactTags = React.createClass({
         minQueryLength: React.PropTypes.number,
         removeComponent: React.PropTypes.func,
         autocomplete: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.number]),
-        readOnly: React.PropTypes.bool
+        readOnly: React.PropTypes.bool,
+        classNames: React.PropTypes.object
     },
     getDefaultProps: function getDefaultProps() {
         return {
@@ -77,7 +88,8 @@ var ReactTags = React.createClass({
     componentWillReceiveProps: function componentWillReceiveProps(props) {
         var suggestions = this.filteredSuggestions(this.state.query, props.suggestions);
         this.setState({
-            suggestions: suggestions
+            suggestions: suggestions,
+            classNames: merge({}, props.classNames, DefaultClassNames)
         });
     },
 
@@ -216,13 +228,14 @@ var ReactTags = React.createClass({
     },
     render: function render() {
         var tagItems = this.props.tags.map((function (tag, i) {
-            return React.createElement(Tag, { key: tag.id,
+            return React.createElement(Tag, { key: tag.id || i,
                 tag: tag,
                 labelField: this.props.labelField,
                 onDelete: this.handleDelete.bind(this, i),
                 moveTag: this.moveTag,
                 removeComponent: this.props.removeComponent,
-                readOnly: this.props.readOnly });
+                readOnly: this.props.readOnly,
+                classNames: this.state.classNames });
         }).bind(this));
 
         // get the suggestions for the given query
@@ -233,7 +246,7 @@ var ReactTags = React.createClass({
 
         var tagInput = !this.props.readOnly ? React.createElement(
             'div',
-            { className: 'ReactTags__tagInput' },
+            { className: this.state.classNames.tagInput },
             React.createElement('input', { ref: 'input',
                 type: 'text',
                 placeholder: placeholder,
@@ -245,15 +258,16 @@ var ReactTags = React.createClass({
                 selectedIndex: selectedIndex,
                 handleClick: this.handleSuggestionClick,
                 handleHover: this.handleSuggestionHover,
-                minQueryLength: this.props.minQueryLength })
+                minQueryLength: this.props.minQueryLength,
+                classNames: this.state.classNames })
         ) : null;
 
         return React.createElement(
             'div',
-            { className: 'ReactTags__tags' },
+            { className: this.state.classNames.tags },
             React.createElement(
                 'div',
-                { className: 'ReactTags__selected' },
+                { className: this.state.classNames.selected },
                 tagItems,
                 this.props.inline && tagInput
             ),

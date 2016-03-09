@@ -11,7 +11,8 @@ var Suggestions = React.createClass({
         suggestions: React.PropTypes.array.isRequired,
         handleClick: React.PropTypes.func.isRequired,
         handleHover: React.PropTypes.func.isRequired,
-        minQueryLength: React.PropTypes.number
+        minQueryLength: React.PropTypes.number,
+        classNames: React.PropTypes.object
     },
     markIt: function markIt(input, query) {
         var escapedRegex = query.trim().replace(/[-\\^$*+?.()|[\]{}]/g, "\\$&");
@@ -35,16 +36,12 @@ var Suggestions = React.createClass({
 
         var minQueryLength = props.minQueryLength || 2;
         if (suggestions.length === 0 || props.query.length < minQueryLength) {
-            return React.createElement(
-                "div",
-                { className: "ReactTags__suggestions" },
-                " "
-            );
+            return React.createElement("div", { className: this.props.classNames.suggestions });
         }
 
         return React.createElement(
             "div",
-            { className: "ReactTags__suggestions" },
+            { className: this.props.classNames.suggestions },
             React.createElement(
                 "ul",
                 null,
