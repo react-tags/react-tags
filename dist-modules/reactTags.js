@@ -67,6 +67,11 @@ var ReactTags = React.createClass({
             readOnly: false
         };
     },
+    componentWillMount: function componentWillMount() {
+        this.setState({
+            classNames: merge({}, DefaultClassNames, this.props.classNames)
+        });
+    },
     componentDidMount: function componentDidMount() {
         if (this.props.autofocus) {
             this.refs.input.focus();
@@ -89,7 +94,7 @@ var ReactTags = React.createClass({
         var suggestions = this.filteredSuggestions(this.state.query, props.suggestions);
         this.setState({
             suggestions: suggestions,
-            classNames: merge({}, props.classNames, DefaultClassNames)
+            classNames: merge({}, DefaultClassNames, props.classNames)
         });
     },
 
