@@ -73,7 +73,7 @@ var ReactTags = React.createClass({
         });
     },
     componentDidMount: function componentDidMount() {
-        if (this.props.autofocus) {
+        if (this.props.autofocus && !this.props.readOnly) {
             this.refs.input.focus();
         }
     },
