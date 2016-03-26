@@ -171,7 +171,8 @@ function(i) {
 ```
 
 <a name="handleDragOption"></a>
-##### handleDrag (required)
+##### handleDrag (optional)
+If you want tags to be draggable, you need to provide this function.
 Function called when the user drags a tag.
 
 ```js

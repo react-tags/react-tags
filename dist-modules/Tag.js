@@ -52,7 +52,7 @@ var Tag = React.createClass({
         labelField: React.PropTypes.string,
         onDelete: React.PropTypes.func.isRequired,
         tag: React.PropTypes.object.isRequired,
-        moveTag: React.PropTypes.func.isRequired,
+        moveTag: React.PropTypes.func,
         removeComponent: React.PropTypes.func,
         classNames: React.PropTypes.object
     },
@@ -88,15 +88,19 @@ var Tag = React.createClass({
                 );
             }
         });
-
-        return connectDragSource(connectDropTarget(React.createElement(
+        var tagComponent = React.createElement(
             'span',
             { style: { opacity: isDragging ? 0 : 1 },
                 className: this.props.classNames.tag },
             label,
             React.createElement(RemoveComponent, { className: this.props.classNames.remove,
                 onClick: this.props.onDelete })
-        )));
+        );
+        if (this.props.moveTag) {
+            return connectDragSource(connectDropTarget(tagComponent));
+        } else {
+            return tagComponent;
+        }
     }
 });
 
