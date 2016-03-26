@@ -44,7 +44,7 @@ var ReactTags = React.createClass({
         inline: React.PropTypes.bool,
         handleDelete: React.PropTypes.func.isRequired,
         handleAddition: React.PropTypes.func.isRequired,
-        handleDrag: React.PropTypes.func.isRequired,
+        handleDrag: React.PropTypes.func,
         allowDeleteFromEmptyInput: React.PropTypes.bool,
         handleInputChange: React.PropTypes.func,
         minQueryLength: React.PropTypes.number,
@@ -232,12 +232,13 @@ var ReactTags = React.createClass({
         this.props.handleDrag(tag, tagIndex, afterTagIndex);
     },
     render: function render() {
+        var moveTag = this.props.handleDrag ? this.moveTag : null;
         var tagItems = this.props.tags.map((function (tag, i) {
             return React.createElement(Tag, { key: i,
                 tag: tag,
                 labelField: this.props.labelField,
                 onDelete: this.handleDelete.bind(this, i),
-                moveTag: this.moveTag,
+                moveTag: moveTag,
                 removeComponent: this.props.removeComponent,
                 readOnly: this.props.readOnly,
                 classNames: this.state.classNames });
