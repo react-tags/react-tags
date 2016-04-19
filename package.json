@@ -23,8 +23,8 @@
     "lodash": "^3.10.1"
   },
   "peerDependencies": {
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0",
+    "react": ">0.14",
+    "react-dom": ">0.14",
     "react-dnd": "^2.0.2",
     "react-dnd-html5-backend": "^2.0.0"
   },
