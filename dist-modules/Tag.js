@@ -1,33 +1,26 @@
-'use strict';
-
 var React = require('react');
-
-var _require = require('react-dnd');
-
-var DragSource = _require.DragSource;
-var DropTarget = _require.DropTarget;
-
+var { DragSource, DropTarget } = require('react-dnd');
 var flow = require('lodash/function/flow');
 
-var ItemTypes = { TAG: 'tag' };
+const ItemTypes = { TAG: 'tag' };
 
 var tagSource = {
-    beginDrag: function beginDrag(props) {
+    beginDrag(props) {
         return { id: props.tag.id };
     },
-    canDrag: function canDrag(props) {
+    canDrag(props) {
         return !props.readOnly;
     }
 };
 
 var tagTarget = {
-    hover: function hover(props, monitor) {
+    hover(props, monitor) {
         var draggedId = monitor.getItem().id;
         if (draggedId !== props.id) {
             props.moveTag(draggedId, props.tag.id);
         }
     },
-    canDrop: function canDrop(props) {
+    canDrop(props) {
         return !props.readOnly;
     }
 };
@@ -46,8 +39,6 @@ function dropCollect(connect, monitor) {
 }
 
 var Tag = React.createClass({
-    displayName: 'Tag',
-
     propTypes: {
         labelField: React.PropTypes.string,
         onDelete: React.PropTypes.func.isRequired,
@@ -56,24 +47,17 @@ var Tag = React.createClass({
         removeComponent: React.PropTypes.func,
         classNames: React.PropTypes.object
     },
-    getDefaultProps: function getDefaultProps() {
+    getDefaultProps: function () {
         return {
             labelField: 'text'
         };
     },
-    render: function render() {
+    render: function () {
         var label = this.props.tag[this.props.labelField];
-        var _props = this.props;
-        var connectDragSource = _props.connectDragSource;
-        var isDragging = _props.isDragging;
-        var connectDropTarget = _props.connectDropTarget;
-        var readOnly = _props.readOnly;
-
+        var { connectDragSource, isDragging, connectDropTarget, readOnly } = this.props;
         var CustomRemoveComponent = this.props.removeComponent;
         var RemoveComponent = React.createClass({
-            displayName: 'RemoveComponent',
-
-            render: function render() {
+            render: function () {
                 if (readOnly) {
                     return React.createElement('span', null);
                 }
