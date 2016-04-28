@@ -40,6 +40,7 @@ var ReactTags = React.createClass({
         allowDeleteFromEmptyInput: React.PropTypes.bool,
         handleInputChange: React.PropTypes.func,
         minQueryLength: React.PropTypes.number,
+        shouldRenderSuggestions: React.PropTypes.func,
         removeComponent: React.PropTypes.func,
         autocomplete: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.number]),
         readOnly: React.PropTypes.bool,
@@ -250,6 +251,7 @@ var ReactTags = React.createClass({
                              handleClick={this.handleSuggestionClick}
                              handleHover={this.handleSuggestionHover}
                              minQueryLength={this.props.minQueryLength}
+                             shouldRenderSuggestions={this.props.shouldRenderSuggestions}
                              classNames={this.state.classNames}/>
             </div>
         ) : null;
