@@ -292,7 +292,9 @@ python -m SimpleHTTPServer ### open in browser
 ```
 
 ### Contributing
-Got ideas on how to make this better? Open an issue! I'm yet to add tests so keep your PRs on hold :grinning:
+Got ideas on how to make this better? Open an issue!
 
 ### Thanks
 The autocomplete dropdown is inspired by Lea Verou's [awesomeplete](https://github.com/LeaVerou/awesomplete) library. The Drag and drop functionality is provided by Dan Abramov's insanely useful [ReactDND](https://github.com/gaearon/react-dnd) library.
+
+Also thanks to the awesome contributors who've made the library far better!
