@@ -94,7 +94,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 
 - [`tags`](#tagsOption)
 - [`suggestions`](#suggestionsOption)
-- [`delimeters`](#delimeters)
+- [`delimiters`](#delimiters)
 - [`placeholder`](#placeholderOption)
 - [`labelField`](#labelFieldOption)
 - [`handleAddition`](#handleAdditionOption)
@@ -124,8 +124,8 @@ An array of suggestions that are used as basis for showing suggestions. At the m
 var suggestions = ["mango", "pineapple", "orange", "pear"];
 ```
 
-<a name="delimeters"></a>
-##### delimeters (optional)
+<a name="delimiters"></a>
+##### delimiters (optional)
 Specifies which characters should terminate tags input (default: enter and tab). A list of character codes.
 
 
@@ -242,7 +242,7 @@ The "ReactTags__remove" className and `onClick` handler properties can be automa
 
 <a name="autocomplete"></a>
 ##### autocomplete (optional)
-Useful for enhancing data entry workflows for your users by ensuring the first matching suggestion is automatically converted to a tag when a [delimeter](#delimeters) key is pressed (such as the enter key). This option has three possible values:
+Useful for enhancing data entry workflows for your users by ensuring the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed (such as the enter key). This option has three possible values:
 
 - `true` - when delimeter key (such as enter) is pressed, first matching suggestion is used.
 - `1` - when delimeter key (such as enter) is pressed, matching suggestion is used only if there is a single matching suggestion
