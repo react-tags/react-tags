@@ -1,13 +1,19 @@
+'use strict';
+
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Tag = require('./Tag');
-var Suggestions = require('./Suggestions');
-var { DragDropContext } = require('react-dnd');
+var Tag = require('./tag');
+var Suggestions = require('./suggestions');
+
+var _require = require('react-dnd');
+
+var DragDropContext = _require.DragDropContext;
+
 var HTML5Backend = require('react-dnd-html5-backend');
 var merge = require('lodash/object/merge');
 
 // Constants
-const Keys = {
+var Keys = {
     ENTER: 13,
     TAB: 9,
     BACKSPACE: 8,
@@ -16,7 +22,7 @@ const Keys = {
     ESCAPE: 27
 };
 
-const DefaultClassNames = {
+var DefaultClassNames = {
     tags: 'ReactTags__tags',
     tagInput: 'ReactTags__tagInput',
     selected: 'ReactTags__selected',
@@ -26,12 +32,14 @@ const DefaultClassNames = {
 };
 
 var ReactTags = React.createClass({
+    displayName: 'ReactTags',
+
     propTypes: {
         tags: React.PropTypes.array,
         placeholder: React.PropTypes.string,
         labelField: React.PropTypes.string,
         suggestions: React.PropTypes.array,
-        delimeters: React.PropTypes.array,
+        delimiters: React.PropTypes.array,
         autofocus: React.PropTypes.bool,
         inline: React.PropTypes.bool,
         handleDelete: React.PropTypes.func.isRequired,
@@ -46,12 +54,12 @@ var ReactTags = React.createClass({
         readOnly: React.PropTypes.bool,
         classNames: React.PropTypes.object
     },
-    getDefaultProps: function () {
+    getDefaultProps: function getDefaultProps() {
         return {
             placeholder: 'Add new tag',
             tags: [],
             suggestions: [],
-            delimeters: [Keys.ENTER, Keys.TAB],
+            delimiters: [Keys.ENTER, Keys.TAB],
             autofocus: true,
             inline: true,
             allowDeleteFromEmptyInput: true,
@@ -60,17 +68,17 @@ var ReactTags = React.createClass({
             readOnly: false
         };
     },
-    componentWillMount: function () {
+    componentWillMount: function componentWillMount() {
         this.setState({
             classNames: merge({}, DefaultClassNames, this.props.classNames)
         });
     },
-    componentDidMount: function () {
+    componentDidMount: function componentDidMount() {
         if (this.props.autofocus && !this.props.readOnly) {
             this.refs.input.focus();
         }
     },
-    getInitialState: function () {
+    getInitialState: function getInitialState() {
         return {
             suggestions: this.props.suggestions,
             query: "",
@@ -78,12 +86,12 @@ var ReactTags = React.createClass({
             selectionMode: false
         };
     },
-    filteredSuggestions(query, suggestions) {
+    filteredSuggestions: function filteredSuggestions(query, suggestions) {
         return suggestions.filter(function (item) {
             return item.toLowerCase().indexOf(query.toLowerCase()) === 0;
         });
     },
-    componentWillReceiveProps(props) {
+    componentWillReceiveProps: function componentWillReceiveProps(props) {
         var suggestions = this.filteredSuggestions(this.state.query, props.suggestions);
         this.setState({
             suggestions: suggestions,
@@ -91,11 +99,12 @@ var ReactTags = React.createClass({
         });
     },
 
-    handleDelete: function (i, e) {
+
+    handleDelete: function handleDelete(i, e) {
         this.props.handleDelete(i);
         this.setState({ query: "" });
     },
-    handleChange: function (e) {
+    handleChange: function handleChange(e) {
         if (this.props.handleInputChange) {
             this.props.handleInputChange(e.target.value.trim());
         }
@@ -108,10 +117,14 @@ var ReactTags = React.createClass({
             suggestions: suggestions
         });
     },
-    handleKeyDown: function (e) {
-        var { query, selectedIndex, suggestions } = this.state;
+    handleKeyDown: function handleKeyDown(e) {
+        var _state = this.state;
+        var query = _state.query;
+        var selectedIndex = _state.selectedIndex;
+        var suggestions = _state.suggestions;
 
         // hide suggestions menu on escape
+
         if (e.keyCode === Keys.ESCAPE) {
             e.preventDefault();
             this.setState({
@@ -124,7 +137,7 @@ var ReactTags = React.createClass({
         // When one of the terminating keys is pressed, add current query to the tags.
         // If no text is typed in so far, ignore the action - so we don't end up with a terminating
         // character typed in.
-        if (this.props.delimeters.indexOf(e.keyCode) !== -1) {
+        if (this.props.delimiters.indexOf(e.keyCode) !== -1) {
             if (e.keyCode !== Keys.TAB || query !== "") {
                 e.preventDefault();
             }
@@ -169,7 +182,7 @@ var ReactTags = React.createClass({
             });
         }
     },
-    addTag: function (tag) {
+    addTag: function addTag(tag) {
         var input = this.refs.input;
 
         if (this.props.autocomplete) {
@@ -194,21 +207,25 @@ var ReactTags = React.createClass({
         input.value = "";
         input.focus();
     },
-    handleSuggestionClick: function (i, e) {
+    handleSuggestionClick: function handleSuggestionClick(i, e) {
         this.addTag(this.state.suggestions[i]);
     },
-    handleSuggestionHover: function (i, e) {
+    handleSuggestionHover: function handleSuggestionHover(i, e) {
         this.setState({
             selectedIndex: i,
             selectionMode: true
         });
     },
-    moveTag: function (id, afterId) {
+    moveTag: function moveTag(id, afterId) {
         var tags = this.props.tags;
 
         // locate tags
-        var tag = tags.filter(t => t.id === id)[0];
-        var afterTag = tags.filter(t => t.id === afterId)[0];
+        var tag = tags.filter(function (t) {
+            return t.id === id;
+        })[0];
+        var afterTag = tags.filter(function (t) {
+            return t.id === afterId;
+        })[0];
 
         // find their position in the array
         var tagIndex = tags.indexOf(tag);
@@ -217,7 +234,7 @@ var ReactTags = React.createClass({
         // call handler with current position and after position
         this.props.handleDrag(tag, tagIndex, afterTagIndex);
     },
-    render: function () {
+    render: function render() {
         var moveTag = this.props.handleDrag ? this.moveTag : null;
         var tagItems = this.props.tags.map(function (tag, i) {
             return React.createElement(Tag, { key: i,
@@ -236,7 +253,7 @@ var ReactTags = React.createClass({
             suggestions = this.state.suggestions,
             placeholder = this.props.placeholder;
 
-        const tagInput = !this.props.readOnly ? React.createElement(
+        var tagInput = !this.props.readOnly ? React.createElement(
             'div',
             { className: this.state.classNames.tagInput },
             React.createElement('input', { ref: 'input',

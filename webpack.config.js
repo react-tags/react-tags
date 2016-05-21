@@ -1,10 +1,15 @@
 var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
     entry: "./lib/reactTags.js",
     module: {
         loaders: [
-            { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ }
+            {
+                test: /\.js$/,
+                loader: 'babel',
+                include: path.join(__dirname, 'lib')
+            }
         ]
     },
     externals: {

@@ -1,6 +1,10 @@
+"use strict";
+
 var React = require('react');
 
 var Suggestions = React.createClass({
+    displayName: "Suggestions",
+
     propTypes: {
         query: React.PropTypes.string.isRequired,
         selectedIndex: React.PropTypes.number.isRequired,
@@ -11,19 +15,19 @@ var Suggestions = React.createClass({
         shouldRenderSuggestions: React.PropTypes.func,
         classNames: React.PropTypes.object
     },
-    markIt: function (input, query) {
+    markIt: function markIt(input, query) {
         var escapedRegex = query.trim().replace(/[-\\^$*+?.()|[\]{}]/g, "\\$&");
         var r = RegExp(escapedRegex, "gi");
         return {
             __html: input.replace(r, "<mark>$&</mark>")
         };
     },
-    shouldRenderSuggestions: function (query) {
+    shouldRenderSuggestions: function shouldRenderSuggestions(query) {
         var props = this.props;
         var minQueryLength = props.minQueryLength || 2;
         return props.query.length < minQueryLength;
     },
-    render: function () {
+    render: function render() {
         var props = this.props;
         var suggestions = this.props.suggestions.map(function (item, i) {
             return React.createElement(
