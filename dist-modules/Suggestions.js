@@ -25,7 +25,7 @@ var Suggestions = React.createClass({
     shouldRenderSuggestions: function shouldRenderSuggestions(query) {
         var props = this.props;
         var minQueryLength = props.minQueryLength || 2;
-        return props.query.length < minQueryLength;
+        return props.query.length >= minQueryLength;
     },
     render: function render() {
         var props = this.props;
