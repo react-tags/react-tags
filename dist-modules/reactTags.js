@@ -10,7 +10,7 @@ var _require = require('react-dnd');
 var DragDropContext = _require.DragDropContext;
 
 var HTML5Backend = require('react-dnd-html5-backend');
-var merge = require('lodash/object/merge');
+var merge = require('lodash/fp/merge');
 
 // Constants
 var Keys = {

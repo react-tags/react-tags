@@ -7,7 +7,7 @@ var _require = require('react-dnd');
 var DragSource = _require.DragSource;
 var DropTarget = _require.DropTarget;
 
-var flow = require('lodash/function/flow');
+var flow = require('lodash/fp/flow');
 
 var ItemTypes = { TAG: 'tag' };
 

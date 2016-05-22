@@ -19,9 +19,6 @@ div.ReactTags__tagInput input:focus {
 }
 
 /* Styles for selected tags */
-div.ReactTags__selected {
-    float: left;
-}
 div.ReactTags__selected span.ReactTags__tag {
     border: 1px solid #ddd;
     background: #eee;
