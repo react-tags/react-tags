@@ -183,12 +183,7 @@ var ReactTags = React.createClass({
 
         e.preventDefault();
         var string = e.clipboardData.getData('Text');
-        var commas = string.split(',');
-        var spaces = string.split(' ');
-
-        if (commas.length > spaces.length) commas.forEach(function (buzzword) {
-            return _this.props.handleAddition(buzzword);
-        });else spaces.forEach(function (buzzword) {
+        string.split(/[ ,]+/).forEach(function (buzzword) {
             return _this.props.handleAddition(buzzword);
         });
     },
