@@ -69,8 +69,9 @@ var ReactTags = React.createClass({
         };
     },
     componentWillMount: function componentWillMount() {
+        console.log(this.props.classNames);
         this.setState({
-            classNames: merge({}, DefaultClassNames, this.props.classNames)
+            classNames: merge(DefaultClassNames, this.props.classNames)
         });
     },
     componentDidMount: function componentDidMount() {
@@ -95,7 +96,7 @@ var ReactTags = React.createClass({
         var suggestions = this.filteredSuggestions(this.state.query, props.suggestions);
         this.setState({
             suggestions: suggestions,
-            classNames: merge({}, DefaultClassNames, props.classNames)
+            classNames: merge(DefaultClassNames, props.classNames)
         });
     },
 
