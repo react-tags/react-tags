@@ -69,7 +69,6 @@ var ReactTags = React.createClass({
         };
     },
     componentWillMount: function componentWillMount() {
-        console.log(this.props.classNames);
         this.setState({
             classNames: merge(DefaultClassNames, this.props.classNames)
         });
