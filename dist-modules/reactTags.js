@@ -127,6 +127,7 @@ var ReactTags = React.createClass({
 
         if (e.keyCode === Keys.ESCAPE) {
             e.preventDefault();
+            e.stopPropagation();
             this.setState({
                 selectedIndex: -1,
                 selectionMode: false,

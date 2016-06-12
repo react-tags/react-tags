@@ -84,7 +84,7 @@ var Tag = React.createClass({
                 return React.createElement(
                     'a',
                     this.props,
-                    'x'
+                    '✕'
                 );
             }
         });
