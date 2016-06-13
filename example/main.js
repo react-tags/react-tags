@@ -66,7 +66,6 @@ var App = React.createClass({
                     handleAddition={this.handleAddition}
                     handleDrag={this.handleDrag}
                     minQueryLength={2} />
-                <hr />
                 <pre>
                     <code>{JSON.stringify(tags, null, 2)}</code>
                 </pre>

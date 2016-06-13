@@ -1,8 +1,11 @@
-### React-Tags
+React-Tags
+===
 
-[![NPM](https://nodei.co/npm/react-tag-input.png?downloads=true)](https://www.npmjs.com/package/react-tag-input)
+[![MIT](https://img.shields.io/npm/l/react-tag-input.svg?style=flat-square)](https://github.com/prakhar1989/react-tags/blob/master/LICENSE)
+[![NPM Version](https://img.shields.io/npm/v/react-tag-input.svg?style=flat-square)](https://www.npmjs.com/package/react-tag-input)
+[![npm downloads](https://img.shields.io/npm/dm/react-tag-input.svg?style=flat-square)](https://www.npmjs.com/package/react-tag-input)
 
-React tags is a simple tagging component ready to drop in your React projects. The component is inspired by GMail's *To* field in the compose window.
+React-tags is a simple tagging component ready to drop in your React projects. The component is inspired by GMail's *To* field in the compose window.
 
 ### Features
 - Autocomplete based on a suggestion list
@@ -85,7 +88,7 @@ React.render(<App />, document.getElementById('app'));
 One of the dependancies of this component is the [react-dnd](https://github.com/gaearon/react-dnd) library. Since the 1.0 version, the original author has changed the API and requires the application using any draggable components to have a top-level [backend](http://gaearon.github.io/react-dnd/docs-html5-backend.html) context. So if you're using this component in an existing Application that uses React-DND you will already have a backend defined, in which case, you should `require` the component *without* the context.
 
 ```javascript
-var { ReactTags } = require('react-tag-input').WithOutContext;
+var ReactTags = require('react-tag-input').WithOutContext;
 ```
 Otherwise, you can simply import along with the backend itself (as shown above). If you have ideas to make this API better, I'd [love to hear](https://github.com/prakhar1989/react-tags/issues/new).
 
@@ -94,7 +97,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 
 - [`tags`](#tagsOption)
 - [`suggestions`](#suggestionsOption)
-- [`delimeters`](#delimeters)
+- [`delimiters`](#delimiters)
 - [`placeholder`](#placeholderOption)
 - [`labelField`](#labelFieldOption)
 - [`handleAddition`](#handleAdditionOption)
@@ -124,8 +127,8 @@ An array of suggestions that are used as basis for showing suggestions. At the m
 var suggestions = ["mango", "pineapple", "orange", "pear"];
 ```
 
-<a name="delimeters"></a>
-##### delimeters (optional)
+<a name="delimiters"></a>
+##### delimiters (optional)
 Specifies which characters should terminate tags input (default: enter and tab). A list of character codes.
 
 
@@ -242,7 +245,7 @@ The "ReactTags__remove" className and `onClick` handler properties can be automa
 
 <a name="autocomplete"></a>
 ##### autocomplete (optional)
-Useful for enhancing data entry workflows for your users by ensuring the first matching suggestion is automatically converted to a tag when a [delimeter](#delimeters) key is pressed (such as the enter key). This option has three possible values:
+Useful for enhancing data entry workflows for your users by ensuring the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed (such as the enter key). This option has three possible values:
 
 - `true` - when delimeter key (such as enter) is pressed, first matching suggestion is used.
 - `1` - when delimeter key (such as enter) is pressed, matching suggestion is used only if there is a single matching suggestion
@@ -255,7 +258,7 @@ This option has no effect if there are no [`suggestions`](#suggestionsOption).
 Renders the component in read-only mode without the input box and `removeComponent`. This also disables the drag-n-drop feature.
 
 ### Styling
-`<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style - 
+`<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
 
 - `ReactTags__tags`
 - `ReactTags__tagInput`
@@ -292,7 +295,9 @@ python -m SimpleHTTPServer ### open in browser
 ```
 
 ### Contributing
-Got ideas on how to make this better? Open an issue! I'm yet to add tests so keep your PRs on hold :grinning:
+Got ideas on how to make this better? Open an issue!
 
 ### Thanks
 The autocomplete dropdown is inspired by Lea Verou's [awesomeplete](https://github.com/LeaVerou/awesomplete) library. The Drag and drop functionality is provided by Dan Abramov's insanely useful [ReactDND](https://github.com/gaearon/react-dnd) library.
+
+Also thanks to the awesome contributors who've made the library far better!
