@@ -4,7 +4,7 @@
   "description": "React tags is a fantastically simple tagging component for your React projects",
   "main": "dist-modules/reactTags.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test/.setup.js test/**/*-test.js",
     "dev": "webpack-dev-server --progress --colors --port 8090",
     "build": "webpack -p && babel lib --out-dir dist-modules"
   },
@@ -34,6 +34,7 @@
     "babel-preset-es2015": "^6.0.15",
     "babel-preset-react": "^6.0.15",
     "babel-preset-stage-0": "^6.0.15",
+    "babel-register": "^6.9.0",
     "chai": "^3.5.0",
     "enzyme": "^2.3.0",
     "mocha": "^2.5.3",
