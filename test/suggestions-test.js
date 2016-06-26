@@ -2,8 +2,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount, render } from 'enzyme';
 import Suggestions from '../lib/Suggestions';
-
-const noop = (e) => {};
+import noop from 'lodash/noop';
 
 function mockItem(overrides) {
   const defaults = {

@@ -72,6 +72,6 @@ describe("Renders a Tag properly", () => {
     const root = TestUtils.renderIntoDocument(mockItem());
     const backend = root.getManager().getBackend();
     const tag = TestUtils.findRenderedComponentWithType(root, Tag);
-    //backend.simulateBeginDrag([tag.getHandlerId()]);
+    backend.simulateBeginDrag([tag.getDecoratedComponentInstance().getHandlerId()]);
   });
 });

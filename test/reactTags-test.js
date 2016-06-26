@@ -1,9 +1,8 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount, render } from 'enzyme';
+import noop from 'lodash/noop';
 import { WithContext as ReactTags } from '../lib/ReactTags';
-
-const noop = (e) => {};
 
 function mockItem(overrides) {
   const defaults = {
