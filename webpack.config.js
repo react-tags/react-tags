@@ -13,9 +13,9 @@ module.exports = {
         ]
     },
     externals: {
-        'react': 'React',
-        'react-dom': 'ReactDOM',
-        'react-dnd': 'ReactDnD'
+      'react': 'React',
+      'react-dom': 'ReactDOM',
+      'react-dnd': 'ReactDnD'
     },
     output: {
         filename: "dist/ReactTags.min.js",

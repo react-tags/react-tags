@@ -3,13 +3,15 @@ import { expect } from 'chai';
 import { shallow, mount, render } from 'enzyme';
 import Suggestions from '../lib/Suggestions';
 
+const noop = (e) => {};
+
 function mockItem(overrides) {
   const defaults = {
     query: "ang",
     suggestions: ["Banana", "Mango", "Pear", "Apricot"],
     selectedIndex: 1,
-    handleClick: (e) => null,
-    handleHover: (e) => null,
+    handleClick: noop,
+    handleHover: noop,
     classNames: { suggestions: "foo" }
   };
   const props = Object.assign({}, defaults, overrides);
@@ -20,12 +22,12 @@ describe("Renders suggestions properly", function() {
   it("shows the classname properly", function() {
     const $el = shallow(mockItem());
     expect($el.find('.foo').length).to.equal(1);
-  })
+  });
 
   it("renders all suggestions properly", function() {
     const $el = shallow(mockItem());
     expect($el.find('li').length).to.equal(4);
-  })
+  });
 
   it("selects the correct suggestion", function() {
     const $el = mount(mockItem());
@@ -55,5 +57,5 @@ describe("Renders suggestions properly", function() {
   it("should mark highlighted suggestions correctly", function() {
     const $el = shallow(mockItem());
     expect($el.find("li.active").find("span").html()).to.equal("<span>M<mark>ang</mark>o</span>");
-  })
+  });
 });
