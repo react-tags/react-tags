@@ -5,6 +5,7 @@
   "main": "dist-modules/reactTags.js",
   "scripts": {
     "test": "mocha test/.setup.js test/**/*-test.js",
+    "test-watch": "mocha --watch test/.setup.js test/**/*-test.js",
     "dev": "webpack-dev-server --progress --colors --port 8090",
     "build": "webpack -p && babel lib --out-dir dist-modules"
   },
@@ -40,6 +41,7 @@
     "mocha": "^2.5.3",
     "react-addons-test-utils": "^15.1.0",
     "react-dnd-test-backend": "^1.0.2",
+    "sinon": "^1.17.4",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   }

@@ -3,9 +3,10 @@ import { expect } from 'chai';
 import { DragDropContext } from 'react-dnd';
 import TestBackend from 'react-dnd-test-backend';
 import { shallow, mount, render } from 'enzyme';
+import sinon from 'sinon';
+import TestUtils from 'react-addons-test-utils';
+import noop from 'lodash/noop';
 import Tag from '../lib/tag';
-
-const noop = (e) => {};
 
 function wrapInTestContext(DecoratedComponent) {
   return DragDropContext(TestBackend)(
@@ -20,10 +21,9 @@ function wrapInTestContext(DecoratedComponent) {
 function mockItem(overrides) {
   const props = Object.assign({}, {
     tag: {id: 1, text: "FooBar"},
-    labelField: "label",
     onDelete: noop,
-    moveTag: noop,
     readOnly: false,
+    moveTag: (i, j) => {},
     classNames: {
       tag: "tag",
       remove: "remove"
@@ -33,10 +33,45 @@ function mockItem(overrides) {
   return <TagContext {...props} />;
 }
 
-describe("Renders a Tag properly", function() {
-  it("shows the classnames of children properly", function() {
+describe("Renders a Tag properly", () => {
+  it("shows the classnames of children properly", () => {
+    const $el = mount(mockItem());
+    expect($el.find('.tag').length).to.equal(1);
+    expect($el.text()).to.have.string("FooBar");
+  });
+
+  it("should show cross for removing tag when read-only is false", () => {
     const $el = mount(mockItem());
     expect($el.find('.remove').length).to.equal(1);
-    expect($el.find('.tag').length).to.equal(1);
+  });
+
+  it("should not show cross for removing tag when read-only is true", () => {
+    const $el = mount(mockItem({readOnly: true}));
+    expect($el.find('.remove').length).to.equal(0);
+  });
+
+  it("renders passed in removed component correctly", () => {
+    const removeComponent = React.createClass({
+      render: function() {
+        return <a className="remove">delete me</a>
+      }
+    });
+    const $el = mount(mockItem({ removeComponent: removeComponent }));
+    expect($el.find('.remove').length).to.equal(1);
+    expect($el.text()).to.have.string("delete me");
+  });
+
+  it("calls the delete handler correctly", () => {
+    const spy = sinon.spy();
+    const $el = mount(mockItem({ onDelete: spy }));
+    $el.find('.remove').simulate('click');
+    expect(spy.calledOnce).to.be.true;
+  });
+
+  it("should not be draggable if no moveTag is provided", () => {
+    const root = TestUtils.renderIntoDocument(mockItem());
+    const backend = root.getManager().getBackend();
+    const tag = TestUtils.findRenderedComponentWithType(root, Tag);
+    //backend.simulateBeginDrag([tag.getHandlerId()]);
   });
 });
