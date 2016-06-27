@@ -99,7 +99,6 @@ var ReactTags = React.createClass({
         });
     },
 
-
     handleDelete: function handleDelete(i, e) {
         this.props.handleDelete(i);
         this.setState({ query: "" });
@@ -183,6 +182,16 @@ var ReactTags = React.createClass({
             });
         }
     },
+    handlePaste: function handlePaste(e) {
+        var _this = this;
+
+        e.preventDefault();
+        var clipboardData = e.clipboardData || window.clipboardData;
+        var string = clipboardData.getData('text');
+        string.split(/[ ,]+/).forEach(function (tag) {
+            return _this.props.handleAddition(tag);
+        });
+    },
     addTag: function addTag(tag) {
         var input = this.refs.input;
 
@@ -262,7 +271,8 @@ var ReactTags = React.createClass({
                 placeholder: placeholder,
                 'aria-label': placeholder,
                 onChange: this.handleChange,
-                onKeyDown: this.handleKeyDown }),
+                onKeyDown: this.handleKeyDown,
+                onPaste: this.handlePaste }),
             React.createElement(Suggestions, { query: query,
                 suggestions: suggestions,
                 selectedIndex: selectedIndex,

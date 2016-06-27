@@ -17,7 +17,7 @@ function mockItem(overrides) {
   return <Suggestions {...props} />
 }
 
-describe("Renders suggestions properly", function() {
+describe("Suggestions", function() {
   it("shows the classname properly", function() {
     const $el = shallow(mockItem());
     expect($el.find('.foo').length).to.equal(1);

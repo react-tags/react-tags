@@ -23,7 +23,7 @@ function mockItem(overrides) {
     tag: {id: 1, text: "FooBar"},
     onDelete: noop,
     readOnly: false,
-    moveTag: (i, j) => {},
+    moveTag: noop,
     classNames: {
       tag: "tag",
       remove: "remove"
@@ -33,7 +33,7 @@ function mockItem(overrides) {
   return <TagContext {...props} />;
 }
 
-describe("Renders a Tag properly", () => {
+describe("Tag", () => {
   it("shows the classnames of children properly", () => {
     const $el = mount(mockItem());
     expect($el.find('.tag').length).to.equal(1);
@@ -68,10 +68,24 @@ describe("Renders a Tag properly", () => {
     expect(spy.calledOnce).to.be.true;
   });
 
-  it("should not be draggable if no moveTag is provided", () => {
+  it("should be draggable", () => {
     const root = TestUtils.renderIntoDocument(mockItem());
     const backend = root.getManager().getBackend();
     const tag = TestUtils.findRenderedComponentWithType(root, Tag);
     backend.simulateBeginDrag([tag.getDecoratedComponentInstance().getHandlerId()]);
+    expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.true;
+    const el = TestUtils.findRenderedDOMComponentWithTag(root, "span");
+    expect(el.style.opacity).to.equal('0');
+    backend.simulateEndDrag();
+    expect(el.style.opacity).to.equal('1');
+    expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.false;
+  });
+
+  it("should not be draggable if readOnly is true", () => {
+    const root = TestUtils.renderIntoDocument(mockItem({ readOnly: true }));
+    const backend = root.getManager().getBackend();
+    const tag = TestUtils.findRenderedComponentWithType(root, Tag);
+    backend.simulateBeginDrag([tag.getDecoratedComponentInstance().getHandlerId()]);
+    expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.false;
   });
 });
