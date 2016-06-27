@@ -40,7 +40,9 @@ var Suggestions = React.createClass({
             );
         }.bind(this));
 
-        if (suggestions.length === 0 || this.props.shouldRenderSuggestions != null && !this.props.shouldRenderSuggestions(props.query) || this.props.shouldRenderSuggestions == null && !this.shouldRenderSuggestions(props.query)) {
+        // use the override, if provided
+        var shouldRenderSuggestions = props.shouldRenderSuggestions || this.shouldRenderSuggestions;
+        if (suggestions.length === 0 || !shouldRenderSuggestions(props.query)) {
             return null;
         }
 

@@ -16,7 +16,7 @@ var tagSource = {
         return { id: props.tag.id };
     },
     canDrag: function canDrag(props) {
-        return !props.readOnly;
+        return props.moveTag && !props.readOnly;
     }
 };
 
@@ -32,7 +32,7 @@ var tagTarget = {
     }
 };
 
-function dragCollect(connect, monitor) {
+function dragSource(connect, monitor) {
     return {
         connectDragSource: connect.dragSource(),
         isDragging: monitor.isDragging()
@@ -54,11 +54,16 @@ var Tag = React.createClass({
         tag: React.PropTypes.object.isRequired,
         moveTag: React.PropTypes.func,
         removeComponent: React.PropTypes.func,
-        classNames: React.PropTypes.object
+        classNames: React.PropTypes.object,
+        readOnly: React.PropTypes.bool,
+        connectDragSource: React.PropTypes.func.isRequired,
+        isDragging: React.PropTypes.bool.isRequired,
+        connectDropTarget: React.PropTypes.func.isRequired
     },
     getDefaultProps: function getDefaultProps() {
         return {
-            labelField: 'text'
+            labelField: 'text',
+            readOnly: false
         };
     },
     render: function render() {
@@ -96,12 +101,8 @@ var Tag = React.createClass({
             React.createElement(RemoveComponent, { className: this.props.classNames.remove,
                 onClick: this.props.onDelete })
         );
-        if (this.props.moveTag) {
-            return connectDragSource(connectDropTarget(tagComponent));
-        } else {
-            return tagComponent;
-        }
+        return connectDragSource(connectDropTarget(tagComponent));
     }
 });
 
-module.exports = flow(DragSource(ItemTypes.TAG, tagSource, dragCollect), DropTarget(ItemTypes.TAG, tagTarget, dropCollect))(Tag);
+module.exports = flow(DragSource(ItemTypes.TAG, tagSource, dragSource), DropTarget(ItemTypes.TAG, tagTarget, dropCollect))(Tag);
