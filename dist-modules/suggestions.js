@@ -1,63 +1,92 @@
 "use strict";
 
-var React = require('react');
-
-var Suggestions = React.createClass({
-    displayName: "Suggestions",
-
-    propTypes: {
-        query: React.PropTypes.string.isRequired,
-        selectedIndex: React.PropTypes.number.isRequired,
-        suggestions: React.PropTypes.array.isRequired,
-        handleClick: React.PropTypes.func.isRequired,
-        handleHover: React.PropTypes.func.isRequired,
-        minQueryLength: React.PropTypes.number,
-        shouldRenderSuggestions: React.PropTypes.func,
-        classNames: React.PropTypes.object
-    },
-    markIt: function markIt(input, query) {
-        var escapedRegex = query.trim().replace(/[-\\^$*+?.()|[\]{}]/g, "\\$&");
-        var r = RegExp(escapedRegex, "gi");
-        return {
-            __html: input.replace(r, "<mark>$&</mark>")
-        };
-    },
-    shouldRenderSuggestions: function shouldRenderSuggestions(query) {
-        var props = this.props;
-        var minQueryLength = props.minQueryLength || 2;
-        return props.query.length >= minQueryLength;
-    },
-    render: function render() {
-        var props = this.props;
-        var suggestions = this.props.suggestions.map(function (item, i) {
-            return React.createElement(
-                "li",
-                { key: i,
-                    onClick: props.handleClick.bind(null, i),
-                    onMouseOver: props.handleHover.bind(null, i),
-                    className: i == props.selectedIndex ? "active" : "" },
-                React.createElement("span", { dangerouslySetInnerHTML: this.markIt(item, props.query) })
-            );
-        }.bind(this));
-
-        // use the override, if provided
-        var shouldRenderSuggestions = props.shouldRenderSuggestions || this.shouldRenderSuggestions;
-        if (suggestions.length === 0 || !shouldRenderSuggestions(props.query)) {
-            return null;
-        }
-
-        return React.createElement(
-            "div",
-            { className: this.props.classNames.suggestions },
-            React.createElement(
-                "ul",
-                null,
-                " ",
-                suggestions,
-                " "
-            )
-        );
-    }
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 
-module.exports = Suggestions;
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Suggestions = function (_Component) {
+  _inherits(Suggestions, _Component);
+
+  function Suggestions() {
+    var _Object$getPrototypeO;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, Suggestions);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Suggestions)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.markIt = function (input, query) {
+      var escapedRegex = query.trim().replace(/[-\\^$*+?.()|[\]{}]/g, "\\$&");
+      return {
+        __html: input.replace(RegExp(escapedRegex, "gi"), "<mark>$&</mark>")
+      };
+    }, _this.shouldRenderSuggestions = function (query) {
+      var _this2 = _this;
+      var props = _this2.props;
+
+      var minQueryLength = props.minQueryLength || 2;
+      return props.query.length >= minQueryLength;
+    }, _this.render = function () {
+      var _this3 = _this;
+      var props = _this3.props;
+
+      var suggestions = props.suggestions.map(function (item, i) {
+        return _react2.default.createElement(
+          "li",
+          { key: i,
+            onClick: props.handleClick.bind(null, i),
+            onMouseOver: props.handleHover.bind(null, i),
+            className: i == props.selectedIndex ? "active" : "" },
+          _react2.default.createElement("span", { dangerouslySetInnerHTML: this.markIt(item, props.query) })
+        );
+      }.bind(_this));
+
+      // use the override, if provided
+      var shouldRenderSuggestions = props.shouldRenderSuggestions || _this.shouldRenderSuggestions;
+      if (suggestions.length === 0 || !shouldRenderSuggestions(props.query)) {
+        return null;
+      }
+
+      return _react2.default.createElement(
+        "div",
+        { className: _this.props.classNames.suggestions },
+        _react2.default.createElement(
+          "ul",
+          null,
+          " ",
+          suggestions,
+          " "
+        )
+      );
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  return Suggestions;
+}(_react.Component);
+
+Suggestions.propTypes = {
+  query: _react2.default.PropTypes.string.isRequired,
+  selectedIndex: _react2.default.PropTypes.number.isRequired,
+  suggestions: _react2.default.PropTypes.array.isRequired,
+  handleClick: _react2.default.PropTypes.func.isRequired,
+  handleHover: _react2.default.PropTypes.func.isRequired,
+  minQueryLength: _react2.default.PropTypes.number,
+  shouldRenderSuggestions: _react2.default.PropTypes.func,
+  classNames: _react2.default.PropTypes.object
+};
+exports.default = Suggestions;
