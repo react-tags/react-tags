@@ -34,9 +34,9 @@ It is, however, also available to be used separately (`dist/ReactTags.min.js`). 
 Here's a sample implementation that initializes the component with a list of initial `tags` and `suggestions` list. Apart from this, there are multiple events, handlers for which need to be set. For more details, go through the [API](#Options).
 
 ```javascript
-var ReactTags = require('react-tag-input').WithContext;
+const ReactTags = require('react-tag-input').WithContext;
 
-var App = React.createClass({
+let App = React.createClass({
     getInitialState: function() {
         return {
             tags: [ {id: 1, text: "Apples"} ],
@@ -44,12 +44,12 @@ var App = React.createClass({
         }
     },
     handleDelete: function(i) {
-        var tags = this.state.tags;
+        let tags = this.state.tags;
         tags.splice(i, 1);
         this.setState({tags: tags});
     },
     handleAddition: function(tag) {
-        var tags = this.state.tags;
+        let tags = this.state.tags;
         tags.push({
             id: tags.length + 1,
             text: tag
@@ -57,7 +57,7 @@ var App = React.createClass({
         this.setState({tags: tags});
     },
     handleDrag: function(tag, currPos, newPos) {
-        var tags = this.state.tags;
+        let tags = this.state.tags;
 
         // mutate array
         tags.splice(currPos, 1);
@@ -67,8 +67,8 @@ var App = React.createClass({
         this.setState({ tags: tags });
     },
     render: function() {
-        var tags = this.state.tags;
-        var suggestions = this.state.suggestions;
+        let tags = this.state.tags;
+        let suggestions = this.state.suggestions;
         return (
             <div>
                 <ReactTags tags={tags}
@@ -88,7 +88,7 @@ React.render(<App />, document.getElementById('app'));
 One of the dependancies of this component is the [react-dnd](https://github.com/gaearon/react-dnd) library. Since the 1.0 version, the original author has changed the API and requires the application using any draggable components to have a top-level [backend](http://gaearon.github.io/react-dnd/docs-html5-backend.html) context. So if you're using this component in an existing Application that uses React-DND you will already have a backend defined, in which case, you should `require` the component *without* the context.
 
 ```javascript
-var ReactTags = require('react-tag-input').WithOutContext;
+const ReactTags = require('react-tag-input').WithOutContext;
 ```
 Otherwise, you can simply import along with the backend itself (as shown above). If you have ideas to make this API better, I'd [love to hear](https://github.com/prakhar1989/react-tags/issues/new).
 
@@ -116,7 +116,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 An array of tags that are displayed as pre-selected. Each tag should have an `id` and a `text` property which is used to display.
 
 ```js
-var tags =  [ {id: 1, text: "Apples"} ]
+let tags =  [ {id: 1, text: "Apples"} ]
 ```
 
 <a name="suggestionsOption"></a>
@@ -124,7 +124,7 @@ var tags =  [ {id: 1, text: "Apples"} ]
 An array of suggestions that are used as basis for showing suggestions. At the moment, this should be an array of strings.
 
 ```js
-var suggestions = ["mango", "pineapple", "orange", "pear"];
+let suggestions = ["mango", "pineapple", "orange", "pear"];
 ```
 
 <a name="delimiters"></a>
@@ -137,7 +137,7 @@ Specifies which characters should terminate tags input (default: enter and tab).
 The placeholder shown for the input. Defaults to `Add new tag`.
 
 ```
-var placeholder = "Add new country"
+let placeholder = "Add new country"
 ```
 
 <a name="labelFieldOption"></a>
