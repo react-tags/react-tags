@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha test/.setup.js test/**/*-test.js",
     "test-watch": "mocha --watch test/.setup.js test/**/*-test.js",
-    "dev": "webpack-dev-server --progress --colors --port 8090",
+    "dev": "webpack-dev-server --hot --progress --colors --watch --display-error-details --content-base ./",
     "build": "webpack -p && babel lib --out-dir dist-modules"
   },
   "keywords": [

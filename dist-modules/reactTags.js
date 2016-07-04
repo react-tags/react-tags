@@ -1,5 +1,23 @@
 'use strict';
 
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactDnd = require('react-dnd');
+
+var _reactDndHtml5Backend = require('react-dnd-html5-backend');
+
+var _reactDndHtml5Backend2 = _interopRequireDefault(_reactDndHtml5Backend);
+
+var _merge = require('lodash/fp/merge');
+
+var _merge2 = _interopRequireDefault(_merge);
+
 var _Suggestions = require('./Suggestions');
 
 var _Suggestions2 = _interopRequireDefault(_Suggestions);
@@ -9,16 +27,6 @@ var _Tag = require('./Tag');
 var _Tag2 = _interopRequireDefault(_Tag);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var React = require('react');
-var ReactDOM = require('react-dom');
-
-var _require = require('react-dnd');
-
-var DragDropContext = _require.DragDropContext;
-
-var HTML5Backend = require('react-dnd-html5-backend');
-var merge = require('lodash/fp/merge');
 
 // Constants
 var Keys = {
@@ -39,28 +47,28 @@ var DefaultClassNames = {
   suggestions: 'ReactTags__suggestions'
 };
 
-var ReactTags = React.createClass({
+var ReactTags = _react2.default.createClass({
   displayName: 'ReactTags',
 
   propTypes: {
-    tags: React.PropTypes.array,
-    placeholder: React.PropTypes.string,
-    labelField: React.PropTypes.string,
-    suggestions: React.PropTypes.array,
-    delimiters: React.PropTypes.array,
-    autofocus: React.PropTypes.bool,
-    inline: React.PropTypes.bool,
-    handleDelete: React.PropTypes.func.isRequired,
-    handleAddition: React.PropTypes.func.isRequired,
-    handleDrag: React.PropTypes.func,
-    allowDeleteFromEmptyInput: React.PropTypes.bool,
-    handleInputChange: React.PropTypes.func,
-    minQueryLength: React.PropTypes.number,
-    shouldRenderSuggestions: React.PropTypes.func,
-    removeComponent: React.PropTypes.func,
-    autocomplete: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.number]),
-    readOnly: React.PropTypes.bool,
-    classNames: React.PropTypes.object
+    tags: _react2.default.PropTypes.array,
+    placeholder: _react2.default.PropTypes.string,
+    labelField: _react2.default.PropTypes.string,
+    suggestions: _react2.default.PropTypes.array,
+    delimiters: _react2.default.PropTypes.array,
+    autofocus: _react2.default.PropTypes.bool,
+    inline: _react2.default.PropTypes.bool,
+    handleDelete: _react2.default.PropTypes.func.isRequired,
+    handleAddition: _react2.default.PropTypes.func.isRequired,
+    handleDrag: _react2.default.PropTypes.func,
+    allowDeleteFromEmptyInput: _react2.default.PropTypes.bool,
+    handleInputChange: _react2.default.PropTypes.func,
+    minQueryLength: _react2.default.PropTypes.number,
+    shouldRenderSuggestions: _react2.default.PropTypes.func,
+    removeComponent: _react2.default.PropTypes.func,
+    autocomplete: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.bool, _react2.default.PropTypes.number]),
+    readOnly: _react2.default.PropTypes.bool,
+    classNames: _react2.default.PropTypes.object
   },
   getDefaultProps: function getDefaultProps() {
     return {
@@ -78,7 +86,7 @@ var ReactTags = React.createClass({
   },
   componentWillMount: function componentWillMount() {
     this.setState({
-      classNames: merge(DefaultClassNames, this.props.classNames)
+      classNames: (0, _merge2.default)(DefaultClassNames, this.props.classNames)
     });
   },
   componentDidMount: function componentDidMount() {
@@ -103,7 +111,7 @@ var ReactTags = React.createClass({
     var suggestions = this.filteredSuggestions(this.state.query, props.suggestions);
     this.setState({
       suggestions: suggestions,
-      classNames: merge(DefaultClassNames, props.classNames)
+      classNames: (0, _merge2.default)(DefaultClassNames, props.classNames)
     });
   },
 
@@ -255,7 +263,7 @@ var ReactTags = React.createClass({
   render: function render() {
     var moveTag = this.props.handleDrag ? this.moveTag : null;
     var tagItems = this.props.tags.map(function (tag, i) {
-      return React.createElement(_Tag2.default, { key: i,
+      return _react2.default.createElement(_Tag2.default, { key: i,
         tag: tag,
         labelField: this.props.labelField,
         onDelete: this.handleDelete.bind(this, i),
@@ -271,17 +279,17 @@ var ReactTags = React.createClass({
         suggestions = this.state.suggestions,
         placeholder = this.props.placeholder;
 
-    var tagInput = !this.props.readOnly ? React.createElement(
+    var tagInput = !this.props.readOnly ? _react2.default.createElement(
       'div',
       { className: this.state.classNames.tagInput },
-      React.createElement('input', { ref: 'input',
+      _react2.default.createElement('input', { ref: 'input',
         type: 'text',
         placeholder: placeholder,
         'aria-label': placeholder,
         onChange: this.handleChange,
         onKeyDown: this.handleKeyDown,
         onPaste: this.handlePaste }),
-      React.createElement(_Suggestions2.default, { query: query,
+      _react2.default.createElement(_Suggestions2.default, { query: query,
         suggestions: suggestions,
         selectedIndex: selectedIndex,
         handleClick: this.handleSuggestionClick,
@@ -291,10 +299,10 @@ var ReactTags = React.createClass({
         classNames: this.state.classNames })
     ) : null;
 
-    return React.createElement(
+    return _react2.default.createElement(
       'div',
       { className: this.state.classNames.tags },
-      React.createElement(
+      _react2.default.createElement(
         'div',
         { className: this.state.classNames.selected },
         tagItems,
@@ -306,7 +314,7 @@ var ReactTags = React.createClass({
 });
 
 module.exports = {
-  WithContext: DragDropContext(HTML5Backend)(ReactTags),
+  WithContext: (0, _reactDnd.DragDropContext)(_reactDndHtml5Backend2.default)(ReactTags),
   WithOutContext: ReactTags,
   Keys: Keys
 };

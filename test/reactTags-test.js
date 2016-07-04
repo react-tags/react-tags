@@ -6,7 +6,7 @@ import { WithContext as ReactTags } from '../lib/ReactTags';
 
 function mockItem(overrides) {
   const defaults = {
-    tags: [],
+    tags: [{ id: 1, text: "Apple" }],
     suggestions: ["Banana", "Apple", "Apricot", "Pear", "Peach"],
     handleAddition: noop,
     handleDelete: noop,
@@ -16,11 +16,16 @@ function mockItem(overrides) {
   return <ReactTags {...props} />
 }
 
-describe("Renders ReactTags properly", function() {
-  it("shows the classnames of children properly", function() {
+describe("ReactTags", () => {
+  it("shows the classnames of children properly", () => {
     const $el = mount(mockItem());
     expect($el.find('.ReactTags__tags').length).to.equal(1);
     expect($el.find('.ReactTags__selected').length).to.equal(1);
     expect($el.find('.ReactTags__tagInput').length).to.equal(1);
+  });
+
+  it("renders preselected tags properly", () => {
+    const $el = mount(mockItem());
+    expect($el.text()).to.have.string("Apple");
   });
 });

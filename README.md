@@ -291,7 +291,7 @@ The component is written in ES6 and uses [Webpack](http://webpack.github.io/) as
 ```
 npm install
 npm run dev
-python -m SimpleHTTPServer ### open in browser
+# open http://localhost:8090/example/index.html
 ```
 
 ### Contributing
