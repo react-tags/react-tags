@@ -106,6 +106,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`autofocus`](#autofocus)
 - [`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput)
 - [`handleInputChange`](#handleInputChange)
+- [`handleInputBlur`](#handleInputBlur)
 - [`minQueryLength`](#minQueryLength)
 - [`removeComponent`](#removeComponent)
 - [`autocomplete`](#autocomplete)
@@ -210,6 +211,16 @@ Optional event handler for input onChange
 ```js
 <ReactTags
     handleInputChange={this.handleInputChange}
+    ...>
+```
+
+<a name="handleInputBlur"></a>
+##### handleInputBlur (optional)
+Optional event handler for input onBlur
+
+```js
+<ReactTags
+    handleInputBlur={this.handleInputBlur}
     ...>
 ```
 
