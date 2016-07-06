@@ -49,6 +49,7 @@ describe("ReactTags", () => {
     $el.find('.ReactTags__tagInput input').simulate('blur');
     expect(handleInputBlur.callCount).to.equal(1);
     expect(handleInputBlur.calledWith('Example')).to.be.true;
+    expect($el.find('.ReactTags__tagInput input').get(0).value).to.be.empty;
 
   });
 });
