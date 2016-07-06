@@ -63,6 +63,7 @@ var ReactTags = _react2.default.createClass({
     handleDrag: _react2.default.PropTypes.func,
     allowDeleteFromEmptyInput: _react2.default.PropTypes.bool,
     handleInputChange: _react2.default.PropTypes.func,
+    handleInputBlur: _react2.default.PropTypes.func,
     minQueryLength: _react2.default.PropTypes.number,
     shouldRenderSuggestions: _react2.default.PropTypes.func,
     removeComponent: _react2.default.PropTypes.func,
@@ -131,6 +132,12 @@ var ReactTags = _react2.default.createClass({
       query: query,
       suggestions: suggestions
     });
+  },
+  handleBlur: function handleBlur(e) {
+    var value = e.target.value.trim();
+    if (this.props.handleInputBlur && value.length) {
+      this.props.handleInputBlur(value);
+    }
   },
   handleKeyDown: function handleKeyDown(e) {
     var _state = this.state;
@@ -286,6 +293,7 @@ var ReactTags = _react2.default.createClass({
         type: 'text',
         placeholder: placeholder,
         'aria-label': placeholder,
+        onBlur: this.handleBlur,
         onChange: this.handleChange,
         onKeyDown: this.handleKeyDown,
         onPaste: this.handlePaste }),
