@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
-  entry: "./lib/reactTags.js",
+  entry: "./lib/ReactTags.js",
   module: {
     loaders: [
       {
