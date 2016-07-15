@@ -1,5 +1,7 @@
 'use strict';
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -13,10 +15,6 @@ var _reactDnd = require('react-dnd');
 var _reactDndHtml5Backend = require('react-dnd-html5-backend');
 
 var _reactDndHtml5Backend2 = _interopRequireDefault(_reactDndHtml5Backend);
-
-var _merge = require('lodash/fp/merge');
-
-var _merge2 = _interopRequireDefault(_merge);
 
 var _Suggestions = require('./Suggestions');
 
@@ -87,7 +85,7 @@ var ReactTags = _react2.default.createClass({
   },
   componentWillMount: function componentWillMount() {
     this.setState({
-      classNames: (0, _merge2.default)(DefaultClassNames, this.props.classNames)
+      classNames: _extends({}, DefaultClassNames, this.props.classNames)
     });
   },
   componentDidMount: function componentDidMount() {
@@ -112,7 +110,7 @@ var ReactTags = _react2.default.createClass({
     var suggestions = this.filteredSuggestions(this.state.query, props.suggestions);
     this.setState({
       suggestions: suggestions,
-      classNames: (0, _merge2.default)(DefaultClassNames, props.classNames)
+      classNames: _extends({}, DefaultClassNames, props.classNames)
     });
   },
 
