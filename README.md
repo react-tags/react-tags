@@ -33,10 +33,14 @@ It is, however, also available to be used separately (`dist/ReactTags.min.js`). 
 
 Here's a sample implementation that initializes the component with a list of initial `tags` and `suggestions` list. Apart from this, there are multiple events, handlers for which need to be set. For more details, go through the [API](#Options).
 
-```javascript
-const ReactTags = require('react-tag-input').WithContext;
+You can also play with live code on [WebpackBin](http://www.webpackbin.com/41DVgMvv-).
 
-let App = React.createClass({
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { WithContext as ReactTags } from 'react-tag-input';
+
+const App = React.createClass({
     getInitialState: function() {
         return {
             tags: [ {id: 1, text: "Apples"} ],
@@ -81,7 +85,7 @@ let App = React.createClass({
     }
 });
 
-React.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));
 ```
 
 **A note about `Contexts`**
