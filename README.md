@@ -41,18 +41,18 @@ import ReactDOM from 'react-dom';
 import { WithContext as ReactTags } from 'react-tag-input';
 
 const App = React.createClass({
-    getInitialState: function() {
+    getInitialState() {
         return {
             tags: [ {id: 1, text: "Apples"} ],
             suggestions: ["Banana", "Mango", "Pear", "Apricot"]
         }
     },
-    handleDelete: function(i) {
+    handleDelete(i) {
         let tags = this.state.tags;
         tags.splice(i, 1);
         this.setState({tags: tags});
     },
-    handleAddition: function(tag) {
+    handleAddition(tag) {
         let tags = this.state.tags;
         tags.push({
             id: tags.length + 1,
@@ -60,7 +60,7 @@ const App = React.createClass({
         });
         this.setState({tags: tags});
     },
-    handleDrag: function(tag, currPos, newPos) {
+    handleDrag(tag, currPos, newPos) {
         let tags = this.state.tags;
 
         // mutate array
@@ -70,7 +70,7 @@ const App = React.createClass({
         // re-render
         this.setState({ tags: tags });
     },
-    render: function() {
+    render() {
         let tags = this.state.tags;
         let suggestions = this.state.suggestions;
         return (
