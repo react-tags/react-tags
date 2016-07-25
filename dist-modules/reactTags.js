@@ -135,6 +135,7 @@ var ReactTags = _react2.default.createClass({
     var value = e.target.value.trim();
     if (this.props.handleInputBlur && value.length) {
       this.props.handleInputBlur(value);
+      this.refs.input.value = "";
     }
   },
   handleKeyDown: function handleKeyDown(e) {

@@ -49,7 +49,7 @@ var Suggestions = function (_Component) {
         return _react2.default.createElement(
           "li",
           { key: i,
-            onClick: props.handleClick.bind(null, i),
+            onMouseDown: props.handleClick.bind(null, i),
             onMouseOver: props.handleHover.bind(null, i),
             className: i == props.selectedIndex ? "active" : "" },
           _react2.default.createElement("span", { dangerouslySetInnerHTML: this.markIt(item, props.query) })
