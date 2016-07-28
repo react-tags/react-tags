@@ -67,7 +67,8 @@ var ReactTags = _react2.default.createClass({
     removeComponent: _react2.default.PropTypes.func,
     autocomplete: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.bool, _react2.default.PropTypes.number]),
     readOnly: _react2.default.PropTypes.bool,
-    classNames: _react2.default.PropTypes.object
+    classNames: _react2.default.PropTypes.object,
+    filterSuggestion: _react2.default.PropTypes.func
   },
   getDefaultProps: function getDefaultProps() {
     return {
@@ -80,7 +81,10 @@ var ReactTags = _react2.default.createClass({
       allowDeleteFromEmptyInput: true,
       minQueryLength: 2,
       autocomplete: false,
-      readOnly: false
+      readOnly: false,
+      filterSuggestion: function filterSuggestion(query, item) {
+        return item.toLowerCase().indexOf(query.toLowerCase()) === 0;
+      }
     };
   },
   componentWillMount: function componentWillMount() {
@@ -102,9 +106,7 @@ var ReactTags = _react2.default.createClass({
     };
   },
   filteredSuggestions: function filteredSuggestions(query, suggestions) {
-    return suggestions.filter(function (item) {
-      return item.toLowerCase().indexOf(query.toLowerCase()) === 0;
-    });
+    return suggestions.filter(this.props.filterSuggestion.bind(null, query));
   },
   componentWillReceiveProps: function componentWillReceiveProps(props) {
     var suggestions = this.filteredSuggestions(this.state.query, props.suggestions);
