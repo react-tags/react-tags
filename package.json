@@ -43,6 +43,7 @@
     "chai": "^3.5.0",
     "enzyme": "^2.3.0",
     "jsdom": "^9.4.0",
+    "lodash": "4.14.1",
     "mocha": "^2.5.3",
     "react-addons-test-utils": "^15.1.0",
     "react-dnd-test-backend": "^1.0.2",
