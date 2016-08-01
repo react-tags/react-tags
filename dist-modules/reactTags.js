@@ -59,6 +59,7 @@ var ReactTags = _react2.default.createClass({
     handleDelete: _react2.default.PropTypes.func.isRequired,
     handleAddition: _react2.default.PropTypes.func.isRequired,
     handleDrag: _react2.default.PropTypes.func,
+    handleFilterSuggestions: _react2.default.PropTypes.func,
     allowDeleteFromEmptyInput: _react2.default.PropTypes.bool,
     handleInputChange: _react2.default.PropTypes.func,
     handleInputBlur: _react2.default.PropTypes.func,
@@ -102,6 +103,10 @@ var ReactTags = _react2.default.createClass({
     };
   },
   filteredSuggestions: function filteredSuggestions(query, suggestions) {
+    if (this.props.handleFilterSuggestions) {
+      return this.props.handleFilterSuggestions(query, suggestions);
+    }
+
     return suggestions.filter(function (item) {
       return item.toLowerCase().indexOf(query.toLowerCase()) === 0;
     });
