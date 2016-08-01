@@ -107,6 +107,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`handleAddition`](#handleAdditionOption)
 - [`handleDelete`](#handleDeleteOption)
 - [`handleDrag`](#handleDragOption)
+- [`handleFilterSuggestions`](#handleFilterSuggestions)
 - [`autofocus`](#autofocus)
 - [`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput)
 - [`handleInputChange`](#handleInputChange)
@@ -188,6 +189,20 @@ function(tag, currPos, newPos) {
     // remove tag from currPos and add in newPos
 }
 ```
+
+<a name="handleFilterSuggestions"></a>
+##### handleFilterSuggestions (optional)
+To assert control over the suggestions filter, you may contribute a function that is executed whenever a filtered set
+of suggestions is expected. By default, the text input value will be matched against each suggestion, and those that
+start with the entered text will be included in the filters suggestions list. If you do contribute a custom filter
+function, you must return an array of suggestions. Please do not mutate the passed suggestions array.
+
+```js
+function(textInputValue, possibleSuggestionsArray) {
+    // filter suggestions and return a new suggestions array
+}
+```
+
 <a name="autofocus"></a>
 ##### autofocus (optional)
 Optional boolean param to control whether the text-input should be autofocused on mount.
