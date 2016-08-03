@@ -89,7 +89,7 @@ ReactDOM.render(<App />, document.getElementById('app'));
 ```
 
 **A note about `Contexts`**
-One of the dependancies of this component is the [react-dnd](https://github.com/gaearon/react-dnd) library. Since the 1.0 version, the original author has changed the API and requires the application using any draggable components to have a top-level [backend](http://gaearon.github.io/react-dnd/docs-html5-backend.html) context. So if you're using this component in an existing Application that uses React-DND you will already have a backend defined, in which case, you should `require` the component *without* the context.
+One of the dependencies of this component is the [react-dnd](https://github.com/gaearon/react-dnd) library. Since the 1.0 version, the original author has changed the API and requires the application using any draggable components to have a top-level [backend](http://gaearon.github.io/react-dnd/docs-html5-backend.html) context. So if you're using this component in an existing Application that uses React-DND you will already have a backend defined, in which case, you should `require` the component *without* the context.
 
 ```javascript
 const ReactTags = require('react-tag-input').WithOutContext;
@@ -107,6 +107,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`handleAddition`](#handleAdditionOption)
 - [`handleDelete`](#handleDeleteOption)
 - [`handleDrag`](#handleDragOption)
+- [`handleFilterSuggestions`](#handleFilterSuggestions)
 - [`autofocus`](#autofocus)
 - [`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput)
 - [`handleInputChange`](#handleInputChange)
@@ -188,6 +189,32 @@ function(tag, currPos, newPos) {
     // remove tag from currPos and add in newPos
 }
 ```
+
+<a name="handleFilterSuggestions"></a>
+##### handleFilterSuggestions (optional)
+To assert control over the suggestions filter, you may contribute a function that is executed whenever a filtered set
+of suggestions is expected. By default, the text input value will be matched against each suggestion, and [those that
+**start with** the entered text][default-suggestions-filter-logic] will be included in the filters suggestions list. If you do contribute a custom filter
+function, you must return an array of suggestions. Please do not mutate the passed suggestions array.
+
+For example, if you prefer to override the default filter behavior and instead match any suggestions that contain
+the entered text _anywhere_ in the suggestion, your `handleFilterSuggestions` property may look like this:
+
+```js
+function(textInputValue, possibleSuggestionsArray) {
+    var lowerCaseQuery = textInputValue.toLowerCase()
+
+    return possibleSuggestionsArray.filter(function(suggestion)  {
+        return suggestion.toLowerCase().includes(lowerCaseQuery)
+    })
+}
+```
+
+Note: The above custom filter uses `String.prototype.includes`, which was added to JavaScript as part of the ECMAScript 7
+specification. If you need to support a browser that does not yet include support for this method, you will need to
+either refactor the above filter based on the capabilities of your supported browsers, or import a [polyfill for
+`String.prototype.includes`][includes-polyfill].
+
 <a name="autofocus"></a>
 ##### autofocus (optional)
 Optional boolean param to control whether the text-input should be autofocused on mount.
@@ -264,7 +291,7 @@ Useful for enhancing data entry workflows for your users by ensuring the first m
 
 - `true` - when delimeter key (such as enter) is pressed, first matching suggestion is used.
 - `1` - when delimeter key (such as enter) is pressed, matching suggestion is used only if there is a single matching suggestion
-- `false` (default) - tags are not autocompleted on enter/delimeter
+- `false` (default) - tags are not autocompleted on enter/delimiter
 
 This option has no effect if there are no [`suggestions`](#suggestionsOption).
 
@@ -316,3 +343,7 @@ Got ideas on how to make this better? Open an issue!
 The autocomplete dropdown is inspired by Lea Verou's [awesomeplete](https://github.com/LeaVerou/awesomplete) library. The Drag and drop functionality is provided by Dan Abramov's insanely useful [ReactDND](https://github.com/gaearon/react-dnd) library.
 
 Also thanks to the awesome contributors who've made the library far better!
+
+
+[default-suggestions-filter-logic]: https://github.com/prakhar1989/react-tags/blob/v4.0.1/lib/ReactTags.js#L83
+[includes-polyfill]: https://github.com/mathiasbynens/String.prototype.includes
