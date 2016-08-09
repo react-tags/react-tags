@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -15,6 +15,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var maybeScrollSuggestionIntoView = function maybeScrollSuggestionIntoView(suggestionEl, suggestionsContainer) {
+  var containerHeight = suggestionsContainer.offsetHeight;
+  var suggestionHeight = suggestionEl.offsetHeight;
+  var relativeSuggestionTop = suggestionEl.offsetTop - suggestionsContainer.scrollTop;
+
+  if (relativeSuggestionTop + suggestionHeight >= containerHeight) {
+    suggestionsContainer.scrollTop += relativeSuggestionTop - containerHeight + suggestionHeight;
+  } else if (relativeSuggestionTop < 0) {
+    suggestionsContainer.scrollTop += relativeSuggestionTop;
+  }
+};
 
 var Suggestions = function (_Component) {
   _inherits(Suggestions, _Component);
@@ -30,7 +42,16 @@ var Suggestions = function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Suggestions)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.markIt = function (input, query) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Suggestions)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.componentDidUpdate = function (prevProps) {
+      var suggestionsContainer = _this.refs.suggestionsContainer;
+      if (suggestionsContainer && prevProps.selectedIndex !== _this.props.selectedIndex) {
+        var activeSuggestion = suggestionsContainer.querySelector('.active');
+
+        if (activeSuggestion) {
+          maybeScrollSuggestionIntoView(activeSuggestion, suggestionsContainer);
+        }
+      }
+    }, _this.markIt = function (input, query) {
       var escapedRegex = query.trim().replace(/[-\\^$*+?.()|[\]{}]/g, "\\$&");
       return {
         __html: input.replace(RegExp(escapedRegex, "gi"), "<mark>$&</mark>")
@@ -47,12 +68,12 @@ var Suggestions = function (_Component) {
 
       var suggestions = props.suggestions.map(function (item, i) {
         return _react2.default.createElement(
-          "li",
+          'li',
           { key: i,
             onMouseDown: props.handleClick.bind(null, i),
             onMouseOver: props.handleHover.bind(null, i),
             className: i == props.selectedIndex ? "active" : "" },
-          _react2.default.createElement("span", { dangerouslySetInnerHTML: this.markIt(item, props.query) })
+          _react2.default.createElement('span', { dangerouslySetInnerHTML: this.markIt(item, props.query) })
         );
       }.bind(_this));
 
@@ -63,14 +84,14 @@ var Suggestions = function (_Component) {
       }
 
       return _react2.default.createElement(
-        "div",
-        { className: _this.props.classNames.suggestions },
+        'div',
+        { ref: 'suggestionsContainer', className: _this.props.classNames.suggestions },
         _react2.default.createElement(
-          "ul",
+          'ul',
           null,
-          " ",
+          ' ',
           suggestions,
-          " "
+          ' '
         )
       );
     }, _temp), _possibleConstructorReturn(_this, _ret);
