@@ -13,6 +13,8 @@ const defaults = {
   handleDrag: noop
 }
 
+const DOWN_ARROW_KEY_CODE = 40;
+
 function mockItem(overrides) {
   const props = Object.assign({}, defaults, overrides);
   return <ReactTags {...props} />
@@ -89,6 +91,33 @@ describe("ReactTags", () => {
 
       $input.simulate('change', {target: {value: 'ap'}})
       expect(ReactTagsInstance.state.suggestions).to.have.members(['Apple', 'Apricot'])
+    })
+    it('updates selectedIndex state as expected based on changing suggestions', () => {
+      const $el = mount(
+          mockItem({
+            autocomplete: true,
+            handleFilterSuggestions: (query, suggestions) => {
+              return suggestions.filter(suggestion => {
+                return suggestion.toLowerCase().indexOf(query.toLowerCase()) >= 0
+              })
+            }
+          })
+      )
+      const ReactTagsInstance = $el.instance().refs.child
+      const $input = $el.find('.ReactTags__tagInput input')
+
+      expect(ReactTagsInstance.state.suggestions).to.have.members(defaults.suggestions)
+
+      $input.simulate('change', {target: {value: 'Ea'}})
+      $input.simulate('focus')
+      $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE })
+      $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE })
+      expect(ReactTagsInstance.state.suggestions).to.have.members(['Pear', 'Peach'])
+      expect(ReactTagsInstance.state.selectedIndex).to.equal(1)
+      $input.simulate('change', {target: {value: 'Each'}})
+      expect(ReactTagsInstance.state.suggestions).to.have.members(['Peach'])
+      expect(ReactTagsInstance.state.selectedIndex).to.equal(0)
+
     })
   })
 })
