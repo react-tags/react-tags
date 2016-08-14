@@ -130,10 +130,15 @@ var ReactTags = _react2.default.createClass({
 
     var query = e.target.value.trim();
     var suggestions = this.filteredSuggestions(query, this.props.suggestions);
-
+    var selectedIndex = this.state.selectedIndex;
+    // if our selected entry is gonna disappear, select the last entry we will have
+    if (selectedIndex >= suggestions.length) {
+      selectedIndex = suggestions.length - 1;
+    }
     this.setState({
       query: query,
-      suggestions: suggestions
+      suggestions: suggestions,
+      selectedIndex: selectedIndex
     });
   },
   handleBlur: function handleBlur(e) {
