@@ -101,7 +101,13 @@ var Tag = function (_Component) {
       });
       var tagComponent = _react2.default.createElement(
         'span',
-        { style: { opacity: isDragging ? 0 : 1 }, className: props.classNames.tag },
+        {
+          style: {
+            backgroundColor: _this.props.backgroundColor ? _this.props.backgroundColor : '',
+            color: _this.props.textColor ? _this.props.textColor : '',
+            opacity: isDragging ? 0 : 1
+          },
+          className: props.classNames.tag },
         label,
         _react2.default.createElement(RemoveComponent, { className: props.classNames.remove, onClick: props.onDelete })
       );
