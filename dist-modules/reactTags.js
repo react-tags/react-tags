@@ -281,6 +281,8 @@ var ReactTags = _react2.default.createClass({
     var tagItems = this.props.tags.map(function (tag, i) {
       return _react2.default.createElement(_Tag2.default, { key: i,
         tag: tag,
+        backgroundColor: this.props.backgroundColor,
+        textColor: this.props.textColor,
         labelField: this.props.labelField,
         onDelete: this.handleDelete.bind(this, i),
         moveTag: moveTag,

@@ -4,7 +4,6 @@ React-Tags
 [![MIT](https://img.shields.io/npm/l/react-tag-input.svg?style=flat-square)](https://github.com/prakhar1989/react-tags/blob/master/LICENSE)
 [![NPM Version](https://img.shields.io/npm/v/react-tag-input.svg?style=flat-square)](https://www.npmjs.com/package/react-tag-input)
 [![npm downloads](https://img.shields.io/npm/dm/react-tag-input.svg?style=flat-square)](https://www.npmjs.com/package/react-tag-input)
-[![build status](https://travis-ci.org/prakhar1989/react-tags.svg?branch=master)](https://travis-ci.org/prakhar1989/react-tags)
 
 React-tags is a simple tagging component ready to drop in your React projects. The component is inspired by GMail's *To* field in the compose window.
 
@@ -328,6 +327,14 @@ a `classNames` prop.
     ...>
 ```
 
+### Inline styles for background and text color
+Sometimes classes are not enough. For example, if you want your tag to be a color that is only known at run-time, or from user input, you need to modify the style and apply a specific color property that can't be defined ahead of time in a class. To avoid direct DOM manipulation using something like JQuery, use these properties that set the inline style of the tag:
+```js
+	<ReactTags
+		backgroundColor={ someCalculatedColor }
+		textColor={ someCalculatedColor }
+	...>
+```	
 
 ### Dev
 The component is written in ES6 and uses [Webpack](http://webpack.github.io/) as its build tool.
