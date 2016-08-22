@@ -169,7 +169,7 @@ var ReactTags = _react2.default.createClass({
     // When one of the terminating keys is pressed, add current query to the tags.
     // If no text is typed in so far, ignore the action - so we don't end up with a terminating
     // character typed in.
-    if (this.props.delimiters.indexOf(e.keyCode) !== -1) {
+    if (this.props.delimiters.indexOf(e.keyCode) !== -1 && !e.shiftKey) {
       if (e.keyCode !== Keys.TAB || query !== "") {
         e.preventDefault();
       }
