@@ -56,6 +56,29 @@ describe("ReactTags", () => {
 
   });
 
+  it("handles the paste event and splits the clipboard on whitespace or comma characters", () => {
+
+    const actual = [];
+    const $el = mount(
+        mockItem({
+          handleAddition(tag) {
+            actual.push(tag)
+          }
+        })
+    )
+
+    const ReactTagsInstance = $el.instance().refs.child
+    const $input = $el.find('.ReactTags__tagInput input')
+
+    $input.simulate('paste', {
+      clipboardData: {
+        getData: () => 'Banana\nApple\tApricot, Pear\r\t  Peach,\t\n\r, Kiwi'
+      }
+    })
+
+    expect(actual).to.have.members(['Banana', 'Apple', 'Apricot', 'Pear', 'Peach', 'Kiwi'])
+  })
+
   describe('autocomplete/suggestions filtering', () => {
     it('updates suggestions state as expected based on default filter logic', () => {
       const $el = mount(mockItem())
