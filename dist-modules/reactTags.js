@@ -220,7 +220,9 @@ var ReactTags = _react2.default.createClass({
     e.preventDefault();
     var clipboardData = e.clipboardData || window.clipboardData;
     var string = clipboardData.getData('text');
-    string.split(/[ ,]+/).forEach(function (tag) {
+
+    // split the pasted text on any whitespace or comma character and add each tag
+    string.split(/[\s,]+/).forEach(function (tag) {
       return _this.props.handleAddition(tag);
     });
   },
