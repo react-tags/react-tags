@@ -143,7 +143,7 @@ var ReactTags = _react2.default.createClass({
   },
   handleBlur: function handleBlur(e) {
     var value = e.target.value.trim();
-    if (this.props.handleInputBlur && value.length) {
+    if (this.props.handleInputBlur) {
       this.props.handleInputBlur(value);
       this.refs.input.value = "";
     }
