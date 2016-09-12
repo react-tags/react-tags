@@ -42,15 +42,17 @@ describe("ReactTags", () => {
     $el.find('.ReactTags__tagInput input').simulate('blur');
     expect(handleInputBlur.callCount).to.equal(0);
 
-    // Still won't be invoked, as the input value is empty.
+    // Will be invoked despite the input being empty.
     $el.setProps({ handleInputBlur });
     $el.find('.ReactTags__tagInput input').simulate('blur');
-    expect(handleInputBlur.callCount).to.equal(0);
+    expect(handleInputBlur.callCount).to.equal(1);
+    expect(handleInputBlur.calledWith('')).to.be.true;
+    expect($el.find('.ReactTags__tagInput input').get(0).value).to.be.empty;
 
-    // Voila...
+    // Will also be invoked for when the input has a value.
     $el.find('.ReactTags__tagInput input').get(0).value = 'Example';
     $el.find('.ReactTags__tagInput input').simulate('blur');
-    expect(handleInputBlur.callCount).to.equal(1);
+    expect(handleInputBlur.callCount).to.equal(2);
     expect(handleInputBlur.calledWith('Example')).to.be.true;
     expect($el.find('.ReactTags__tagInput input').get(0).value).to.be.empty;
 
