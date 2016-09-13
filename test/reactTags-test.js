@@ -63,7 +63,7 @@ describe("ReactTags", () => {
     const actual = [];
     const $el = mount(
         mockItem({
-          delimiters: [188],
+          delimiters: [9, 32, 188],
           handleAddition(tag) {
             actual.push(tag)
           }
@@ -75,11 +75,11 @@ describe("ReactTags", () => {
 
     $input.simulate('paste', {
       clipboardData: {
-        getData: () => 'Banana,Apple,Apricot\nOrange,Pear,Peach\tKiwi'
+        getData: () => 'Banana,Apple,Apricot\nOrange Blueberry,Pear,Peach\tKiwi'
       }
     })
 
-    expect(actual).to.have.members(['Banana', 'Apple', 'Apricot\nOrange', 'Pear', 'Peach\tKiwi'])
+    expect(actual).to.have.members(['Banana', 'Apple', 'Apricot\nOrange', 'Blueberry', 'Pear', 'Peach', 'Kiwi'])
   })
 
   describe('autocomplete/suggestions filtering', () => {
