@@ -60,10 +60,16 @@ describe("ReactTags", () => {
 
   it("handles the paste event and splits the clipboard on delimiters", () => {
 
+    const Keys = {
+        TAB: 9,
+        SPACE: 32,
+        COMMA: 188
+    };
+
     const actual = [];
     const $el = mount(
         mockItem({
-          delimiters: [9, 32, 188],
+          delimiters: [Keys.TAB, Keys.SPACE, Keys.COMMA],
           handleAddition(tag) {
             actual.push(tag)
           }
