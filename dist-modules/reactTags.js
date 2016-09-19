@@ -218,11 +218,23 @@ var ReactTags = _react2.default.createClass({
     var _this = this;
 
     e.preventDefault();
+
+    // See: http://stackoverflow.com/a/6969486/1463681
+    var escapeRegex = function escapeRegex(str) {
+      return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    };
+
+    // Used to determine how the pasted content is split.
+    var delimiterChars = escapeRegex(this.props.delimiters.map(function (delimiter) {
+      // See: http://stackoverflow.com/a/34711175/1463681
+      var chrCode = delimiter - 48 * Math.floor(delimiter / 48);
+      return String.fromCharCode(96 <= delimiter ? chrCode : delimiter);
+    }).join(''));
+
     var clipboardData = e.clipboardData || window.clipboardData;
     var string = clipboardData.getData('text');
-
-    // split the pasted text on any whitespace or comma character and add each tag
-    string.split(/[\s,]+/).forEach(function (tag) {
+    var regExp = new RegExp('[' + delimiterChars + ']+');
+    string.split(regExp).forEach(function (tag) {
       return _this.props.handleAddition(tag);
     });
   },
