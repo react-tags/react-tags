@@ -58,11 +58,18 @@ describe("ReactTags", () => {
 
   });
 
-  it("handles the paste event and splits the clipboard on whitespace or comma characters", () => {
+  it("handles the paste event and splits the clipboard on delimiters", () => {
+
+    const Keys = {
+        TAB: 9,
+        SPACE: 32,
+        COMMA: 188
+    };
 
     const actual = [];
     const $el = mount(
         mockItem({
+          delimiters: [Keys.TAB, Keys.SPACE, Keys.COMMA],
           handleAddition(tag) {
             actual.push(tag)
           }
@@ -74,11 +81,11 @@ describe("ReactTags", () => {
 
     $input.simulate('paste', {
       clipboardData: {
-        getData: () => 'Banana\nApple\tApricot, Pear\r\t  Peach,\t\n\r, Kiwi'
+        getData: () => 'Banana,Apple,Apricot\nOrange Blueberry,Pear,Peach\tKiwi'
       }
     })
 
-    expect(actual).to.have.members(['Banana', 'Apple', 'Apricot', 'Pear', 'Peach', 'Kiwi'])
+    expect(actual).to.have.members(['Banana', 'Apple', 'Apricot\nOrange', 'Blueberry', 'Pear', 'Peach', 'Kiwi'])
   })
 
   describe('autocomplete/suggestions filtering', () => {
