@@ -1,6 +1,6 @@
 {
-  "name": "react-tag-input",
-  "version": "4.3.3",
+  "name": "react-tag-input-latest",
+  "version": "4.5.0",
   "description": "React tags is a fantastically simple tagging component for your React projects",
   "main": "dist-modules/reactTags.js",
   "scripts": {
@@ -17,9 +17,12 @@
     "react-component",
     "autosuggest"
   ],
-  "author": "Prakhar Srivastav",
+  "author": "Prakhar Srivastav, Ganapati V S",
   "license": "MIT",
-  "repository": "https://github.com/prakhar1989/react-tags",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ganapativs/react-tags.git"
+  },
   "dependencies": {
     "lodash.flow": "^3.3.0",
     "react-dnd": "^2.0.2",
@@ -53,5 +56,13 @@
   },
   "engines": {
     "node": ">=5.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/ganapativs/react-tags/issues"
+  },
+  "homepage": "https://github.com/ganapativs/react-tags#readme",
+  "directories": {
+    "example": "example",
+    "test": "test"
   }
 }
