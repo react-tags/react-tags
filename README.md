@@ -45,7 +45,7 @@ const App = React.createClass({
     getInitialState() {
         return {
             tags: [ {id: 1, text: "Apples"} ],
-            suggestions: ["Banana", "Mango", "Pear", "Apricot"]
+            suggestions: ["Banana", "Mango", "Pear", "Apricot"] // Can also be object - [{text: 'mango', addon: 'fruit'}, {text: 'india'}]
         }
     },
     handleDelete(i) {
@@ -128,10 +128,14 @@ let tags =  [ {id: 1, text: "Apples"} ]
 
 <a name="suggestionsOption"></a>
 ##### suggestions (optional)
-An array of suggestions that are used as basis for showing suggestions. At the moment, this should be an array of strings.
+An array of suggestions that are used as basis for showing suggestions. At the moment, this should be an array of strings or array of objects with two keys text and addon where addon key is optional.
 
 ```js
 let suggestions = ["mango", "pineapple", "orange", "pear"];
+
+or
+
+let suggestions = [{text: 'mango', addon: 'fruit'}, {text: 'india'}];
 ```
 
 <a name="delimiters"></a>
@@ -162,7 +166,7 @@ This is useful if your data uses the `text` property for something else.
 
 <a name="handleAdditionOption"></a>
 ##### handleAddition (required)
-Function called when the user wants to add a tag (either a click, a tab press or carriage return)
+Function called when the user wants to add a tag (either a click, a tab press or carriage return), will receive object if suggestion is object.
 
 ```js
 function(tag) {

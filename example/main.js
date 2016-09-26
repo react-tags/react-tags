@@ -41,7 +41,7 @@ var App = React.createClass({
         var tags = this.state.tags;
         tags.push({
             id: tags.length + 1,
-            text: tag
+            text: Object.prototype.toString.call(tag) === '[object Object]' ? tag.text : tag
         });
         this.setState({tags: tags});
     },
@@ -61,7 +61,7 @@ var App = React.createClass({
         return (
             <div>
                 <Tags tags={tags}
-                    suggestions={Countries}
+                    suggestions={[{text: 'mango', addon: 'fruit'}, {text: 'india'}, 'bangladesh']}
                     handleDelete={this.handleDelete}
                     handleAddition={this.handleAddition}
                     handleDrag={this.handleDrag}
