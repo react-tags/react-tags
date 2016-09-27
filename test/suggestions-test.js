@@ -11,7 +11,7 @@ function mockItem(overrides) {
     selectedIndex: 1,
     handleClick: noop,
     handleHover: noop,
-    classNames: { suggestions: "foo" }
+    classNames: { suggestions: "foo", activeSuggestion: "active" }
   };
   const props = Object.assign({}, defaults, overrides);
   return <Suggestions {...props} />

@@ -309,6 +309,7 @@ Renders the component in read-only mode without the input box and `removeCompone
 - `ReactTags__selected ReactTags__tag`
 - `ReactTags__selected ReactTags__remove`
 - `ReactTags__suggestions`
+- `ReactTags__suggestion__active`
 
 An example can be found in `/example/reactTags.css`.
 
@@ -323,7 +324,8 @@ a `classNames` prop.
       selected: 'selectedClass',
       tag: 'tagClass',
       remove: 'removeClass',
-      suggestions: 'suggestionsClass'
+      suggestions: 'suggestionsClass',
+      activeSuggestion: 'activeSuggestionClass',
     }}
     ...>
 ```
