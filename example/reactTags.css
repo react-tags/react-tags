@@ -9,7 +9,7 @@ div.ReactTags__tagInput {
     border-radius: 2px;
     display: inline-block;
 }
-div.ReactTags__tagInput input, 
+div.ReactTags__tagInput input,
 div.ReactTags__tagInput input:focus {
     height: 31px;
     margin: 0;
@@ -55,7 +55,7 @@ div.ReactTags__suggestions li mark {
     background: none;
     font-weight: 600;
 }
-div.ReactTags__suggestions ul li.active {
+div.ReactTags__suggestions ul li.ReactTags__suggestion__active {
     background: #b7cfe0;
     cursor: pointer;
 }
