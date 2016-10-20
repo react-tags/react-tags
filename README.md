@@ -305,6 +305,7 @@ Renders the component in read-only mode without the input box and `removeCompone
 
 - `ReactTags__tags`
 - `ReactTags__tagInput`
+- `ReactTags__tagInputField`
 - `ReactTags__selected`
 - `ReactTags__selected ReactTags__tag`
 - `ReactTags__selected ReactTags__remove`
@@ -320,6 +321,7 @@ a `classNames` prop.
     classNames={{
       tags: 'tagsClass',
       tagInput: 'tagInputClass',
+      tagInputField: 'tagInputFieldClass',
       selected: 'selectedClass',
       tag: 'tagClass',
       remove: 'removeClass',
