@@ -26,6 +26,7 @@ describe("ReactTags", () => {
     expect($el.find('.ReactTags__tags').length).to.equal(1);
     expect($el.find('.ReactTags__selected').length).to.equal(1);
     expect($el.find('.ReactTags__tagInput').length).to.equal(1);
+    expect($el.find('.ReactTags__tagInputField').length).to.equal(1);
   });
 
   it("renders preselected tags properly", () => {
@@ -39,22 +40,22 @@ describe("ReactTags", () => {
     const $el = mount(mockItem());
 
     // Won't be invoked as there's no `handleInputBlur` event yet.
-    $el.find('.ReactTags__tagInput input').simulate('blur');
+    $el.find('.ReactTags__tagInputField').simulate('blur');
     expect(handleInputBlur.callCount).to.equal(0);
 
     // Will be invoked despite the input being empty.
     $el.setProps({ handleInputBlur });
-    $el.find('.ReactTags__tagInput input').simulate('blur');
+    $el.find('.ReactTags__tagInputField').simulate('blur');
     expect(handleInputBlur.callCount).to.equal(1);
     expect(handleInputBlur.calledWith('')).to.be.true;
-    expect($el.find('.ReactTags__tagInput input').get(0).value).to.be.empty;
+    expect($el.find('.ReactTags__tagInputField').get(0).value).to.be.empty;
 
     // Will also be invoked for when the input has a value.
-    $el.find('.ReactTags__tagInput input').get(0).value = 'Example';
-    $el.find('.ReactTags__tagInput input').simulate('blur');
+    $el.find('.ReactTags__tagInputField').get(0).value = 'Example';
+    $el.find('.ReactTags__tagInputField').simulate('blur');
     expect(handleInputBlur.callCount).to.equal(2);
     expect(handleInputBlur.calledWith('Example')).to.be.true;
-    expect($el.find('.ReactTags__tagInput input').get(0).value).to.be.empty;
+    expect($el.find('.ReactTags__tagInputField').get(0).value).to.be.empty;
 
   });
 
@@ -77,7 +78,7 @@ describe("ReactTags", () => {
     )
 
     const ReactTagsInstance = $el.instance().refs.child
-    const $input = $el.find('.ReactTags__tagInput input')
+    const $input = $el.find('.ReactTags__tagInputField')
 
     $input.simulate('paste', {
       clipboardData: {
@@ -92,7 +93,7 @@ describe("ReactTags", () => {
     it('updates suggestions state as expected based on default filter logic', () => {
       const $el = mount(mockItem())
       const ReactTagsInstance = $el.instance().refs.child
-      const $input = $el.find('.ReactTags__tagInput input')
+      const $input = $el.find('.ReactTags__tagInputField')
 
       expect(ReactTagsInstance.state.suggestions).to.have.members(defaults.suggestions)
 
@@ -114,7 +115,7 @@ describe("ReactTags", () => {
           })
       )
       const ReactTagsInstance = $el.instance().refs.child
-      const $input = $el.find('.ReactTags__tagInput input')
+      const $input = $el.find('.ReactTags__tagInputField')
 
       expect(ReactTagsInstance.state.suggestions).to.have.members(defaults.suggestions)
 
@@ -136,7 +137,7 @@ describe("ReactTags", () => {
           })
       )
       const ReactTagsInstance = $el.instance().refs.child
-      const $input = $el.find('.ReactTags__tagInput input')
+      const $input = $el.find('.ReactTags__tagInputField')
 
       expect(ReactTagsInstance.state.suggestions).to.have.members(defaults.suggestions)
 
