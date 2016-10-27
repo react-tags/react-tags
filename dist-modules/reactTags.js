@@ -39,6 +39,7 @@ var Keys = {
 var DefaultClassNames = {
   tags: 'ReactTags__tags',
   tagInput: 'ReactTags__tagInput',
+  tagInputField: 'ReactTags__tagInputField',
   selected: 'ReactTags__selected',
   tag: 'ReactTags__tag',
   remove: 'ReactTags__remove',
@@ -313,6 +314,7 @@ var ReactTags = _react2.default.createClass({
       'div',
       { className: this.state.classNames.tagInput },
       _react2.default.createElement('input', { ref: 'input',
+        className: this.state.classNames.tagInputField,
         type: 'text',
         placeholder: placeholder,
         'aria-label': placeholder,
