@@ -235,7 +235,7 @@ var ReactTags = _react2.default.createClass({
     }).join(''));
 
     var clipboardData = e.clipboardData || window.clipboardData;
-    var string = clipboardData.getData('text');
+    var string = clipboardData.getData('text/plain');
     var regExp = new RegExp('[' + delimiterChars + ']+');
     string.split(regExp).forEach(function (tag) {
       return _this.props.handleAddition(tag);
