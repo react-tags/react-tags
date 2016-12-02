@@ -69,7 +69,8 @@ var ReactTags = _react2.default.createClass({
     removeComponent: _react2.default.PropTypes.func,
     autocomplete: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.bool, _react2.default.PropTypes.number]),
     readOnly: _react2.default.PropTypes.bool,
-    classNames: _react2.default.PropTypes.object
+    classNames: _react2.default.PropTypes.object,
+    inputType: _react2.default.PropTypes.string
   },
   getDefaultProps: function getDefaultProps() {
     return {
@@ -82,7 +83,8 @@ var ReactTags = _react2.default.createClass({
       allowDeleteFromEmptyInput: true,
       minQueryLength: 2,
       autocomplete: false,
-      readOnly: false
+      readOnly: false,
+      inputType: 'text'
     };
   },
   componentWillMount: function componentWillMount() {
@@ -150,10 +152,10 @@ var ReactTags = _react2.default.createClass({
     }
   },
   handleKeyDown: function handleKeyDown(e) {
-    var _state = this.state;
-    var query = _state.query;
-    var selectedIndex = _state.selectedIndex;
-    var suggestions = _state.suggestions;
+    var _state = this.state,
+        query = _state.query,
+        selectedIndex = _state.selectedIndex,
+        suggestions = _state.suggestions;
 
     // hide suggestions menu on escape
 
@@ -233,7 +235,7 @@ var ReactTags = _react2.default.createClass({
     }).join(''));
 
     var clipboardData = e.clipboardData || window.clipboardData;
-    var string = clipboardData.getData('text');
+    var string = clipboardData.getData('text/plain');
     var regExp = new RegExp('[' + delimiterChars + ']+');
     string.split(regExp).forEach(function (tag) {
       return _this.props.handleAddition(tag);
@@ -315,7 +317,7 @@ var ReactTags = _react2.default.createClass({
       { className: this.state.classNames.tagInput },
       _react2.default.createElement('input', { ref: 'input',
         className: this.state.classNames.tagInputField,
-        type: 'text',
+        type: this.props.inputType,
         placeholder: placeholder,
         'aria-label': placeholder,
         onBlur: this.handleBlur,

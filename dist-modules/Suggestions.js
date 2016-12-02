@@ -32,7 +32,7 @@ var Suggestions = function (_Component) {
   _inherits(Suggestions, _Component);
 
   function Suggestions() {
-    var _Object$getPrototypeO;
+    var _ref;
 
     var _temp, _this, _ret;
 
@@ -42,7 +42,7 @@ var Suggestions = function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Suggestions)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.componentDidUpdate = function (prevProps) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Suggestions.__proto__ || Object.getPrototypeOf(Suggestions)).call.apply(_ref, [this].concat(args))), _this), _this.componentDidUpdate = function (prevProps) {
       var suggestionsContainer = _this.refs.suggestionsContainer;
       if (suggestionsContainer && prevProps.selectedIndex !== _this.props.selectedIndex) {
         var activeSuggestion = suggestionsContainer.querySelector('.active');
@@ -57,14 +57,14 @@ var Suggestions = function (_Component) {
         __html: input.replace(RegExp(escapedRegex, "gi"), "<mark>$&</mark>")
       };
     }, _this.shouldRenderSuggestions = function (query) {
-      var _this2 = _this;
-      var props = _this2.props;
+      var _this2 = _this,
+          props = _this2.props;
 
       var minQueryLength = props.minQueryLength || 2;
       return props.query.length >= minQueryLength;
     }, _this.render = function () {
-      var _this3 = _this;
-      var props = _this3.props;
+      var _this3 = _this,
+          props = _this3.props;
 
       var suggestions = props.suggestions.map(function (item, i) {
         return _react2.default.createElement(
