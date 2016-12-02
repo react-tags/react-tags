@@ -8,6 +8,8 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _lodash = require('lodash');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -42,7 +44,9 @@ var Suggestions = function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Suggestions)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.componentDidUpdate = function (prevProps) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Suggestions)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.shouldComponentUpdate = function (nextProps) {
+      return !(0, _lodash.isEqual)(_this.props.suggestions, nextProps.suggestions);
+    }, _this.componentDidUpdate = function (prevProps) {
       var suggestionsContainer = _this.refs.suggestionsContainer;
       if (suggestionsContainer && prevProps.selectedIndex !== _this.props.selectedIndex) {
         var activeSuggestion = suggestionsContainer.querySelector('.active');
