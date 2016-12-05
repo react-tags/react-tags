@@ -93,5 +93,4 @@ describe("Suggestions", function() {
     $el.setProps({ suggestions: suggestions });
     expect($el.nodes[0].componentDidUpdate.called).to.equal(true);
   });
-
 });
