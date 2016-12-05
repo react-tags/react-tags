@@ -24,7 +24,7 @@
     "url": "git+https://github.com/ganapativs/react-tags.git"
   },
   "dependencies": {
-    "lodash.flow": "^3.3.0",
+    "lodash": "^4.14.1",
     "react-dnd": "^2.0.2",
     "react-dnd-html5-backend": "^2.0.0"
   },

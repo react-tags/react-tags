@@ -35,6 +35,7 @@ var Keys = {
 var DefaultClassNames = {
     tags: 'ReactTags__tags',
     tagInput: 'ReactTags__tagInput',
+    tagInputField: 'ReactTags__tagInputField',
     selected: 'ReactTags__selected',
     tag: 'ReactTags__tag',
     remove: 'ReactTags__remove',
@@ -338,6 +339,145 @@ var ReactTags = _react2.default.createClass({
             !this.props.inline && tagInput
         );
     }
+    
+    // down arrow
+    if (e.keyCode === Keys.DOWN_ARROW) {
+        e.preventDefault();
+        this.setState({
+            selectedIndex: (this.state.selectedIndex + 1) % suggestions.length,
+            selectionMode: true
+        });
+    }
+  },
+  handlePaste: function handlePaste(e) {
+    var _this = this;
+
+    e.preventDefault();
+
+    // See: http://stackoverflow.com/a/6969486/1463681
+    var escapeRegex = function escapeRegex(str) {
+      return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    };
+
+    // Used to determine how the pasted content is split.
+    var delimiterChars = escapeRegex(this.props.delimiters.map(function (delimiter) {
+      // See: http://stackoverflow.com/a/34711175/1463681
+      var chrCode = delimiter - 48 * Math.floor(delimiter / 48);
+      return String.fromCharCode(96 <= delimiter ? chrCode : delimiter);
+    }).join(''));
+
+    var clipboardData = e.clipboardData || window.clipboardData;
+    var string = clipboardData.getData('text');
+    var regExp = new RegExp('[' + delimiterChars + ']+');
+    string.split(regExp).forEach(function (tag) {
+      return _this.props.handleAddition(tag);
+    });
+  },
+  addTag: function addTag(tag) {
+    var input = this.refs.input;
+
+    if (this.props.autocomplete) {
+      var possibleMatches = this.filteredSuggestions(tag, this.props.suggestions);
+
+      if (this.props.autocomplete === 1 && possibleMatches.length === 1 || this.props.autocomplete === true && possibleMatches.length) {
+        tag = possibleMatches[0];
+      }
+    }
+
+    // call method to add
+    this.props.handleAddition(tag);
+
+    // reset the state
+    this.setState({
+      query: "",
+      selectionMode: false,
+      selectedIndex: -1
+    });
+
+    // focus back on the input box
+    input.value = "";
+    input.focus();
+  },
+  handleSuggestionClick: function handleSuggestionClick(i, e) {
+    this.addTag(this.state.suggestions[i]);
+  },
+  handleSuggestionHover: function handleSuggestionHover(i, e) {
+    this.setState({
+      selectedIndex: i,
+      selectionMode: true
+    });
+  },
+  moveTag: function moveTag(id, afterId) {
+    var tags = this.props.tags;
+
+    // locate tags
+    var tag = tags.filter(function (t) {
+      return t.id === id;
+    })[0];
+    var afterTag = tags.filter(function (t) {
+      return t.id === afterId;
+    })[0];
+
+    // find their position in the array
+    var tagIndex = tags.indexOf(tag);
+    var afterTagIndex = tags.indexOf(afterTag);
+
+    // call handler with current position and after position
+    this.props.handleDrag(tag, tagIndex, afterTagIndex);
+  },
+  render: function render() {
+    var moveTag = this.props.handleDrag ? this.moveTag : null;
+    var tagItems = this.props.tags.map(function (tag, i) {
+      return _react2.default.createElement(_Tag2.default, { key: i,
+        tag: tag,
+        labelField: this.props.labelField,
+        onDelete: this.handleDelete.bind(this, i),
+        moveTag: moveTag,
+        removeComponent: this.props.removeComponent,
+        readOnly: this.props.readOnly,
+        classNames: this.state.classNames });
+    }.bind(this));
+
+    // get the suggestions for the given query
+    var query = this.state.query.trim(),
+        selectedIndex = this.state.selectedIndex,
+        suggestions = this.state.suggestions,
+        placeholder = this.props.placeholder;
+
+    var tagInput = !this.props.readOnly ? _react2.default.createElement(
+      'div',
+      { className: this.state.classNames.tagInput },
+      _react2.default.createElement('input', { ref: 'input',
+        className: this.state.classNames.tagInputField,
+        type: 'text',
+        placeholder: placeholder,
+        'aria-label': placeholder,
+        onBlur: this.handleBlur,
+        onChange: this.handleChange,
+        onKeyDown: this.handleKeyDown,
+        onPaste: this.handlePaste }),
+      _react2.default.createElement(_Suggestions2.default, { query: query,
+        suggestions: suggestions,
+        selectedIndex: selectedIndex,
+        handleClick: this.handleSuggestionClick,
+        handleHover: this.handleSuggestionHover,
+        minQueryLength: this.props.minQueryLength,
+        shouldRenderSuggestions: this.props.shouldRenderSuggestions,
+        classNames: this.state.classNames })
+    ) : null;
+
+    return _react2.default.createElement(
+      'div',
+      { className: this.state.classNames.tags },
+      _react2.default.createElement(
+        'div',
+        { className: this.state.classNames.selected },
+        tagItems,
+        this.props.inline && tagInput
+      ),
+      !this.props.inline && tagInput
+    );
+  }
 });
 
 module.exports = {
