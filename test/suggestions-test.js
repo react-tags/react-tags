@@ -1,6 +1,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount, render } from 'enzyme';
+import { spy } from 'sinon';
 import Suggestions from '../lib/Suggestions';
 import noop from 'lodash/noop';
 
@@ -57,4 +58,40 @@ describe("Suggestions", function() {
     const $el = shallow(mockItem());
     expect($el.find("li.active").find("span").html()).to.equal("<span>M<mark>ang</mark>o</span>");
   });
+
+  it("should not wastefully re-render if the list of suggestions have not changed", function() {
+    const suggestions = ['queue', 'quiz', 'quantify'];
+    const $el = mount(mockItem({
+      minQueryLength: 2,
+      query: "q",
+      suggestions: suggestions
+    }));
+    spy($el.nodes[0], 'componentDidUpdate');
+    $el.setProps({ suggestions: suggestions });
+    expect($el.nodes[0].componentDidUpdate.called).to.equal(false);
+  });
+
+  it("should re-render if there is an active query", function() {
+    const suggestions = ['queue', 'quiz', 'quantify'];
+    const $el = mount(mockItem({
+      minQueryLength: 2,
+      query: "qu",
+      suggestions: suggestions
+    }));
+    spy($el.nodes[0], 'componentDidUpdate');
+    $el.setProps({ suggestions: suggestions });
+    expect($el.nodes[0].componentDidUpdate.called).to.equal(true);
+  });
+
+  it("should re-render if the provided 'shouldRenderSuggestions' prop returns true", function() {
+    const suggestions = ['queue', 'quiz', 'quantify'];
+    const $el = mount(mockItem({
+      shouldRenderSuggestions: function() { return true; },
+      suggestions: suggestions
+    }));
+    spy($el.nodes[0], 'componentDidUpdate');
+    $el.setProps({ suggestions: suggestions });
+    expect($el.nodes[0].componentDidUpdate.called).to.equal(true);
+  });
+
 });
