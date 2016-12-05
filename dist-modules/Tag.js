@@ -71,14 +71,15 @@ var Tag = function (_Component) {
     }
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Tag.__proto__ || Object.getPrototypeOf(Tag)).call.apply(_ref, [this].concat(args))), _this), _this.render = function () {
-      var _this2 = _this;
-      var props = _this2.props;
+      var _this2 = _this,
+          props = _this2.props;
 
       var label = props.tag[props.labelField];
-      var connectDragSource = props.connectDragSource;
-      var isDragging = props.isDragging;
-      var connectDropTarget = props.connectDropTarget;
-      var readOnly = props.readOnly;
+      var connectDragSource = props.connectDragSource,
+          isDragging = props.isDragging,
+          connectDropTarget = props.connectDropTarget,
+          readOnly = props.readOnly,
+          handleTagClick = props.handleTagClick;
 
       var CustomRemoveComponent = props.removeComponent;
       var RemoveComponent = _react2.default.createClass({
@@ -100,7 +101,11 @@ var Tag = function (_Component) {
       var tagComponent = _react2.default.createElement(
         'span',
         { style: { opacity: isDragging ? 0 : 1 }, className: props.classNames.tag },
-        label,
+        _react2.default.createElement(
+          'span',
+          { className: props.classNames.tagLabel, onClick: handleTagClick.bind(null, props.tag) },
+          label
+        ),
         _react2.default.createElement(RemoveComponent, { className: props.classNames.remove, onClick: props.onDelete })
       );
       return connectDragSource(connectDropTarget(tagComponent));
