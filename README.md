@@ -26,7 +26,7 @@ Check it out [here](http://prakhar.me/react-tags/example)
 The preferred way of using the component is via NPM
 
 ```
-npm install --save react-tag-input
+npm install --save react-tag-input-latest
 ```
 It is, however, also available to be used separately (`dist/ReactTags.min.js`). If you prefer this method remember to include [ReactDND](https://github.com/gaearon/react-dnd) as a dependancy. Refer to the [demo](http://prakhar.me/react-tags/example) to see how this works.
 
@@ -45,7 +45,7 @@ const App = React.createClass({
     getInitialState() {
         return {
             tags: [ {id: 1, text: "Apples"} ],
-            suggestions: ["Banana", "Mango", "Pear", "Apricot"]
+            suggestions: ["Banana", "Mango", "Pear", "Apricot"] // Can also be object - [{text: 'mango', addon: 'fruit'}, {text: 'india'}]
         }
     },
     handleDelete(i) {
@@ -117,6 +117,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`removeComponent`](#removeComponent)
 - [`autocomplete`](#autocomplete)
 - [`readOnly`](#readOnly)
+- [`handleTagClick`](#handleTagClick)
 
 <a name="tagsOption"></a>
 ##### tags (optional)
@@ -128,10 +129,14 @@ let tags =  [ {id: 1, text: "Apples"} ]
 
 <a name="suggestionsOption"></a>
 ##### suggestions (optional)
-An array of suggestions that are used as basis for showing suggestions. At the moment, this should be an array of strings.
+An array of suggestions that are used as basis for showing suggestions. At the moment, this should be an array of strings or array of objects with two keys text and addon where addon key is optional.
 
 ```js
 let suggestions = ["mango", "pineapple", "orange", "pear"];
+
+or
+
+let suggestions = [{text: 'mango', addon: 'fruit'}, {text: 'india'}];
 ```
 
 <a name="delimiters"></a>
@@ -162,7 +167,7 @@ This is useful if your data uses the `text` property for something else.
 
 <a name="handleAdditionOption"></a>
 ##### handleAddition (required)
-Function called when the user wants to add a tag (either a click, a tab press or carriage return)
+Function called when the user wants to add a tag (either a click, a tab press or carriage return), will receive object if suggestion is object.
 
 ```js
 function(tag) {
@@ -300,6 +305,16 @@ This option has no effect if there are no [`suggestions`](#suggestionsOption).
 ##### readOnly (optional)
 Renders the component in read-only mode without the input box and `removeComponent`. This also disables the drag-n-drop feature.
 
+<a name="handleTagClick"></a>
+##### handleTagClick (optional)
+Optional event handler for tag click
+
+```js
+<ReactTags
+    handleTagClick={this.handleTagClick}
+    ...>
+```
+
 ### Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
 
@@ -310,6 +325,7 @@ Renders the component in read-only mode without the input box and `removeCompone
 - `ReactTags__selected ReactTags__tag`
 - `ReactTags__selected ReactTags__remove`
 - `ReactTags__suggestions`
+- `ReactTags__tagLabel`
 
 An example can be found in `/example/reactTags.css`.
 
@@ -325,7 +341,8 @@ a `classNames` prop.
       selected: 'selectedClass',
       tag: 'tagClass',
       remove: 'removeClass',
-      suggestions: 'suggestionsClass'
+      suggestions: 'suggestionsClass',
+      tagLabel: 'tagLabelClass'
     }}
     ...>
 ```
