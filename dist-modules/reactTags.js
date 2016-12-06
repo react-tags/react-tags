@@ -176,7 +176,7 @@ var ReactTags = _react2.default.createClass({
       }
 
       if (query !== "") {
-        if (this.state.selectionMode) {
+        if (this.state.selectionMode && this.state.selectedIndex != -1) {
           query = this.state.suggestions[this.state.selectedIndex];
         }
         this.addTag(query);
