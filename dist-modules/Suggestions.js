@@ -8,7 +8,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _lodash = require('lodash');
+var _isEqual = require('lodash/isEqual');
+
+var _isEqual2 = _interopRequireDefault(_isEqual);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49,7 +51,7 @@ var Suggestions = function (_Component) {
       var props = _this2.props;
 
       var shouldRenderSuggestions = props.shouldRenderSuggestions || _this.shouldRenderSuggestions;
-      return !(0, _lodash.isEqual)(_this.props.suggestions, nextProps.suggestions) || shouldRenderSuggestions(props.query);
+      return !(0, _isEqual2.default)(_this.props.suggestions, nextProps.suggestions) || shouldRenderSuggestions(props.query);
     }, _this.componentDidUpdate = function (prevProps) {
       var suggestionsContainer = _this.refs.suggestionsContainer;
       if (suggestionsContainer && prevProps.selectedIndex !== _this.props.selectedIndex) {
