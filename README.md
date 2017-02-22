@@ -20,7 +20,7 @@ Because I was looking for an excuse to build a standalone component and publish 
 ### Demo
 ![img](demo.gif)
 
-Check it out [here](http://prakhar.me/react-tags/example)
+Check it out [here](http://www.webpackbin.com/41DVgMvv-)
 
 ### Installation
 The preferred way of using the component is via NPM
