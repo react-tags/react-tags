@@ -117,6 +117,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`removeComponent`](#removeComponent)
 - [`autocomplete`](#autocomplete)
 - [`readOnly`](#readOnly)
+- [`resetStateAfterAddTag`](#resetStateAfterAddTag)
 
 <a name="tagsOption"></a>
 ##### tags (optional)
@@ -299,6 +300,47 @@ This option has no effect if there are no [`suggestions`](#suggestionsOption).
 <a name="readOnly"></a>
 ##### readOnly (optional)
 Renders the component in read-only mode without the input box and `removeComponent`. This also disables the drag-n-drop feature.
+
+<a name="resetStateAfterAddTag"></a>
+##### resetStateAfterAddTag (optional)
+If set to false, it will check the result of `handleAddition` function and if it returns `false` will not add tag to the tags,
+basically just does nothing. Defaults to `true`.\
+It is useful in the situation when you don't want to add tag when it is not in the list of suggestions. Example:
+```javascript
+// Such default state of component. Notice `resetStateAfterAddTag` prop.
+<Tags
+  tags={tags}
+  suggestions={Countries}
+  handleDelete={this.handleDelete}
+  handleAddition={this.handleAddition}
+  handleDrag={this.handleDrag}
+  minQueryLength={2}
+
+
+  resetStateAfterAddTag={false}
+
+
+/>
+
+// In your `handleAddition` method
+handleAddition: function(tag) {
+  var tags = this.state.tags;
+  // Check if the `tag` is included in `suggestions`
+  if (this.state.suggestions.includes(tag)) {
+    tags.push({
+      id: tags.length + 1,
+      text: tag
+    });
+    this.setState({tags: tags});
+    // Note. This makes it work as usual. AddTag -> ResetState.
+    return true;
+  }
+  // Note. This makes it freeze on the same state and does not run the AddTag and ResetState.
+  return false;
+}
+```
+
+Basically example above makes possible to ignore adding the `tag` to `tags` if it is not in `suggestions`.
 
 ### Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
