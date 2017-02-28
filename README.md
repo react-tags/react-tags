@@ -117,6 +117,9 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`removeComponent`](#removeComponent)
 - [`autocomplete`](#autocomplete)
 - [`readOnly`](#readOnly)
+- [`name`](#nameOption)
+- [`id`](#idOption)
+- [`maxLength`](#maxLength)
 
 <a name="tagsOption"></a>
 ##### tags (optional)
@@ -299,6 +302,36 @@ This option has no effect if there are no [`suggestions`](#suggestionsOption).
 <a name="readOnly"></a>
 ##### readOnly (optional)
 Renders the component in read-only mode without the input box and `removeComponent`. This also disables the drag-n-drop feature.
+
+<a name="nameOption"></a>
+##### name (optional)
+The name attribute added to the input.
+
+```
+<ReactTags
+    name = "inputName"
+    ...>
+```
+
+<a name="idOption"></a>
+##### id (optional)
+The id attribute added to the input.
+
+```
+<ReactTags
+    id = "inputId"
+    ...>
+```
+
+<a name="maxLength"></a>
+##### maxLength (optional)
+The maxLength attribute added to the input. Specifies the maximum number of characters allowed in the input field.
+
+```
+<ReactTags
+    maxLength = "42"
+    ...>
+```
 
 ### Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
