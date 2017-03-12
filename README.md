@@ -20,7 +20,7 @@ Because I was looking for an excuse to build a standalone component and publish 
 ### Demo
 ![img](demo.gif)
 
-Check it out [here](http://www.webpackbin.com/41DVgMvv-)
+Check it out [here](https://webpackbin.herokuapp.com/41DVgMvv-)
 
 ### Installation
 The preferred way of using the component is via NPM
@@ -34,7 +34,7 @@ It is, however, also available to be used separately (`dist/ReactTags.min.js`). 
 
 Here's a sample implementation that initializes the component with a list of initial `tags` and `suggestions` list. Apart from this, there are multiple events, handlers for which need to be set. For more details, go through the [API](#Options).
 
-You can also play with live code on [WebpackBin](http://www.webpackbin.com/41DVgMvv-).
+You can also play with live code on [WebpackBin](https://webpackbin.herokuapp.com/41DVgMvv-).
 
 ```javascript
 import React from 'react';
