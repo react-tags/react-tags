@@ -177,6 +177,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`handleFilterSuggestions`](#handleFilterSuggestions)
 - [`autofocus`](#autofocus)
 - [`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput)
+- [`allowAdditionFromPaste`](#allowAdditionFromPaste)
 - [`handleInputChange`](#handleInputChange)
 - [`handleInputBlur`](#handleInputBlur)
 - [`minQueryLength`](#minQueryLength)
@@ -302,6 +303,16 @@ Optional boolean param to control whether tags should be deleted when the 'Delet
 ```js
 <ReactTags
     allowDeleteFromEmptyInput={false}
+    ...>
+```
+
+<a name="allowAdditionFromPaste"></a>
+##### allowAdditionFromPaste (optional)
+Optional boolean param to control whether tags should be added when a value was pasted into Input Box.
+
+```js
+<ReactTags
+    allowAdditionFromPaste={false}
     ...>
 ```
 
