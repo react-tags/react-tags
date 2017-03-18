@@ -89,6 +89,72 @@ const App = React.createClass({
 ReactDOM.render(<App />, document.getElementById('app'));
 ```
 
+##### or using ES2015+ style
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { WithContext as ReactTags } from 'react-tag-input';
+
+class App extends React.Component {
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      tags: [ {id: 1, text: "Apples"} ],
+      suggestions: ["Banana", "Mango", "Pear", "Apricot"]
+    };
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleAddition = this.handleAddition.bind(this);
+    this.handleDrag = this.handleDrag.bind(this);
+  }
+
+  handleDelete(i) {
+    this.setState({
+      tags: this.state.tags.filter((tag, index) => index !== i)
+    });
+  }
+
+  handleAddition(tag) {
+    this.setState({
+      tags: [
+        ...this.state.tags,
+        {
+          id: tags.length + 1,
+          text: tag
+        }
+      ]
+    });
+  }
+
+  handleDrag(tag, currPos, newPos) {
+    const tags = [ ...this.state.tags ];
+
+    // mutate array
+    tags.splice(currPos, 1);
+    tags.splice(newPos, 0, tag);
+
+    // re-render
+    this.setState({ tags });
+  }
+
+  render() {
+    const { tags, suggestions } = this.state;
+    return (
+      <div>
+        <ReactTags tags={tags}
+                   suggestions={suggestions}
+                   handleDelete={this.handleDelete}
+                   handleAddition={this.handleAddition}
+                   handleDrag={this.handleDrag} />
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById('app'));
+```
+
 **A note about `Contexts`**
 One of the dependencies of this component is the [react-dnd](https://github.com/gaearon/react-dnd) library. Since the 1.0 version, the original author has changed the API and requires the application using any draggable components to have a top-level [backend](http://gaearon.github.io/react-dnd/docs-html5-backend.html) context. So if you're using this component in an existing Application that uses React-DND you will already have a backend defined, in which case, you should `require` the component *without* the context.
 
