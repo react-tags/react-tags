@@ -180,6 +180,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`handleInputChange`](#handleInputChange)
 - [`handleInputBlur`](#handleInputBlur)
 - [`minQueryLength`](#minQueryLength)
+- [`onFocus`](#onFocus)
 - [`removeComponent`](#removeComponent)
 - [`autocomplete`](#autocomplete)
 - [`readOnly`](#readOnly)
