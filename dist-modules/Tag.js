@@ -10,7 +10,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDnd = require('react-dnd');
 
-var _lodash = require('lodash');
+var _flow = require('lodash/flow');
+
+var _flow2 = _interopRequireDefault(_flow);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -60,7 +62,7 @@ var Tag = function (_Component) {
   _inherits(Tag, _Component);
 
   function Tag() {
-    var _Object$getPrototypeO;
+    var _ref;
 
     var _temp, _this, _ret;
 
@@ -70,15 +72,15 @@ var Tag = function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Tag)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.render = function () {
-      var _this2 = _this;
-      var props = _this2.props;
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Tag.__proto__ || Object.getPrototypeOf(Tag)).call.apply(_ref, [this].concat(args))), _this), _this.render = function () {
+      var _this2 = _this,
+          props = _this2.props;
 
       var label = props.tag[props.labelField];
-      var connectDragSource = props.connectDragSource;
-      var isDragging = props.isDragging;
-      var connectDropTarget = props.connectDropTarget;
-      var readOnly = props.readOnly;
+      var connectDragSource = props.connectDragSource,
+          isDragging = props.isDragging,
+          connectDropTarget = props.connectDropTarget,
+          readOnly = props.readOnly;
 
       var CustomRemoveComponent = props.removeComponent;
       var RemoveComponent = _react2.default.createClass({
@@ -126,4 +128,4 @@ Tag.defaultProps = {
   labelField: 'text',
   readOnly: false
 };
-exports.default = (0, _lodash.flow)((0, _reactDnd.DragSource)(ItemTypes.TAG, tagSource, dragSource), (0, _reactDnd.DropTarget)(ItemTypes.TAG, tagTarget, dropCollect))(Tag);
+exports.default = (0, _flow2.default)((0, _reactDnd.DragSource)(ItemTypes.TAG, tagSource, dragSource), (0, _reactDnd.DropTarget)(ItemTypes.TAG, tagTarget, dropCollect))(Tag);
