@@ -154,10 +154,15 @@ var ReactTags = _react2.default.createClass({
     var query = _state.query;
     var selectedIndex = _state.selectedIndex;
     var suggestions = _state.suggestions;
+    var isEmptySuggestion = suggestions[0] == undefined;
+    var isNotSelectedIndexUpDown = ((e.keyCode === Keys.UP_ARROW || e.keyCode === Keys.DOWN_ARROW) &&
+        (selectedIndex == -1));
+    var isContinuedEnter = ((e.keyCode != Keys.UP_ARROW || e.keyCode != Keys.DOWN_ARROW)
+        && (selectedIndex != -1));
 
     // hide suggestions menu on escape
 
-    if (e.keyCode === Keys.ESCAPE) {
+    if (e.keyCode === Keys.ESCAPE || (isEmptySuggestion && (isNotSelectedIndexUpDown || isContinuedEnter))) {
       e.preventDefault();
       e.stopPropagation();
       this.setState({
@@ -189,7 +194,7 @@ var ReactTags = _react2.default.createClass({
     }
 
     // up arrow
-    if (e.keyCode === Keys.UP_ARROW) {
+    if (e.keyCode === Keys.UP_ARROW && !(isEmptySuggestion && isNotSelectedIndexUpDown)) {
       e.preventDefault();
       var selectedIndex = this.state.selectedIndex;
       // last item, cycle to the top
@@ -207,7 +212,7 @@ var ReactTags = _react2.default.createClass({
     }
 
     // down arrow
-    if (e.keyCode === Keys.DOWN_ARROW) {
+    if (e.keyCode === Keys.DOWN_ARROW && !(isEmptySuggestion && isNotSelectedIndexUpDown)) {
       e.preventDefault();
       this.setState({
         selectedIndex: (this.state.selectedIndex + 1) % suggestions.length,
