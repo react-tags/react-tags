@@ -55,9 +55,6 @@ var App = React.createClass({
         // re-render
         this.setState({ tags: tags });
     },
-    renderTag: function(tag) {
-        return (<div><strong>{tag['text']}</strong></div>);
-    },
     render: function() {
         var tags = this.state.tags;
         var suggestions = this.state.suggestions;
@@ -68,8 +65,7 @@ var App = React.createClass({
                     handleDelete={this.handleDelete}
                     handleAddition={this.handleAddition}
                     handleDrag={this.handleDrag}
-                    minQueryLength={2}
-                    renderTag={this.renderTag} />
+                    minQueryLength={2} />
                 <pre>
                     <code>{JSON.stringify(tags, null, 2)}</code>
                 </pre>
