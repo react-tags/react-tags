@@ -433,7 +433,7 @@ a `classNames` prop.
 The component is written in ES6 and uses [Webpack](http://webpack.github.io/) as its build tool.
 ```
 npm install
-npm run dev
+npm run start
 # open http://localhost:8090/example/index.html
 ```
 
