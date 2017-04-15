@@ -6,8 +6,8 @@
   "scripts": {
     "test": "mocha test/.setup.js test/**/*-test.js",
     "test-watch": "mocha --watch test/.setup.js test/**/*-test.js",
-    "dev": "webpack-dev-server --hot --progress --colors --watch --content-base ./",
-    "build": "webpack -p && babel lib --out-dir dist-modules"
+    "start": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
+    "build": "webpack --config webpack-production.config.js --progress --colors && babel lib --out-dir dist-modules"
   },
   "keywords": [
     "react",
@@ -48,8 +48,8 @@
     "react-addons-test-utils": "^15.1.0",
     "react-dnd-test-backend": "^2.3.0",
     "sinon": "^2.1.0",
-    "webpack": "^2.4.1",
-    "webpack-dev-server": "^2.4.2"
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
   },
   "engines": {
     "node": ">=5.0.0"
