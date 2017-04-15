@@ -92,7 +92,7 @@ describe("ReactTags", () => {
   describe('autocomplete/suggestions filtering', () => {
     it('updates suggestions state as expected based on default filter logic', () => {
       const $el = mount(mockItem())
-      const ReactTagsInstance = $el.instance().refs.child
+      const ReactTagsInstance = $el.instance().getDecoratedComponentInstance()
       const $input = $el.find('.ReactTags__tagInputField')
 
       expect(ReactTagsInstance.state.suggestions).to.have.members(defaults.suggestions)
@@ -114,7 +114,7 @@ describe("ReactTags", () => {
             }
           })
       )
-      const ReactTagsInstance = $el.instance().refs.child
+      const ReactTagsInstance = $el.instance().getDecoratedComponentInstance()
       const $input = $el.find('.ReactTags__tagInputField')
 
       expect(ReactTagsInstance.state.suggestions).to.have.members(defaults.suggestions)
@@ -136,7 +136,7 @@ describe("ReactTags", () => {
             }
           })
       )
-      const ReactTagsInstance = $el.instance().refs.child
+      const ReactTagsInstance = $el.instance().getDecoratedComponentInstance()
       const $input = $el.find('.ReactTags__tagInputField')
 
       expect(ReactTagsInstance.state.suggestions).to.have.members(defaults.suggestions)
