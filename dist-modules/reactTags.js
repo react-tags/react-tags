@@ -69,7 +69,11 @@ var ReactTags = _react2.default.createClass({
     removeComponent: _react2.default.PropTypes.func,
     autocomplete: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.bool, _react2.default.PropTypes.number]),
     readOnly: _react2.default.PropTypes.bool,
-    classNames: _react2.default.PropTypes.object
+    classNames: _react2.default.PropTypes.object,
+    name: _react2.default.PropTypes.string,
+    id: _react2.default.PropTypes.string,
+    maxLength: _react2.default.PropTypes.string,
+    renderTag: _react2.default.PropTypes.func
   },
   getDefaultProps: function getDefaultProps() {
     return {
@@ -150,10 +154,10 @@ var ReactTags = _react2.default.createClass({
     }
   },
   handleKeyDown: function handleKeyDown(e) {
-    var _state = this.state;
-    var query = _state.query;
-    var selectedIndex = _state.selectedIndex;
-    var suggestions = _state.suggestions;
+    var _state = this.state,
+        query = _state.query,
+        selectedIndex = _state.selectedIndex,
+        suggestions = _state.suggestions;
 
     // hide suggestions menu on escape
 
@@ -301,14 +305,18 @@ var ReactTags = _react2.default.createClass({
         moveTag: moveTag,
         removeComponent: this.props.removeComponent,
         readOnly: this.props.readOnly,
-        classNames: this.state.classNames });
+        classNames: this.state.classNames,
+        renderTag: this.props.renderTag });
     }.bind(this));
 
     // get the suggestions for the given query
     var query = this.state.query.trim(),
         selectedIndex = this.state.selectedIndex,
         suggestions = this.state.suggestions,
-        placeholder = this.props.placeholder;
+        placeholder = this.props.placeholder,
+        inputName = this.props.name,
+        inputId = this.props.id,
+        maxLength = this.props.maxLength;
 
     var tagInput = !this.props.readOnly ? _react2.default.createElement(
       'div',
@@ -321,7 +329,10 @@ var ReactTags = _react2.default.createClass({
         onBlur: this.handleBlur,
         onChange: this.handleChange,
         onKeyDown: this.handleKeyDown,
-        onPaste: this.handlePaste }),
+        onPaste: this.handlePaste,
+        name: inputName,
+        id: inputId,
+        maxLength: maxLength }),
       _react2.default.createElement(_Suggestions2.default, { query: query,
         suggestions: suggestions,
         selectedIndex: selectedIndex,

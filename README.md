@@ -186,6 +186,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`name`](#nameOption)
 - [`id`](#idOption)
 - [`maxLength`](#maxLength)
+- [`renderTag`](#renderTag)
 
 <a name="tagsOption"></a>
 ##### tags (optional)
@@ -397,6 +398,26 @@ The maxLength attribute added to the input. Specifies the maximum number of char
 <ReactTags
     maxLength = "42"
     ...>
+```
+
+<a name="renderTag"></a>
+##### renderTag (optional)
+Function called when the user wants to add a tag (either a click, a tab press or carriage return)
+
+```js
+function(tag) {
+    // return an element to render the label
+    // default rendering method is {tag[labelField]}
+    // example:
+    // it render the element by adding a circle with color stated in tag
+    const style = {
+        width: "10px",
+        height: "10px",
+        display: "inline-block",
+        background: value.text
+    };
+    return (<div><span style={Object.assign({}, style)}></span>{value.text}</div>);
+}
 ```
 
 ### Styling
