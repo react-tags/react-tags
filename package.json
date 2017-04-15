@@ -5,9 +5,11 @@
   "main": "dist-modules/reactTags.js",
   "scripts": {
     "test": "mocha test/.setup.js test/**/*-test.js",
+    "open-localhost": "node -e 'require(\"opn\")(\"http://localhost:8090/example/index.html\")'",
     "test-watch": "mocha --watch test/.setup.js test/**/*-test.js",
-    "start": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
-    "build": "webpack --config webpack-production.config.js --progress --colors && babel lib --out-dir dist-modules"
+    "dev": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
+    "build": "webpack --config webpack-production.config.js --progress --colors && babel lib --out-dir dist-modules",
+    "start": "npm-run-all --parallel open-localhost dev"
   },
   "keywords": [
     "react",
@@ -30,11 +32,8 @@
     "react-dom": "^0.14.0 || ^15.0.0-rc"
   },
   "devDependencies": {
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
     "babel-cli": "^6.9.0",
     "babel-core": "^6.0.20",
-    "babel-eslint": "^7.2.2",
     "babel-loader": "^6.0.1",
     "babel-preset-es2015": "^6.0.15",
     "babel-preset-react": "^6.0.15",
@@ -45,8 +44,12 @@
     "jsdom": "^9.4.0",
     "lodash": "4.17.4",
     "mocha": "^3.2.0",
+    "npm-run-all": "^4.0.2",
+    "opn": "^4.0.2",
+    "react": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
     "react-dnd-test-backend": "^2.3.0",
+    "react-dom": "^15.1.0",
     "sinon": "^2.1.0",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2"

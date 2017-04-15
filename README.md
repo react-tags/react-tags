@@ -434,7 +434,6 @@ The component is written in ES6 and uses [Webpack](http://webpack.github.io/) as
 ```
 npm install
 npm run start
-# open http://localhost:8090/example/index.html
 ```
 
 ### Contributing
