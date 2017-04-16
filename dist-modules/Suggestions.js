@@ -58,8 +58,13 @@ var Suggestions = function (_Component) {
       return !(0, _isEqual2.default)(_this.props.suggestions, nextProps.suggestions) || shouldRenderSuggestions(props.query);
     }, _this.componentDidUpdate = function (prevProps) {
       var suggestionsContainer = _this.refs.suggestionsContainer;
-      if (suggestionsContainer && prevProps.selectedIndex !== _this.props.selectedIndex) {
-        var activeSuggestion = suggestionsContainer.querySelector('.active');
+      var _this$props = _this.props,
+          selectedIndex = _this$props.selectedIndex,
+          classNames = _this$props.classNames;
+
+
+      if (suggestionsContainer && prevProps.selectedIndex !== selectedIndex) {
+        var activeSuggestion = suggestionsContainer.querySelector(classNames.activeSuggestion);
 
         if (activeSuggestion) {
           maybeScrollSuggestionIntoView(activeSuggestion, suggestionsContainer);
@@ -86,7 +91,7 @@ var Suggestions = function (_Component) {
           { key: i,
             onMouseDown: props.handleClick.bind(null, i),
             onMouseOver: props.handleHover.bind(null, i),
-            className: i == props.selectedIndex ? "active" : "" },
+            className: i == props.selectedIndex ? props.classNames.activeSuggestion : "" },
           _react2.default.createElement('span', { dangerouslySetInnerHTML: this.markIt(item, props.query) })
         );
       }.bind(_this));

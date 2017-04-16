@@ -48,6 +48,8 @@ var Keys = {
   ESCAPE: 27
 };
 
+var DEFAULT_PLACEHOLDER = "Add new tag";
+
 var DefaultClassNames = {
   tags: 'ReactTags__tags',
   tagInput: 'ReactTags__tagInput',
@@ -55,11 +57,12 @@ var DefaultClassNames = {
   selected: 'ReactTags__selected',
   tag: 'ReactTags__tag',
   remove: 'ReactTags__remove',
-  suggestions: 'ReactTags__suggestions'
+  suggestions: 'ReactTags__suggestions',
+  activeSuggestion: 'ReactTags__activeSuggestion'
 };
 
-var ReactTags = function (_React$Component) {
-  _inherits(ReactTags, _React$Component);
+var ReactTags = function (_Component) {
+  _inherits(ReactTags, _Component);
 
   function ReactTags(props) {
     _classCallCheck(this, ReactTags);
@@ -78,6 +81,9 @@ var ReactTags = function (_React$Component) {
     _this.handleChange = _this.handleChange.bind(_this);
     _this.moveTag = _this.moveTag.bind(_this);
     _this.handlePaste = _this.handlePaste.bind(_this);
+    _this.resetAndFocusInput = _this.resetAndFocusInput.bind(_this);
+    _this.handleSuggestionHover = _this.handleSuggestionHover.bind(_this);
+    _this.handleSuggestionClick = _this.handleSuggestionClick.bind(_this);
     return _this;
   }
 
@@ -89,11 +95,21 @@ var ReactTags = function (_React$Component) {
       });
     }
   }, {
+    key: 'resetAndFocusInput',
+    value: function resetAndFocusInput() {
+      var _props = this.props,
+          autofocus = _props.autofocus,
+          readOnly = _props.readOnly;
+
+      if (autofocus && !readOnly) {
+        this.textInput.value = "";
+        this.textInput.focus();
+      }
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      if (this.props.autofocus && !this.props.readOnly) {
-        this.refs.input.focus();
-      }
+      this.resetAndFocusInput();
     }
   }, {
     key: 'filteredSuggestions',
@@ -120,6 +136,7 @@ var ReactTags = function (_React$Component) {
     value: function handleDelete(i, e) {
       this.props.handleDelete(i);
       this.setState({ query: "" });
+      this.resetAndFocusInput();
     }
   }, {
     key: 'handleChange',
@@ -148,7 +165,7 @@ var ReactTags = function (_React$Component) {
       var value = e.target.value.trim();
       if (this.props.handleInputBlur) {
         this.props.handleInputBlur(value);
-        this.refs.input.value = "";
+        this.textInput.value = "";
       }
     }
   }, {
@@ -247,8 +264,6 @@ var ReactTags = function (_React$Component) {
   }, {
     key: 'addTag',
     value: function addTag(tag) {
-      var input = this.refs.input;
-
       if (this.props.autocomplete) {
         var possibleMatches = this.filteredSuggestions(tag, this.props.suggestions);
 
@@ -267,9 +282,7 @@ var ReactTags = function (_React$Component) {
         selectedIndex: -1
       });
 
-      // focus back on the input box
-      input.value = "";
-      input.focus();
+      this.resetAndFocusInput();
     }
   }, {
     key: 'handleSuggestionClick',
@@ -307,6 +320,8 @@ var ReactTags = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
+
       var moveTag = this.props.handleDrag ? this.moveTag : null;
 
       var tagItems = this.props.tags.map(function (tag, i) {
@@ -332,7 +347,10 @@ var ReactTags = function (_React$Component) {
       var tagInput = !this.props.readOnly ? _react2.default.createElement(
         'div',
         { className: this.state.classNames.tagInput },
-        _react2.default.createElement('input', { ref: 'input',
+        _react2.default.createElement('input', {
+          ref: function ref(input) {
+            _this3.textInput = input;
+          },
           className: this.state.classNames.tagInputField,
           type: 'text',
           placeholder: placeholder,
@@ -369,7 +387,7 @@ var ReactTags = function (_React$Component) {
   }]);
 
   return ReactTags;
-}(_react2.default.Component);
+}(_react.Component);
 
 ;
 
@@ -399,7 +417,7 @@ ReactTags.PropTypes = {
 };
 
 ReactTags.defaultProps = {
-  placeholder: 'Add new tag',
+  placeholder: DEFAULT_PLACEHOLDER,
   tags: [],
   suggestions: [],
   delimiters: [Keys.ENTER, Keys.TAB],
