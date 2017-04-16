@@ -11,7 +11,7 @@ const defaults = {
   suggestions: ["Banana", "Apple", "Apricot", "Pear", "Peach"],
   handleAddition: noop,
   handleDelete: noop,
-  handleDrag: noop
+  handleDrag: noop,
 };
 
 const DOWN_ARROW_KEY_CODE = 40;
@@ -29,16 +29,16 @@ test("focus on input by default", () => {
 });
 
 test("should not focus on input if autofocus is false", () => {
-  const $el = mount(mockItem({autofocus: false}));
+  const $el = mount(mockItem({ autofocus: false }));
   expect(document.activeElement.tagName).to.equal("BODY");
   $el.unmount();
 });
 
 test("should not focus on input if readOnly is true", () => {
-  const $el = mount(mockItem({autofocus: false}));
+  const $el = mount(mockItem({ autofocus: false }));
   expect(document.activeElement.tagName).to.equal("BODY");
   $el.unmount();
-})
+});
 
 test("shows the classnames of children properly", () => {
   const $el = mount(mockItem());
@@ -80,7 +80,7 @@ test("handles the paste event and splits the clipboard on delimiters", () => {
   const Keys = {
     TAB: 9,
     SPACE: 32,
-    COMMA: 188
+    COMMA: 188,
   };
 
   const actual = [];
@@ -89,7 +89,7 @@ test("handles the paste event and splits the clipboard on delimiters", () => {
       delimiters: [Keys.TAB, Keys.SPACE, Keys.COMMA],
       handleAddition(tag) {
         actual.push(tag);
-      }
+      },
     })
   );
 
@@ -98,8 +98,8 @@ test("handles the paste event and splits the clipboard on delimiters", () => {
 
   $input.simulate("paste", {
     clipboardData: {
-      getData: () => "Banana,Apple,Apricot\nOrange Blueberry,Pear,Peach\tKiwi"
-    }
+      getData: () => "Banana,Apple,Apricot\nOrange Blueberry,Pear,Peach\tKiwi",
+    },
   });
 
   expect(actual).to.have.members([
@@ -109,7 +109,7 @@ test("handles the paste event and splits the clipboard on delimiters", () => {
     "Blueberry",
     "Pear",
     "Peach",
-    "Kiwi"
+    "Kiwi",
   ]);
 });
 
@@ -129,7 +129,7 @@ describe("autocomplete/suggestions filtering", () => {
     $input.simulate("change", { target: { value: "ap" } });
     expect(ReactTagsInstance.state.suggestions).to.have.members([
       "Apple",
-      "Apricot"
+      "Apricot",
     ]);
   });
 
@@ -140,7 +140,7 @@ describe("autocomplete/suggestions filtering", () => {
           return suggestions.filter(suggestion => {
             return suggestion.toLowerCase().indexOf(query.toLowerCase()) >= 0;
           });
-        }
+        },
       })
     );
     const ReactTagsInstance = $el.instance().getDecoratedComponentInstance();
@@ -153,13 +153,13 @@ describe("autocomplete/suggestions filtering", () => {
     $input.simulate("change", { target: { value: "Ea" } });
     expect(ReactTagsInstance.state.suggestions).to.have.members([
       "Pear",
-      "Peach"
+      "Peach",
     ]);
 
     $input.simulate("change", { target: { value: "ap" } });
     expect(ReactTagsInstance.state.suggestions).to.have.members([
       "Apple",
-      "Apricot"
+      "Apricot",
     ]);
   });
 
@@ -171,7 +171,7 @@ describe("autocomplete/suggestions filtering", () => {
           return suggestions.filter(suggestion => {
             return suggestion.toLowerCase().indexOf(query.toLowerCase()) >= 0;
           });
-        }
+        },
       })
     );
     const ReactTagsInstance = $el.instance().getDecoratedComponentInstance();
@@ -187,7 +187,7 @@ describe("autocomplete/suggestions filtering", () => {
     $input.simulate("keyDown", { keyCode: DOWN_ARROW_KEY_CODE });
     expect(ReactTagsInstance.state.suggestions).to.have.members([
       "Pear",
-      "Peach"
+      "Peach",
     ]);
     expect(ReactTagsInstance.state.selectedIndex).to.equal(1);
     $input.simulate("change", { target: { value: "Each" } });

@@ -8,6 +8,7 @@
     "open-localhost": "node -e 'require(\"opn\")(\"http://localhost:8090/example/index.html\")'",
     "test-watch": "jest --watch --notify test/*",
     "dev": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
+    "format": "prettier  --write --jsx-bracket-same-line --trailing-comma es5 lib/*.js test/*.js",
     "build": "webpack --config webpack-production.config.js --progress --colors && babel lib --out-dir dist-modules",
     "start": "npm-run-all --parallel open-localhost dev"
   },
@@ -47,6 +48,7 @@
     "lodash": "4.17.4",
     "npm-run-all": "^4.0.2",
     "opn": "^4.0.2",
+    "prettier": "^1.1.0",
     "react": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
     "react-dnd-test-backend": "^2.3.0",
