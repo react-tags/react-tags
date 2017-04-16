@@ -58,8 +58,25 @@ var dropCollect = function dropCollect(connect, monitor) {
   };
 };
 
-var Tag = function (_Component) {
-  _inherits(Tag, _Component);
+function RemoveComponent(props) {
+  if (props.readOnly) {
+    return _react2.default.createElement('span', null);
+  }
+
+  if (props.removeComponent) {
+    var _Component = props.removeComponent;
+    return _react2.default.createElement(_Component, props);
+  }
+
+  return _react2.default.createElement(
+    'a',
+    { onClick: props.onClick, className: props.className },
+    String.fromCharCode(215)
+  );
+}
+
+var Tag = function (_Component2) {
+  _inherits(Tag, _Component2);
 
   function Tag() {
     var _ref;
@@ -80,30 +97,19 @@ var Tag = function (_Component) {
       var connectDragSource = props.connectDragSource,
           isDragging = props.isDragging,
           connectDropTarget = props.connectDropTarget,
-          readOnly = props.readOnly;
+          readOnly = props.readOnly,
+          CustomRemoveComponent = props.CustomRemoveComponent;
 
-      var CustomRemoveComponent = props.removeComponent;
-      var RemoveComponent = _react2.default.createClass({
-        displayName: 'RemoveComponent',
-        render: function render() {
-          if (readOnly) {
-            return _react2.default.createElement('span', null);
-          }
-          if (CustomRemoveComponent) {
-            return _react2.default.createElement(CustomRemoveComponent, this.props);
-          }
-          return _react2.default.createElement(
-            'a',
-            this.props,
-            String.fromCharCode(215)
-          );
-        }
-      });
+
       var tagComponent = _react2.default.createElement(
         'span',
         { style: { opacity: isDragging ? 0 : 1 }, className: props.classNames.tag },
         label,
-        _react2.default.createElement(RemoveComponent, { className: props.classNames.remove, onClick: props.onDelete })
+        _react2.default.createElement(RemoveComponent, {
+          className: props.classNames.remove,
+          removeComponent: props.removeComponent,
+          onClick: props.onDelete,
+          readOnly: props.readOnly })
       );
       return connectDragSource(connectDropTarget(tagComponent));
     }, _temp), _possibleConstructorReturn(_this, _ret);
@@ -112,7 +118,7 @@ var Tag = function (_Component) {
   return Tag;
 }(_react.Component);
 
-Tag.propTypes = {
+Tag.PropTypes = {
   labelField: _react2.default.PropTypes.string,
   onDelete: _react2.default.PropTypes.func.isRequired,
   tag: _react2.default.PropTypes.object.isRequired,
@@ -124,8 +130,10 @@ Tag.propTypes = {
   isDragging: _react2.default.PropTypes.bool.isRequired,
   connectDropTarget: _react2.default.PropTypes.func.isRequired
 };
+
 Tag.defaultProps = {
   labelField: 'text',
   readOnly: false
 };
+
 exports.default = (0, _flow2.default)((0, _reactDnd.DragSource)(ItemTypes.TAG, tagSource, dragSource), (0, _reactDnd.DropTarget)(ItemTypes.TAG, tagTarget, dropCollect))(Tag);
