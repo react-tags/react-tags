@@ -55,7 +55,7 @@ div.ReactTags__suggestions li mark {
     background: none;
     font-weight: 600;
 }
-div.ReactTags__suggestions ul li.active {
+div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
     background: #b7cfe0;
     cursor: pointer;
 }

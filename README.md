@@ -350,6 +350,7 @@ The maxLength attribute added to the input. Specifies the maximum number of char
 - `ReactTags__selected ReactTags__tag`
 - `ReactTags__selected ReactTags__remove`
 - `ReactTags__suggestions`
+- `ReactTags__activeSuggestion`
 
 An example can be found in `/example/reactTags.css`.
 
@@ -365,7 +366,8 @@ a `classNames` prop.
       selected: 'selectedClass',
       tag: 'tagClass',
       remove: 'removeClass',
-      suggestions: 'suggestionsClass'
+      suggestions: 'suggestionsClass',
+      activeSuggestion: 'activeSuggestionClass'
     }}
     ...>
 ```
