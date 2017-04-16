@@ -32,23 +32,23 @@ function mockItem(overrides) {
 }
 
 describe("Tag", () => {
-  it("shows the classnames of children properly", () => {
+  test("shows the classnames of children properly", () => {
     const $el = mount(mockItem());
     expect($el.find('.tag').length).to.equal(1);
     expect($el.text()).to.have.string("FooBar");
   });
 
-  it("should show cross for removing tag when read-only is false", () => {
+  test("should show cross for removing tag when read-only is false", () => {
     const $el = mount(mockItem());
     expect($el.find('.remove').length).to.equal(1);
   });
 
-  it("should not show cross for removing tag when read-only is true", () => {
+  test("should not show cross for removing tag when read-only is true", () => {
     const $el = mount(mockItem({ readOnly: true }));
     expect($el.find('.remove').length).to.equal(0);
   });
 
-  it("renders passed in removed component correctly", () => {
+  test("renders passed in removed component correctly", () => {
     const CustomRemoveComponent = function () {
       return <a className="remove">delete me</a>;
     }
@@ -57,14 +57,14 @@ describe("Tag", () => {
     expect($el.text()).to.have.string("delete me");
   });
 
-  it("calls the delete handler correctly", () => {
+  test("calls the delete handler correctly", () => {
     const spy = sinon.spy();
     const $el = mount(mockItem({ onDelete: spy }));
     $el.find('.remove').simulate('click');
     expect(spy.calledOnce).to.be.true;
   });
 
-  it("should be draggable", () => {
+  test("should be draggable", () => {
     const root = TestUtils.renderIntoDocument(mockItem());
     const backend = root.getManager().getBackend();
     const tag = TestUtils.findRenderedComponentWithType(root, Tag);
@@ -77,7 +77,7 @@ describe("Tag", () => {
     expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.false;
   });
 
-  it("should not be draggable if readOnly is true", () => {
+  test("should not be draggable if readOnly is true", () => {
     const root = TestUtils.renderIntoDocument(mockItem({ readOnly: true }));
     const backend = root.getManager().getBackend();
     const tag = TestUtils.findRenderedComponentWithType(root, Tag);
