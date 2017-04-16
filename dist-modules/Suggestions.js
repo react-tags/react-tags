@@ -8,6 +8,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _isEqual = require('lodash/isEqual');
 
 var _isEqual2 = _interopRequireDefault(_isEqual);
@@ -111,13 +115,13 @@ var Suggestions = function (_Component) {
 }(_react.Component);
 
 Suggestions.propTypes = {
-  query: _react2.default.PropTypes.string.isRequired,
-  selectedIndex: _react2.default.PropTypes.number.isRequired,
-  suggestions: _react2.default.PropTypes.array.isRequired,
-  handleClick: _react2.default.PropTypes.func.isRequired,
-  handleHover: _react2.default.PropTypes.func.isRequired,
-  minQueryLength: _react2.default.PropTypes.number,
-  shouldRenderSuggestions: _react2.default.PropTypes.func,
-  classNames: _react2.default.PropTypes.object
+  query: _propTypes2.default.string.isRequired,
+  selectedIndex: _propTypes2.default.number.isRequired,
+  suggestions: _propTypes2.default.array.isRequired,
+  handleClick: _propTypes2.default.func.isRequired,
+  handleHover: _propTypes2.default.func.isRequired,
+  minQueryLength: _propTypes2.default.number,
+  shouldRenderSuggestions: _propTypes2.default.func,
+  classNames: _propTypes2.default.object
 };
 exports.default = Suggestions;
