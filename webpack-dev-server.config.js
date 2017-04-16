@@ -8,7 +8,7 @@ const config = {
   entry: [
     'webpack/hot/dev-server',
     'webpack/hot/only-dev-server',
-    path.join(__dirname, '/lib/ReactTags.js'),
+    path.join(__dirname, '/example/main.js'),
   ],
   // Server Configuration options
   devServer: {
@@ -23,14 +23,14 @@ const config = {
   output: {
     path: buildPath, // Path of output file
     filename: '/dist/ReactTags.min.js',
-    libraryTarge: 'umd',
-    library: 'ReactTags'
+    // libraryTarge: 'umd',
+    // library: 'ReactTags'
   },
-  externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'react-dnd': 'ReactDnD'
-  },
+  // externals: {
+  //   'react': 'React',
+  //   'react-dom': 'ReactDOM',
+  //   'react-dnd': 'ReactDnD'
+  // },
   plugins: [
     // Enables Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),
