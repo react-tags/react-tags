@@ -192,20 +192,17 @@ var ReactTags = function (_React$Component) {
       if (e.keyCode === Keys.UP_ARROW) {
         e.preventDefault();
 
-        var _selectedIndex = this.state.selectedIndex;
+        var _state2 = this.state,
+            _selectedIndex = _state2.selectedIndex,
+            _suggestions = _state2.suggestions;
 
-        // last item, cycle to the top
-        if (_selectedIndex <= 0) {
-          this.setState({
-            selectedIndex: this.state.suggestions.length - 1,
-            selectionMode: true
-          });
-        } else {
-          this.setState({
-            selectedIndex: _selectedIndex - 1,
-            selectionMode: true
-          });
-        }
+
+        _selectedIndex = _selectedIndex <= 0 ? _suggestions.length - 1 : _selectedIndex - 1;
+
+        this.setState({
+          selectedIndex: _selectedIndex,
+          selectionMode: true
+        });
       }
 
       // down arrow
