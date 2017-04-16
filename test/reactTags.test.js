@@ -21,7 +21,7 @@ function mockItem(overrides) {
 }
 
 describe("ReactTags", () => {
-  it("shows the classnames of children properly", () => {
+  test("shows the classnames of children properly", () => {
     const $el = mount(mockItem());
     expect($el.find('.ReactTags__tags').length).to.equal(1);
     expect($el.find('.ReactTags__selected').length).to.equal(1);
@@ -29,13 +29,12 @@ describe("ReactTags", () => {
     expect($el.find('.ReactTags__tagInputField').length).to.equal(1);
   });
 
-  it("renders preselected tags properly", () => {
+  test("renders preselected tags properly", () => {
     const $el = mount(mockItem());
     expect($el.text()).to.have.string("Apple");
   });
 
-  it("invokes the onBlur event", () => {
-
+  test("invokes the onBlur event", () => {
     const handleInputBlur = spy();
     const $el = mount(mockItem());
 
@@ -59,22 +58,22 @@ describe("ReactTags", () => {
 
   });
 
-  it("handles the paste event and splits the clipboard on delimiters", () => {
+  test("handles the paste event and splits the clipboard on delimiters", () => {
 
     const Keys = {
-        TAB: 9,
-        SPACE: 32,
-        COMMA: 188
+      TAB: 9,
+      SPACE: 32,
+      COMMA: 188
     };
 
     const actual = [];
     const $el = mount(
-        mockItem({
-          delimiters: [Keys.TAB, Keys.SPACE, Keys.COMMA],
-          handleAddition(tag) {
-            actual.push(tag)
-          }
-        })
+      mockItem({
+        delimiters: [Keys.TAB, Keys.SPACE, Keys.COMMA],
+        handleAddition(tag) {
+          actual.push(tag)
+        }
+      })
     )
 
     const ReactTagsInstance = $el.instance().refs.child
@@ -87,70 +86,70 @@ describe("ReactTags", () => {
     })
 
     expect(actual).to.have.members(['Banana', 'Apple', 'Apricot\nOrange', 'Blueberry', 'Pear', 'Peach', 'Kiwi'])
-  })
+  });
 
   describe('autocomplete/suggestions filtering', () => {
-    it('updates suggestions state as expected based on default filter logic', () => {
+    test('updates suggestions state as expected based on default filter logic', () => {
       const $el = mount(mockItem())
       const ReactTagsInstance = $el.instance().getDecoratedComponentInstance()
       const $input = $el.find('.ReactTags__tagInputField')
 
       expect(ReactTagsInstance.state.suggestions).to.have.members(defaults.suggestions)
 
-      $input.simulate('change', {target: {value: 'ea'}})
+      $input.simulate('change', { target: { value: 'ea' } })
       expect(ReactTagsInstance.state.suggestions).to.have.members([])
 
-      $input.simulate('change', {target: {value: 'ap'}})
+      $input.simulate('change', { target: { value: 'ap' } })
       expect(ReactTagsInstance.state.suggestions).to.have.members(['Apple', 'Apricot'])
-    })
+    });
 
-    it('updates suggestions state as expected based on custom filter logic', () => {
+    test('updates suggestions state as expected based on custom filter logic', () => {
       const $el = mount(
-          mockItem({
-            handleFilterSuggestions: (query, suggestions) => {
-              return suggestions.filter(suggestion => {
-                return suggestion.toLowerCase().indexOf(query.toLowerCase()) >= 0
-              })
-            }
-          })
+        mockItem({
+          handleFilterSuggestions: (query, suggestions) => {
+            return suggestions.filter(suggestion => {
+              return suggestion.toLowerCase().indexOf(query.toLowerCase()) >= 0
+            })
+          }
+        })
       )
       const ReactTagsInstance = $el.instance().getDecoratedComponentInstance()
       const $input = $el.find('.ReactTags__tagInputField')
 
       expect(ReactTagsInstance.state.suggestions).to.have.members(defaults.suggestions)
 
-      $input.simulate('change', {target: {value: 'Ea'}})
+      $input.simulate('change', { target: { value: 'Ea' } })
       expect(ReactTagsInstance.state.suggestions).to.have.members(['Pear', 'Peach'])
 
-      $input.simulate('change', {target: {value: 'ap'}})
+      $input.simulate('change', { target: { value: 'ap' } })
       expect(ReactTagsInstance.state.suggestions).to.have.members(['Apple', 'Apricot'])
-    })
-    it('updates selectedIndex state as expected based on changing suggestions', () => {
+    });
+
+    test('updates selectedIndex state as expected based on changing suggestions', () => {
       const $el = mount(
-          mockItem({
-            autocomplete: true,
-            handleFilterSuggestions: (query, suggestions) => {
-              return suggestions.filter(suggestion => {
-                return suggestion.toLowerCase().indexOf(query.toLowerCase()) >= 0
-              })
-            }
-          })
+        mockItem({
+          autocomplete: true,
+          handleFilterSuggestions: (query, suggestions) => {
+            return suggestions.filter(suggestion => {
+              return suggestion.toLowerCase().indexOf(query.toLowerCase()) >= 0
+            })
+          }
+        })
       )
       const ReactTagsInstance = $el.instance().getDecoratedComponentInstance()
       const $input = $el.find('.ReactTags__tagInputField')
 
       expect(ReactTagsInstance.state.suggestions).to.have.members(defaults.suggestions)
 
-      $input.simulate('change', {target: {value: 'Ea'}})
+      $input.simulate('change', { target: { value: 'Ea' } })
       $input.simulate('focus')
       $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE })
       $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE })
       expect(ReactTagsInstance.state.suggestions).to.have.members(['Pear', 'Peach'])
       expect(ReactTagsInstance.state.selectedIndex).to.equal(1)
-      $input.simulate('change', {target: {value: 'Each'}})
+      $input.simulate('change', { target: { value: 'Each' } })
       expect(ReactTagsInstance.state.suggestions).to.have.members(['Peach'])
       expect(ReactTagsInstance.state.selectedIndex).to.equal(0)
-
-    })
+    });
   })
 })
