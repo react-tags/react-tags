@@ -1,3 +1,10 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { WithContext as Tags } from '../lib/ReactTags'
+
+
 // Set up test data
 const Countries = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Anguilla", "Antigua &amp; Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas"
     , "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia &amp; Herzegovina", "Botswana", "Brazil", "British Virgin Islands"
@@ -22,7 +29,6 @@ const Countries = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "An
  * The example below uses the `WithContext` since this the sole component
  * using the react-dnd component.
 */
-const Tags = ReactTags.WithContext;
 
 class App extends React.Component {
     constructor(props) {
@@ -63,14 +69,26 @@ class App extends React.Component {
         const { tags, suggestions } = this.state;
         return (
             <div>
+              <MuiThemeProvider>
                 <Tags tags={tags}
                     suggestions={suggestions}
                     handleDelete={this.handleDelete}
                     handleAddition={this.handleAddition}
-                    handleDrag={this.handleDrag} />
+                    handleDrag={this.handleDrag}
+                    autocomplete={true}
+                    minQueryLength={2}
+                    allowCreate={false}
+                 />
+              </MuiThemeProvider>
+                <pre>
+                    <code>{JSON.stringify(tags, null, 2)}</code>
+                </pre>
             </div>
         )
     }
 }
 
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin();
 ReactDOM.render(<App />, document.getElementById('app'));

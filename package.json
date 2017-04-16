@@ -25,8 +25,10 @@
   "dependencies": {
     "lodash": "^4.14.1",
     "prop-types": "^15.5.8",
+    "material-ui": "^0.17.4",
     "react-dnd": "^2.0.2",
-    "react-dnd-html5-backend": "^2.0.0"
+    "react-dnd-html5-backend": "^2.0.0",
+    "react-tap-event-plugin": "^2.0.1"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0-rc",
