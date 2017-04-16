@@ -25,12 +25,20 @@ test("focus on input by default", () => {
   const $el = mount(mockItem());
   expect(document.activeElement.tagName).to.equal("INPUT");
   expect(document.activeElement.className).to.equal("ReactTags__tagInputField");
+  $el.unmount();
 });
 
 test("should not focus on input if autofocus is false", () => {
   const $el = mount(mockItem({autofocus: false}));
   expect(document.activeElement.tagName).to.equal("BODY");
+  $el.unmount();
 });
+
+test("should not focus on input if readOnly is true", () => {
+  const $el = mount(mockItem({autofocus: false}));
+  expect(document.activeElement.tagName).to.equal("BODY");
+  $el.unmount();
+})
 
 test("shows the classnames of children properly", () => {
   const $el = mount(mockItem());
