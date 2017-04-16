@@ -1,18 +1,18 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = require('prop-types');
+var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _isEqual = require('lodash/isEqual');
+var _isEqual = require("lodash/isEqual");
 
 var _isEqual2 = _interopRequireDefault(_isEqual);
 
@@ -87,12 +87,13 @@ var Suggestions = function (_Component) {
 
       var suggestions = props.suggestions.map(function (item, i) {
         return _react2.default.createElement(
-          'li',
-          { key: i,
+          "li",
+          {
+            key: i,
             onMouseDown: props.handleClick.bind(null, i),
             onMouseOver: props.handleHover.bind(null, i),
             className: i == props.selectedIndex ? props.classNames.activeSuggestion : "" },
-          _react2.default.createElement('span', { dangerouslySetInnerHTML: this.markIt(item, props.query) })
+          _react2.default.createElement("span", { dangerouslySetInnerHTML: this.markIt(item, props.query) })
         );
       }.bind(_this));
 
@@ -103,14 +104,16 @@ var Suggestions = function (_Component) {
       }
 
       return _react2.default.createElement(
-        'div',
-        { ref: 'suggestionsContainer', className: _this.props.classNames.suggestions },
+        "div",
+        {
+          ref: "suggestionsContainer",
+          className: _this.props.classNames.suggestions },
         _react2.default.createElement(
-          'ul',
+          "ul",
           null,
-          ' ',
+          " ",
           suggestions,
-          ' '
+          " "
         )
       );
     }, _temp), _possibleConstructorReturn(_this, _ret);

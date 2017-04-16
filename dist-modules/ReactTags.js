@@ -1,32 +1,32 @@
-'use strict';
+"use strict";
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = require('react-dom');
+var _reactDom = require("react-dom");
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactDnd = require('react-dnd');
+var _reactDnd = require("react-dnd");
 
-var _reactDndHtml5Backend = require('react-dnd-html5-backend');
+var _reactDndHtml5Backend = require("react-dnd-html5-backend");
 
 var _reactDndHtml5Backend2 = _interopRequireDefault(_reactDndHtml5Backend);
 
-var _Suggestions = require('./Suggestions');
+var _Suggestions = require("./Suggestions");
 
 var _Suggestions2 = _interopRequireDefault(_Suggestions);
 
-var _propTypes = require('prop-types');
+var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Tag = require('./Tag');
+var _Tag = require("./Tag");
 
 var _Tag2 = _interopRequireDefault(_Tag);
 
@@ -51,14 +51,14 @@ var Keys = {
 var DEFAULT_PLACEHOLDER = "Add new tag";
 
 var DefaultClassNames = {
-  tags: 'ReactTags__tags',
-  tagInput: 'ReactTags__tagInput',
-  tagInputField: 'ReactTags__tagInputField',
-  selected: 'ReactTags__selected',
-  tag: 'ReactTags__tag',
-  remove: 'ReactTags__remove',
-  suggestions: 'ReactTags__suggestions',
-  activeSuggestion: 'ReactTags__activeSuggestion'
+  tags: "ReactTags__tags",
+  tagInput: "ReactTags__tagInput",
+  tagInputField: "ReactTags__tagInputField",
+  selected: "ReactTags__selected",
+  tag: "ReactTags__tag",
+  remove: "ReactTags__remove",
+  suggestions: "ReactTags__suggestions",
+  activeSuggestion: "ReactTags__activeSuggestion"
 };
 
 var ReactTags = function (_Component) {
@@ -88,14 +88,14 @@ var ReactTags = function (_Component) {
   }
 
   _createClass(ReactTags, [{
-    key: 'componentWillMount',
+    key: "componentWillMount",
     value: function componentWillMount() {
       this.setState({
         classNames: _extends({}, DefaultClassNames, this.props.classNames)
       });
     }
   }, {
-    key: 'resetAndFocusInput',
+    key: "resetAndFocusInput",
     value: function resetAndFocusInput() {
       var _props = this.props,
           autofocus = _props.autofocus,
@@ -107,12 +107,12 @@ var ReactTags = function (_Component) {
       }
     }
   }, {
-    key: 'componentDidMount',
+    key: "componentDidMount",
     value: function componentDidMount() {
       this.resetAndFocusInput();
     }
   }, {
-    key: 'filteredSuggestions',
+    key: "filteredSuggestions",
     value: function filteredSuggestions(query, suggestions) {
       if (this.props.handleFilterSuggestions) {
         return this.props.handleFilterSuggestions(query, suggestions);
@@ -123,7 +123,7 @@ var ReactTags = function (_Component) {
       });
     }
   }, {
-    key: 'componentWillReceiveProps',
+    key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(props) {
       var suggestions = this.filteredSuggestions(this.state.query, props.suggestions);
       this.setState({
@@ -132,14 +132,14 @@ var ReactTags = function (_Component) {
       });
     }
   }, {
-    key: 'handleDelete',
+    key: "handleDelete",
     value: function handleDelete(i, e) {
       this.props.handleDelete(i);
       this.setState({ query: "" });
       this.resetAndFocusInput();
     }
   }, {
-    key: 'handleChange',
+    key: "handleChange",
     value: function handleChange(e) {
       if (this.props.handleInputChange) {
         this.props.handleInputChange(e.target.value.trim());
@@ -160,7 +160,7 @@ var ReactTags = function (_Component) {
       });
     }
   }, {
-    key: 'handleBlur',
+    key: "handleBlur",
     value: function handleBlur(e) {
       var value = e.target.value.trim();
       if (this.props.handleInputBlur) {
@@ -169,7 +169,7 @@ var ReactTags = function (_Component) {
       }
     }
   }, {
-    key: 'handleKeyDown',
+    key: "handleKeyDown",
     value: function handleKeyDown(e) {
       var _state = this.state,
           query = _state.query,
@@ -236,7 +236,7 @@ var ReactTags = function (_Component) {
       }
     }
   }, {
-    key: 'handlePaste',
+    key: "handlePaste",
     value: function handlePaste(e) {
       var _this2 = this;
 
@@ -252,17 +252,17 @@ var ReactTags = function (_Component) {
         // See: http://stackoverflow.com/a/34711175/1463681
         var chrCode = delimiter - 48 * Math.floor(delimiter / 48);
         return String.fromCharCode(96 <= delimiter ? chrCode : delimiter);
-      }).join(''));
+      }).join(""));
 
       var clipboardData = e.clipboardData || window.clipboardData;
-      var string = clipboardData.getData('text');
-      var regExp = new RegExp('[' + delimiterChars + ']+');
+      var string = clipboardData.getData("text");
+      var regExp = new RegExp("[" + delimiterChars + "]+");
       string.split(regExp).forEach(function (tag) {
         return _this2.props.handleAddition(tag);
       });
     }
   }, {
-    key: 'addTag',
+    key: "addTag",
     value: function addTag(tag) {
       if (this.props.autocomplete) {
         var possibleMatches = this.filteredSuggestions(tag, this.props.suggestions);
@@ -285,12 +285,12 @@ var ReactTags = function (_Component) {
       this.resetAndFocusInput();
     }
   }, {
-    key: 'handleSuggestionClick',
+    key: "handleSuggestionClick",
     value: function handleSuggestionClick(i, e) {
       this.addTag(this.state.suggestions[i]);
     }
   }, {
-    key: 'handleSuggestionHover',
+    key: "handleSuggestionHover",
     value: function handleSuggestionHover(i, e) {
       this.setState({
         selectedIndex: i,
@@ -298,41 +298,36 @@ var ReactTags = function (_Component) {
       });
     }
   }, {
-    key: 'moveTag',
-    value: function moveTag(id, afterId) {
+    key: "moveTag",
+    value: function moveTag(dragIndex, hoverIndex) {
       var tags = this.props.tags;
 
       // locate tags
-      var tag = tags.filter(function (t) {
-        return t.id === id;
-      })[0];
-      var afterTag = tags.filter(function (t) {
-        return t.id === afterId;
-      })[0];
+      var dragTag = tags[dragIndex];
 
-      // find their position in the array
-      var tagIndex = tags.indexOf(tag);
-      var afterTagIndex = tags.indexOf(afterTag);
-
-      // call handler with current position and after position
-      this.props.handleDrag(tag, tagIndex, afterTagIndex);
+      // call handler with the index of the dragged tag
+      // and the tag that is hovered
+      this.props.handleDrag(dragTag, dragIndex, hoverIndex);
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       var _this3 = this;
 
       var moveTag = this.props.handleDrag ? this.moveTag : null;
 
       var tagItems = this.props.tags.map(function (tag, i) {
-        return _react2.default.createElement(_Tag2.default, { key: i,
+        return _react2.default.createElement(_Tag2.default, {
+          key: tag.id,
+          index: i,
           tag: tag,
           labelField: this.props.labelField,
           onDelete: this.handleDelete.bind(this, i),
           moveTag: moveTag,
           removeComponent: this.props.removeComponent,
           readOnly: this.props.readOnly,
-          classNames: this.state.classNames });
+          classNames: this.state.classNames
+        });
       }.bind(this));
 
       // get the suggestions for the given query
@@ -345,38 +340,41 @@ var ReactTags = function (_Component) {
           maxLength = this.props.maxLength;
 
       var tagInput = !this.props.readOnly ? _react2.default.createElement(
-        'div',
+        "div",
         { className: this.state.classNames.tagInput },
-        _react2.default.createElement('input', {
+        _react2.default.createElement("input", {
           ref: function ref(input) {
             _this3.textInput = input;
           },
           className: this.state.classNames.tagInputField,
-          type: 'text',
+          type: "text",
           placeholder: placeholder,
-          'aria-label': placeholder,
+          "aria-label": placeholder,
           onBlur: this.handleBlur,
           onChange: this.handleChange,
           onKeyDown: this.handleKeyDown,
           onPaste: this.handlePaste,
           name: inputName,
           id: inputId,
-          maxLength: maxLength }),
-        _react2.default.createElement(_Suggestions2.default, { query: query,
+          maxLength: maxLength
+        }),
+        _react2.default.createElement(_Suggestions2.default, {
+          query: query,
           suggestions: suggestions,
           selectedIndex: selectedIndex,
           handleClick: this.handleSuggestionClick,
           handleHover: this.handleSuggestionHover,
           minQueryLength: this.props.minQueryLength,
           shouldRenderSuggestions: this.props.shouldRenderSuggestions,
-          classNames: this.state.classNames })
+          classNames: this.state.classNames
+        })
       ) : null;
 
       return _react2.default.createElement(
-        'div',
+        "div",
         { className: this.state.classNames.tags },
         _react2.default.createElement(
-          'div',
+          "div",
           { className: this.state.classNames.selected },
           tagItems,
           this.props.inline && tagInput
@@ -388,8 +386,6 @@ var ReactTags = function (_Component) {
 
   return ReactTags;
 }(_react.Component);
-
-;
 
 ReactTags.PropTypes = {
   placeholder: _propTypes2.default.string,
