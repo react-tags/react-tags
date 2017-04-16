@@ -22,6 +22,10 @@ var _Suggestions = require('./Suggestions');
 
 var _Suggestions2 = _interopRequireDefault(_Suggestions);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _Tag = require('./Tag');
 
 var _Tag2 = _interopRequireDefault(_Tag);
@@ -370,28 +374,28 @@ var ReactTags = function (_React$Component) {
 ;
 
 ReactTags.PropTypes = {
-  placeholder: _react2.default.PropTypes.string,
-  labelField: _react2.default.PropTypes.string,
-  suggestions: _react2.default.PropTypes.array,
-  delimiters: _react2.default.PropTypes.array,
-  autofocus: _react2.default.PropTypes.bool,
-  inline: _react2.default.PropTypes.bool,
-  handleDelete: _react2.default.PropTypes.func.isRequired,
-  handleAddition: _react2.default.PropTypes.func.isRequired,
-  handleDrag: _react2.default.PropTypes.func,
-  handleFilterSuggestions: _react2.default.PropTypes.func,
-  allowDeleteFromEmptyInput: _react2.default.PropTypes.bool,
-  handleInputChange: _react2.default.PropTypes.func,
-  handleInputBlur: _react2.default.PropTypes.func,
-  minQueryLength: _react2.default.PropTypes.number,
-  shouldRenderSuggestions: _react2.default.PropTypes.func,
-  removeComponent: _react2.default.PropTypes.func,
-  autocomplete: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.bool, _react2.default.PropTypes.number]),
-  readOnly: _react2.default.PropTypes.bool,
-  classNames: _react2.default.PropTypes.object,
-  name: _react2.default.PropTypes.string,
-  id: _react2.default.PropTypes.string,
-  maxLength: _react2.default.PropTypes.string
+  placeholder: _propTypes2.default.string,
+  labelField: _propTypes2.default.string,
+  suggestions: _propTypes2.default.array,
+  delimiters: _propTypes2.default.array,
+  autofocus: _propTypes2.default.bool,
+  inline: _propTypes2.default.bool,
+  handleDelete: _propTypes2.default.func.isRequired,
+  handleAddition: _propTypes2.default.func.isRequired,
+  handleDrag: _propTypes2.default.func,
+  handleFilterSuggestions: _propTypes2.default.func,
+  allowDeleteFromEmptyInput: _propTypes2.default.bool,
+  handleInputChange: _propTypes2.default.func,
+  handleInputBlur: _propTypes2.default.func,
+  minQueryLength: _propTypes2.default.number,
+  shouldRenderSuggestions: _propTypes2.default.func,
+  removeComponent: _propTypes2.default.func,
+  autocomplete: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.number]),
+  readOnly: _propTypes2.default.bool,
+  classNames: _propTypes2.default.object,
+  name: _propTypes2.default.string,
+  id: _propTypes2.default.string,
+  maxLength: _propTypes2.default.string
 };
 
 ReactTags.defaultProps = {

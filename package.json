@@ -24,6 +24,7 @@
   "repository": "https://github.com/prakhar1989/react-tags",
   "dependencies": {
     "lodash": "^4.14.1",
+    "prop-types": "^15.5.8",
     "react-dnd": "^2.0.2",
     "react-dnd-html5-backend": "^2.0.0"
   },
@@ -49,7 +50,8 @@
     "react": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
     "react-dnd-test-backend": "^2.3.0",
-    "react-dom": "^15.1.0",
+    "react-dom": "^15.5.4",
+    "react-test-renderer": "^15.5.4",
     "sinon": "^2.1.0",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2"
