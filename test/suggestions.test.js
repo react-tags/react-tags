@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import { expect } from "chai";
 import { shallow, mount, render } from "enzyme";
 import { spy } from "sinon";
@@ -106,5 +107,29 @@ describe("Suggestions", function() {
     spy($el.nodes[0], "componentDidUpdate");
     $el.setProps({ suggestions: suggestions });
     expect($el.nodes[0].componentDidUpdate.called).to.equal(true);
+  });
+
+  test("should re-render when the query reaches minQueryLength", function() {
+    const suggestions = ["queue", "quiz", "quantify"];
+    let div = document.createElement("div");
+    let component = mockItem({
+      minQueryLength: 2,
+      query: "",
+      suggestions: suggestions,
+    });
+    var $el = ReactDOM.render(component, div);
+    spy($el, "componentDidUpdate");
+
+    // re-render with updated query prop
+    $el = ReactDOM.render(
+      mockItem({
+        minQueryLength: 2,
+        query: "qu",
+        suggestions: suggestions,
+      }),
+      div
+    );
+
+    expect($el.componentDidUpdate.called).to.equal(true);
   });
 });
