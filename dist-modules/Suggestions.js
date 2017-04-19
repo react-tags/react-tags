@@ -55,7 +55,7 @@ var Suggestions = function (_Component) {
           props = _this2.props;
 
       var shouldRenderSuggestions = props.shouldRenderSuggestions || _this.shouldRenderSuggestions;
-      return !(0, _isEqual2.default)(_this.props.suggestions, nextProps.suggestions) || shouldRenderSuggestions(props.query);
+      return !(0, _isEqual2.default)(props.suggestions, nextProps.suggestions) || shouldRenderSuggestions(nextProps.query) || shouldRenderSuggestions(nextProps.query) != shouldRenderSuggestions(props.query);
     }, _this.componentDidUpdate = function (prevProps) {
       var suggestionsContainer = _this.refs.suggestionsContainer;
       var _this$props = _this.props,
@@ -80,7 +80,7 @@ var Suggestions = function (_Component) {
           props = _this3.props;
 
       var minQueryLength = props.minQueryLength || 2;
-      return props.query.length >= minQueryLength;
+      return query.length >= minQueryLength;
     }, _this.render = function () {
       var _this4 = _this,
           props = _this4.props;
