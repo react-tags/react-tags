@@ -47,7 +47,7 @@
     "jsdom": "^10.0.0",
     "lodash": "4.17.4",
     "npm-run-all": "^4.0.2",
-    "opn": "^4.0.2",
+    "opn": "^5.0.0",
     "prettier": "^1.1.0",
     "react": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
