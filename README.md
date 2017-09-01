@@ -269,7 +269,7 @@ Optional event handler for input onBlur
 
 <a name="minQueryLength"></a>
 ##### minQueryLength (optional)
-How many characters are needed for suggestions to appear (default: 2).
+How many characters are needed for suggestions to appear (default: 2). Suggestions are displayed on focus if `0` is set.
 
 <a name="removeComponent"></a>
 ##### removeComponent (optional)
