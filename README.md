@@ -47,7 +47,7 @@ class App extends React.Component {
 
         this.state = {
             tags: [{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
-            suggestions: Countries
+            suggestions: ['USA', 'Germany', 'Austria', 'Costa Rica', 'Sri Lanka', 'Thailand']
         };
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAddition = this.handleAddition.bind(this);
