@@ -260,8 +260,8 @@ describe("autocomplete/suggestions filtering", () => {
 
     $input.simulate("change", { target: { value: "Ea" } });
     $input.simulate("focus");
-    $input.simulate("keyDown", { keyCode: DOWN_ARROW_KEY_CODE });
-    $input.simulate("keyDown", { keyCode: DOWN_ARROW_KEY_CODE });
+    $input.simulate("keyDown", { key: "ArrowDown" });
+    $input.simulate("keyDown", { key: "ArrowDown" });
     expect(ReactTagsInstance.state.suggestions).to.have.members([
       "Pear",
       "Peach",
