@@ -227,6 +227,7 @@ test("should not add empty tag when down arrow is clicked followed by enter key"
   $input.simulate("keyDown", { keyCode: ENTER_ARROW_KEY_CODE });
   expect(actual).to.have.length(0);
 });
+
 describe("autocomplete/suggestions filtering", () => {
   test("updates suggestions state as expected based on default filter logic", () => {
     const $el = mount(mockItem());
