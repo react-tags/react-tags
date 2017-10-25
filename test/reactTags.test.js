@@ -195,3 +195,12 @@ describe("autocomplete/suggestions filtering", () => {
     expect(ReactTagsInstance.state.selectedIndex).to.equal(0);
   });
 });
+
+test("renders properly using tagHoc", () => {
+  const $el = mount(mockItem({
+    tagHoc: Component => props => <div>Orange<Component {...props} /></div>,
+  }));
+  expect($el.text()).to.have.string("Apple");
+  expect($el.text()).to.have.string("Orange");
+});
+
