@@ -11,6 +11,7 @@ function mockItem(overrides) {
     query: "ang",
     suggestions: ["Banana", "Mango", "Pear", "Apricot"],
     selectedIndex: 1,
+    isFocused: true,
     handleClick: noop,
     handleHover: noop,
     classNames: { suggestions: "foo", activeSuggestion: "active" },
@@ -86,6 +87,20 @@ describe("Suggestions", function() {
       mockItem({
         minQueryLength: 2,
         query: "qu",
+        suggestions: suggestions,
+      })
+    );
+    spy($el.nodes[0], "componentDidUpdate");
+    $el.setProps({ suggestions: suggestions });
+    expect($el.nodes[0].componentDidUpdate.called).to.equal(true);
+  });
+
+  test("should re-render if minQueryLength is set to 0", function() {
+    const suggestions = ["queue", "quiz", "quantify"];
+    const $el = mount(
+      mockItem({
+        minQueryLength: 0,
+        query: "",
         suggestions: suggestions,
       })
     );
