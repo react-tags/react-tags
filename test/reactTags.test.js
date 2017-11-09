@@ -196,15 +196,17 @@ describe("autocomplete/suggestions filtering", () => {
     expect(ReactTagsInstance.state.selectedIndex).to.equal(0);
   });
 
-  test("selects the correct suggestion using the keyboard when minQueryLength is set to 0", function () {
+  test("selects the correct suggestion using the keyboard when minQueryLength is set to 0", function() {
     let actual = [];
-    const $el = mount(mockItem({
-      query: "",
-      minQueryLength: 0,
-      handleAddition(tag) {
-        actual.push(tag);
-      }
-    }));
+    const $el = mount(
+      mockItem({
+        query: "",
+        minQueryLength: 0,
+        handleAddition(tag) {
+          actual.push(tag);
+        },
+      })
+    );
     const $input = $el.find(".ReactTags__tagInputField");
 
     $input.simulate("keyDown", { keyCode: DOWN_ARROW_KEY_CODE });

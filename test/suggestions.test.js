@@ -62,9 +62,12 @@ describe("Suggestions", function() {
 
   test("should mark highlighted suggestions correctly", function() {
     const $el = shallow(mockItem());
-    expect($el.find("li.active").find("span").html()).to.equal(
-      "<span>M<mark>ang</mark>o</span>"
-    );
+    expect(
+      $el
+        .find("li.active")
+        .find("span")
+        .html()
+    ).to.equal("<span>M<mark>ang</mark>o</span>");
   });
 
   test("should not wastefully re-render if the list of suggestions have not changed", function() {
