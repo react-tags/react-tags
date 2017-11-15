@@ -67,14 +67,19 @@ test("invokes the onBlur event", () => {
   $el.find(".ReactTags__tagInputField").simulate("blur");
   expect(handleInputBlur.callCount).to.equal(1);
   expect(handleInputBlur.calledWith("")).to.be.true;
-  expect($el.find(".ReactTags__tagInputField").get(0).value).to.be.empty;
+  expect($el.find(".ReactTags__tagInputField").get(0).value).to.be.undefined;
+});
+
+test("invokes the onBlur event when input has value", () => {
+  const handleInputBlur = spy();
+  const $el = mount(mockItem({ inputValue: "Example" }));
 
   // Will also be invoked for when the input has a value.
-  $el.find(".ReactTags__tagInputField").get(0).value = "Example";
+  $el.setProps({ handleInputBlur });
   $el.find(".ReactTags__tagInputField").simulate("blur");
-  expect(handleInputBlur.callCount).to.equal(2);
+  expect(handleInputBlur.callCount).to.equal(1);
   expect(handleInputBlur.calledWith("Example")).to.be.true;
-  expect($el.find(".ReactTags__tagInputField").get(0).value).to.be.empty;
+  expect($el.find(".ReactTags__tagInputField").get(0).value).to.be.undefined;
 });
 
 test("handles the paste event and splits the clipboard on delimiters", () => {

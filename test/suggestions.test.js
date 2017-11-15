@@ -79,9 +79,11 @@ describe("Suggestions", function() {
         suggestions: suggestions,
       })
     );
-    spy($el.nodes[0], "componentDidUpdate");
+
+    spy(Suggestions.prototype, "componentDidUpdate");
     $el.setProps({ suggestions: suggestions });
-    expect($el.nodes[0].componentDidUpdate.called).to.equal(false);
+    expect(Suggestions.prototype.componentDidUpdate.called).to.equal(false);
+    Suggestions.prototype.componentDidUpdate.restore();
   });
 
   test("should re-render if there is an active query", function() {
@@ -93,9 +95,10 @@ describe("Suggestions", function() {
         suggestions: suggestions,
       })
     );
-    spy($el.nodes[0], "componentDidUpdate");
+    spy(Suggestions.prototype, "componentDidUpdate");
     $el.setProps({ suggestions: suggestions });
-    expect($el.nodes[0].componentDidUpdate.called).to.equal(true);
+    expect(Suggestions.prototype.componentDidUpdate.called).to.equal(true);
+    Suggestions.prototype.componentDidUpdate.restore();
   });
 
   test("should re-render if minQueryLength is set to 0", function() {
@@ -122,9 +125,10 @@ describe("Suggestions", function() {
         suggestions: suggestions,
       })
     );
-    spy($el.nodes[0], "componentDidUpdate");
+    spy(Suggestions.prototype, "componentDidUpdate");
     $el.setProps({ suggestions: suggestions });
-    expect($el.nodes[0].componentDidUpdate.called).to.equal(true);
+    expect(Suggestions.prototype.componentDidUpdate.called).to.equal(true);
+    Suggestions.prototype.componentDidUpdate.restore();
   });
 
   test("should re-render when the query reaches minQueryLength", function() {
