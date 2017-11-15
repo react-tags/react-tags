@@ -110,9 +110,10 @@ describe("Suggestions", function() {
         suggestions: suggestions,
       })
     );
-    spy($el.nodes[0], "componentDidUpdate");
+    spy(Suggestions.prototype, "componentDidUpdate");
     $el.setProps({ suggestions: suggestions });
-    expect($el.nodes[0].componentDidUpdate.called).to.equal(true);
+    expect(Suggestions.prototype.componentDidUpdate.called).to.equal(true);
+    Suggestions.prototype.componentDidUpdate.restore();
   });
 
   test("should re-render if the provided 'shouldRenderSuggestions' prop returns true", function() {
