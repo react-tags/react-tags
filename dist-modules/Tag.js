@@ -147,7 +147,7 @@ var Tag = function (_Component2) {
   return Tag;
 }(_react.Component);
 
-Tag.PropTypes = {
+Tag.propTypes = {
   labelField: _propTypes2.default.string,
   onDelete: _propTypes2.default.func.isRequired,
   tag: _propTypes2.default.object.isRequired,
