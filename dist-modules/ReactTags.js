@@ -356,7 +356,8 @@ var ReactTags = function (_Component) {
           onPaste: this.handlePaste,
           name: inputName,
           id: inputId,
-          maxLength: maxLength
+          maxLength: maxLength,
+          value: this.props.inputValue
         }),
         _react2.default.createElement(_Suggestions2.default, {
           query: query,
@@ -387,7 +388,7 @@ var ReactTags = function (_Component) {
   return ReactTags;
 }(_react.Component);
 
-ReactTags.PropTypes = {
+ReactTags.propTypes = {
   placeholder: _propTypes2.default.string,
   labelField: _propTypes2.default.string,
   suggestions: _propTypes2.default.array,
@@ -409,7 +410,8 @@ ReactTags.PropTypes = {
   classNames: _propTypes2.default.object,
   name: _propTypes2.default.string,
   id: _propTypes2.default.string,
-  maxLength: _propTypes2.default.string
+  maxLength: _propTypes2.default.string,
+  inputValue: _propTypes2.default.string
 };
 
 ReactTags.defaultProps = {
