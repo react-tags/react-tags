@@ -50,6 +50,7 @@
     "chai": "^4.0.1",
     "enzyme": "^2.3.0 || ^3.0.0",
     "enzyme-adapter-react-16": "^1.0.0",
+    "jest": "^21.0.1",
     "jsdom": "^10.0.0",
     "lodash": "4.17.4",
     "npm-run-all": "^4.0.2",
