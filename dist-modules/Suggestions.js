@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
@@ -50,17 +52,35 @@ var Suggestions = function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Suggestions.__proto__ || Object.getPrototypeOf(Suggestions)).call.apply(_ref, [this].concat(args))), _this), _this.shouldComponentUpdate = function (nextProps) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Suggestions.__proto__ || Object.getPrototypeOf(Suggestions)).call.apply(_ref, [this].concat(args))), _this), _this.markIt = function (input, query) {
+      var escapedRegex = query.trim().replace(/[-\\^$*+?.()|[\]{}]/g, "\\$&");
+      return {
+        __html: input.replace(RegExp(escapedRegex, "gi"), "<mark>$&</mark>")
+      };
+    }, _this.shouldRenderSuggestions = function (query) {
       var _this2 = _this,
           props = _this2.props;
 
-      var shouldRenderSuggestions = props.shouldRenderSuggestions || _this.shouldRenderSuggestions;
+      var minQueryLength = props.minQueryLength || 2;
+      return query.length >= minQueryLength;
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(Suggestions, [{
+    key: "shouldComponentUpdate",
+    value: function shouldComponentUpdate(nextProps) {
+      var props = this.props;
+
+      var shouldRenderSuggestions = props.shouldRenderSuggestions || this.shouldRenderSuggestions;
       return !(0, _isEqual2.default)(props.suggestions, nextProps.suggestions) || shouldRenderSuggestions(nextProps.query) || shouldRenderSuggestions(nextProps.query) != shouldRenderSuggestions(props.query);
-    }, _this.componentDidUpdate = function (prevProps) {
-      var suggestionsContainer = _this.refs.suggestionsContainer;
-      var _this$props = _this.props,
-          selectedIndex = _this$props.selectedIndex,
-          classNames = _this$props.classNames;
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      var suggestionsContainer = this.refs.suggestionsContainer;
+      var _props = this.props,
+          selectedIndex = _props.selectedIndex,
+          classNames = _props.classNames;
 
 
       if (suggestionsContainer && prevProps.selectedIndex !== selectedIndex) {
@@ -70,20 +90,11 @@ var Suggestions = function (_Component) {
           maybeScrollSuggestionIntoView(activeSuggestion, suggestionsContainer);
         }
       }
-    }, _this.markIt = function (input, query) {
-      var escapedRegex = query.trim().replace(/[-\\^$*+?.()|[\]{}]/g, "\\$&");
-      return {
-        __html: input.replace(RegExp(escapedRegex, "gi"), "<mark>$&</mark>")
-      };
-    }, _this.shouldRenderSuggestions = function (query) {
-      var _this3 = _this,
-          props = _this3.props;
-
-      var minQueryLength = props.minQueryLength || 2;
-      return query.length >= minQueryLength;
-    }, _this.render = function () {
-      var _this4 = _this,
-          props = _this4.props;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var props = this.props;
 
       var suggestions = props.suggestions.map(function (item, i) {
         return _react2.default.createElement(
@@ -95,10 +106,10 @@ var Suggestions = function (_Component) {
             className: i == props.selectedIndex ? props.classNames.activeSuggestion : "" },
           _react2.default.createElement("span", { dangerouslySetInnerHTML: this.markIt(item, props.query) })
         );
-      }.bind(_this));
+      }.bind(this));
 
       // use the override, if provided
-      var shouldRenderSuggestions = props.shouldRenderSuggestions || _this.shouldRenderSuggestions;
+      var shouldRenderSuggestions = props.shouldRenderSuggestions || this.shouldRenderSuggestions;
       if (suggestions.length === 0 || !shouldRenderSuggestions(props.query)) {
         return null;
       }
@@ -107,7 +118,7 @@ var Suggestions = function (_Component) {
         "div",
         {
           ref: "suggestionsContainer",
-          className: _this.props.classNames.suggestions },
+          className: this.props.classNames.suggestions },
         _react2.default.createElement(
           "ul",
           null,
@@ -116,8 +127,8 @@ var Suggestions = function (_Component) {
           " "
         )
       );
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
+    }
+  }]);
 
   return Suggestions;
 }(_react.Component);

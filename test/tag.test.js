@@ -42,12 +42,12 @@ describe("Tag", () => {
 
   test("should show cross for removing tag when read-only is false", () => {
     const $el = mount(mockItem());
-    expect($el.find(".remove").length).to.equal(1);
+    expect($el.find("a.remove").length).to.equal(1);
   });
 
   test("should not show cross for removing tag when read-only is true", () => {
     const $el = mount(mockItem({ readOnly: true }));
-    expect($el.find(".remove").length).to.equal(0);
+    expect($el.find("a.remove").length).to.equal(0);
   });
 
   test("renders passed in removed component correctly", () => {
@@ -55,14 +55,14 @@ describe("Tag", () => {
       return <a className="remove">delete me</a>;
     };
     const $el = mount(mockItem({ removeComponent: CustomRemoveComponent }));
-    expect($el.find(".remove").length).to.equal(1);
+    expect($el.find("a.remove").length).to.equal(1);
     expect($el.text()).to.have.string("delete me");
   });
 
   test("calls the delete handler correctly", () => {
     const spy = sinon.spy();
     const $el = mount(mockItem({ onDelete: spy }));
-    $el.find(".remove").simulate("click");
+    $el.find("a.remove").simulate("click");
     expect(spy.calledOnce).to.be.true;
   });
 
