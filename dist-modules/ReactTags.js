@@ -30,10 +30,6 @@ var _Tag = require("./Tag");
 
 var _Tag2 = _interopRequireDefault(_Tag);
 
-var _fuzzy = require("fuzzy");
-
-var _fuzzy2 = _interopRequireDefault(_fuzzy);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -122,8 +118,8 @@ var ReactTags = function (_Component) {
         return this.props.handleFilterSuggestions(query, suggestions);
       }
 
-      return _fuzzy2.default.filter(query, suggestions).map(function (item) {
-        return item.string;
+      return suggestions.filter(function (item) {
+        return item.toLowerCase().indexOf(query.toLowerCase()) === 0;
       });
     }
   }, {
