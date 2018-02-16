@@ -59,6 +59,16 @@ describe("Tag", () => {
     expect($el.text()).to.have.string("delete me");
   });
 
+  test("renders conditionaly passed in removed component correctly", () => {
+    const CustomConditionRemoveComponent = function(props) {
+      return props.tag.id === 1 ? null : <a className="removeTag">x</a>;
+    };
+    const $el = mount(
+      mockItem({ removeComponent: CustomConditionRemoveComponent })
+    );
+    expect($el.find(".removeTag").length).to.equal(0);
+  });
+
   test("calls the delete handler correctly", () => {
     const spy = sinon.spy();
     const $el = mount(mockItem({ onDelete: spy }));
