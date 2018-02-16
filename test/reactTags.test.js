@@ -129,7 +129,10 @@ describe("autocomplete/suggestions filtering", () => {
     );
 
     $input.simulate("change", { target: { value: "ea" } });
-    expect(ReactTagsInstance.state.suggestions).to.have.members([]);
+    expect(ReactTagsInstance.state.suggestions).to.have.members([
+	  "Pear",
+	  "Peach"
+	]);
 
     $input.simulate("change", { target: { value: "ap" } });
     expect(ReactTagsInstance.state.suggestions).to.have.members([
