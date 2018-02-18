@@ -229,6 +229,7 @@ class App extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAddition = this.handleAddition.bind(this);
     this.handleDrag = this.handleDrag.bind(this);
+    this.handleTagClick = this.handleTagClick.bind(this);
   }
 
   handleDelete(i) {
@@ -253,6 +254,10 @@ class App extends React.Component {
     this.setState({ tags });
   }
 
+  handleTagClick(index) {
+    console.log('The tag at index ' + index + ' was clicked');
+  }
+
   render() {
     const { tags, suggestions } = this.state;
     return (
@@ -263,6 +268,7 @@ class App extends React.Component {
           handleDelete={this.handleDelete}
           handleAddition={this.handleAddition}
           handleDrag={this.handleDrag}
+          handleTagClick={this.handleTagClick}
         />
       </div>
     );

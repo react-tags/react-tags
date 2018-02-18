@@ -76,6 +76,13 @@ describe("Tag", () => {
     expect(spy.calledOnce).to.be.true;
   });
 
+  test("calls the tag click handler correctly", () => {
+    const spy = sinon.spy();
+    const $el = mount(mockItem({ onTagClicked: spy }));
+    $el.find("span").simulate("click");
+    expect(spy.calledOnce).to.be.true;
+  });
+
   test("should be draggable", () => {
     const root = TestUtils.renderIntoDocument(mockItem());
     const backend = root.getManager().getBackend();
