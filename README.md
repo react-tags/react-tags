@@ -120,6 +120,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`handleDelete`](#handleDeleteOption)
 - [`handleDrag`](#handleDragOption)
 - [`handleFilterSuggestions`](#handleFilterSuggestions)
+- [`handleTagClick`](#handleTagClickOption)
 - [`autofocus`](#autofocus)
 - [`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput)
 - [`handleInputChange`](#handleInputChange)
@@ -229,6 +230,16 @@ Note: The above custom filter uses `String.prototype.includes`, which was added 
 specification. If you need to support a browser that does not yet include support for this method, you will need to
 either refactor the above filter based on the capabilities of your supported browsers, or import a [polyfill for
 `String.prototype.includes`][includes-polyfill].
+
+<a name="handleTagClickOption"></a>
+##### handleTagClick (optional)
+Function called when the user wants to know which tag was clicked
+
+```js
+function(i) {
+    // use the tag details at index i
+}
+```
 
 <a name="autofocus"></a>
 ##### autofocus (optional)
