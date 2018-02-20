@@ -15,6 +15,7 @@ const defaults = {
 };
 
 const DOWN_ARROW_KEY_CODE = 40;
+const ENTER_ARROW_KEY_CODE = 13;
 
 function mockItem(overrides) {
   const props = Object.assign({}, defaults, overrides);
@@ -198,5 +199,27 @@ describe("autocomplete/suggestions filtering", () => {
     $input.simulate("change", { target: { value: "Each" } });
     expect(ReactTagsInstance.state.suggestions).to.have.members(["Peach"]);
     expect(ReactTagsInstance.state.selectedIndex).to.equal(0);
+  });
+
+  test("selects the correct suggestion using the keyboard when minQueryLength is set to 0", function() {
+    let actual = [];
+    const $el = mount(
+      mockItem({
+        query: "",
+        minQueryLength: 0,
+        handleAddition(tag) {
+          actual.push(tag);
+        },
+      })
+    );
+    const $input = $el.find(".ReactTags__tagInputField");
+
+    $input.simulate("keyDown", { keyCode: DOWN_ARROW_KEY_CODE });
+    $input.simulate("keyDown", { keyCode: DOWN_ARROW_KEY_CODE });
+    $input.simulate("keyDown", { keyCode: DOWN_ARROW_KEY_CODE });
+    $input.simulate("keyDown", { keyCode: ENTER_ARROW_KEY_CODE });
+    expect(actual).to.have.members(["Apricot"]);
+
+    $el.unmount();
   });
 });
