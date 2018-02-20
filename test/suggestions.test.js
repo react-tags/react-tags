@@ -11,6 +11,7 @@ function mockItem(overrides) {
     query: "ang",
     suggestions: ["Banana", "Mango", "Pear", "Apricot"],
     selectedIndex: 1,
+    isFocused: true,
     handleClick: noop,
     handleHover: noop,
     classNames: { suggestions: "foo", activeSuggestion: "active" },
@@ -61,9 +62,12 @@ describe("Suggestions", function() {
 
   test("should mark highlighted suggestions correctly", function() {
     const $el = shallow(mockItem());
-    expect($el.find("li.active").find("span").html()).to.equal(
-      "<span>M<mark>ang</mark>o</span>"
-    );
+    expect(
+      $el
+        .find("li.active")
+        .find("span")
+        .html()
+    ).to.equal("<span>M<mark>ang</mark>o</span>");
   });
 
   test("should not wastefully re-render if the list of suggestions have not changed", function() {
@@ -88,6 +92,21 @@ describe("Suggestions", function() {
       mockItem({
         minQueryLength: 2,
         query: "qu",
+        suggestions: suggestions,
+      })
+    );
+    spy(Suggestions.prototype, "componentDidUpdate");
+    $el.setProps({ suggestions: suggestions });
+    expect(Suggestions.prototype.componentDidUpdate.called).to.equal(true);
+    Suggestions.prototype.componentDidUpdate.restore();
+  });
+
+  test("should re-render if minQueryLength is set to 0", function() {
+    const suggestions = ["queue", "quiz", "quantify"];
+    const $el = mount(
+      mockItem({
+        minQueryLength: 0,
+        query: "",
         suggestions: suggestions,
       })
     );
