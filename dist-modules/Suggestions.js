@@ -61,8 +61,8 @@ var Suggestions = function (_Component) {
       var _this2 = _this,
           props = _this2.props;
 
-      var minQueryLength = props.minQueryLength || 2;
-      return query.length >= minQueryLength;
+      var minQueryLength = Number.isInteger(props.minQueryLength) ? props.minQueryLength : 2;
+      return query.length >= minQueryLength && props.isFocused;
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -72,7 +72,7 @@ var Suggestions = function (_Component) {
       var props = this.props;
 
       var shouldRenderSuggestions = props.shouldRenderSuggestions || this.shouldRenderSuggestions;
-      return !(0, _isEqual2.default)(props.suggestions, nextProps.suggestions) || shouldRenderSuggestions(nextProps.query) || shouldRenderSuggestions(nextProps.query) != shouldRenderSuggestions(props.query);
+      return props.isFocused !== nextProps.isFocused || !(0, _isEqual2.default)(props.suggestions, nextProps.suggestions) || shouldRenderSuggestions(nextProps.query) || shouldRenderSuggestions(nextProps.query) != shouldRenderSuggestions(props.query);
     }
   }, {
     key: "componentDidUpdate",
@@ -141,6 +141,7 @@ Suggestions.propTypes = {
   handleHover: _propTypes2.default.func.isRequired,
   minQueryLength: _propTypes2.default.number,
   shouldRenderSuggestions: _propTypes2.default.func,
+  isFocused: _propTypes2.default.bool.isRequired,
   classNames: _propTypes2.default.object
 };
 exports.default = Suggestions;
