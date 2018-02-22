@@ -136,7 +136,7 @@ var ReactTags = function (_Component) {
   }, {
     key: "handleDelete",
     value: function handleDelete(i, e) {
-      this.props.handleDelete(i);
+      this.props.handleDelete(i, e);
       this.setState({ query: "" });
       this.resetAndFocusInput();
       e.stopPropagation();
@@ -222,7 +222,7 @@ var ReactTags = function (_Component) {
 
       // when backspace key is pressed and query is blank, delete tag
       if (e.keyCode === Keys.BACKSPACE && query == "" && this.props.allowDeleteFromEmptyInput) {
-        this.handleDelete(this.props.tags.length - 1);
+        this.handleDelete(this.props.tags.length - 1, e);
       }
 
       // up arrow
