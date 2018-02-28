@@ -144,7 +144,10 @@ var ReactTags = function (_Component) {
   }, {
     key: "handleTagClick",
     value: function handleTagClick(i, e) {
-      this.props.handleTagClick(i, e);
+      if (this.props.handleTagClick) {
+        this.props.handleTagClick(i, e);
+      }
+
       this.setState({ query: "" });
       this.resetAndFocusInput();
     }
