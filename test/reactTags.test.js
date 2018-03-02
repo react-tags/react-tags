@@ -83,6 +83,32 @@ test("invokes the onBlur event when input has value", () => {
   expect($el.find(".ReactTags__tagInputField").get(0).value).to.be.undefined;
 });
 
+test("should not add new tag on paste event", () => {
+    const actual = [];
+    const $el = mount(
+        mockItem({
+            allowAdditionFromPaste: false,
+            handleAddition(tag) {
+                actual.push(tag);
+            }
+        })
+    );
+
+    const ReactTagsInstance = $el.instance().refs.child;
+    const $input = $el.find(".ReactTags__tagInputField");
+
+    $input.simulate("paste", {
+        clipboardData: {
+            getData: () => "Banana"
+        },
+    });
+
+    expect(actual).to.have.length(0);
+    expect(actual).to.not.have.members([
+        "Banana"
+    ]);
+});
+
 test("handles the paste event and splits the clipboard on string delimiters", () => {
   const Keys = {
     TAB: "Tab",
