@@ -71,6 +71,16 @@ test("invokes the onBlur event", () => {
   expect($el.find(".ReactTags__tagInputField").get(0).value).to.be.undefined;
 });
 
+test("invokes the onFocus event", () => {
+  const handleInputFocus = spy();
+  const $el = mount(mockItem({ inputValue: "Example" }));
+
+  $el.setProps({ handleInputFocus });
+  $el.find(".ReactTags__tagInputField").simulate("focus");
+  expect(handleInputFocus.callCount).to.equal(1);
+  expect(handleInputFocus.calledWith("Example")).to.be.true;
+})
+
 test("invokes the onBlur event when input has value", () => {
   const handleInputBlur = spy();
   const $el = mount(mockItem({ inputValue: "Example" }));
