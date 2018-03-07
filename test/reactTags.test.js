@@ -78,7 +78,7 @@ test("invokes the onFocus event", () => {
   $el.find(".ReactTags__tagInputField").simulate("focus");
   expect(handleInputFocus.callCount).to.equal(1);
   expect(handleInputFocus.calledWith("Example")).to.be.true;
-})
+});
 
 test("invokes the onBlur event when input has value", () => {
   const handleInputBlur = spy();
@@ -162,6 +162,8 @@ test("should not allow duplicate tags", () => {
       },
     })
   );
+
+  expect($el.instance().props.tags).to.have.members(defaults.tags);
   const $input = $el.find(".ReactTags__tagInputField");
   $input.simulate("change", { target: { value: "Apple" } });
 
