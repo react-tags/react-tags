@@ -79,7 +79,7 @@ test("invokes the onFocus event", () => {
   $el.find(".ReactTags__tagInputField").simulate("focus");
   expect(handleInputFocus.callCount).to.equal(1);
   expect(handleInputFocus.calledWith("Example")).to.be.true;
-})
+});
 
 test("invokes the onBlur event when input has value", () => {
   const handleInputBlur = spy();
@@ -94,29 +94,27 @@ test("invokes the onBlur event when input has value", () => {
 });
 
 test("should not add new tag on paste event", () => {
-    const actual = [];
-    const $el = mount(
-        mockItem({
-            allowAdditionFromPaste: false,
-            handleAddition(tag) {
-                actual.push(tag);
-            }
-        })
-    );
+  const actual = [];
+  const $el = mount(
+    mockItem({
+      allowAdditionFromPaste: false,
+      handleAddition(tag) {
+        actual.push(tag);
+      },
+    })
+  );
 
-    const ReactTagsInstance = $el.instance().refs.child;
-    const $input = $el.find(".ReactTags__tagInputField");
+  const ReactTagsInstance = $el.instance().refs.child;
+  const $input = $el.find(".ReactTags__tagInputField");
 
-    $input.simulate("paste", {
-        clipboardData: {
-            getData: () => "Banana"
-        },
-    });
+  $input.simulate("paste", {
+    clipboardData: {
+      getData: () => "Banana",
+    },
+  });
 
-    expect(actual).to.have.length(0);
-    expect(actual).to.not.have.members([
-        "Banana"
-    ]);
+  expect(actual).to.have.length(0);
+  expect(actual).to.not.have.members(["Banana"]);
 });
 
 test("handles the paste event and splits the clipboard on string delimiters", () => {
@@ -193,123 +191,24 @@ test("handles the paste event and splits the clipboard on numeric delimiters", (
   ]);
 });
 
-test("the escape key clears suggestions and exits selection mode", () => {
-  const EscapeKey = "Escape";
-  const $el = mount(mockItem());
-  const ReactTagsInstance = $el.instance().getDecoratedComponentInstance();
+test("should not allow duplicate tags", () => {
+  const actual = [];
+  const $el = mount(
+    mockItem({
+      handleAddition(tag) {
+        actual.push(tag);
+      },
+    })
+  );
 
-  expect(ReactTagsInstance.state.suggestions).to.have.members( defaults.suggestions );
-  expect(ReactTagsInstance.state.selectedIndex).to.equal(-1);
-  expect(ReactTagsInstance.state.selectionMode).to.equal(false);
-
-  $el.find(".ReactTags__tagInputField").simulate('keyDown', {key: EscapeKey});
-  expect(ReactTagsInstance.state.suggestions).to.have.members([]);
-  expect(ReactTagsInstance.state.selectedIndex).to.equal(-1);
-  expect(ReactTagsInstance.state.selectionMode).to.equal(false);
-});
-
-test("invokes provided onChange handler", () => {
-  const AKey = "a";
-  let handleInputChange = spy();
-  const $el = mount(mockItem());
-
-  $el.setProps({ handleInputChange });
-  expect(handleInputChange.callCount).to.equal(0);
-
-  $el.find(".ReactTags__tagInputField").simulate("change", { target: { value: AKey } });
-  expect(handleInputChange.callCount).to.equal(1);
-  expect(handleInputChange.calledWith(AKey)).to.be.true;
-
-  $el.find(".ReactTags__tagInputField").simulate("change", { target: { value: AKey } });
-  expect(handleInputChange.callCount).to.equal(2);
-  expect(handleInputChange.calledWith(AKey)).to.be.true;
-});
-
-test("hitting backspace with an empty input will remove the last tag", () => {
-  const BackspaceKey = "Backspace";
-  let handleDelete = spy();
-  const $el = mount(mockItem());
+  expect($el.instance().props.tags).to.have.members(defaults.tags);
   const $input = $el.find(".ReactTags__tagInputField");
+  $input.simulate("change", { target: { value: "Apple" } });
 
-  $el.setProps({ handleDelete });
-  expect(handleDelete.callCount).to.equal(0);
-
-  $input.simulate("keyDown", { key: BackspaceKey });
-  expect(handleDelete.callCount).to.equal(1);
-
+  $input.simulate("keyDown", { keyCode: ENTER_ARROW_KEY_CODE });
+  expect(actual).to.have.length(0);
 });
 
-test("prevent backspace removing tags with props.allowDeleteFromEmptyInput set to false", () => {
-  const BackspaceKey = "Backspace";
-  let handleDelete = spy();
-  const $el = mount(mockItem({ allowDeleteFromEmptyInput: false}));
-  const $input = $el.find(".ReactTags__tagInputField");
-
-  $el.setProps({ handleDelete });
-  expect(handleDelete.callCount).to.equal(0);
-
-  $input.simulate("keyDown", { key: BackspaceKey });
-  expect(handleDelete.callCount).to.equal(0);
-});
-
-test("string keydown delimiter with some text in the input field adds a new tag", () => {
-  const TabKeyStringDelimiter = 9;
-  const TabKey = "Tab";
-  let handleAddition = spy();
-  const $el = mount(mockItem({delimiters: TabKeyStringDelimiter}));
-  const $input = $el.find(".ReactTags__tagInputField");
-
-  $el.setProps({ handleAddition });
-  expect(handleAddition.callCount).to.equal(0);
-
-  $input.simulate("change", { target: { value: "ap" } });
-  $input.simulate("keyDown", { key: TabKey, getModifierState: () => false });
-  expect(handleAddition.callCount).to.equal(1);
-});
-
-test("numeric keydown delimiter with some text in the input field adds a new tag", () => {
-  const TabKeyNumericDelimiter = 9;
-  const TabKey = "Tab";
-  let handleAddition = spy();
-  const $el = mount(mockItem({delimiters: TabKeyNumericDelimiter}));
-  const $input = $el.find(".ReactTags__tagInputField");
-
-  $el.setProps({ handleAddition });
-  expect(handleAddition.callCount).to.equal(0);
-
-  $input.simulate("change", { target: { value: "ap" } });
-  $input.simulate("keyDown", { key: TabKey, getModifierState: () => false });
-  expect(handleAddition.callCount).to.equal(1);
-});
-
-test("delimiter keydown with some text and an active suggestion adds a new tag", () => {
-  const EnterKey = "Enter";
-  const DownArrowKey = "ArrowDown";
-  let handleAddition = spy();
-  const $el = mount(mockItem());
-  const $input = $el.find(".ReactTags__tagInputField");
-
-  $el.setProps({ handleAddition });
-  expect(handleAddition.callCount).to.equal(0);
-
-  $input.simulate("change", { target: { value: "ap" } });
-  $input.simulate("keyDown", { key: DownArrowKey });
-  $input.simulate("keyDown", { key: EnterKey, getModifierState: () => false });
-  expect(handleAddition.callCount).to.equal(1);
-});
-
-test("delimiter keydown with an empty input field doesn't add a new tag", () => {
-  const EnterKey = "Enter";
-  let handleAddition = spy();
-  const $el = mount(mockItem());
-  const $input = $el.find(".ReactTags__tagInputField");
-
-  $el.setProps({ handleAddition });
-  expect(handleAddition.callCount).to.equal(0);
-
-  $input.simulate("keyDown", { key: EnterKey, getModifierState: () => false });
-  expect(handleAddition.callCount).to.equal(0);
-});
 
 describe("autocomplete/suggestions filtering", () => {
   test("updates suggestions state as expected based on default filter logic", () => {
