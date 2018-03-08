@@ -78,7 +78,7 @@ test("invokes the onFocus event", () => {
   $el.find(".ReactTags__tagInputField").simulate("focus");
   expect(handleInputFocus.callCount).to.equal(1);
   expect(handleInputFocus.calledWith("Example")).to.be.true;
-})
+});
 
 test("invokes the onBlur event when input has value", () => {
   const handleInputBlur = spy();
@@ -93,29 +93,27 @@ test("invokes the onBlur event when input has value", () => {
 });
 
 test("should not add new tag on paste event", () => {
-    const actual = [];
-    const $el = mount(
-        mockItem({
-            allowAdditionFromPaste: false,
-            handleAddition(tag) {
-                actual.push(tag);
-            }
-        })
-    );
+  const actual = [];
+  const $el = mount(
+    mockItem({
+      allowAdditionFromPaste: false,
+      handleAddition(tag) {
+        actual.push(tag);
+      },
+    })
+  );
 
-    const ReactTagsInstance = $el.instance().refs.child;
-    const $input = $el.find(".ReactTags__tagInputField");
+  const ReactTagsInstance = $el.instance().refs.child;
+  const $input = $el.find(".ReactTags__tagInputField");
 
-    $input.simulate("paste", {
-        clipboardData: {
-            getData: () => "Banana"
-        },
-    });
+  $input.simulate("paste", {
+    clipboardData: {
+      getData: () => "Banana",
+    },
+  });
 
-    expect(actual).to.have.length(0);
-    expect(actual).to.not.have.members([
-        "Banana"
-    ]);
+  expect(actual).to.have.length(0);
+  expect(actual).to.not.have.members(["Banana"]);
 });
 
 test("handles the paste event and splits the clipboard on delimiters", () => {
@@ -153,6 +151,24 @@ test("handles the paste event and splits the clipboard on delimiters", () => {
     "Peach",
     "Kiwi",
   ]);
+});
+
+test("should not allow duplicate tags", () => {
+  const actual = [];
+  const $el = mount(
+    mockItem({
+      handleAddition(tag) {
+        actual.push(tag);
+      },
+    })
+  );
+
+  expect($el.instance().props.tags).to.have.members(defaults.tags);
+  const $input = $el.find(".ReactTags__tagInputField");
+  $input.simulate("change", { target: { value: "Apple" } });
+
+  $input.simulate("keyDown", { keyCode: ENTER_ARROW_KEY_CODE });
+  expect(actual).to.have.length(0);
 });
 
 describe("autocomplete/suggestions filtering", () => {
