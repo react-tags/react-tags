@@ -70,6 +70,16 @@ test("invokes the onBlur event", () => {
   expect($el.find(".ReactTags__tagInputField").get(0).value).to.be.undefined;
 });
 
+test("invokes the onFocus event", () => {
+  const handleInputFocus = spy();
+  const $el = mount(mockItem({ inputValue: "Example" }));
+
+  $el.setProps({ handleInputFocus });
+  $el.find(".ReactTags__tagInputField").simulate("focus");
+  expect(handleInputFocus.callCount).to.equal(1);
+  expect(handleInputFocus.calledWith("Example")).to.be.true;
+});
+
 test("invokes the onBlur event when input has value", () => {
   const handleInputBlur = spy();
   const $el = mount(mockItem({ inputValue: "Example" }));
@@ -80,6 +90,30 @@ test("invokes the onBlur event when input has value", () => {
   expect(handleInputBlur.callCount).to.equal(1);
   expect(handleInputBlur.calledWith("Example")).to.be.true;
   expect($el.find(".ReactTags__tagInputField").get(0).value).to.be.undefined;
+});
+
+test("should not add new tag on paste event", () => {
+  const actual = [];
+  const $el = mount(
+    mockItem({
+      allowAdditionFromPaste: false,
+      handleAddition(tag) {
+        actual.push(tag);
+      },
+    })
+  );
+
+  const ReactTagsInstance = $el.instance().refs.child;
+  const $input = $el.find(".ReactTags__tagInputField");
+
+  $input.simulate("paste", {
+    clipboardData: {
+      getData: () => "Banana",
+    },
+  });
+
+  expect(actual).to.have.length(0);
+  expect(actual).to.not.have.members(["Banana"]);
 });
 
 test("handles the paste event and splits the clipboard on delimiters", () => {
@@ -117,6 +151,43 @@ test("handles the paste event and splits the clipboard on delimiters", () => {
     "Peach",
     "Kiwi",
   ]);
+});
+
+test("should not allow duplicate tags", () => {
+  const actual = [];
+  const $el = mount(
+    mockItem({
+      handleAddition(tag) {
+        actual.push(tag);
+      },
+    })
+  );
+
+  expect($el.instance().props.tags).to.have.members(defaults.tags);
+  const $input = $el.find(".ReactTags__tagInputField");
+  $input.simulate("change", { target: { value: "Apple" } });
+
+  $input.simulate("keyDown", { keyCode: ENTER_ARROW_KEY_CODE });
+  expect(actual).to.have.length(0);
+});
+
+test("should not add empty tag when down arrow is clicked followed by enter key", () => {
+  const actual = [];
+  const $el = mount(
+    mockItem({
+      handleAddition(tag) {
+        actual.push(tag);
+      },
+      suggestions: [],
+    })
+  );
+
+  expect($el.instance().props.tags).to.have.members(defaults.tags);
+
+  const $input = $el.find(".ReactTags__tagInputField");
+  $input.simulate("keyDown", { keyCode: DOWN_ARROW_KEY_CODE });
+  $input.simulate("keyDown", { keyCode: ENTER_ARROW_KEY_CODE });
+  expect(actual).to.have.length(0);
 });
 
 describe("autocomplete/suggestions filtering", () => {

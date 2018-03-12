@@ -24,7 +24,7 @@ Because I was looking for an excuse to build a standalone component and publish 
 ### Demo
 ![img](demo.gif)
 
-Check it out [here](http://prakhar1989.github.io/react-tags/example/)
+Check it out [here](https://react-tag-input.stackblitz.io)
 
 ### Installation
 The preferred way of using the component is via NPM
@@ -32,7 +32,7 @@ The preferred way of using the component is via NPM
 ```
 npm install --save react-tag-input
 ```
-It is, however, also available to be used separately (`dist/ReactTags.min.js`). If you prefer this method remember to include [ReactDND](https://github.com/gaearon/react-dnd) as a dependancy. Refer to the [demo](http://prakhar1989.github.io/react-tags/example/) to see how this works.
+It is, however, also available to be used separately (`dist/ReactTags.min.js`). If you prefer this method remember to include [ReactDND](https://github.com/gaearon/react-dnd) as a dependancy. Refer to the [example](https://stackblitz.com/edit/react-tag-input) to see how this works.
 
 ### Usage
 
@@ -124,6 +124,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`autofocus`](#autofocus)
 - [`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput)
 - [`handleInputChange`](#handleInputChange)
+- [`handleInputFocus`](#handleInputFocus)
 - [`handleInputBlur`](#handleInputBlur)
 - [`minQueryLength`](#minQueryLength)
 - [`removeComponent`](#removeComponent)
@@ -268,6 +269,15 @@ Optional event handler for input onChange
 ```js
 <ReactTags
     handleInputChange={this.handleInputChange}
+    ...>
+```
+<a name="handleInputFocus"></a>
+##### handleInputFocus (optional)
+Optional event handler for input onFocus
+
+```js
+<ReactTags
+    handleInputFocus={this.handleInputFocus}
     ...>
 ```
 
