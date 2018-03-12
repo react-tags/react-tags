@@ -171,6 +171,25 @@ test("should not allow duplicate tags", () => {
   expect(actual).to.have.length(0);
 });
 
+test("should not add empty tag when down arrow is clicked followed by enter key", () => {
+  const actual = [];
+  const $el = mount(
+    mockItem({
+      handleAddition(tag) {
+        actual.push(tag);
+      },
+      suggestions: [],
+    })
+  );
+
+  expect($el.instance().props.tags).to.have.members(defaults.tags);
+
+  const $input = $el.find(".ReactTags__tagInputField");
+  $input.simulate("keyDown", { keyCode: DOWN_ARROW_KEY_CODE });
+  $input.simulate("keyDown", { keyCode: ENTER_ARROW_KEY_CODE });
+  expect(actual).to.have.length(0);
+});
+
 describe("autocomplete/suggestions filtering", () => {
   test("updates suggestions state as expected based on default filter logic", () => {
     const $el = mount(mockItem());
