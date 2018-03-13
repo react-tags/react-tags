@@ -9,9 +9,16 @@ import noop from "lodash/noop";
 import Tag from "../lib/Tag";
 
 function wrapInTestContext(DecoratedComponent) {
-  return DragDropContext(TestBackend)(function(props) {
-    return <DecoratedComponent {...props} />;
-  });
+
+  class DecoratedComponentWrapper extends Component {
+    constructor(props) {
+      super(props);
+    }
+    render(){
+      return <DecoratedComponent {...this.props} />
+    }
+  }
+  return DragDropContext(TestBackend)(DecoratedComponentWrapper);
 }
 
 function mockItem(overrides) {
