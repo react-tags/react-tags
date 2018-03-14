@@ -77,23 +77,24 @@ var Suggestions = function (_Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      var suggestionsContainer = this.refs.suggestionsContainer;
       var _props = this.props,
           selectedIndex = _props.selectedIndex,
           classNames = _props.classNames;
 
 
-      if (suggestionsContainer && prevProps.selectedIndex !== selectedIndex) {
-        var activeSuggestion = suggestionsContainer.querySelector(classNames.activeSuggestion);
+      if (this.suggestionsContainer && prevProps.selectedIndex !== selectedIndex) {
+        var activeSuggestion = this.suggestionsContainer.querySelector(classNames.activeSuggestion);
 
         if (activeSuggestion) {
-          maybeScrollSuggestionIntoView(activeSuggestion, suggestionsContainer);
+          maybeScrollSuggestionIntoView(activeSuggestion, this.suggestionsContainer);
         }
       }
     }
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       var props = this.props;
 
       var suggestions = props.suggestions.map(function (item, i) {
@@ -117,7 +118,9 @@ var Suggestions = function (_Component) {
       return _react2.default.createElement(
         "div",
         {
-          ref: "suggestionsContainer",
+          ref: function ref(elem) {
+            _this3.suggestionsContainer = elem;
+          },
           className: this.props.classNames.suggestions },
         _react2.default.createElement(
           "ul",

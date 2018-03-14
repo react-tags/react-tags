@@ -99,6 +99,7 @@ var ReactTags = function (_Component) {
   }, {
     key: "resetAndFocusInput",
     value: function resetAndFocusInput() {
+      this.setState({ query: "" });
       this.textInput.value = "";
       this.textInput.focus();
     }
@@ -137,8 +138,11 @@ var ReactTags = function (_Component) {
     key: "handleDelete",
     value: function handleDelete(i, e) {
       this.props.handleDelete(i, e);
-      this.setState({ query: "" });
-      this.resetAndFocusInput();
+      if (!this.props.resetInputOnDelete) {
+        this.textInput.focus();
+      } else {
+        this.resetAndFocusInput();
+      }
       e.stopPropagation();
     }
   }, {
@@ -148,8 +152,11 @@ var ReactTags = function (_Component) {
         this.props.handleTagClick(i, e);
       }
 
-      this.setState({ query: "" });
-      this.resetAndFocusInput();
+      if (!this.props.resetInputOnDelete) {
+        this.textInput.focus();
+      } else {
+        this.resetAndFocusInput();
+      }
     }
   }, {
     key: "handleChange",
@@ -174,7 +181,11 @@ var ReactTags = function (_Component) {
     }
   }, {
     key: "handleFocus",
-    value: function handleFocus() {
+    value: function handleFocus(e) {
+      var value = e.target.value.trim();
+      if (this.props.handleInputFocus) {
+        this.props.handleInputFocus(value);
+      }
       this.setState({ isFocused: true });
     }
   }, {
@@ -248,8 +259,10 @@ var ReactTags = function (_Component) {
       // down arrow
       if (e.keyCode === Keys.DOWN_ARROW) {
         e.preventDefault();
+        var newSelectedIndex = suggestions.length === 0 ? -1 : (selectedIndex + 1) % suggestions.length;
+
         this.setState({
-          selectedIndex: (this.state.selectedIndex + 1) % suggestions.length,
+          selectedIndex: newSelectedIndex,
           selectionMode: true
         });
       }
@@ -258,6 +271,10 @@ var ReactTags = function (_Component) {
     key: "handlePaste",
     value: function handlePaste(e) {
       var _this2 = this;
+
+      if (!this.props.allowAdditionFromPaste) {
+        return;
+      }
 
       e.preventDefault();
 
@@ -283,6 +300,16 @@ var ReactTags = function (_Component) {
   }, {
     key: "addTag",
     value: function addTag(tag) {
+      var tags = this.props.tags;
+
+      var existingTags = tags.map(function (tag) {
+        return tag.text.toLowerCase();
+      });
+
+      // Return if tag has been already added
+      if (existingTags.indexOf(tag.toLowerCase()) >= 0) {
+        return;
+      }
       if (this.props.autocomplete) {
         var possibleMatches = this.filteredSuggestions(tag, this.props.suggestions);
 
@@ -423,7 +450,10 @@ ReactTags.propTypes = {
   handleFilterSuggestions: _propTypes2.default.func,
   handleTagClick: _propTypes2.default.func,
   allowDeleteFromEmptyInput: _propTypes2.default.bool,
+  allowAdditionFromPaste: _propTypes2.default.bool,
+  resetInputOnDelete: _propTypes2.default.bool,
   handleInputChange: _propTypes2.default.func,
+  handleInputFocus: _propTypes2.default.func,
   handleInputBlur: _propTypes2.default.func,
   minQueryLength: _propTypes2.default.number,
   shouldRenderSuggestions: _propTypes2.default.func,
@@ -445,6 +475,8 @@ ReactTags.defaultProps = {
   autofocus: true,
   inline: true,
   allowDeleteFromEmptyInput: true,
+  allowAdditionFromPaste: true,
+  resetInputOnDelete: true,
   minQueryLength: 2,
   autocomplete: false,
   readOnly: false
