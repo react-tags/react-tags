@@ -30,6 +30,7 @@
     ]
   },
   "dependencies": {
+    "keycode": "^2.1.9",
     "lodash": "^4.14.1",
     "prop-types": "^15.5.8",
     "react-dnd": "^2.0.2",
