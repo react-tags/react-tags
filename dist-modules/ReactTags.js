@@ -72,10 +72,12 @@ var ReactTags = function (_Component) {
     _this.state = {
       suggestions: _this.props.suggestions,
       query: "",
+      isFocused: false,
       selectedIndex: -1,
       selectionMode: false
     };
 
+    _this.handleFocus = _this.handleFocus.bind(_this);
     _this.handleBlur = _this.handleBlur.bind(_this);
     _this.handleKeyDown = _this.handleKeyDown.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
@@ -97,6 +99,7 @@ var ReactTags = function (_Component) {
   }, {
     key: "resetAndFocusInput",
     value: function resetAndFocusInput() {
+      this.setState({ query: "" });
       this.textInput.value = "";
       this.textInput.focus();
     }
@@ -134,9 +137,26 @@ var ReactTags = function (_Component) {
   }, {
     key: "handleDelete",
     value: function handleDelete(i, e) {
-      this.props.handleDelete(i);
-      this.setState({ query: "" });
-      this.resetAndFocusInput();
+      this.props.handleDelete(i, e);
+      if (!this.props.resetInputOnDelete) {
+        this.textInput.focus();
+      } else {
+        this.resetAndFocusInput();
+      }
+      e.stopPropagation();
+    }
+  }, {
+    key: "handleTagClick",
+    value: function handleTagClick(i, e) {
+      if (this.props.handleTagClick) {
+        this.props.handleTagClick(i, e);
+      }
+
+      if (!this.props.resetInputOnDelete) {
+        this.textInput.focus();
+      } else {
+        this.resetAndFocusInput();
+      }
     }
   }, {
     key: "handleChange",
@@ -160,6 +180,15 @@ var ReactTags = function (_Component) {
       });
     }
   }, {
+    key: "handleFocus",
+    value: function handleFocus(e) {
+      var value = e.target.value.trim();
+      if (this.props.handleInputFocus) {
+        this.props.handleInputFocus(value);
+      }
+      this.setState({ isFocused: true });
+    }
+  }, {
     key: "handleBlur",
     value: function handleBlur(e) {
       var value = e.target.value.trim();
@@ -167,6 +196,7 @@ var ReactTags = function (_Component) {
         this.props.handleInputBlur(value);
         this.textInput.value = "";
       }
+      this.setState({ isFocused: false });
     }
   }, {
     key: "handleKeyDown",
@@ -196,17 +226,17 @@ var ReactTags = function (_Component) {
           e.preventDefault();
         }
 
+        if (this.state.selectionMode && this.state.selectedIndex != -1) {
+          query = this.state.suggestions[this.state.selectedIndex];
+        }
         if (query !== "") {
-          if (this.state.selectionMode && this.state.selectedIndex != -1) {
-            query = this.state.suggestions[this.state.selectedIndex];
-          }
           this.addTag(query);
         }
       }
 
       // when backspace key is pressed and query is blank, delete tag
       if (e.keyCode === Keys.BACKSPACE && query == "" && this.props.allowDeleteFromEmptyInput) {
-        this.handleDelete(this.props.tags.length - 1);
+        this.handleDelete(this.props.tags.length - 1, e);
       }
 
       // up arrow
@@ -229,8 +259,10 @@ var ReactTags = function (_Component) {
       // down arrow
       if (e.keyCode === Keys.DOWN_ARROW) {
         e.preventDefault();
+        var newSelectedIndex = suggestions.length === 0 ? -1 : (selectedIndex + 1) % suggestions.length;
+
         this.setState({
-          selectedIndex: (this.state.selectedIndex + 1) % suggestions.length,
+          selectedIndex: newSelectedIndex,
           selectionMode: true
         });
       }
@@ -239,6 +271,10 @@ var ReactTags = function (_Component) {
     key: "handlePaste",
     value: function handlePaste(e) {
       var _this2 = this;
+
+      if (!this.props.allowAdditionFromPaste) {
+        return;
+      }
 
       e.preventDefault();
 
@@ -264,6 +300,16 @@ var ReactTags = function (_Component) {
   }, {
     key: "addTag",
     value: function addTag(tag) {
+      var tags = this.props.tags;
+
+      var existingTags = tags.map(function (tag) {
+        return tag.text.toLowerCase();
+      });
+
+      // Return if tag has been already added
+      if (existingTags.indexOf(tag.toLowerCase()) >= 0) {
+        return;
+      }
       if (this.props.autocomplete) {
         var possibleMatches = this.filteredSuggestions(tag, this.props.suggestions);
 
@@ -318,13 +364,14 @@ var ReactTags = function (_Component) {
 
       var tagItems = this.props.tags.map(function (tag, i) {
         return _react2.default.createElement(_Tag2.default, {
-          key: tag.id,
+          key: tag.id ? tag.id : i,
           index: i,
           tag: tag,
           labelField: this.props.labelField,
           onDelete: this.handleDelete.bind(this, i),
           moveTag: moveTag,
           removeComponent: this.props.removeComponent,
+          onTagClicked: this.handleTagClick.bind(this, i),
           readOnly: this.props.readOnly,
           classNames: this.state.classNames
         });
@@ -350,6 +397,7 @@ var ReactTags = function (_Component) {
           type: "text",
           placeholder: placeholder,
           "aria-label": placeholder,
+          onFocus: this.handleFocus,
           onBlur: this.handleBlur,
           onChange: this.handleChange,
           onKeyDown: this.handleKeyDown,
@@ -367,6 +415,7 @@ var ReactTags = function (_Component) {
           handleHover: this.handleSuggestionHover,
           minQueryLength: this.props.minQueryLength,
           shouldRenderSuggestions: this.props.shouldRenderSuggestions,
+          isFocused: this.state.isFocused,
           classNames: this.state.classNames
         })
       ) : null;
@@ -399,8 +448,12 @@ ReactTags.propTypes = {
   handleAddition: _propTypes2.default.func.isRequired,
   handleDrag: _propTypes2.default.func,
   handleFilterSuggestions: _propTypes2.default.func,
+  handleTagClick: _propTypes2.default.func,
   allowDeleteFromEmptyInput: _propTypes2.default.bool,
+  allowAdditionFromPaste: _propTypes2.default.bool,
+  resetInputOnDelete: _propTypes2.default.bool,
   handleInputChange: _propTypes2.default.func,
+  handleInputFocus: _propTypes2.default.func,
   handleInputBlur: _propTypes2.default.func,
   minQueryLength: _propTypes2.default.number,
   shouldRenderSuggestions: _propTypes2.default.func,
@@ -422,6 +475,8 @@ ReactTags.defaultProps = {
   autofocus: true,
   inline: true,
   allowDeleteFromEmptyInput: true,
+  allowAdditionFromPaste: true,
+  resetInputOnDelete: true,
   minQueryLength: 2,
   autocomplete: false,
   readOnly: false

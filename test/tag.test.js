@@ -9,9 +9,16 @@ import noop from "lodash/noop";
 import Tag from "../lib/Tag";
 
 function wrapInTestContext(DecoratedComponent) {
-  return DragDropContext(TestBackend)(function(props) {
-    return <DecoratedComponent {...props} />;
-  });
+
+  class DecoratedComponentWrapper extends Component {
+    constructor(props) {
+      super(props);
+    }
+    render(){
+      return <DecoratedComponent {...this.props} />
+    }
+  }
+  return DragDropContext(TestBackend)(DecoratedComponentWrapper);
 }
 
 function mockItem(overrides) {
@@ -59,10 +66,27 @@ describe("Tag", () => {
     expect($el.text()).to.have.string("delete me");
   });
 
+  test("renders conditionaly passed in removed component correctly", () => {
+    const CustomConditionRemoveComponent = function(props) {
+      return props.tag.id === 1 ? null : <a className="removeTag">x</a>;
+    };
+    const $el = mount(
+      mockItem({ removeComponent: CustomConditionRemoveComponent })
+    );
+    expect($el.find(".removeTag").length).to.equal(0);
+  });
+
   test("calls the delete handler correctly", () => {
     const spy = sinon.spy();
     const $el = mount(mockItem({ onDelete: spy }));
     $el.find("a.remove").simulate("click");
+    expect(spy.calledOnce).to.be.true;
+  });
+
+  test("calls the tag click handler correctly", () => {
+    const spy = sinon.spy();
+    const $el = mount(mockItem({ onTagClicked: spy }));
+    $el.find("span").simulate("click");
     expect(spy.calledOnce).to.be.true;
   });
 

@@ -131,9 +131,11 @@ var Tag = function (_Component2) {
         "span",
         {
           style: { opacity: isDragging ? 0 : 1 },
-          className: props.classNames.tag },
+          className: props.classNames.tag,
+          onClick: props.onTagClicked },
         label,
         _react2.default.createElement(RemoveComponent, {
+          tag: props.tag,
           className: props.classNames.remove,
           removeComponent: props.removeComponent,
           onClick: props.onDelete,
@@ -147,12 +149,13 @@ var Tag = function (_Component2) {
   return Tag;
 }(_react.Component);
 
-Tag.PropTypes = {
+Tag.propTypes = {
   labelField: _propTypes2.default.string,
   onDelete: _propTypes2.default.func.isRequired,
   tag: _propTypes2.default.object.isRequired,
   moveTag: _propTypes2.default.func,
   removeComponent: _propTypes2.default.func,
+  onTagClicked: _propTypes2.default.func,
   classNames: _propTypes2.default.object,
   readOnly: _propTypes2.default.bool,
   connectDragSource: _propTypes2.default.func.isRequired,
