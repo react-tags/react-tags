@@ -133,6 +133,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`name`](#nameOption)
 - [`id`](#idOption)
 - [`maxLength`](#maxLength)
+- [`inline`](#inline)
 
 <a name="tagsOption"></a>
 ##### tags (optional)
@@ -363,6 +364,34 @@ The maxLength attribute added to the input. Specifies the maximum number of char
 <ReactTags
     maxLength = "42"
     ...>
+```
+
+<a name="inline"></a>
+##### inline (optional)
+The inline attribute use to determine that selected tags and input field will be put in the same div block or not. If you want to separate it and apply auto scroll for just selected tags only, change this attribute. Specifies the inline attribute.
+
+```
+<ReactTags
+    inline = {false}
+    ...>
+```
+
+If inline is true (default value)
+
+```
+<div className="...">
+	{tagItems}
+	{tagInput}
+</div>
+```
+
+If inline is false
+
+```
+<div className="...">
+	{tagItems}
+</div>
+{tagInput}
 ```
 
 ### Styling
