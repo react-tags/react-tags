@@ -368,7 +368,7 @@ The maxLength attribute added to the input. Specifies the maximum number of char
 
 <a name="inline"></a>
 ##### inline (optional)
-The inline attribute use to determine that selected tags and input field will be put in the same div block or not. If you want to separate it and apply auto scroll for just selected tags only, change this attribute. Specifies the inline attribute.
+The inline attributes decides whether the input fields and selected tags will be rendered in-line.
 
 ```
 <ReactTags
@@ -385,6 +385,8 @@ If inline is true (default value)
 </div>
 ```
 
+![img](docs/inline-true.png)
+
 If inline is false
 
 ```
@@ -393,6 +395,8 @@ If inline is false
 </div>
 {tagInput}
 ```
+
+![img](docs/inline-false.png)
 
 ### Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
