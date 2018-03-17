@@ -38,7 +38,6 @@ It is, however, also available to be used separately (`dist/ReactTags.min.js`). 
 
 ### Usage
 
-
 Here's a sample implementation that initializes the component with a list of initial `tags` and `suggestions` list. Apart from this, there are multiple events, handlers for which need to be set. For more details, go through the [API](#Options).
 
 
