@@ -58,9 +58,10 @@ class App extends React.Component {
     }
 
     handleDelete(i) {
-        let tags = this.state.tags;
-        tags.splice(i, 1);
-        this.setState({tags: tags});
+        const { tags } = this.state;
+        this.setState({
+         tags: tags.filter((tag, index) => index !== i),
+        });
     }
 
     handleAddition(tag) {
@@ -73,14 +74,14 @@ class App extends React.Component {
     }
 
     handleDrag(tag, currPos, newPos) {
-        let tags = this.state.tags;
+        const tags = [...this.state.tags];
+        const newTags = tags.slice();
 
-        // mutate array
-        tags.splice(currPos, 1);
-        tags.splice(newPos, 0, tag);
+        newTags.splice(currPos, 1);
+        newTags.splice(newPos, 0, tag);
 
         // re-render
-        this.setState({ tags: tags });
+        this.setState({ tags: newTags });
     }
 
     render() {
@@ -249,7 +250,7 @@ Optional boolean param to control whether the text-input should be autofocused o
 ```js
 <ReactTags
     autofocus={false}
-    ...>        
+    ...>
 ```
 
 <a name="allowDeleteFromEmptyInput"></a>

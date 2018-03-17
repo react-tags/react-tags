@@ -233,25 +233,26 @@ class App extends React.Component {
   }
 
   handleDelete(i) {
+    const { tags } = this.state;
     this.setState({
-      tags: this.state.tags.filter((tag, index) => index !== i),
+      tags: tags.filter((tag, index) => index !== i),
     });
   }
 
   handleAddition(tag) {
-    let { tags } = this.state;
+    const { tags } = this.state;
     this.setState({ tags: [...tags, { id: tags.length + 1, text: tag }] });
   }
 
   handleDrag(tag, currPos, newPos) {
     const tags = [...this.state.tags];
+    const newTags = tags.slice();
 
-    // mutate array
-    tags.splice(currPos, 1);
-    tags.splice(newPos, 0, tag);
+    newTags.splice(currPos, 1);
+    newTags.splice(newPos, 0, tag);
 
     // re-render
-    this.setState({ tags });
+    this.setState({ tags: newTags });
   }
 
   handleTagClick(index) {
