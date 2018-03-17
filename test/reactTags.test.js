@@ -190,6 +190,17 @@ test("should not add empty tag when down arrow is clicked followed by enter key"
   expect(actual).to.have.length(0);
 });
 
+// this test will fail if console.error occurs
+test("should not set any property of this.textInput when readOnly", () => {
+  console.error = jest.fn(error => {
+    throw "Error";
+  });
+
+  const $el = mount(mockItem({ readOnly: true, resetInputOnDelete: false }));
+  const $tag = $el.find(".ReactTags__tag");
+  $tag.simulate("click");
+});
+
 describe("autocomplete/suggestions filtering", () => {
   test("updates suggestions state as expected based on default filter logic", () => {
     const $el = mount(mockItem());
