@@ -372,28 +372,16 @@ The inline attributes decides whether the input fields and selected tags will be
 
 ```
 <ReactTags
-    inline = {false}
+    inline
     ...>
-```
-
-If inline is true (default value)
-
-```
-<div className="...">
-	{tagItems}
-	{tagInput}
-</div>
 ```
 
 ![img](docs/inline-true.png)
 
-If inline is false
-
 ```
-<div className="...">
-	{tagItems}
-</div>
-{tagInput}
+<ReactTags
+    inline={false}
+    ...>
 ```
 
 ![img](docs/inline-false.png)
