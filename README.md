@@ -136,6 +136,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`name`](#nameOption)
 - [`id`](#idOption)
 - [`maxLength`](#maxLength)
+- [`inline`](#inline)
 
 <a name="tagsOption"></a>
 ##### tags (optional)
@@ -367,6 +368,26 @@ The maxLength attribute added to the input. Specifies the maximum number of char
     maxLength = "42"
     ...>
 ```
+
+<a name="inline"></a>
+##### inline (optional)
+The inline attributes decides whether the input fields and selected tags will be rendered in-line.
+
+```
+<ReactTags
+    inline
+    ...>
+```
+
+![img](docs/inline-true.png)
+
+```
+<ReactTags
+    inline={false}
+    ...>
+```
+
+![img](docs/inline-false.png)
 
 ### Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
