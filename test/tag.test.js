@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { expect } from "chai";
-import { DragDropContext } from "react-dnd";
-import TestBackend from "react-dnd-test-backend";
-import { shallow, mount, render } from "enzyme";
-import sinon from "sinon";
-import TestUtils from "react-dom/test-utils";
-import noop from "lodash/noop";
-import Tag from "../lib/Tag";
+import React, { Component } from 'react';
+import { expect } from 'chai';
+import { DragDropContext } from 'react-dnd';
+import TestBackend from 'react-dnd-test-backend';
+import { shallow, mount, render } from 'enzyme';
+import sinon from 'sinon';
+import TestUtils from 'react-dom/test-utils';
+import noop from 'lodash/noop';
+import Tag from '../lib/Tag';
 
 function wrapInTestContext(DecoratedComponent) {
   class DecoratedComponentWrapper extends Component {
@@ -24,13 +24,13 @@ function mockItem(overrides) {
   const props = Object.assign(
     {},
     {
-      tag: { id: 1, text: "FooBar" },
+      tag: { id: 1, text: 'FooBar' },
       onDelete: noop,
       readOnly: false,
       moveTag: noop,
       classNames: {
-        tag: "tag",
-        remove: "remove",
+        tag: 'tag',
+        remove: 'remove',
       },
     },
     overrides
@@ -39,57 +39,57 @@ function mockItem(overrides) {
   return <TagContext {...props} />;
 }
 
-describe("Tag", () => {
-  test("shows the classnames of children properly", () => {
+describe('Tag', () => {
+  test('shows the classnames of children properly', () => {
     const $el = mount(mockItem());
-    expect($el.find(".tag").length).to.equal(1);
-    expect($el.text()).to.have.string("FooBar");
+    expect($el.find('.tag').length).to.equal(1);
+    expect($el.text()).to.have.string('FooBar');
   });
 
-  test("should show cross for removing tag when read-only is false", () => {
+  test('should show cross for removing tag when read-only is false', () => {
     const $el = mount(mockItem());
-    expect($el.find("a.remove").length).to.equal(1);
+    expect($el.find('a.remove').length).to.equal(1);
   });
 
-  test("should not show cross for removing tag when read-only is true", () => {
+  test('should not show cross for removing tag when read-only is true', () => {
     const $el = mount(mockItem({ readOnly: true }));
-    expect($el.find("a.remove").length).to.equal(0);
+    expect($el.find('a.remove').length).to.equal(0);
   });
 
-  test("renders passed in removed component correctly", () => {
+  test('renders passed in removed component correctly', () => {
     const CustomRemoveComponent = function() {
       return <a className="remove">delete me</a>;
     };
     const $el = mount(mockItem({ removeComponent: CustomRemoveComponent }));
-    expect($el.find("a.remove").length).to.equal(1);
-    expect($el.text()).to.have.string("delete me");
+    expect($el.find('a.remove').length).to.equal(1);
+    expect($el.text()).to.have.string('delete me');
   });
 
-  test("renders conditionaly passed in removed component correctly", () => {
+  test('renders conditionaly passed in removed component correctly', () => {
     const CustomConditionRemoveComponent = function(props) {
       return props.tag.id === 1 ? null : <a className="removeTag">x</a>;
     };
     const $el = mount(
       mockItem({ removeComponent: CustomConditionRemoveComponent })
     );
-    expect($el.find(".removeTag").length).to.equal(0);
+    expect($el.find('.removeTag').length).to.equal(0);
   });
 
-  test("calls the delete handler correctly", () => {
+  test('calls the delete handler correctly', () => {
     const spy = sinon.spy();
     const $el = mount(mockItem({ onDelete: spy }));
-    $el.find("a.remove").simulate("click");
+    $el.find('a.remove').simulate('click');
     expect(spy.calledOnce).to.be.true;
   });
 
-  test("calls the tag click handler correctly", () => {
+  test('calls the tag click handler correctly', () => {
     const spy = sinon.spy();
     const $el = mount(mockItem({ onTagClicked: spy }));
-    $el.find("span").simulate("click");
+    $el.find('span').simulate('click');
     expect(spy.calledOnce).to.be.true;
   });
 
-  test("should be draggable", () => {
+  test('should be draggable', () => {
     const root = TestUtils.renderIntoDocument(mockItem());
     const backend = root.getManager().getBackend();
     const tag = TestUtils.findRenderedComponentWithType(root, Tag);
@@ -97,14 +97,14 @@ describe("Tag", () => {
       tag.getDecoratedComponentInstance().getHandlerId(),
     ]);
     expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.true;
-    const el = TestUtils.findRenderedDOMComponentWithTag(root, "span");
-    expect(el.style.opacity).to.equal("0");
+    const el = TestUtils.findRenderedDOMComponentWithTag(root, 'span');
+    expect(el.style.opacity).to.equal('0');
     backend.simulateEndDrag();
-    expect(el.style.opacity).to.equal("1");
+    expect(el.style.opacity).to.equal('1');
     expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.false;
   });
 
-  test("should not be draggable if readOnly is true", () => {
+  test('should not be draggable if readOnly is true', () => {
     const root = TestUtils.renderIntoDocument(mockItem({ readOnly: true }));
     const backend = root.getManager().getBackend();
     const tag = TestUtils.findRenderedComponentWithType(root, Tag);
