@@ -61,7 +61,7 @@
     "react-dnd-test-backend": "2.3.0",
     "react-test-renderer": "16.1.1",
     "sinon": "4.2.2",
-    "webpack": "3.0.0",
+    "webpack": "4.2.0",
     "webpack-dev-server": "2.11.1"
   }
 }
