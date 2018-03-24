@@ -53,7 +53,7 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            tags: [{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+            tags: [{ text: "Thailand" }, { text: "India" }],
             suggestions: ['USA', 'Germany', 'Austria', 'Costa Rica', 'Sri Lanka', 'Thailand']
         };
         this.handleDelete = this.handleDelete.bind(this);
@@ -71,7 +71,6 @@ class App extends React.Component {
     handleAddition(tag) {
         let tags = this.state.tags;
         tags.push({
-            id: tags.length + 1,
             text: tag
         });
         this.setState({tags: tags});
@@ -142,10 +141,10 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 
 <a name="tagsOption"></a>
 ##### tags (optional)
-An array of tags that are displayed as pre-selected. Each tag should have an `id` and a `text` property which is used to display.
+An array of tags that are displayed as pre-selected. Each tag should have an `text` property which is used to display.
 
 ```js
-let tags =  [ {id: 1, text: "Apples"} ]
+let tags =  [ {text: "Apples"} ]
 ```
 
 <a name="suggestionsOption"></a>
