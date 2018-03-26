@@ -30,6 +30,7 @@
     ]
   },
   "dependencies": {
+    "core-js": "2.5.3",
     "lodash": "4.17.5",
     "prop-types": "15.6.1",
     "react": "16.2.0",
