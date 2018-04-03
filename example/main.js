@@ -208,6 +208,13 @@ const Countries = [
   'Zimbabwe',
 ];
 
+
+const suggestions = Countries.map((country) => {
+  return {
+    id: country,
+    text: country
+  }
+})
 /*
  * If your app already uses react-dnd, then having multiple
  * backend will raise an integrity violation exception. In such cases
@@ -223,8 +230,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      tags: [{ text: 'Thailand' }, { text: 'India' }],
-      suggestions: Countries,
+      tags: [{ id: 'Thailand', text: 'Thailand' }, { id: 'India', text: 'India' }],
+      suggestions: suggestions,
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAddition = this.handleAddition.bind(this);
@@ -241,7 +248,7 @@ class App extends React.Component {
 
   handleAddition(tag) {
     const { tags } = this.state;
-    this.setState({ tags: [...tags, { text: tag }] });
+    this.setState({ tags: [...tags, ...[tag]] });
   }
 
   handleDrag(tag, currPos, newPos) {
