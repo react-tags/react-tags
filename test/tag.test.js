@@ -24,7 +24,7 @@ function mockItem(overrides) {
   const props = Object.assign(
     {},
     {
-      tag: { id: 1, text: 'FooBar' },
+      tag: { id:'1', text: 'FooBar' },
       onDelete: noop,
       readOnly: false,
       moveTag: noop,
@@ -67,7 +67,7 @@ describe('Tag', () => {
 
   test('renders conditionaly passed in removed component correctly', () => {
     const CustomConditionRemoveComponent = function(props) {
-      return props.tag.id === 1 ? null : <a className="removeTag">x</a>;
+      return props.tag.id === '1' ? null : <a className="removeTag">x</a>;
     };
     const $el = mount(
       mockItem({ removeComponent: CustomConditionRemoveComponent })

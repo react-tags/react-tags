@@ -9,7 +9,12 @@ import noop from 'lodash/noop';
 function mockItem(overrides) {
   const defaults = {
     query: 'ang',
-    suggestions: ['Banana', 'Mango', 'Pear', 'Apricot'],
+    suggestions: [
+      { id: 'Banana', text: 'Banana' },
+      { id: 'Mango', text: 'Mango' },
+      { id: 'Pear', text: 'Pear'},
+      { id: 'Apricot', text: 'Apricot'}
+    ],
     selectedIndex: 1,
     isFocused: true,
     handleClick: noop,
@@ -71,7 +76,11 @@ describe('Suggestions', function() {
   });
 
   test('should not wastefully re-render if the list of suggestions have not changed', function() {
-    const suggestions = ['queue', 'quiz', 'quantify'];
+    const suggestions = [
+      { id: 'queue', text: 'queue' },
+      { id: 'quiz', text: 'quiz' },
+      { id: 'quantify', text: 'quantify' }
+    ];
     const $el = mount(
       mockItem({
         minQueryLength: 2,
@@ -87,7 +96,11 @@ describe('Suggestions', function() {
   });
 
   test('should re-render if there is an active query', function() {
-    const suggestions = ['queue', 'quiz', 'quantify'];
+    const suggestions = [
+      { id: 'queue', text: 'queue' },
+      { id: 'quiz', text: 'quiz' },
+      { id: 'quantify', text: 'quantify' }
+    ];
     const $el = mount(
       mockItem({
         minQueryLength: 2,
@@ -102,7 +115,11 @@ describe('Suggestions', function() {
   });
 
   test('should re-render if minQueryLength is set to 0', function() {
-    const suggestions = ['queue', 'quiz', 'quantify'];
+    const suggestions = [
+      { id: 'queue', text: 'queue' },
+      { id: 'quiz', text: 'quiz' },
+      { id: 'quantify', text: 'quantify' }
+    ];
     const $el = mount(
       mockItem({
         minQueryLength: 0,
@@ -117,7 +134,11 @@ describe('Suggestions', function() {
   });
 
   test("should re-render if the provided 'shouldRenderSuggestions' prop returns true", function() {
-    const suggestions = ['queue', 'quiz', 'quantify'];
+    const suggestions = [
+      { id: 'queue', text: 'queue' },
+      { id: 'quiz', text: 'quiz' },
+      { id: 'quantify', text: 'quantify' }
+    ];
     const $el = mount(
       mockItem({
         shouldRenderSuggestions: function() {
@@ -133,7 +154,11 @@ describe('Suggestions', function() {
   });
 
   test('should re-render when the query reaches minQueryLength', function() {
-    const suggestions = ['queue', 'quiz', 'quantify'];
+    const suggestions = [
+      { id: 'queue', text: 'queue' },
+      { id: 'quiz', text: 'quiz' },
+      { id: 'quantify', text: 'quantify' }
+    ];
     let div = document.createElement('div');
     let component = mockItem({
       minQueryLength: 2,
