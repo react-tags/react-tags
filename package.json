@@ -5,6 +5,7 @@
   "main": "dist-modules/ReactTags.js",
   "scripts": {
     "test": "jest --notify --coverage",
+    "test-watch": "jest --watch --notify --coverage",
     "open-localhost": "node -e 'require(\"opn\")(\"http://localhost:8090/example/index.html\")'",
     "test-watch": "jest --watch --notify",
     "dev": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
