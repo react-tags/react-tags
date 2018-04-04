@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6,17 +6,21 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = require("prop-types");
+var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _isEqual = require("lodash/isEqual");
+var _isEqual = require('lodash/isEqual');
 
 var _isEqual2 = _interopRequireDefault(_isEqual);
+
+var _number = require('core-js/library/fn/number');
+
+var _number2 = _interopRequireDefault(_number);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25,6 +29,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// Polyfills
+
 
 var maybeScrollSuggestionIntoView = function maybeScrollSuggestionIntoView(suggestionEl, suggestionsContainer) {
   var containerHeight = suggestionsContainer.offsetHeight;
@@ -53,21 +60,21 @@ var Suggestions = function (_Component) {
     }
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Suggestions.__proto__ || Object.getPrototypeOf(Suggestions)).call.apply(_ref, [this].concat(args))), _this), _this.markIt = function (input, query) {
-      var escapedRegex = query.trim().replace(/[-\\^$*+?.()|[\]{}]/g, "\\$&");
+      var escapedRegex = query.trim().replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
       return {
-        __html: input.replace(RegExp(escapedRegex, "gi"), "<mark>$&</mark>")
+        __html: input.replace(RegExp(escapedRegex, 'gi'), '<mark>$&</mark>')
       };
     }, _this.shouldRenderSuggestions = function (query) {
       var _this2 = _this,
           props = _this2.props;
 
-      var minQueryLength = Number.isInteger(props.minQueryLength) ? props.minQueryLength : 2;
+      var minQueryLength = _number2.default.isInteger(props.minQueryLength) ? props.minQueryLength : 2;
       return query.length >= minQueryLength && props.isFocused;
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(Suggestions, [{
-    key: "shouldComponentUpdate",
+    key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate(nextProps) {
       var props = this.props;
 
@@ -75,7 +82,7 @@ var Suggestions = function (_Component) {
       return props.isFocused !== nextProps.isFocused || !(0, _isEqual2.default)(props.suggestions, nextProps.suggestions) || shouldRenderSuggestions(nextProps.query) || shouldRenderSuggestions(nextProps.query) != shouldRenderSuggestions(props.query);
     }
   }, {
-    key: "componentDidUpdate",
+    key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps) {
       var _props = this.props,
           selectedIndex = _props.selectedIndex,
@@ -91,7 +98,7 @@ var Suggestions = function (_Component) {
       }
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       var _this3 = this;
 
@@ -99,13 +106,13 @@ var Suggestions = function (_Component) {
 
       var suggestions = props.suggestions.map(function (item, i) {
         return _react2.default.createElement(
-          "li",
+          'li',
           {
             key: i,
             onMouseDown: props.handleClick.bind(null, i),
             onMouseOver: props.handleHover.bind(null, i),
-            className: i == props.selectedIndex ? props.classNames.activeSuggestion : "" },
-          _react2.default.createElement("span", { dangerouslySetInnerHTML: this.markIt(item, props.query) })
+            className: i == props.selectedIndex ? props.classNames.activeSuggestion : '' },
+          _react2.default.createElement('span', { dangerouslySetInnerHTML: this.markIt(item, props.query) })
         );
       }.bind(this));
 
@@ -116,18 +123,18 @@ var Suggestions = function (_Component) {
       }
 
       return _react2.default.createElement(
-        "div",
+        'div',
         {
           ref: function ref(elem) {
             _this3.suggestionsContainer = elem;
           },
           className: this.props.classNames.suggestions },
         _react2.default.createElement(
-          "ul",
+          'ul',
           null,
-          " ",
+          ' ',
           suggestions,
-          " "
+          ' '
         )
       );
     }
