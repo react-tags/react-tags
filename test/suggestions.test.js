@@ -12,8 +12,8 @@ function mockItem(overrides) {
     suggestions: [
       { id: 'Banana', text: 'Banana' },
       { id: 'Mango', text: 'Mango' },
-      { id: 'Pear', text: 'Pear'},
-      { id: 'Apricot', text: 'Apricot'}
+      { id: 'Pear', text: 'Pear' },
+      { id: 'Apricot', text: 'Apricot' },
     ],
     selectedIndex: 1,
     isFocused: true,
@@ -79,7 +79,7 @@ describe('Suggestions', function() {
     const suggestions = [
       { id: 'queue', text: 'queue' },
       { id: 'quiz', text: 'quiz' },
-      { id: 'quantify', text: 'quantify' }
+      { id: 'quantify', text: 'quantify' },
     ];
     const $el = mount(
       mockItem({
@@ -99,7 +99,7 @@ describe('Suggestions', function() {
     const suggestions = [
       { id: 'queue', text: 'queue' },
       { id: 'quiz', text: 'quiz' },
-      { id: 'quantify', text: 'quantify' }
+      { id: 'quantify', text: 'quantify' },
     ];
     const $el = mount(
       mockItem({
@@ -118,7 +118,7 @@ describe('Suggestions', function() {
     const suggestions = [
       { id: 'queue', text: 'queue' },
       { id: 'quiz', text: 'quiz' },
-      { id: 'quantify', text: 'quantify' }
+      { id: 'quantify', text: 'quantify' },
     ];
     const $el = mount(
       mockItem({
@@ -137,7 +137,7 @@ describe('Suggestions', function() {
     const suggestions = [
       { id: 'queue', text: 'queue' },
       { id: 'quiz', text: 'quiz' },
-      { id: 'quantify', text: 'quantify' }
+      { id: 'quantify', text: 'quantify' },
     ];
     const $el = mount(
       mockItem({
@@ -157,7 +157,7 @@ describe('Suggestions', function() {
     const suggestions = [
       { id: 'queue', text: 'queue' },
       { id: 'quiz', text: 'quiz' },
-      { id: 'quantify', text: 'quantify' }
+      { id: 'quantify', text: 'quantify' },
     ];
     let div = document.createElement('div');
     let component = mockItem({
