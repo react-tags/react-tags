@@ -53,8 +53,18 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            tags: [{ text: "Thailand" }, { text: "India" }],
-            suggestions: ['USA', 'Germany', 'Austria', 'Costa Rica', 'Sri Lanka', 'Thailand']
+            tags: [
+                { id: "Thailand", text: "Thailand" },
+                { id: "India", text: "India" }
+             ],
+            suggestions: [{
+                { id: 'USA', text: 'USA' },
+                { id: 'Germany', text: 'Germany' },
+                { id: 'Austria', text: 'Austria' },
+                { id: 'Costa Rica', text: 'Costa Rica' },
+                { id: 'Sri Lanka', text: 'Sri Lanka' },
+                { id: 'Thailand', text: 'Thailand' }
+             }]
         };
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAddition = this.handleAddition.bind(this);
@@ -69,11 +79,8 @@ class App extends React.Component {
     }
 
     handleAddition(tag) {
-        let tags = this.state.tags;
-        tags.push({
-            text: tag
-        });
-        this.setState({tags: tags});
+        const { tags } = this.state;
+        this.setState({tags: [...tags, ...[tag] });
     }
 
     handleDrag(tag, currPos, newPos) {
@@ -141,10 +148,10 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 
 <a name="tagsOption"></a>
 ##### tags (optional)
-An array of tags that are displayed as pre-selected. Each tag should have an `text` property which is used to display.
+An array of tags that are displayed as pre-selected. Each tag should have an  `id` and `text` property which is used to display.
 
 ```js
-let tags =  [ {text: "Apples"} ]
+const tags =  [ { id: "1", text: "Apples" } ]
 ```
 
 <a name="suggestionsOption"></a>
@@ -152,7 +159,12 @@ let tags =  [ {text: "Apples"} ]
 An array of suggestions that are used as basis for showing suggestions. At the moment, this should be an array of strings.
 
 ```js
-let suggestions = ["mango", "pineapple", "orange", "pear"];
+const suggestions = [
+    { id: "mango" text: "mango" },
+    { id: "pineapple", text: "pineapple" },
+    { id: "orange", text: "orange" },
+    { id: "pear", text: "pear" }
+];
 ```
 
 <a name="delimiters"></a>
@@ -173,10 +185,12 @@ let placeholder = "Add new country"
 Provide an alternative `label` property for the tags. Defaults to `text`.
 
 ```
-<ReactTags tags={tags}
+<ReactTags
+    tags={tags}
     suggestions={}
     labelField={'name'}
-    handleDrag={} />
+    handleDrag={}
+ />
 ```
 This is useful if your data uses the `text` property for something else.
 

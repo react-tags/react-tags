@@ -24,7 +24,7 @@ function mockItem(overrides) {
   const props = Object.assign(
     {},
     {
-      tag: { id:'1', text: 'FooBar' },
+      tag: { id: '1', text: 'FooBar' },
       onDelete: noop,
       readOnly: false,
       moveTag: noop,

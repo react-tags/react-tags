@@ -11,10 +11,9 @@ const defaults = {
   suggestions: [
     { id: 'Banana', text: 'Banana' },
     { id: 'Apple', text: 'Apple' },
-    { id: 'Apricot', text: 'Apricot'},
-    { id: 'Pear', text: 'Pear'},
-    { id: 'Peach', text: 'Peach' }
-
+    { id: 'Apricot', text: 'Apricot' },
+    { id: 'Pear', text: 'Pear' },
+    { id: 'Peach', text: 'Peach' },
   ],
   handleAddition: noop,
   handleDelete: noop,
@@ -220,7 +219,7 @@ describe('Test ReactTags', () => {
     let modifiedTags = [
       ...defaults.tags,
       { id: 'NewYork', text: 'NewYork' },
-      { id:'Austria', text: 'Austria' },
+      { id: 'Austria', text: 'Austria' },
     ];
     const $el = mount(
       mockItem({
@@ -246,6 +245,63 @@ describe('Test ReactTags', () => {
     $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
   });
 
+  describe('render tags correctly when html passed in  text attribute, fix #267', () => {
+    let modifiedTags = [];
+    let handleAddition;
+    let actual;
+    beforeEach(() => {
+      actual = [];
+      modifiedTags = [
+        ...defaults.tags,
+        { id: '1', text: <span style={{ color: 'red' }}> NewYork</span> },
+        { id: '2', text: <span style={{ color: 'blue' }}> Austria</span> },
+      ];
+      handleAddition = ({ id, text }) => {
+        actual.push({
+          id,
+          text: <span style={{ color: 'yellow' }}>{text}</span>,
+        });
+      };
+    });
+    test('should render tags correctly', () => {
+      const $el = mount(
+        mockItem({
+          tags: modifiedTags,
+        })
+      );
+      expect($el.instance().props.tags).to.have.members(modifiedTags);
+    });
+
+    test('allow adding tag which is not in the list', () => {
+      const $el = mount(
+        mockItem({
+          tags: modifiedTags,
+          handleAddition,
+        })
+      );
+      const $input = $el.find('.ReactTags__tagInputField');
+      $input.simulate('change', { target: { value: 'Custom tag' } });
+
+      $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+      expect(actual).to.have.length(1);
+      expect(React.isValidElement(actual[0].text)).to.be.true;
+    });
+
+    test('should not allow duplicate tags', () => {
+      const actual = [];
+      const $el = mount(
+        mockItem({
+          tags: modifiedTags,
+          handleAddition,
+        })
+      );
+      const $input = $el.find('.ReactTags__tagInputField');
+      $input.simulate('change', { target: { value: 'Austria' } });
+
+      $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+      expect(actual).to.have.length(0);
+    });
+  });
   describe('autocomplete/suggestions filtering', () => {
     test('updates suggestions state as expected based on default filter logic', () => {
       const $el = mount(mockItem());
@@ -261,8 +317,8 @@ describe('Test ReactTags', () => {
 
       $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-       { id: 'Apple', text: 'Apple' },
-       { id: 'Apricot', text: 'Apricot' },
+        { id: 'Apple', text: 'Apple' },
+        { id: 'Apricot', text: 'Apricot' },
       ]);
     });
 
@@ -271,7 +327,9 @@ describe('Test ReactTags', () => {
         mockItem({
           handleFilterSuggestions: (query, suggestions) => {
             return suggestions.filter((suggestion) => {
-              return suggestion.text.toLowerCase().indexOf(query.toLowerCase()) >= 0;
+              return (
+                suggestion.text.toLowerCase().indexOf(query.toLowerCase()) >= 0
+              );
             });
           },
         })
@@ -302,7 +360,9 @@ describe('Test ReactTags', () => {
           autocomplete: true,
           handleFilterSuggestions: (query, suggestions) => {
             return suggestions.filter((suggestion) => {
-              return suggestion.text.toLowerCase().indexOf(query.toLowerCase()) >= 0;
+              return (
+                suggestion.text.toLowerCase().indexOf(query.toLowerCase()) >= 0
+              );
             });
           },
         })
@@ -324,7 +384,9 @@ describe('Test ReactTags', () => {
       ]);
       expect(ReactTagsInstance.state.selectedIndex).to.equal(1);
       $input.simulate('change', { target: { value: 'Each' } });
-      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([{ id: 'Peach', text: 'Peach' }]);
+      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+        { id: 'Peach', text: 'Peach' },
+      ]);
       expect(ReactTagsInstance.state.selectedIndex).to.equal(0);
     });
 
