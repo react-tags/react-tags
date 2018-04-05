@@ -62,7 +62,7 @@ var Suggestions = function (_Component) {
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Suggestions.__proto__ || Object.getPrototypeOf(Suggestions)).call.apply(_ref, [this].concat(args))), _this), _this.markIt = function (input, query) {
       var escapedRegex = query.trim().replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
       return {
-        __html: input.replace(RegExp(escapedRegex, 'gi'), '<mark>$&</mark>')
+        __html: input.text.replace(RegExp(escapedRegex, 'gi'), '<mark>$&</mark>')
       };
     }, _this.shouldRenderSuggestions = function (query) {
       var _this2 = _this,

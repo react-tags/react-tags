@@ -61,10 +61,9 @@ var ReactTags = function (_Component) {
       var classNames = _this.state.classNames;
 
       var moveTag = handleDrag ? _this.moveTag : null;
-
       return tags.map(function (tag, index) {
         return _react2.default.createElement(_Tag2.default, {
-          key: tag.text + '-index',
+          key: tag.id,
           index: index,
           tag: tag,
           labelField: labelField,
@@ -133,7 +132,7 @@ var ReactTags = function (_Component) {
       }
 
       return suggestions.filter(function (item) {
-        return item.toLowerCase().indexOf(query.toLowerCase()) === 0;
+        return item.text.toLowerCase().indexOf(query.toLowerCase()) === 0;
       });
     }
   }, {
@@ -237,7 +236,7 @@ var ReactTags = function (_Component) {
           e.preventDefault();
         }
 
-        var selectedQuery = selectionMode && selectedIndex !== -1 ? suggestions[selectedIndex] : query;
+        var selectedQuery = selectionMode && selectedIndex !== -1 ? suggestions[selectedIndex] : { id: query, text: query };
 
         if (selectedQuery !== '') {
           this.addTag(selectedQuery);
@@ -300,14 +299,16 @@ var ReactTags = function (_Component) {
   }, {
     key: 'addTag',
     value: function addTag(tag) {
+      if (!tag.id && !tag.text) {
+        return;
+      }
       var tags = this.props.tags;
 
-      var existingTags = tags.map(function (tag) {
-        return tag.text.toLowerCase();
+      var existingKeys = tags.map(function (tag) {
+        return tag.id.toLowerCase();
       });
-
       // Return if tag has been already added
-      if (existingTags.indexOf(tag.toLowerCase()) >= 0) {
+      if (existingKeys.indexOf(tag.id.toLowerCase()) >= 0) {
         return;
       }
       if (this.props.autocomplete) {
@@ -427,7 +428,10 @@ var ReactTags = function (_Component) {
 ReactTags.propTypes = {
   placeholder: _propTypes2.default.string,
   labelField: _propTypes2.default.string,
-  suggestions: _propTypes2.default.array,
+  suggestions: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+    id: _propTypes2.default.string.isRequired,
+    text: _propTypes2.default.string.isRequired
+  })),
   delimiters: _propTypes2.default.array,
   autofocus: _propTypes2.default.bool,
   inline: _propTypes2.default.bool,
@@ -451,12 +455,15 @@ ReactTags.propTypes = {
   name: _propTypes2.default.string,
   id: _propTypes2.default.string,
   maxLength: _propTypes2.default.string,
-  inputValue: _propTypes2.default.string
+  inputValue: _propTypes2.default.string,
+  tags: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+    id: _propTypes2.default.string.isRequired,
+    text: _propTypes2.default.any.isRequired
+  }))
 };
 
 ReactTags.defaultProps = {
   placeholder: _constants.DEFAULT_PLACEHOLDER,
-  tags: [],
   suggestions: [],
   delimiters: [_constants.KEYS.ENTER, _constants.KEYS.TAB],
   autofocus: true,
