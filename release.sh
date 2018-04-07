@@ -1,17 +1,31 @@
 #!/bin/bash
 
-if [ $# -ne 3]
-then
+# releases a new version
+release () {
+  echo "Version $1.$2.$3 in progress"
+  git checkout master
+  git pull -r origin master
+  npm build
+  git tag v$1.$2.$3
+  git push origin --tags
+  git commit -am "upgrading to version $1.$2.$3"
+  git push origin master
+  npm publish
+  echo "Version published successfully"
+}
+
+if [ $# -ne 3 ]
+  then
   echo "Usage: ./release.sh 3 2 1 for releasing v3.2.1"
   exit 1
 fi
-echo "Version $1.$2.$3 in progress"
-git checkout master
-git pull -r origin master
-npm build
-git tag v$1.$2.$3
-git push origin --tags
-git commit -am "upgrading to version $1.$2.$3"
-git push origin master
-npm publish
-echo "Version published successfully"
+echo "This will release new Version v $1.$2.$3...."
+
+# ask for user's confirmation
+read -p "Are you sure you want to continue? (y/n) " choice
+case "$choice" in
+  y|Y) release ;;
+  *) echo "Aborting..."
+esac
+
+
