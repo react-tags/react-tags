@@ -1,4 +1,10 @@
 #!/bin/bash
+
+if [ $# -ne 3]
+then
+  echo "Usage: ./release.sh 3 2 1 for releasing v3.2.1"
+  exit 1
+fi
 echo "Version $1.$2.$3 in progress"
 git checkout master
 git pull -r origin master
