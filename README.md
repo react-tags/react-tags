@@ -80,7 +80,7 @@ class App extends React.Component {
 
     handleAddition(tag) {
         const { tags } = this.state;
-        this.setState({tags: [...tags, ...[tag] });
+        this.setState({tags: [...tags, ...[tag]] });
     }
 
     handleDrag(tag, currPos, newPos) {
