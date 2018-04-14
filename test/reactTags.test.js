@@ -245,6 +245,18 @@ describe('Test ReactTags', () => {
     $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
   });
 
+  test('disables the input with disabled prop', () => {
+    const $el = mount(
+      mockItem({
+        disabled: true,
+      })
+    );
+
+    const $input = $el.find('.ReactTags__tagInputField');
+
+    expect($input.prop('disabled')).to.be.true;
+  });
+
   describe('render tags correctly when html passed in  text attribute, fix #267', () => {
     let modifiedTags = [];
     let handleAddition;
