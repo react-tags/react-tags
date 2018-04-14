@@ -439,13 +439,20 @@ a `classNames` prop.
 
 ### Dev
 The component is written in ES6 and uses [Webpack](http://webpack.github.io/) as its build tool.
+
+#### Set up instructions
+
 ```
+git clone git@github.com:prakhar1989/react-tags.git
+cd react-tags
 npm install
+npm run precommit
 npm run start
 ```
 
 ### Contributing
 Got ideas on how to make this better? Open an issue!
+
 
 ### Thanks
 The autocomplete dropdown is inspired by Lea Verou's [awesomeplete](https://github.com/LeaVerou/awesomplete) library. The Drag and drop functionality is provided by Dan Abramov's insanely useful [ReactDND](https://github.com/gaearon/react-dnd) library.
