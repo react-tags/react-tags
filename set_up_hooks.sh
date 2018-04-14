@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 mkdir -p .git/hooks
 touch .git/hooks/pre-commit
 cp .hooks/pre-commit .git/hooks/pre-commit

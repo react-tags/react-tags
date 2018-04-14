@@ -11,7 +11,8 @@
     "dev": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
     "format": "prettier  --write lib/*.js test/*.js",
     "build": "webpack --config webpack-production.config.js --progress --colors && babel lib --out-dir dist-modules",
-    "start": "npm-run-all --parallel open-localhost dev"
+    "start": "npm-run-all --parallel open-localhost dev",
+    "precommit": "./set_up_hooks.sh"
   },
   "keywords": [
     "react",
