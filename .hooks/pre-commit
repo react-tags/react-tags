@@ -1,0 +1,31 @@
+#!/bin/bash
+printf "\nValidating Javascript files:\n"
+
+# Check for eslint
+which eslint &> /dev/null
+if [[ "$?" == 1 ]]; then
+  printf "\t\033[41mPlease install Eslint\033[0m"
+  exit 1
+fi
+
+PASSED=TRUE
+for file in $(git diff --cached --name-only | grep -E '\.(js|jsx)$')
+
+do
+  git show ":$file" | node_modules/.bin/eslint --stdin --stdin-filename "$file" # we only want to lint the staged changes, not any un-staged changes
+  if [$? -ne 0]; then
+  	printf "\t\033[32mEsLint Passed: $file\033[0m"
+  else
+    printf "\t\033[41mEsLint Failed: $FILE\033[0m"
+    PASSED=false
+  fi
+done
+
+if ! $PASSED; then
+  printf "\033[41mCOMMIT FAILED:\033[0m Please fix the eslint errors in your commit"
+  exit 1
+else
+  printf "\033[42mCOMMIT SUCCEEDED\033[0m\n"
+fi
+
+exit $?
