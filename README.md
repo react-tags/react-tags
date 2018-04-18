@@ -28,7 +28,7 @@ Because I was looking for an excuse to build a standalone component and publish 
 ### Demo
 ![img](demo.gif)
 
-Check it out [here](https://react-tag-input.stackblitz.io)
+Check it out [here](https://stackblitz.com/edit/react-tag-input-1nelrc)
 
 ### Installation
 The preferred way of using the component is via NPM
