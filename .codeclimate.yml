@@ -1,0 +1,13 @@
+version: "2"
+plugins:
+  eslint:
+    enabled: true
+    config:
+      config: .eslintrc.js
+exclude_patterns:
+  - "dist/"
+  - "dist-modules/"
+  - "test/"
+  - "**/node_modules/"
+  - "**/vendor/"
+  - "**/docs/"
