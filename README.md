@@ -140,6 +140,7 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`minQueryLength`](#minQueryLength)
 - [`removeComponent`](#removeComponent)
 - [`autocomplete`](#autocomplete)
+- [`disabled`](#disabled)
 - [`readOnly`](#readOnly)
 - [`name`](#nameOption)
 - [`id`](#idOption)
@@ -349,6 +350,10 @@ Useful for enhancing data entry workflows for your users by ensuring the first m
 - `false` (default) - tags are not autocompleted on enter/delimiter
 
 This option has no effect if there are no [`suggestions`](#suggestionsOption).
+
+<a name="disabled"></a>
+##### disabled (optional)
+Disables the input box, preventing text from being entered.
 
 <a name="readOnly"></a>
 ##### readOnly (optional)
