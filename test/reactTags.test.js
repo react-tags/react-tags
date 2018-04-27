@@ -1,10 +1,8 @@
 import React from 'react';
 import { expect } from 'chai';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { spy } from 'sinon';
-import noop from 'lodash/noop';
 import { WithContext as ReactTags } from '../lib/ReactTags';
-import renderer from 'react-test-renderer';
 
 const defaults = {
   tags: [{ id: 'Apple', text: 'Apple' }],
@@ -15,9 +13,6 @@ const defaults = {
     { id: 'Pear', text: 'Pear' },
     { id: 'Peach', text: 'Peach' },
   ],
-  handleAddition: noop,
-  handleDelete: noop,
-  handleDrag: noop,
 };
 
 const DOWN_ARROW_KEY_CODE = 40;
