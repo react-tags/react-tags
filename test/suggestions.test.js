@@ -18,7 +18,7 @@ const defaults = {
     isFocused: true,
     handleClick: noop,
     handleHover: noop,
-    classNames: { suggestions: 'foo', activeSuggestion: 'active' },
+    classNames: { suggestions: 'foo', activeSuggestion: 'active', suggestionContent: 'content', suggestionLabel: 'label' },
   };
 
 function mockItem(overrides) {
@@ -83,9 +83,9 @@ describe('Suggestions', function() {
     expect(
       $el
         .find('li.active')
-        .find('span')
+        .find('span.label')
         .html()
-    ).to.equal('<span>M<mark>ang</mark>o</span>');
+    ).to.equal('<span class="label">M<mark>ang</mark>o</span>');
   });
 
   test('should not wastefully re-render if the list of suggestions have not changed', function() {
@@ -192,5 +192,22 @@ describe('Suggestions', function() {
     );
 
     expect($el.componentDidUpdate.called).to.equal(true);
+  });
+
+  test('should render suggestions with custom renderer', function() {
+    const $el = shallow(mockItem({
+      suggestionRenderer: (suggestion) => (
+        <span className="custom">
+          <span>*</span>
+          {suggestion}
+        </span>
+      )
+    }));
+    expect(
+      $el
+        .find('li.active')
+        .find('span.content')
+        .html()
+    ).to.equal('<span class="content"><span class="custom"><span>*</span><span class="label">M<mark>ang</mark>o</span></span></span>');
   });
 });
