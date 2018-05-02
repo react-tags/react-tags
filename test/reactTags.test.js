@@ -96,66 +96,105 @@ describe('Test ReactTags', () => {
     expect($el.find('.ReactTags__tagInputField').get(0).value).to.be.undefined;
   });
 
-  test('should not add new tag on paste event', () => {
-    const actual = [];
-    const $el = mount(
-      mockItem({
-        allowAdditionFromPaste: false,
-        handleAddition(tag) {
-          actual.push(tag);
+  describe('tests handlePaste', () => {
+    test('should not add new tag when allowAdditionFromPaste is false', () => {
+      const actual = [];
+      const $el = mount(
+        mockItem({
+          allowAdditionFromPaste: false,
+          handleAddition(tag) {
+            actual.push(tag);
+          },
+        })
+      );
+
+      const $input = $el.find('.ReactTags__tagInputField');
+
+      $input.simulate('paste', {
+        clipboardData: {
+          getData: () => 'Banana',
         },
-      })
-    );
+      });
 
-    const ReactTagsInstance = $el.instance().refs.child;
-    const $input = $el.find('.ReactTags__tagInputField');
-
-    $input.simulate('paste', {
-      clipboardData: {
-        getData: () => 'Banana',
-      },
+      expect(actual).to.have.length(0);
+      expect(actual).to.not.have.members(['Banana']);
     });
 
-    expect(actual).to.have.length(0);
-    expect(actual).to.not.have.members(['Banana']);
-  });
+    test('should split the clipboard on delimiters', () => {
+      const Keys = {
+        TAB: 9,
+        SPACE: 32,
+        COMMA: 188,
+      };
 
-  test('handles the paste event and splits the clipboard on delimiters', () => {
-    const Keys = {
-      TAB: 9,
-      SPACE: 32,
-      COMMA: 188,
-    };
+      const tags = [];
+      const $el = mount(
+        mockItem({
+          delimiters: [Keys.TAB, Keys.SPACE, Keys.COMMA],
+          handleAddition(tag) {
+            tags.push(tag);
+          },
+          tags,
+        })
+      );
 
-    const actual = [];
-    const $el = mount(
-      mockItem({
-        delimiters: [Keys.TAB, Keys.SPACE, Keys.COMMA],
-        handleAddition(tag) {
-          actual.push(tag);
+      const $input = $el.find('.ReactTags__tagInputField');
+
+      $input.simulate('paste', {
+        clipboardData: {
+          getData: () =>
+            'Banana,Apple,Apricot\nOrange Blueberry,Pear,Peach\tKiwi',
         },
-      })
-    );
+      });
 
-    const ReactTagsInstance = $el.instance().refs.child;
-    const $input = $el.find('.ReactTags__tagInputField');
+      const expected = [
+        'Banana',
+        'Apple',
+        'Apricot\nOrange',
+        'Blueberry',
+        'Pear',
+        'Peach',
+        'Kiwi',
+      ].map(value => ({ id: value, text: value }));
 
-    $input.simulate('paste', {
-      clipboardData: {
-        getData: () =>
-          'Banana,Apple,Apricot\nOrange Blueberry,Pear,Peach\tKiwi',
-      },
+      expect(tags).to.deep.have.same.members(expected);
     });
 
-    expect(actual).to.have.members([
-      'Banana',
-      'Apple',
-      'Apricot\nOrange',
-      'Blueberry',
-      'Pear',
-      'Peach',
-      'Kiwi',
-    ]);
+    test('should not allow duplicate tags', () => {
+      const Keys = {
+        TAB: 9,
+        SPACE: 32,
+        COMMA: 188,
+      };
+
+      const tags = [...defaults.tags];
+      const $el = mount(
+        mockItem({
+          delimiters: [Keys.TAB, Keys.SPACE, Keys.COMMA],
+          handleAddition(tag) {
+            tags.push(tag);
+          },
+          tags,
+        })
+      );
+
+      const $input = $el.find('.ReactTags__tagInputField');
+
+      $input.simulate('paste', {
+        clipboardData: {
+          getData: () =>
+            'Banana,Apple,Banana',
+        },
+      });
+
+      // Note that 'Apple' and 'Banana' are only included once in the expected list
+      const expected = [
+        'Apple',
+        'Banana',
+      ].map(value => ({ id: value, text: value }));
+
+      expect(tags).to.deep.have.same.members(expected);
+    });
   });
 
   test('should not allow duplicate tags', () => {
