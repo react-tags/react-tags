@@ -26,11 +26,11 @@ module.exports = {
     semi: [2, "always"],
     eqeqeq: [2, "smart"],
     "no-unused-vars": 1,
-    "no-undef:": 1,
+    "no-undef": 1,
     "default-case": 1,
     "comma-dangle": [2, "always-multiline"],
     "no-trailing-spaces": 2,
-    "no-extra-bind:": 1,
+    "no-extra-bind": 1,
     "no-useless-escape": 1,
 
     /** react rules start here **/
@@ -55,7 +55,7 @@ module.exports = {
     "react/jsx-uses-vars": 1,
 
     /** jsx-ally rules start here **/
-    "jsx-a11y/img-has-alt": 2,
+    "jsx-a11y/alt-text": 2,
     "jsx-a11y/html-has-lang": 1,
     "jsx-a11y/iframe-has-title": 1,
     "jsx-a11y/click-events-have-key-events": 1

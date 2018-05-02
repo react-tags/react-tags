@@ -4,6 +4,8 @@ import { mount } from 'enzyme';
 import { spy } from 'sinon';
 import { WithContext as ReactTags } from '../lib/ReactTags';
 
+/* eslint-disable no-console */
+
 const defaults = {
   tags: [{ id: 'Apple', text: 'Apple' }],
   suggestions: [
