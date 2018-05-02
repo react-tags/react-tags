@@ -1,4 +1,6 @@
-// Set up test data
+/* eslint-disable no-console */
+
+// List of countries in the world
 const Countries = [
   'Afghanistan',
   'Albania',
@@ -6,7 +8,7 @@ const Countries = [
   'Andorra',
   'Angola',
   'Anguilla',
-  'Antigua &amp; Barbuda',
+  'Antigua & Barbuda',
   'Argentina',
   'Armenia',
   'Aruba',
@@ -24,7 +26,7 @@ const Countries = [
   'Bermuda',
   'Bhutan',
   'Bolivia',
-  'Bosnia &amp; Herzegovina',
+  'Bosnia & Herzegovina',
   'Botswana',
   'Brazil',
   'British Virgin Islands',
@@ -155,7 +157,7 @@ const Countries = [
   'Romania',
   'Russia',
   'Rwanda',
-  'Saint Pierre &amp; Miquelon',
+  'Saint Pierre & Miquelon',
   'Samoa',
   'San Marino',
   'Satellite',
@@ -171,7 +173,7 @@ const Countries = [
   'South Korea',
   'Spain',
   'Sri Lanka',
-  'St Kitts &amp; Nevis',
+  'St Kitts & Nevis',
   'St Lucia',
   'St Vincent',
   'St. Lucia',
@@ -185,14 +187,14 @@ const Countries = [
   'Tajikistan',
   'Tanzania',
   'Thailand',
-  "Timor L'Este",
+  'Timor L\'Este',
   'Togo',
   'Tonga',
-  'Trinidad &amp; Tobago',
+  'Trinidad & Tobago',
   'Tunisia',
   'Turkey',
   'Turkmenistan',
-  'Turks &amp; Caicos',
+  'Turks & Caicos',
   'Uganda',
   'Ukraine',
   'United Arab Emirates',
@@ -208,13 +210,20 @@ const Countries = [
   'Zimbabwe',
 ];
 
-
 const suggestions = Countries.map((country) => {
   return {
     id: country,
-    text: country
-  }
-})
+    text: country,
+  };
+});
+
+const KeyCodes = {
+  comma: 188,
+  enter: 13,
+};
+
+const delimiters = [KeyCodes.comma, KeyCodes.enter];
+
 /*
  * If your app already uses react-dnd, then having multiple
  * backend will raise an integrity violation exception. In such cases
@@ -247,8 +256,7 @@ class App extends React.Component {
   }
 
   handleAddition(tag) {
-    const { tags } = this.state;
-    this.setState({ tags: [...tags, ...[tag]] });
+    this.setState(state => ({ tags: [...state.tags, tag] }));
   }
 
   handleDrag(tag, currPos, newPos) {
@@ -273,6 +281,7 @@ class App extends React.Component {
         <Tags
           tags={tags}
           suggestions={suggestions}
+          delimiters={delimiters}
           handleDelete={this.handleDelete}
           handleAddition={this.handleAddition}
           handleDrag={this.handleDrag}
