@@ -185,7 +185,7 @@ describe('Test ReactTags', () => {
         'Pear',
         'Peach',
         'Kiwi',
-      ].map(value => ({ id: value, text: value }));
+      ].map((value) => ({ id: value, text: value }));
 
       expect(tags).to.deep.have.same.members(expected);
     });
@@ -212,16 +212,15 @@ describe('Test ReactTags', () => {
 
       $input.simulate('paste', {
         clipboardData: {
-          getData: () =>
-            'Banana,Apple,Banana',
+          getData: () => 'Banana,Apple,Banana',
         },
       });
 
       // Note that 'Apple' and 'Banana' are only included once in the expected list
-      const expected = [
-        'Apple',
-        'Banana',
-      ].map(value => ({ id: value, text: value }));
+      const expected = ['Apple', 'Banana'].map((value) => ({
+        id: value,
+        text: value,
+      }));
 
       expect(tags).to.deep.have.same.members(expected);
     });
