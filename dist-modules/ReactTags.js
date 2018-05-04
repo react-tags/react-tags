@@ -8,15 +8,13 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = require('react-dom');
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _reactDnd = require('react-dnd');
 
 var _reactDndHtml5Backend = require('react-dnd-html5-backend');
 
 var _reactDndHtml5Backend2 = _interopRequireDefault(_reactDndHtml5Backend);
+
+var _lodash = require('lodash');
 
 var _Suggestions = require('./Suggestions');
 
@@ -29,6 +27,8 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 var _Tag = require('./Tag');
 
 var _Tag2 = _interopRequireDefault(_Tag);
+
+var _utils = require('./utils');
 
 var _constants = require('./constants');
 
@@ -244,7 +244,7 @@ var ReactTags = function (_Component) {
       }
 
       // when backspace key is pressed and query is blank, delete tag
-      if (e.keyCode === _constants.KEYS.BACKSPACE && query == '' && this.props.allowDeleteFromEmptyInput) {
+      if (e.keyCode === _constants.KEYS.BACKSPACE && query === '' && this.props.allowDeleteFromEmptyInput) {
         this.handleDelete(this.props.tags.length - 1, e);
       }
 
@@ -277,23 +277,16 @@ var ReactTags = function (_Component) {
 
       e.preventDefault();
 
-      // See: http://stackoverflow.com/a/6969486/1463681
-      var escapeRegex = function escapeRegex(str) {
-        return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
-      };
+      var clipboardData = e.clipboardData || window.clipboardData;
+      var pastedText = clipboardData.getData('text');
 
       // Used to determine how the pasted content is split.
-      var delimiterChars = escapeRegex(this.props.delimiters.map(function (delimiter) {
-        // See: http://stackoverflow.com/a/34711175/1463681
-        var chrCode = delimiter - 48 * Math.floor(delimiter / 48);
-        return String.fromCharCode(96 <= delimiter ? chrCode : delimiter);
-      }).join(''));
+      var delimiterRegExp = (0, _utils.buildRegExpFromDelimiters)(this.props.delimiters);
+      var tags = pastedText.split(delimiterRegExp);
 
-      var clipboardData = e.clipboardData || window.clipboardData;
-      var string = clipboardData.getData('text');
-      var regExp = new RegExp('[' + delimiterChars + ']+');
-      string.split(regExp).forEach(function (tag) {
-        return _this2.props.handleAddition(tag);
+      // Only add unique tags
+      (0, _lodash.uniq)(tags).forEach(function (tag) {
+        return _this2.addTag({ id: tag, text: tag });
       });
     }
   }, {
@@ -360,8 +353,6 @@ var ReactTags = function (_Component) {
     key: 'render',
     value: function render() {
       var _this3 = this;
-
-      var moveTag = this.props.handleDrag ? this.moveTag : null;
 
       var tagItems = this.getTagItems();
 
@@ -432,11 +423,11 @@ ReactTags.propTypes = {
     id: _propTypes2.default.string.isRequired,
     text: _propTypes2.default.string.isRequired
   })),
-  delimiters: _propTypes2.default.array,
+  delimiters: _propTypes2.default.arrayOf(_propTypes2.default.number),
   autofocus: _propTypes2.default.bool,
   inline: _propTypes2.default.bool,
-  handleDelete: _propTypes2.default.func.isRequired,
-  handleAddition: _propTypes2.default.func.isRequired,
+  handleDelete: _propTypes2.default.func,
+  handleAddition: _propTypes2.default.func,
   handleDrag: _propTypes2.default.func,
   handleFilterSuggestions: _propTypes2.default.func,
   handleTagClick: _propTypes2.default.func,
@@ -461,13 +452,14 @@ ReactTags.propTypes = {
     text: _propTypes2.default.any.isRequired
   }))
 };
-
 ReactTags.defaultProps = {
   placeholder: _constants.DEFAULT_PLACEHOLDER,
   suggestions: [],
   delimiters: [_constants.KEYS.ENTER, _constants.KEYS.TAB],
   autofocus: true,
   inline: true,
+  handleDelete: _lodash.noop,
+  handleAddition: _lodash.noop,
   allowDeleteFromEmptyInput: true,
   allowAdditionFromPaste: true,
   resetInputOnDelete: true,
@@ -475,6 +467,7 @@ ReactTags.defaultProps = {
   autocomplete: false,
   readOnly: false
 };
+
 
 module.exports = {
   WithContext: (0, _reactDnd.DragDropContext)(_reactDndHtml5Backend2.default)(ReactTags),
