@@ -48,6 +48,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { WithContext as ReactTags } from 'react-tag-input';
 
+const KeyCodes = {
+  comma: 188,
+  enter: 13,
+};
+
+const delimiters = [KeyCodes.comma, KeyCodes.enter];
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -79,8 +86,7 @@ class App extends React.Component {
     }
 
     handleAddition(tag) {
-        const { tags } = this.state;
-        this.setState({tags: [...tags, ...[tag]] });
+        this.setState(state => ({ tags: [...state.tags, tag] }));
     }
 
     handleDrag(tag, currPos, newPos) {
@@ -102,7 +108,8 @@ class App extends React.Component {
                     suggestions={suggestions}
                     handleDelete={this.handleDelete}
                     handleAddition={this.handleAddition}
-                    handleDrag={this.handleDrag} />
+                    handleDrag={this.handleDrag}
+                    delimiters={delimiters} />
             </div>
         )
     }
@@ -169,7 +176,18 @@ const suggestions = [
 
 <a name="delimiters"></a>
 ##### delimiters (optional)
-Specifies which characters should terminate tags input (default: enter and tab). A list of character codes.
+Specifies which characters should terminate tags input (default: enter and tab). An array of character codes.
+
+```
+const Keys = {
+    TAB: 9,
+    SPACE: 32,
+    COMMA: 188,
+};
+<ReactTags
+    delimiters: [Keys.TAB, Keys.SPACE, Keys.COMMA]
+ />
+```
 
 
 <a name="placeholderOption"></a>
