@@ -5,9 +5,9 @@ release () {
   echo "Version $1 in progress"
   git checkout master &&
   git pull -r origin master &&
-  npm run build &&
   git tag v$1 &&
   git push origin --tags &&
+  npm run build &&
   git commit -am "upgrading to version $1" &&
   git push origin master &&
   npm publish
