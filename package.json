@@ -42,6 +42,7 @@
   "devDependencies": {
     "babel-cli": "6.26.0",
     "babel-core": "6.26.0",
+    "babel-eslint": "^8.2.3",
     "babel-jest": "22.4.1",
     "babel-loader": "7.1.2",
     "babel-preset-env": "1.6.1",
