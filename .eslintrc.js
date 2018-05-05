@@ -25,7 +25,7 @@ module.exports = {
     quotes: [2, "single"],
     semi: [2, "always"],
     eqeqeq: [2, "smart"],
-    "no-unused-vars": 1,
+    "no-unused-vars": [1, { argsIgnorePattern: 'e' }],
     "no-undef": 1,
     "default-case": 1,
     "comma-dangle": [2, "always-multiline"],
