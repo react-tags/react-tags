@@ -14,6 +14,7 @@ const defaults = {
       { id: 'Pear', text: 'Pear' },
       { id: 'Apricot', text: 'Apricot' },
     ],
+    labelField: 'text',
     selectedIndex: 1,
     isFocused: true,
     handleClick: noop,
