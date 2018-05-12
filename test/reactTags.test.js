@@ -1,8 +1,12 @@
 import React from 'react';
 import { expect } from 'chai';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { spy } from 'sinon';
+import { noop } from 'lodash';
+
 import { WithContext as ReactTags } from '../lib/ReactTags';
+
+import { KEYS, DEFAULT_PLACEHOLDER } from '../lib/constants';
 
 /* eslint-disable no-console */
 
@@ -26,6 +30,30 @@ function mockItem(overrides) {
 }
 
 describe('Test ReactTags', () => {
+
+
+  test('should render with expected props', function() {
+    const $el = shallow(mockItem());
+    const expectedProps = {
+      placeholder: DEFAULT_PLACEHOLDER,
+      suggestions: [],
+      delimiters: [KEYS.ENTER, KEYS.TAB],
+      autofocus: true,
+      inline: true,
+      handleDelete: noop,
+      handleAddition: noop,
+      allowDeleteFromEmptyInput: true,
+      allowAdditionFromPaste: true,
+      resetInputOnDelete: true,
+      autocomplete: false,
+      readOnly: false,
+      ...defaults,
+
+    };
+    expect($el).to.have.length(1);
+    expect($el.props()).to.deep.equal(expectedProps);
+  });
+
   test('focus on input by default', () => {
     const $el = mount(mockItem());
     expect(document.activeElement.tagName).to.equal('INPUT');

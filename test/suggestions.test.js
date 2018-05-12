@@ -6,8 +6,7 @@ import { spy } from 'sinon';
 import Suggestions from '../lib/Suggestions';
 import noop from 'lodash/noop';
 
-function mockItem(overrides) {
-  const defaults = {
+const defaults = {
     query: 'ang',
     suggestions: [
       { id: 'Banana', text: 'Banana' },
@@ -21,11 +20,25 @@ function mockItem(overrides) {
     handleHover: noop,
     classNames: { suggestions: 'foo', activeSuggestion: 'active' },
   };
+
+function mockItem(overrides) {
+
   const props = Object.assign({}, defaults, overrides);
   return <Suggestions {...props} />;
 }
 
 describe('Suggestions', function() {
+
+  test('should render with expected props', function() {
+    const $el = shallow(mockItem());
+    const expectedProps = {
+      minQueryLength: 2,
+      ...defaults,
+    };
+
+    expect($el.instance().props).deep.equal(expectedProps);
+  });
+
   test('shows the classname properly', function() {
     const $el = shallow(mockItem());
     expect($el.find('.foo').length).to.equal(1);
