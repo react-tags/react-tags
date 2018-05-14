@@ -30,8 +30,6 @@ function mockItem(overrides) {
 }
 
 describe('Test ReactTags', () => {
-
-
   test('should render with expected props', function() {
     const $el = shallow(mockItem());
     const expectedProps = {
@@ -48,7 +46,6 @@ describe('Test ReactTags', () => {
       autocomplete: false,
       readOnly: false,
       ...defaults,
-
     };
     expect($el).to.have.length(1);
     expect($el.props()).to.deep.equal(expectedProps);
