@@ -20,11 +20,11 @@ module.exports = {
   },
   plugins: ["react", "jsx-a11y"],
   rules: {
-    indent: [2, 2],
+    "indent": [2, 2],
     "linebreak-style": [2, "unix"],
-    quotes: [2, "single"],
-    semi: [2, "always"],
-    eqeqeq: [2, "smart"],
+    "quotes": [2, "single"],
+    "semi": [2, "always"],
+    "eqeqeq": [2, "smart"],
     "no-unused-vars": 1,
     "no-undef": 1,
     "default-case": 1,
@@ -59,5 +59,24 @@ module.exports = {
     "jsx-a11y/html-has-lang": 1,
     "jsx-a11y/iframe-has-title": 1,
     "jsx-a11y/click-events-have-key-events": 1
-  }
+  },
+  overrides: [
+    {
+      files: [
+        "**/*.test.js"
+      ],
+      env: {
+        jest: true // now **/*.test.js files' env has both es6 *and* jest
+      },
+      // Can't extend in overrides: https://github.com/eslint/eslint/issues/8813
+      // "extends": ["plugin:jest/recommended"]
+      plugins: ["jest"],
+      rules: {
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn"
+      }
+    }
+  ]
 };
