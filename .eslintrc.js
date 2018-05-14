@@ -11,6 +11,7 @@ module.exports = {
     browser: true
   },
   extends: ["eslint:recommended", "plugin:react/recommended"],
+  parser: "babel-eslint",
   parserOptions: {
     ecmaFeatures: {
       experimentalObjectRestSpread: true,
@@ -25,7 +26,7 @@ module.exports = {
     quotes: [2, "single"],
     semi: [2, "always"],
     eqeqeq: [2, "smart"],
-    "no-unused-vars": 1,
+    "no-unused-vars": [1, { argsIgnorePattern: 'e' }],
     "no-undef": 1,
     "default-case": 1,
     "comma-dangle": [2, "always-multiline"],
@@ -49,6 +50,7 @@ module.exports = {
     "react/sort-comp": 1,
     "react/no-did-mount-set-state": 1,
     "react/no-did-update-set-state": 1,
+    "react/no-find-dom-node": 0,
     "react/no-typos": 2,
     "react/jsx-equals-spacing": 2,
     "react/jsx-no-undef": 2,
