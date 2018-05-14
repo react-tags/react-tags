@@ -115,11 +115,11 @@ describe('Tag', () => {
   });
 
   test('renders with custom renderer', () => {
-    const $el = mount(mockItem({
-      tagRenderer: (tag) => (
-        <div className="tag-renderer">{tag.value}</div>
-      )
-    }));
+    const $el = mount(
+      mockItem({
+        renderTag: (tag) => <div className="tag-renderer">{tag.value}</div>,
+      })
+    );
     expect($el.find('.tag-renderer').length).to.equal(1);
   });
 });

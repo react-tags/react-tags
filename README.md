@@ -146,8 +146,8 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`handleInputBlur`](#handleInputBlur)
 - [`minQueryLength`](#minQueryLength)
 - [`removeComponent`](#removeComponent)
-- [`tagRenderer`](#tagRenderer)
-- [`suggestionRenderer`](#suggestionRenderer)
+- [`renderTag`](#renderTag)
+- [`renderSuggestions`](#renderSuggestions)
 - [`autocomplete`](#autocomplete)
 - [`readOnly`](#readOnly)
 - [`name`](#nameOption)
@@ -358,23 +358,23 @@ class RemoveComponent extends React.Component {
 }
 ```
 
-<a name="tagRenderer"></a>
-##### tagRenderer (optional)
+<a name="renderTag"></a>
+##### renderTag (optional)
 Provide your own tag renderer
 
 ```javascript
 <ReactTags
-    tagRenderer={this.tagRenderer}
+    renderTag={this.renderTag}
     ...>
 ```
 
-<a name="suggestionRenderer"></a>
-##### suggestionRenderer (optional)
+<a name="renderSuggestions"></a>
+##### renderSuggestions (optional)
 Provide your own suggestion renderer
 
 ```javascript
 <ReactTags
-    suggestionRenderer={this.suggestionRenderer}
+    renderSuggestions={this.renderSuggestions}
     ...>
 ```
 

@@ -18,7 +18,12 @@ const defaults = {
     isFocused: true,
     handleClick: noop,
     handleHover: noop,
-    classNames: { suggestions: 'foo', activeSuggestion: 'active', suggestionContent: 'content', suggestionLabel: 'label' },
+    classNames: {
+      suggestions: 'foo',
+      activeSuggestion: 'active',
+      suggestionContent: 'content',
+      suggestionLabel: 'label',
+    },
   };
 
 function mockItem(overrides) {
@@ -195,19 +200,23 @@ describe('Suggestions', function() {
   });
 
   test('should render suggestions with custom renderer', function() {
-    const $el = shallow(mockItem({
-      suggestionRenderer: (suggestion) => (
-        <span className="custom">
-          <span>*</span>
-          {suggestion}
-        </span>
-      )
-    }));
+    const $el = shallow(
+      mockItem({
+        renderSuggestions: (suggestion) => (
+          <span className="custom">
+            <span>*</span>
+            {suggestion}
+          </span>
+        ),
+      })
+    );
     expect(
       $el
         .find('li.active')
         .find('span.content')
         .html()
-    ).to.equal('<span class="content"><span class="custom"><span>*</span><span class="label">M<mark>ang</mark>o</span></span></span>');
+    ).to.equal(
+      '<span class="content"><span class="custom"><span>*</span><span class="label">M<mark>ang</mark>o</span></span></span>'
+    );
   });
 });
