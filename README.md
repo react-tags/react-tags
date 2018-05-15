@@ -146,6 +146,8 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 - [`handleInputBlur`](#handleInputBlur)
 - [`minQueryLength`](#minQueryLength)
 - [`removeComponent`](#removeComponent)
+- [`renderTag`](#renderTag)
+- [`renderSuggestions`](#renderSuggestions)
 - [`autocomplete`](#autocomplete)
 - [`readOnly`](#readOnly)
 - [`name`](#nameOption)
@@ -354,6 +356,26 @@ class RemoveComponent extends React.Component {
       )
    }
 }
+```
+
+<a name="renderTag"></a>
+##### renderTag (optional)
+Provide your own tag renderer
+
+```javascript
+<ReactTags
+    renderTag={this.renderTag}
+    ...>
+```
+
+<a name="renderSuggestions"></a>
+##### renderSuggestions (optional)
+Provide your own suggestion renderer
+
+```javascript
+<ReactTags
+    renderSuggestions={this.renderSuggestions}
+    ...>
 ```
 
 The "ReactTags__remove" className and `onClick` handler properties can be automatically included on the `<button>` by using the [JSX spread attribute](https://facebook.github.io/react/docs/jsx-spread.html), as illustrated above.

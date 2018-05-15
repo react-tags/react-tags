@@ -7,28 +7,31 @@ import Suggestions from '../lib/Suggestions';
 import noop from 'lodash/noop';
 
 const defaults = {
-    query: 'ang',
-    suggestions: [
-      { id: 'Banana', text: 'Banana' },
-      { id: 'Mango', text: 'Mango' },
-      { id: 'Pear', text: 'Pear' },
-      { id: 'Apricot', text: 'Apricot' },
-    ],
-    selectedIndex: 1,
-    isFocused: true,
-    handleClick: noop,
-    handleHover: noop,
-    classNames: { suggestions: 'foo', activeSuggestion: 'active' },
-  };
+  query: 'ang',
+  suggestions: [
+    { id: 'Banana', text: 'Banana' },
+    { id: 'Mango', text: 'Mango' },
+    { id: 'Pear', text: 'Pear' },
+    { id: 'Apricot', text: 'Apricot' },
+  ],
+  selectedIndex: 1,
+  isFocused: true,
+  handleClick: noop,
+  handleHover: noop,
+  classNames: {
+    suggestions: 'foo',
+    activeSuggestion: 'active',
+    suggestionContent: 'suggestionContent',
+    suggestionLabel: 'suggestionLabel',
+  },
+};
 
 function mockItem(overrides) {
-
   const props = Object.assign({}, defaults, overrides);
   return <Suggestions {...props} />;
 }
 
 describe('Suggestions', function() {
-
   test('should render with expected props', function() {
     const $el = shallow(mockItem());
     const expectedProps = {
@@ -83,9 +86,9 @@ describe('Suggestions', function() {
     expect(
       $el
         .find('li.active')
-        .find('span')
+        .find('.suggestionLabel')
         .html()
-    ).to.equal('<span>M<mark>ang</mark>o</span>');
+    ).to.equal('<span class="suggestionLabel">M<mark>ang</mark>o</span>');
   });
 
   test('should not wastefully re-render if the list of suggestions have not changed', function() {
@@ -192,5 +195,26 @@ describe('Suggestions', function() {
     );
 
     expect($el.componentDidUpdate.called).to.equal(true);
+  });
+
+  test('should render suggestions with custom renderer', function() {
+    const $el = shallow(
+      mockItem({
+        renderSuggestions: (suggestion) => (
+          <span className="custom">
+            <span>*</span>
+            {suggestion}
+          </span>
+        ),
+      })
+    );
+    expect(
+      $el
+        .find('li.active')
+        .find('.suggestionContent')
+        .html()
+    ).to.equal(
+      '<span class="suggestionContent"><span class="custom"><span>*</span><span class="suggestionLabel">M<mark>ang</mark>o</span></span></span>'
+    );
   });
 });

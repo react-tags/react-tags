@@ -113,4 +113,13 @@ describe('Tag', () => {
     ]);
     expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.false;
   });
+
+  test('renders with custom renderer', () => {
+    const $el = mount(
+      mockItem({
+        renderTag: (tag) => <div className="tag-renderer">{tag.value}</div>,
+      })
+    );
+    expect($el.find('.tag-renderer').length).to.equal(1);
+  });
 });
