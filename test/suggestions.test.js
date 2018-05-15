@@ -21,8 +21,8 @@ const defaults = {
   classNames: {
     suggestions: 'foo',
     activeSuggestion: 'active',
-    suggestionContent: 'content',
-    suggestionLabel: 'label',
+    suggestionContent: 'suggestionContent',
+    suggestionLabel: 'suggestionLabel',
   },
 };
 
@@ -86,9 +86,9 @@ describe('Suggestions', function() {
     expect(
       $el
         .find('li.active')
-        .find('span.label')
+        .find('.suggestionLabel')
         .html()
-    ).to.equal('<span class="label">M<mark>ang</mark>o</span>');
+    ).to.equal('<span class="suggestionLabel">M<mark>ang</mark>o</span>');
   });
 
   test('should not wastefully re-render if the list of suggestions have not changed', function() {
@@ -211,10 +211,10 @@ describe('Suggestions', function() {
     expect(
       $el
         .find('li.active')
-        .find('span.content')
+        .find('.suggestionContent')
         .html()
     ).to.equal(
-      '<span class="content"><span class="custom"><span>*</span><span class="label">M<mark>ang</mark>o</span></span></span>'
+      '<span class="suggestionContent"><span class="custom"><span>*</span><span class="suggestionLabel">M<mark>ang</mark>o</span></span></span>'
     );
   });
 });
