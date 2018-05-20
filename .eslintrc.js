@@ -45,7 +45,6 @@ module.exports = {
     "react/no-children-prop": 1,
     "react/display-name": 1,
     "react/no-multi-comp": 1,
-    "react/sort-prop-types": 1,
     "react/sort-comp": 1,
     "react/no-did-mount-set-state": 1,
     "react/no-did-update-set-state": 1,
