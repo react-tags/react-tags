@@ -80,12 +80,18 @@ describe('Tag', () => {
     const $el = mount(mockItem({ onDelete: spy }));
     $el.find('a.remove').simulate('click');
     expect(spy.calledOnce).to.be.true;
+    spy.resetHistory();
+    $el.find('a.remove').simulate('keyDown');
+    expect(spy.calledOnce).to.be.true;
   });
 
   test('calls the tag click handler correctly', () => {
     const spy = sinon.spy();
     const $el = mount(mockItem({ onTagClicked: spy }));
     $el.find('span').simulate('click');
+    expect(spy.calledOnce).to.be.true;
+    spy.resetHistory();
+    $el.find('span').simulate('keyDown');
     expect(spy.calledOnce).to.be.true;
   });
 
