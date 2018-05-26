@@ -12,6 +12,7 @@ import { KEYS, DEFAULT_PLACEHOLDER } from '../lib/constants';
 
 const defaults = {
   tags: [{ id: 'Apple', text: 'Apple' }],
+  labelField: 'text',
   suggestions: [
     { id: 'Banana', text: 'Banana' },
     { id: 'Apple', text: 'Apple' },
