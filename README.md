@@ -9,7 +9,6 @@ React-Tags
 [![build status](https://img.shields.io/travis/prakhar1989/react-tags.svg?style=flat-square)](https://travis-ci.org/prakhar1989/react-tags)
 [![Greenkeeper badge](https://badges.greenkeeper.io/prakhar1989/react-tags.svg)](https://greenkeeper.io/)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
 <a href="https://codeclimate.com/github/prakhar1989/react-tags/maintainability"><img src="https://api.codeclimate.com/v1/badges/b9edb2810b02bb845d20/maintainability" /></a>
 <a href="https://codeclimate.com/github/prakhar1989/react-tags/test_coverage"><img src="https://api.codeclimate.com/v1/badges/b9edb2810b02bb845d20/test_coverage" /></a>
 
