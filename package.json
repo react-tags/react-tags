@@ -3,6 +3,7 @@
   "version": "5.0.2",
   "description": "React tags is a fantastically simple tagging component for your React projects",
   "main": "dist-modules/ReactTags.js",
+  "sideEffects": false,
   "scripts": {
     "test": "jest --notify --coverage",
     "test-watch": "jest --watch --notify --coverage",
