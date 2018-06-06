@@ -43,7 +43,7 @@ const config = {
   },
   optimization: {
     minimize: true,
-  }
+  },
 };
 
 module.exports = config;
