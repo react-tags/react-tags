@@ -163,7 +163,7 @@ const tags =  [ { id: "1", text: "Apples" } ]
 ```
 
 <a name="suggestionsOption"></a>
-##### suggestions (optional)
+##### suggestions (optional, defaults to `[]`)
 An array of suggestions that are used as basis for showing suggestions. At the moment, this should be an array of strings.
 
 ```js
@@ -176,8 +176,8 @@ const suggestions = [
 ```
 
 <a name="delimiters"></a>
-##### delimiters (optional)
-Specifies which characters should terminate tags input (default: enter and tab). An array of character codes.
+##### delimiters (optional, defaults to `[ENTER, TAB]`)
+Specifies which characters should terminate tags input. An array of character codes.
 
 ```
 const Keys = {
@@ -192,16 +192,16 @@ const Keys = {
 
 
 <a name="placeholderOption"></a>
-##### placeholder (optional)
-The placeholder shown for the input. Defaults to `Add new tag`.
+##### placeholder (optional, defaults to `Add new tag`)
+The placeholder shown for the input.
 
 ```
 let placeholder = "Add new country"
 ```
 
 <a name="labelFieldOption"></a>
-##### labelField (optional)
-Provide an alternative `label` property for the tags. Defaults to `text`.
+##### labelField (optional, defaults to `text`)
+Provide an alternative `label` property for the tags.
 
 ```
 <ReactTags
@@ -281,7 +281,7 @@ function(i) {
 ```
 
 <a name="autofocus"></a>
-##### autofocus (optional)
+##### autofocus (optional, defaults to `true`)
 Optional boolean param to control whether the text-input should be autofocused on mount.
 
 ```js
@@ -291,7 +291,7 @@ Optional boolean param to control whether the text-input should be autofocused o
 ```
 
 <a name="allowDeleteFromEmptyInput"></a>
-##### allowDeleteFromEmptyInput (optional)
+##### allowDeleteFromEmptyInput (optional, defaults to `true`)
 Optional boolean param to control whether tags should be deleted when the 'Delete' key is pressed in an empty Input Box.
 
 ```js
@@ -330,8 +330,8 @@ Optional event handler for input onBlur
 ```
 
 <a name="minQueryLength"></a>
-##### minQueryLength (optional)
-How many characters are needed for suggestions to appear (default: 2).
+##### minQueryLength (optional, defaults to `2`)
+How many characters are needed for suggestions to appear.
 
 <a name="removeComponent"></a>
 ##### removeComponent (optional)
@@ -360,7 +360,7 @@ class RemoveComponent extends React.Component {
 The "ReactTags__remove" className and `onClick` handler properties can be automatically included on the `<button>` by using the [JSX spread attribute](https://facebook.github.io/react/docs/jsx-spread.html), as illustrated above.
 
 <a name="autocomplete"></a>
-##### autocomplete (optional)
+##### autocomplete (optional, defaults to `false`)
 Useful for enhancing data entry workflows for your users by ensuring the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed (such as the enter key). This option has three possible values:
 
 - `true` - when delimeter key (such as enter) is pressed, first matching suggestion is used.
@@ -370,7 +370,7 @@ Useful for enhancing data entry workflows for your users by ensuring the first m
 This option has no effect if there are no [`suggestions`](#suggestionsOption).
 
 <a name="readOnly"></a>
-##### readOnly (optional)
+##### readOnly (optional, defaults to `false`)
 Renders the component in read-only mode without the input box and `removeComponent`. This also disables the drag-n-drop feature.
 
 <a name="nameOption"></a>
@@ -404,7 +404,7 @@ The maxLength attribute added to the input. Specifies the maximum number of char
 ```
 
 <a name="inline"></a>
-##### inline (optional)
+##### inline (optional, defaults to `true`)
 The inline attributes decides whether the input fields and selected tags will be rendered in-line.
 
 ```
