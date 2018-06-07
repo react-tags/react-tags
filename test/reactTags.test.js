@@ -2,7 +2,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { mount, shallow } from 'enzyme';
 import { spy } from 'sinon';
-import { noop } from 'lodash';
+import noop from 'lodash/noop';
 
 import { WithContext as ReactTags } from '../lib/ReactTags';
 
