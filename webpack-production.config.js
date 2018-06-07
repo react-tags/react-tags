@@ -4,7 +4,6 @@ const buildPath = path.resolve(__dirname, "dist");
 
 const config = {
   mode: 'production',
-  target: 'web',
   entry: [path.join(__dirname, "/lib/ReactTags.js")],
   // Render source-map file for final build
   devtool: "source-map",
@@ -34,9 +33,9 @@ const config = {
     rules: [
       {
         test: /\.js$/, // All .js files
-        use: [{
+        use: [{ // react-hot is like browser sync and babel loads jsx and es6-7
           loader: 'babel-loader',
-        }], // react-hot is like browser sync and babel loads jsx and es6-7
+        }],
         exclude: /node_modules/,
       },
     ],
