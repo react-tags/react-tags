@@ -475,5 +475,23 @@ describe('Test ReactTags', () => {
 
       $el.unmount();
     });
+
+    test('handles addition when using default suggestions filter', () => {
+      let actual = [];
+      const $el = mount(
+        mockItem({
+          autocomplete: true,
+          handleAddition(tag) {
+            actual.push(tag);
+          },
+        })
+      );
+      const $input = $el.find('.ReactTags__tagInputField');
+
+      $input.simulate('change', { target: { value: 'Ea' } });
+      $input.simulate('focus');
+      $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+      expect(actual).to.have.deep.members([{ id: 'Ea', text: 'Ea' }]);
+    });
   });
 });
