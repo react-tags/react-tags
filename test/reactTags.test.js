@@ -10,6 +10,7 @@ import {
   KEYS,
   DEFAULT_PLACEHOLDER,
   DEFAULT_LABEL_FIELD,
+  INPUT_FIELD_POSITIONS,
 } from '../src/constants';
 
 /* eslint-disable no-console */
@@ -50,6 +51,7 @@ describe('Test ReactTags', () => {
       resetInputOnDelete: true,
       autocomplete: false,
       readOnly: false,
+      inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
       ...defaults,
     };
     expect($el).to.have.length(1);

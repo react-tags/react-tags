@@ -155,6 +155,7 @@ Option | Type | Default | Description
 |[`id`](#idOption) | `String` | `undefined` | The `id` attribute added to the input
 |[`maxLength`](#maxLength) | `Number` | `Infinity` | The `maxLength` attribute added to the input
 |[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line
+- [`inputFieldPosition`](#inputFieldPosition)
 
 <a name="tagsOption"></a>
 ##### tags (optional, defaults to `[]`)
@@ -430,6 +431,19 @@ The inline attributes decides whether the input fields and selected tags will be
 ```
 
 ![img](docs/inline-false.png)
+
+_This attribute is deprecated and will be removed in v6.x.x, see [inputFieldPosition](#inputFieldPosition)._
+
+
+<a name="inputFieldPosition"></a>
+##### inputFieldPosition (optional, defaults to `inline`)
+The inputFieldPosition attribute decides the positioning of the input field relative to the tags. Can be one of `inline`, `above` or `below`.
+
+```
+<ReactTags
+    inputFieldPosition = "inline"
+    ...>
+```
 
 ### Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
