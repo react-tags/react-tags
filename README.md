@@ -130,32 +130,34 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 <a name="Options"></a>
 ### Options
 
-- [`tags`](#tagsOption)
-- [`suggestions`](#suggestionsOption)
-- [`delimiters`](#delimiters)
-- [`placeholder`](#placeholderOption)
-- [`labelField`](#labelFieldOption)
-- [`handleAddition`](#handleAdditionOption)
-- [`handleDelete`](#handleDeleteOption)
-- [`handleDrag`](#handleDragOption)
-- [`handleFilterSuggestions`](#handleFilterSuggestions)
-- [`handleTagClick`](#handleTagClickOption)
-- [`autofocus`](#autofocus)
-- [`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput)
-- [`handleInputChange`](#handleInputChange)
-- [`handleInputFocus`](#handleInputFocus)
-- [`handleInputBlur`](#handleInputBlur)
-- [`minQueryLength`](#minQueryLength)
-- [`removeComponent`](#removeComponent)
-- [`autocomplete`](#autocomplete)
-- [`readOnly`](#readOnly)
-- [`name`](#nameOption)
-- [`id`](#idOption)
-- [`maxLength`](#maxLength)
-- [`inline`](#inline)
+Option | Default
+--- | ---
+|[`tags`](#tagsOption) | `[]`
+|[`suggestions`](#suggestionsOption) | `[]`
+|[`delimiters`](#delimiters) | `[ENTER, TAB]`
+|[`placeholder`](#placeholderOption) | `Add new tag`
+|[`labelField`](#labelFieldOption) | `text`
+|[`handleAddition`](#handleAdditionOption) | `undefined`
+|[`handleDelete`](#handleDeleteOption) | `undefined`
+|[`handleDrag`](#handleDragOption) | `undefined`
+|[`handleFilterSuggestions`](#handleFilterSuggestions) | `undefined`
+|[`handleTagClick`](#handleTagClickOption) | `undefined`
+|[`autofocus`](#autofocus) | `true`
+|[`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput) | `true`
+|[`handleInputChange`](#handleInputChange) | `undefined`
+|[`handleInputFocus`](#handleInputFocus) | `undefined`
+|[`handleInputBlur`](#handleInputBlur) | `undefined`
+|[`minQueryLength`](#minQueryLength) | `2`
+|[`removeComponent`](#removeComponent) | `false`
+|[`autocomplete`](#autocomplete) | `false`
+|[`readOnly`](#readOnly) | `false`
+|[`name`](#nameOption) | `undefined`
+|[`id`](#idOption) | `undefined`
+|[`maxLength`](#maxLength) | `Infinity`
+|[`inline`](#inline) | `true`
 
 <a name="tagsOption"></a>
-##### tags (optional)
+##### tags (optional, defaults to `[]`)
 An array of tags that are displayed as pre-selected. Each tag should have an  `id` and `text` property which is used to display.
 
 ```js
