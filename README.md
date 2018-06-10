@@ -130,31 +130,31 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 <a name="Options"></a>
 ### Options
 
-Option | Default
---- | ---
-|[`tags`](#tagsOption) | `[]`
-|[`suggestions`](#suggestionsOption) | `[]`
-|[`delimiters`](#delimiters) | `[ENTER, TAB]`
-|[`placeholder`](#placeholderOption) | `Add new tag`
-|[`labelField`](#labelFieldOption) | `text`
-|[`handleAddition`](#handleAdditionOption) | `undefined`
-|[`handleDelete`](#handleDeleteOption) | `undefined`
-|[`handleDrag`](#handleDragOption) | `undefined`
-|[`handleFilterSuggestions`](#handleFilterSuggestions) | `undefined`
-|[`handleTagClick`](#handleTagClickOption) | `undefined`
-|[`autofocus`](#autofocus) | `true`
-|[`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput) | `true`
-|[`handleInputChange`](#handleInputChange) | `undefined`
-|[`handleInputFocus`](#handleInputFocus) | `undefined`
-|[`handleInputBlur`](#handleInputBlur) | `undefined`
-|[`minQueryLength`](#minQueryLength) | `2`
-|[`removeComponent`](#removeComponent) | `false`
-|[`autocomplete`](#autocomplete) | `false`
-|[`readOnly`](#readOnly) | `false`
-|[`name`](#nameOption) | `undefined`
-|[`id`](#idOption) | `undefined`
-|[`maxLength`](#maxLength) | `Infinity`
-|[`inline`](#inline) | `true`
+Option | Type | Default | Description
+--- | --- | --- | ---
+|[`tags`](#tagsOption) | `Array` | `[]` | An array of tags that are displayed as pre-selected
+|[`suggestions`](#suggestionsOption) | `Array` | `[]` | An array of suggestions that are used as basis for showing suggestions
+|[`delimiters`](#delimiters) | `Array` | `[ENTER, TAB]` | Specifies which characters should terminate tags input
+|[`placeholder`](#placeholderOption) | `String` | `Add new tag` | The placeholder shown for the input
+|[`labelField`](#labelFieldOption) | `String` | `text` | Provide an alternative `label` property for the tags
+|[`handleAddition`](#handleAdditionOption) | `Function` | `undefined` | Function called when the user wants to add a tag (required)
+|[`handleDelete`](#handleDeleteOption) | `Function` | `undefined` | Function called when the user wants to delete a tag (required)
+|[`handleDrag`](#handleDragOption) | `Function` | `undefined` | Function called when the user drags a tag
+|[`handleFilterSuggestions`](#handleFilterSuggestions) | `Function` | `undefined` | Function called when filtering suggestions
+|[`handleTagClick`](#handleTagClickOption) | `Function` | `undefined` | Function called when the user wants to know which tag was clicked
+|[`autofocus`](#autofocus) | `Boolean` | `true` | Boolean value to control whether the text-input should be autofocused on mount
+|[`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput) | `Boolean` | `true` | Boolean value to control whether tags should be deleted when the 'Delete' key is pressed in an empty Input Box
+|[`handleInputChange`](#handleInputChange) | `Function` | `undefined` | Event handler for input onChange
+|[`handleInputFocus`](#handleInputFocus) | `Function` | `undefined` | Event handler for input onFocus
+|[`handleInputBlur`](#handleInputBlur) | `Function` | `undefined` | Event handler for input onBlur
+|[`minQueryLength`](#minQueryLength) | `Number` | `2` | How many characters are needed for suggestions to appear
+|[`removeComponent`](#removeComponent) | `Boolean` | `false` | Custom delete/remove tag element
+|[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed
+|[`readOnly`](#readOnly) | `Boolean` | `false` | Read-only mode without the input box and `removeComponent` and drag-n-drop features disabled
+|[`name`](#nameOption) | `String` | `undefined` | The `name` attribute added to the input
+|[`id`](#idOption) | `String` | `undefined` | The `id` attribute added to the input
+|[`maxLength`](#maxLength) | `Number` | `Infinity` | The `maxLength` attribute added to the input
+|[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line
 
 <a name="tagsOption"></a>
 ##### tags (optional, defaults to `[]`)
