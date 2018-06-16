@@ -6,7 +6,11 @@ import noop from 'lodash/noop';
 
 import { WithContext as ReactTags } from '../lib/ReactTags';
 
-import { KEYS, DEFAULT_PLACEHOLDER } from '../lib/constants';
+import {
+  KEYS,
+  DEFAULT_PLACEHOLDER,
+  DEFAULT_LABEL_FIELD,
+} from '../lib/constants';
 
 /* eslint-disable no-console */
 
@@ -31,8 +35,6 @@ function mockItem(overrides) {
 }
 
 describe('Test ReactTags', () => {
-
-
   test('should render with expected props', function() {
     const $el = shallow(mockItem());
     const expectedProps = {
@@ -40,6 +42,7 @@ describe('Test ReactTags', () => {
       suggestions: [],
       delimiters: [KEYS.ENTER, KEYS.TAB],
       autofocus: true,
+      labelField: DEFAULT_LABEL_FIELD,
       inline: true,
       handleDelete: noop,
       handleAddition: noop,
@@ -49,7 +52,6 @@ describe('Test ReactTags', () => {
       autocomplete: false,
       readOnly: false,
       ...defaults,
-
     };
     expect($el).to.have.length(1);
     expect($el.props()).to.deep.equal(expectedProps);
