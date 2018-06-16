@@ -6,7 +6,11 @@ import noop from 'lodash/noop';
 
 import { WithContext as ReactTags } from '../lib/ReactTags';
 
-import { KEYS, DEFAULT_PLACEHOLDER, DEFAULT_LABEL_FIELD } from '../lib/constants';
+import {
+  KEYS,
+  DEFAULT_PLACEHOLDER,
+  DEFAULT_LABEL_FIELD,
+} from '../lib/constants';
 
 /* eslint-disable no-console */
 
