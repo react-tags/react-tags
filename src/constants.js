@@ -24,6 +24,6 @@ export const DEFAULT_CLASSNAMES = {
 
 export const INPUT_FIELD_POSITIONS = {
   INLINE: 'inline',
-  ABOVE: 'above',
-  BELOW: 'below',
+  TOP: 'top',
+  BOTTOM: 'bottom',
 };

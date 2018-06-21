@@ -55,7 +55,7 @@ class ReactTags extends Component {
         id: PropTypes.string.isRequired,
       })
     ),
-    inputFieldPosition: PropTypes.oneOf([INPUT_FIELD_POSITIONS.INLINE, INPUT_FIELD_POSITIONS.ABOVE, INPUT_FIELD_POSITIONS.BELOW]),
+    inputFieldPosition: PropTypes.oneOf([INPUT_FIELD_POSITIONS.INLINE, INPUT_FIELD_POSITIONS.TOP, INPUT_FIELD_POSITIONS.BOTTOM]),
   };
 
   static defaultProps = {
@@ -78,7 +78,7 @@ class ReactTags extends Component {
   constructor(props) {
     super(props);
 
-    if (props.inline === false) {
+    if (!props.inline) {
       console.warn('[Deprecation] The inline attribute is deprecated and will be removed in v6.x.x, please use inputFieldPosition instead.');
     }
 
@@ -392,7 +392,7 @@ class ReactTags extends Component {
 
     // TODO: Remove condition and make in const when 'inline' prop is removed in v6.x.x
     let inputFieldPosition = this.props.inputFieldPosition;
-    if (this.props.inline === false && inputFieldPosition === INPUT_FIELD_POSITIONS.INLINE) {
+    if (!this.props.inline) {
       inputFieldPosition = INPUT_FIELD_POSITIONS.BELOW;
     }
 
@@ -434,12 +434,12 @@ class ReactTags extends Component {
 
     return (
       <div className={this.state.classNames.tags}>
-        {inputFieldPosition === INPUT_FIELD_POSITIONS.ABOVE && tagInput}
+        {inputFieldPosition === INPUT_FIELD_POSITIONS.TOP && tagInput}
         <div className={this.state.classNames.selected}>
           {tagItems}
           {inputFieldPosition === INPUT_FIELD_POSITIONS.INLINE && tagInput}
         </div>
-        {inputFieldPosition === INPUT_FIELD_POSITIONS.BELOW && tagInput}
+        {inputFieldPosition === INPUT_FIELD_POSITIONS.BOTTOM && tagInput}
       </div>
     );
   }
