@@ -437,7 +437,7 @@ _This attribute is deprecated and will be removed in v6.x.x, see [inputFieldPosi
 
 <a name="inputFieldPosition"></a>
 ##### inputFieldPosition (optional, defaults to `inline`)
-The inputFieldPosition attribute decides the positioning of the input field relative to the tags. Can be one of `inline`, `above` or `below`.
+The inputFieldPosition attribute decides the positioning of the input field relative to the tags. Can be one of `inline`, `top` or `bottom`.
 
 ```
 <ReactTags
