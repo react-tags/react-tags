@@ -154,8 +154,8 @@ Option | Type | Default | Description
 |[`name`](#nameOption) | `String` | `undefined` | The `name` attribute added to the input
 |[`id`](#idOption) | `String` | `undefined` | The `id` attribute added to the input
 |[`maxLength`](#maxLength) | `Number` | `Infinity` | The `maxLength` attribute added to the input
-|[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line
-- [`inputFieldPosition`](#inputFieldPosition)
+|[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line (deprecated)
+|[`inputFieldPosition`](#inputFieldPosition) | `String` | `inline` | Specify position of input field relative to tags
 
 <a name="tagsOption"></a>
 ##### tags (optional, defaults to `[]`)
