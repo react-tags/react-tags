@@ -5,6 +5,8 @@ import { shallow, mount, render } from 'enzyme';
 import { spy } from 'sinon';
 import Suggestions from '../lib/Suggestions';
 import noop from 'lodash/noop';
+import { DEFAULT_LABEL_FIELD } from '../lib/constants';
+import {} from './utils.test';
 
 const defaults = {
   query: 'ang',
@@ -14,7 +16,7 @@ const defaults = {
     { id: 'Pear', text: 'Pear' },
     { id: 'Apricot', text: 'Apricot' },
   ],
-  labelField: 'text',
+  labelField: DEFAULT_LABEL_FIELD,
   selectedIndex: 1,
   isFocused: true,
   handleClick: noop,
@@ -191,5 +193,20 @@ describe('Suggestions', function() {
     );
 
     expect($el.componentDidUpdate.called).to.equal(true);
+  });
+
+  test('selects the correct suggestion when using custom labelField', () => {
+    const testLabelField = 'name';
+    const mapper = (a) => ({ id: a.id, [testLabelField]: a.text });
+    const suggestions = defaults.suggestions.map(mapper);
+
+    const props = {
+      labelField: testLabelField,
+      suggestions,
+    };
+
+    const $el = mount(mockItem(props));
+    expect($el.find('li.active').length).to.equal(1);
+    expect($el.find('li.active').text()).to.equal('Mango');
   });
 });

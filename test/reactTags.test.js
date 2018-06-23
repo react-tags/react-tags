@@ -495,4 +495,23 @@ describe('Test ReactTags', () => {
       expect(actual).to.have.deep.members([{ id: 'Ea', text: 'Ea' }]);
     });
   });
+
+  test('Utilizes custom labelField properly', () => {
+    const testLabelField = 'name';
+    const mapper = (a) => ({ id: a.id, [testLabelField]: a.text });
+    const suggestions = defaults.suggestions.map(mapper);
+    const tags = defaults.tags.map(mapper);
+    const expectedText = tags[0][testLabelField];
+
+    const props = {
+      labelField: testLabelField,
+      suggestions,
+      tags,
+    };
+
+    const $el = mount(mockItem(props));
+    expect($el.prop('labelField')).to.equal(testLabelField);
+    expect($el.text()).to.have.string(expectedText);
+    $el.unmount();
+  });
 });
