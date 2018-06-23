@@ -12,13 +12,14 @@ module.exports = {
   },
   extends: ["eslint:recommended", "plugin:react/recommended"],
   parserOptions: {
+    ecmaVersion: "6",
     ecmaFeatures: {
-      experimentalObjectRestSpread: true,
       jsx: true
     },
     sourceType: "module"
   },
   plugins: ["react", "jsx-a11y"],
+  "parser": "babel-eslint",
   rules: {
     "indent": [2, 2],
     "linebreak-style": [2, "unix"],
