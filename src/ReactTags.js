@@ -391,7 +391,7 @@ class ReactTags extends Component {
       maxLength = this.props.maxLength;
 
     // TODO: Remove condition and make in const when 'inline' prop is removed in v6.x.x
-    let inputFieldPosition = this.props.inputFieldPosition;
+    let { inputFieldPosition } = this.props;
     if (!this.props.inline) {
       inputFieldPosition = INPUT_FIELD_POSITIONS.BELOW;
     }
