@@ -7,28 +7,26 @@ import Suggestions from '../lib/Suggestions';
 import noop from 'lodash/noop';
 
 const defaults = {
-    query: 'ang',
-    suggestions: [
-      { id: 'Banana', text: 'Banana' },
-      { id: 'Mango', text: 'Mango' },
-      { id: 'Pear', text: 'Pear' },
-      { id: 'Apricot', text: 'Apricot' },
-    ],
-    selectedIndex: 1,
-    isFocused: true,
-    handleClick: noop,
-    handleHover: noop,
-    classNames: { suggestions: 'foo', activeSuggestion: 'active' },
-  };
+  query: 'ang',
+  suggestions: [
+    { id: 'Banana', text: 'Banana' },
+    { id: 'Mango', text: 'Mango' },
+    { id: 'Pear', text: 'Pear' },
+    { id: 'Apricot', text: 'Apricot' },
+  ],
+  selectedIndex: 1,
+  isFocused: true,
+  handleClick: noop,
+  handleHover: noop,
+  classNames: { suggestions: 'foo', activeSuggestion: 'active' },
+};
 
 function mockItem(overrides) {
-
   const props = Object.assign({}, defaults, overrides);
   return <Suggestions {...props} />;
 }
 
 describe('Suggestions', function() {
-
   test('should render with expected props', function() {
     const $el = shallow(mockItem());
     const expectedProps = {
