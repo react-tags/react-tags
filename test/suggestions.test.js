@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { expect } from 'chai';
-import { shallow, mount, render } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 import Suggestions from '../lib/Suggestions';
 import noop from 'lodash/noop';
@@ -144,7 +144,7 @@ describe('Suggestions', function() {
     Suggestions.prototype.componentDidUpdate.restore();
   });
 
-  test("should re-render if the provided 'shouldRenderSuggestions' prop returns true", function() {
+  test('should re-render if the provided \'shouldRenderSuggestions\' prop returns true', function() {
     const suggestions = [
       { id: 'queue', text: 'queue' },
       { id: 'quiz', text: 'quiz' },
