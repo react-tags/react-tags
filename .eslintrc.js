@@ -53,6 +53,8 @@ module.exports = {
     "react/jsx-equals-spacing": 2,
     "react/jsx-no-undef": 2,
     "react/jsx-uses-vars": 1,
+    "react/no-find-dom-node": 1,
+    "react/no-render-return-value": 1,
 
     /** jsx-ally rules start here **/
     "jsx-a11y/alt-text": 2,
