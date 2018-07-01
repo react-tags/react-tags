@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.buildRegExpFromDelimiters = buildRegExpFromDelimiters;
 
-var _lodash = require('lodash');
+var _escapeRegExp = require('lodash/escapeRegExp');
+
+var _escapeRegExp2 = _interopRequireDefault(_escapeRegExp);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Convert an array of delimiter characters into a regular expression
@@ -19,6 +23,6 @@ function buildRegExpFromDelimiters(delimiters) {
     var chrCode = delimiter - 48 * Math.floor(delimiter / 48);
     return String.fromCharCode(96 <= delimiter ? chrCode : delimiter);
   }).join('');
-  var escapedDelimiterChars = (0, _lodash.escapeRegExp)(delimiterChars);
+  var escapedDelimiterChars = (0, _escapeRegExp2.default)(delimiterChars);
   return new RegExp('[' + escapedDelimiterChars + ']+');
 }
