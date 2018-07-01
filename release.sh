@@ -3,8 +3,6 @@
 # releases a new version
 release () {
   echo "Version $1 in progress"
-  git checkout master &&
-  git pull -r origin master &&
   git tag v$1 &&
   git push origin --tags &&
   npm run build &&
