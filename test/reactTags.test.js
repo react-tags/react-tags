@@ -53,7 +53,7 @@ describe('Test ReactTags', () => {
       ...defaults,
     };
     expect($el).to.have.length(1);
-    expect($el.props()).to.deep.equal(expectedProps);
+    expect($el.props().children.props).to.deep.equal(expectedProps);
   });
 
   test('focus on input by default', () => {
