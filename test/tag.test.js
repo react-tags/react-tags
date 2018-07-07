@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { expect } from 'chai';
 import { DragDropContext } from 'react-dnd';
 import TestBackend from 'react-dnd-test-backend';
-import { shallow, mount, render } from 'enzyme';
+import { mount } from 'enzyme';
 import sinon from 'sinon';
 import TestUtils from 'react-dom/test-utils';
 import noop from 'lodash/noop';
@@ -68,6 +69,11 @@ describe('Tag', () => {
   test('renders conditionaly passed in removed component correctly', () => {
     const CustomConditionRemoveComponent = function(props) {
       return props.tag.id === '1' ? null : <a className="removeTag">x</a>;
+    };
+    CustomConditionRemoveComponent.propTypes = {
+      tag: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+      }),
     };
     const $el = mount(
       mockItem({ removeComponent: CustomConditionRemoveComponent })

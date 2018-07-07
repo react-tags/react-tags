@@ -267,7 +267,7 @@ describe('Test ReactTags', () => {
 
   // this test will fail if console.error occurs
   test('should not set any property of this.textInput when readOnly', () => {
-    console.error = jest.fn((error) => {
+    console.error = jest.fn(() => {
       throw 'Error';
     });
 
@@ -277,7 +277,7 @@ describe('Test ReactTags', () => {
   });
 
   test('should fail the test if two tags have same key, issue #110', () => {
-    console.warn = jest.fn((error) => {
+    console.warn = jest.fn(() => {
       throw 'Error';
     });
 
