@@ -510,10 +510,38 @@ describe('Test ReactTags', () => {
     };
 
     const $el = mount(mockItem(props));
-    const $input = $el.find('.ReactTags__tagInputField');
-    $input.simulate('change', { target: { value: 'Apple' } });
-    $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+    expect($el.prop('labelField')).to.equal(labelField);
     expect($el.text()).to.have.string(expectedText);
     $el.unmount();
   });
+});
+
+test('selects the correct suggestion using the keyboard when label is custom', () => {
+  const labelField = 'name';
+  const mapper = (data) => ({ id: data.id, name: data.text });
+  let actual = [];
+  const suggestions = defaults.suggestions.map(mapper);
+
+  const $el = mount(
+    mockItem({
+      query: 'Apr',
+      labelField,
+      minQueryLength: 1,
+      tags: actual,
+      suggestions,
+      handleAddition(tag) {
+        actual.push(tag);
+      },
+    })
+  );
+  const $input = $el.find('.ReactTags__tagInputField');
+
+  $input.simulate('change', { target: { value: 'Apr' } });
+  $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
+  $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+  expect(actual).to.have.deep.members([
+    { id: 'Apricot', [labelField]: 'Apricot' },
+  ]);
+
+  $el.unmount();
 });

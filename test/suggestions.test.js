@@ -194,19 +194,4 @@ describe('Suggestions', function() {
 
     expect($el.componentDidUpdate.called).to.equal(true);
   });
-
-  test('selects the correct suggestion when using custom labelField', () => {
-    const testLabelField = 'name';
-    const mapper = (a) => ({ id: a.id, [testLabelField]: a.text });
-    const suggestions = defaults.suggestions.map(mapper);
-
-    const props = {
-      labelField: testLabelField,
-      suggestions,
-    };
-
-    const $el = mount(mockItem(props));
-    expect($el.find('li.active').length).to.equal(1);
-    expect($el.find('li.active').text()).to.equal('Mango');
-  });
 });
