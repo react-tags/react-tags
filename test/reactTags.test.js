@@ -498,7 +498,7 @@ describe('Test ReactTags', () => {
 
   test('should add tag with custom label field', () => {
     const labelField = 'name';
-    const mapper = (a) => ({ id: a.id, [labelField]: a.text });
+    const mapper = (data) => ({ id: data.id, name: data.text });
     const suggestions = defaults.suggestions.map(mapper);
     const tags = defaults.tags.map(mapper);
     const expectedText = tags[0][labelField];
