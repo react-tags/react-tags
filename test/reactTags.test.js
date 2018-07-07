@@ -496,7 +496,7 @@ describe('Test ReactTags', () => {
     });
   });
 
-  test('Utilizes custom labelField properly', () => {
+  test('should add tag with custom label field', () => {
     const labelField = 'name';
     const mapper = (a) => ({ id: a.id, [labelField]: a.text });
     const suggestions = defaults.suggestions.map(mapper);
