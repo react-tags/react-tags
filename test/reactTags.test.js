@@ -510,7 +510,9 @@ describe('Test ReactTags', () => {
     };
 
     const $el = mount(mockItem(props));
-    expect($el.prop('labelField')).to.equal(labelField);
+    const $input = $el.find('.ReactTags__tagInputField');
+    $input.simulate('change', { target: { value: 'Apple' } });
+    $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
     expect($el.text()).to.have.string(expectedText);
     $el.unmount();
   });
