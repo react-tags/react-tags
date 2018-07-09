@@ -170,12 +170,12 @@ const tags =  [ { id: "1", name: "Apples" } ]
 
 <a name="suggestionsOption"></a>
 ##### suggestions (optional, defaults to `[]`)
-An array of suggestions that are used as basis for showing suggestions. These objects should follow the same structure as the data. So if the `labelField` is `name`, the following would work:
+An array of suggestions that are used as basis for showing suggestions. These objects should follow the same structure as the `tags`. So if the `labelField` is `name`, the following would work:
 
 ```js
 // With labelField of `name`
 const suggestions = [
-    { id: "1" name: "mango" },
+    { id: "1", name: "mango" },
     { id: "2", name: "pineapple" },
     { id: "3", name: "orange" },
     { id: "4", name: "pear" }
