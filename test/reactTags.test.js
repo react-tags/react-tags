@@ -267,8 +267,8 @@ describe('Test ReactTags', () => {
 
   // this test will fail if console.error occurs
   test('should not set any property of this.textInput when readOnly', () => {
-    console.error = jest.fn(() => {
-      throw 'Error';
+    console.error = jest.fn((error) => {
+      throw error;
     });
 
     const $el = mount(mockItem({ readOnly: true, resetInputOnDelete: false }));
@@ -494,54 +494,76 @@ describe('Test ReactTags', () => {
       $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
       expect(actual).to.have.deep.members([{ id: 'Ea', text: 'Ea' }]);
     });
-  });
+    test('should add tag with custom label field and default suggestion filter', () => {
+      const labelField = 'name';
+      const mapper = (data) => ({ id: data.id, name: data.text });
+      const tags = defaults.tags.map(mapper);
+      const suggestions = defaults.suggestions.map(mapper);
 
-  test('should add tag with custom label field', () => {
-    const labelField = 'name';
-    const mapper = (data) => ({ id: data.id, name: data.text });
-    const suggestions = defaults.suggestions.map(mapper);
-    const tags = defaults.tags.map(mapper);
-    const expectedText = tags[0][labelField];
+      let actual = [];
+      const $el = mount(
+        mockItem({
+          autocomplete: true,
+          handleAddition(tag) {
+            actual.push(tag);
+          },
+          labelField,
+          tags,
+          suggestions,
+        })
+      );
+      const $input = $el.find('.ReactTags__tagInputField');
+      $input.simulate('change', { target: { value: 'Ea' } });
+      $input.simulate('focus');
+      $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+      expect(actual).to.have.deep.members([{ id: 'Ea', name: 'Ea' }]);
+    });
+    test('should select the correct suggestion using the keyboard when label is custom', () => {
+      const labelField = 'name';
+      const mapper = (data) => ({ id: data.id, name: data.text });
+      let actual = [];
+      const suggestions = defaults.suggestions.map(mapper);
 
-    const props = {
-      labelField,
-      suggestions,
-      tags,
-    };
+      const $el = mount(
+        mockItem({
+          labelField,
+          tags: actual,
+          suggestions,
+          handleAddition(tag) {
+            actual.push(tag);
+          },
+        })
+      );
 
-    const $el = mount(mockItem(props));
-    expect($el.prop('labelField')).to.equal(labelField);
-    expect($el.text()).to.have.string(expectedText);
-    $el.unmount();
+      const $input = $el.find('.ReactTags__tagInputField');
+
+      $input.simulate('change', { target: { value: 'Ap' } });
+      $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
+      $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
+      $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+      expect(actual).to.have.deep.members([
+        { id: 'Apricot', [labelField]: 'Apricot' },
+      ]);
+      $el.unmount();
+    });
   });
 });
 
-test('selects the correct suggestion using the keyboard when label is custom', () => {
+test('should render default tags with custom label field', () => {
   const labelField = 'name';
   const mapper = (data) => ({ id: data.id, name: data.text });
-  let actual = [];
+  const tags = defaults.tags.map(mapper);
   const suggestions = defaults.suggestions.map(mapper);
 
-  const $el = mount(
-    mockItem({
-      query: 'Apr',
-      labelField,
-      minQueryLength: 1,
-      tags: actual,
-      suggestions,
-      handleAddition(tag) {
-        actual.push(tag);
-      },
-    })
-  );
-  const $input = $el.find('.ReactTags__tagInputField');
+  const expectedText = tags[0][labelField];
 
-  $input.simulate('change', { target: { value: 'Apr' } });
-  $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
-  $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
-  expect(actual).to.have.deep.members([
-    { id: 'Apricot', [labelField]: 'Apricot' },
-  ]);
+  const props = {
+    labelField,
+    tags,
+    suggestions,
+  };
 
+  const $el = mount(mockItem(props));
+  expect($el.text().slice(0, -1)).to.equal(expectedText);
   $el.unmount();
 });
