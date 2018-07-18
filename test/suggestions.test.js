@@ -146,7 +146,7 @@ describe('Suggestions', function() {
     Suggestions.prototype.componentDidUpdate.restore();
   });
 
-  test('should re-render if the provided \'shouldRenderSuggestions\' prop returns true', function() {
+  test('should re-render if the provided "shouldRenderSuggestions" prop returns true', function() {
     const suggestions = [
       { id: 'queue', text: 'queue' },
       { id: 'quiz', text: 'quiz' },
