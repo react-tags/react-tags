@@ -5,6 +5,7 @@ import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 import Suggestions from '../lib/Suggestions';
 import noop from 'lodash/noop';
+import { DEFAULT_LABEL_FIELD } from '../lib/constants';
 
 const defaults = {
   query: 'ang',
@@ -14,6 +15,7 @@ const defaults = {
     { id: 'Pear', text: 'Pear' },
     { id: 'Apricot', text: 'Apricot' },
   ],
+  labelField: DEFAULT_LABEL_FIELD,
   selectedIndex: 1,
   isFocused: true,
   handleClick: noop,
@@ -144,7 +146,7 @@ describe('Suggestions', function() {
     Suggestions.prototype.componentDidUpdate.restore();
   });
 
-  test("should re-render if the provided 'shouldRenderSuggestions' prop returns true", function() {
+  test('should re-render if the provided \'shouldRenderSuggestions\' prop returns true', function() {
     const suggestions = [
       { id: 'queue', text: 'queue' },
       { id: 'quiz', text: 'quiz' },

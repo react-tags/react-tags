@@ -158,22 +158,27 @@ Option | Type | Default | Description
 
 <a name="tagsOption"></a>
 ##### tags (optional, defaults to `[]`)
-An array of tags that are displayed as pre-selected. Each tag should have an  `id` and `text` property which is used to display.
+An array of tags that are displayed as pre-selected. Each tag should have an `id` property and a property for the label, which is specified by the [`labelField`](#labelFieldOption).
 
 ```js
+// With default labelField
 const tags =  [ { id: "1", text: "Apples" } ]
+
+// With labelField of `name`
+const tags =  [ { id: "1", name: "Apples" } ]
 ```
 
 <a name="suggestionsOption"></a>
 ##### suggestions (optional, defaults to `[]`)
-An array of suggestions that are used as basis for showing suggestions. At the moment, this should be an array of strings.
+An array of suggestions that are used as basis for showing suggestions. These objects should follow the same structure as the `tags`. So if the `labelField` is `name`, the following would work:
 
 ```js
+// With labelField of `name`
 const suggestions = [
-    { id: "mango" text: "mango" },
-    { id: "pineapple", text: "pineapple" },
-    { id: "orange", text: "orange" },
-    { id: "pear", text: "pear" }
+    { id: "1", name: "mango" },
+    { id: "2", name: "pineapple" },
+    { id: "3", name: "orange" },
+    { id: "4", name: "pear" }
 ];
 ```
 
@@ -181,14 +186,14 @@ const suggestions = [
 ##### delimiters (optional, defaults to `[ENTER, TAB]`)
 Specifies which characters should terminate tags input. An array of character codes.
 
-```
+```js
 const Keys = {
     TAB: 9,
     SPACE: 32,
     COMMA: 188,
 };
 <ReactTags
-    delimiters: [Keys.TAB, Keys.SPACE, Keys.COMMA]
+    delimiters={[Keys.TAB, Keys.SPACE, Keys.COMMA]}
  />
 ```
 
@@ -197,7 +202,7 @@ const Keys = {
 ##### placeholder (optional, defaults to `Add new tag`)
 The placeholder shown for the input.
 
-```
+```js
 let placeholder = "Add new country"
 ```
 
@@ -205,7 +210,7 @@ let placeholder = "Add new country"
 ##### labelField (optional, defaults to `text`)
 Provide an alternative `label` property for the tags.
 
-```
+```jsx
 <ReactTags
     tags={tags}
     suggestions={}
@@ -213,6 +218,7 @@ Provide an alternative `label` property for the tags.
     handleDrag={}
  />
 ```
+
 This is useful if your data uses the `text` property for something else.
 
 
@@ -286,7 +292,7 @@ function(i) {
 ##### autofocus (optional, defaults to `true`)
 Optional boolean param to control whether the text-input should be autofocused on mount.
 
-```js
+```jsx
 <ReactTags
     autofocus={false}
     ...>

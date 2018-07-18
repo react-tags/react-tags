@@ -6,7 +6,11 @@ import noop from 'lodash/noop';
 
 import { WithContext as ReactTags } from '../lib/ReactTags';
 
-import { KEYS, DEFAULT_PLACEHOLDER } from '../lib/constants';
+import {
+  KEYS,
+  DEFAULT_PLACEHOLDER,
+  DEFAULT_LABEL_FIELD,
+} from '../lib/constants';
 
 /* eslint-disable no-console */
 
@@ -37,6 +41,7 @@ describe('Test ReactTags', () => {
       suggestions: [],
       delimiters: [KEYS.ENTER, KEYS.TAB],
       autofocus: true,
+      labelField: DEFAULT_LABEL_FIELD,
       inline: true,
       handleDelete: noop,
       handleAddition: noop,
@@ -490,4 +495,53 @@ describe('Test ReactTags', () => {
       expect(actual).to.have.deep.members([{ id: 'Ea', text: 'Ea' }]);
     });
   });
+
+  test('should add tag with custom label field', () => {
+    const labelField = 'name';
+    const mapper = (data) => ({ id: data.id, name: data.text });
+    const suggestions = defaults.suggestions.map(mapper);
+    const tags = defaults.tags.map(mapper);
+    const expectedText = tags[0][labelField];
+
+    const props = {
+      labelField,
+      suggestions,
+      tags,
+    };
+
+    const $el = mount(mockItem(props));
+    expect($el.prop('labelField')).to.equal(labelField);
+    expect($el.text()).to.have.string(expectedText);
+    $el.unmount();
+  });
+});
+
+test('selects the correct suggestion using the keyboard when label is custom', () => {
+  const labelField = 'name';
+  const mapper = (data) => ({ id: data.id, name: data.text });
+  let actual = [];
+  const suggestions = defaults.suggestions.map(mapper);
+
+  const $el = mount(
+    mockItem({
+      query: 'Apr',
+      labelField,
+      minQueryLength: 1,
+      tags: actual,
+      suggestions,
+      handleAddition(tag) {
+        actual.push(tag);
+      },
+    })
+  );
+  const $input = $el.find('.ReactTags__tagInputField');
+
+  $input.simulate('change', { target: { value: 'Apr' } });
+  $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
+  $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+  expect(actual).to.have.deep.members([
+    { id: 'Apricot', [labelField]: 'Apricot' },
+  ]);
+
+  $el.unmount();
 });
