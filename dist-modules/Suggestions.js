@@ -61,8 +61,11 @@ var Suggestions = function (_Component) {
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Suggestions.__proto__ || Object.getPrototypeOf(Suggestions)).call.apply(_ref, [this].concat(args))), _this), _this.markIt = function (input, query) {
       var escapedRegex = query.trim().replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
+      var labelValue = input[_this.props.labelField];
+
+
       return {
-        __html: input.text.replace(RegExp(escapedRegex, 'gi'), '<mark>$&</mark>')
+        __html: labelValue.replace(RegExp(escapedRegex, 'gi'), '<mark>$&</mark>')
       };
     }, _this.shouldRenderSuggestions = function (query) {
       var _this$props = _this.props,
@@ -152,7 +155,8 @@ Suggestions.propTypes = {
   minQueryLength: _propTypes2.default.number,
   shouldRenderSuggestions: _propTypes2.default.func,
   isFocused: _propTypes2.default.bool.isRequired,
-  classNames: _propTypes2.default.object
+  classNames: _propTypes2.default.object,
+  labelField: _propTypes2.default.string.isRequired
 };
 Suggestions.defaultProps = {
   minQueryLength: 2

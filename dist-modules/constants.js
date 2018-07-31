@@ -14,6 +14,8 @@ var KEYS = exports.KEYS = {
 
 var DEFAULT_PLACEHOLDER = exports.DEFAULT_PLACEHOLDER = 'Add new tag';
 
+var DEFAULT_LABEL_FIELD = exports.DEFAULT_LABEL_FIELD = 'text';
+
 var DEFAULT_CLASSNAMES = exports.DEFAULT_CLASSNAMES = {
   tags: 'ReactTags__tags',
   tagInput: 'ReactTags__tagInput',
