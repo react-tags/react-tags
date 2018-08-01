@@ -76,7 +76,7 @@
     "prettier": "1.13.7",
     "raf": "3.4.0",
     "react-dnd-test-backend": "3.0.2",
-    "react-test-renderer": "16.4.1",
+    "react-test-renderer": "16.4.2",
     "semantic-release": "^15.9.16",
     "sinon": "6.0.1",
     "webpack": "^4.14.0",
