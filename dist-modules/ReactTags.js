@@ -217,7 +217,7 @@ var ReactTags = function (_Component) {
     key: 'handleChange',
     value: function handleChange(e) {
       if (this.props.handleInputChange) {
-        this.props.handleInputChange(e.target.value.trim());
+        this.props.handleInputChange(e.target.value);
       }
 
       var query = e.target.value.trim();
@@ -235,7 +235,7 @@ var ReactTags = function (_Component) {
   }, {
     key: 'handleFocus',
     value: function handleFocus(e) {
-      var value = e.target.value.trim();
+      var value = e.target.value;
       if (this.props.handleInputFocus) {
         this.props.handleInputFocus(value);
       }
@@ -244,7 +244,7 @@ var ReactTags = function (_Component) {
   }, {
     key: 'handleBlur',
     value: function handleBlur(e) {
-      var value = e.target.value.trim();
+      var value = e.target.value;
       if (this.props.handleInputBlur) {
         this.props.handleInputBlur(value);
         if (this.textInput) {
