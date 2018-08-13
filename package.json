@@ -56,7 +56,7 @@
     "eslint": "5.0.1",
     "eslint-plugin-jest": "21.15.1",
     "eslint-plugin-jsx-a11y": "6.0.3",
-    "eslint-plugin-react": "7.10.0",
+    "eslint-plugin-react": "7.11.0",
     "greenkeeper-lockfile": "1.15.1",
     "jest": "22.1.4",
     "jsdom": "11.6.2",
