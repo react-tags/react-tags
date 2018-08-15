@@ -374,7 +374,8 @@ var ReactTags = function (_Component) {
           placeholder = this.props.placeholder,
           inputName = this.props.name,
           inputId = this.props.id,
-          maxLength = this.props.maxLength;
+          maxLength = this.props.maxLength,
+          tabIndex = this.props.tabIndex;
 
       var tagInput = !this.props.readOnly ? _react2.default.createElement(
         'div',
@@ -395,6 +396,7 @@ var ReactTags = function (_Component) {
           name: inputName,
           id: inputId,
           maxLength: maxLength,
+          tabIndex: tabIndex,
           value: this.props.inputValue
         }),
         _react2.default.createElement(_Suggestions2.default, {
@@ -457,6 +459,7 @@ ReactTags.propTypes = {
   name: _propTypes2.default.string,
   id: _propTypes2.default.string,
   maxLength: _propTypes2.default.number,
+  tabIndex: _propTypes2.default.number,
   inputValue: _propTypes2.default.string,
   tags: _propTypes2.default.arrayOf(_propTypes2.default.shape({
     id: _propTypes2.default.string.isRequired
@@ -475,7 +478,8 @@ ReactTags.defaultProps = {
   allowAdditionFromPaste: true,
   resetInputOnDelete: true,
   autocomplete: false,
-  readOnly: false
+  readOnly: false,
+  tabIndex: 0
 };
 
 

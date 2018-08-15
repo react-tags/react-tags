@@ -154,6 +154,7 @@ Option | Type | Default | Description
 |[`name`](#nameOption) | `String` | `undefined` | The `name` attribute added to the input
 |[`id`](#idOption) | `String` | `undefined` | The `id` attribute added to the input
 |[`maxLength`](#maxLength) | `Number` | `Infinity` | The `maxLength` attribute added to the input
+|[`tabIndex`](#tabIndex) | `Number` | `0` | The `tabindex` attribute added to the input
 |[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line
 
 <a name="tagsOption"></a>
@@ -408,6 +409,15 @@ The maxLength attribute added to the input. Specifies the maximum number of char
 ```
 <ReactTags
     maxLength = "42"
+    ...>
+```
+
+##### tabIndex (optional)
+The tabindex attribute added to the input. Specifies the specifies the tab order of the input field.
+
+```
+<ReactTags
+    tabIndex = "2"
     ...>
 ```
 
