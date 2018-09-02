@@ -7,7 +7,7 @@ import { mount } from 'enzyme';
 import sinon from 'sinon';
 import TestUtils from 'react-dom/test-utils';
 import noop from 'lodash/noop';
-import Tag from '../lib/Tag';
+import Tag from '../src/Tag';
 
 function wrapInTestContext(DecoratedComponent) {
   class DecoratedComponentWrapper extends Component {
