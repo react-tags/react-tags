@@ -1,26 +1,22 @@
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.resolve(__dirname, 'dist');
 
 const config = {
   mode: 'development',
   // Entry points to the project
-  entry: [
-    'webpack/hot/only-dev-server',
-    path.join(__dirname, 'src/ReactTags.js'),
-  ],
+  entry: {
+    ReactTags: path.join(__dirname, 'src/ReactTags.js'),
+  },
   // Server Configuration options
   devServer: {
-    contentBase: '.', // Relative directory for base of server
-    hot: true, // Live-reload
-    inline: true,
+    contentBase: './', // Relative directory for base of server
     port: 8090, // Port Number
     host: 'localhost', // Change to '0.0.0.0' for external facing server
   },
   devtool: 'cheap-module-source-map',
   output: {
-    path: buildPath, // Path of output file
-    filename: 'ReactTags.min.js',
+    path: path.resolve(__dirname, 'dist'), // Path of output file
+    filename: '[name].js',
     libraryTarget: 'umd',
     library: 'ReactTags',
   },
