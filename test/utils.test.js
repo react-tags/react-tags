@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { buildRegExpFromDelimiters } from '../lib/utils';
+import { buildRegExpFromDelimiters } from '../src/utils';
 
 const KeyCodes = {
   colon: 58,

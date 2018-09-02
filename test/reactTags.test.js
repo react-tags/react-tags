@@ -4,13 +4,13 @@ import { mount, shallow } from 'enzyme';
 import { spy } from 'sinon';
 import noop from 'lodash/noop';
 
-import { WithContext as ReactTags } from '../lib/ReactTags';
+import { WithContext as ReactTags } from '../src/ReactTags';
 
 import {
   KEYS,
   DEFAULT_PLACEHOLDER,
   DEFAULT_LABEL_FIELD,
-} from '../lib/constants';
+} from '../src/constants';
 
 /* eslint-disable no-console */
 
