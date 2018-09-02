@@ -1,16 +1,17 @@
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.resolve(__dirname, 'dist');
 
 const config = {
   mode: 'production',
-  entry: [path.join(__dirname, 'src/ReactTags.js')],
+  entry: {
+    ReactTags: path.join(__dirname, 'src/ReactTags.js'),
+  },
   // Render source-map file for final build
   devtool: 'source-map',
   // output config
   output: {
-    path: buildPath, // Path of output file
-    filename: 'ReactTags.min.js', // Name of output file
+    path: path.resolve(__dirname, 'dist'), // Path of output file
+    filename: '[name].min.js', // Name of output file
     libraryTarget: 'umd',
     library: 'ReactTags',
   },

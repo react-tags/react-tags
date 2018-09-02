@@ -7,11 +7,9 @@
   "scripts": {
     "test": "jest --notify --coverage",
     "test-watch": "jest --watch --notify --coverage",
-    "open-localhost": "node -e 'require(\"opn\")(\"http://localhost:8090/example/index.html\")'",
-    "dev": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
-    "format": "prettier  --write lib/*.js test/*.js",
-    "build": "webpack --config webpack-production.config.js --progress --colors && babel lib --out-dir dist-modules",
-    "start": "npm-run-all --parallel open-localhost dev",
+    "start": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
+    "format": "prettier  --write src/*.js test/*.js",
+    "build": "webpack --config webpack-production.config.js --progress --colors && babel src --out-dir dist-modules",
     "precommit": "./set_up_hooks.sh"
   },
   "keywords": [
