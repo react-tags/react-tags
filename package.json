@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "core-js": "2.5.5",
-    "lodash": "4.17.5",
+    "lodash": "4.17.11",
     "prop-types": "15.6.1",
     "react": "16.4.1",
     "react-dnd": "5.0.0",
