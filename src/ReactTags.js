@@ -54,6 +54,7 @@ class ReactTags extends Component {
         id: PropTypes.string.isRequired,
       })
     ),
+    allowUnique: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -70,6 +71,7 @@ class ReactTags extends Component {
     resetInputOnDelete: true,
     autocomplete: false,
     readOnly: false,
+    allowUnique: true,
   };
 
   constructor(props) {
@@ -285,13 +287,14 @@ class ReactTags extends Component {
   }
 
   addTag = (tag) => {
-    const { tags, labelField } = this.props;
+    const { tags, labelField, allowUnique } = this.props;
     if (!tag.id || !tag[labelField]) {
       return;
     }
     const existingKeys = tags.map((tag) => tag.id.toLowerCase());
+
     // Return if tag has been already added
-    if (existingKeys.indexOf(tag.id.toLowerCase()) >= 0) {
+    if (allowUnique && existingKeys.indexOf(tag.id.toLowerCase()) >= 0) {
       return;
     }
     if (this.props.autocomplete) {
@@ -356,7 +359,7 @@ class ReactTags extends Component {
     return tags.map((tag, index) => {
       return (
         <Tag
-          key={tag.id}
+          key={`${tag.id}-${index}`}
           index={index}
           tag={tag}
           labelField={labelField}
