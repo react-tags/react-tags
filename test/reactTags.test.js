@@ -51,6 +51,7 @@ describe('Test ReactTags', () => {
       autocomplete: false,
       readOnly: false,
       ...defaults,
+      allowUnique: true,
     };
     expect($el).to.have.length(1);
     expect($el.props().children.props).to.deep.equal(expectedProps);
@@ -566,4 +567,25 @@ test('should render default tags with custom label field', () => {
   const $el = mount(mockItem(props));
   expect($el.text().slice(0, -1)).to.equal(expectedText);
   $el.unmount();
+});
+
+test('should allow duplicate tags when allowUnique is false', () => {
+  const actual = [];
+  const $el = mount(
+    mockItem({
+      handleAddition(tag) {
+        actual.push(tag);
+      },
+      allowUnique: false,
+    })
+  );
+
+  expect($el.instance().props.tags).to.have.deep.members(defaults.tags);
+  const $input = $el.find('.ReactTags__tagInputField');
+  $input.simulate('change', { target: { value: 'Apple' } });
+  $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+  expect(actual).to.have.deep.members([{
+    id: 'Apple',
+    text: 'Apple',
+  }]);
 });
