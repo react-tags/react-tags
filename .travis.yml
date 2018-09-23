@@ -24,3 +24,6 @@ after_script:
   - greenkeeper-lockfile-upload
   - ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $TRAVIS_TEST_RESULT
 
+after_success:
+  - npm run semantic-release
+

@@ -1,6 +1,6 @@
 {
   "name": "react-tag-input",
-  "version": "5.2.3",
+  "version": "0.0.0-semantically-released",
   "description": "React tags is a fantastically simple tagging component for your React projects",
   "main": "dist-modules/ReactTags.js",
   "files": [
@@ -14,7 +14,9 @@
     "start": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
     "format": "prettier  --write src/*.js test/*.js",
     "build": "webpack --config webpack-production.config.js --progress --colors && babel src --out-dir dist-modules",
-    "precommit": "./set_up_hooks.sh"
+    "precommit": "./set_up_hooks.sh",
+    "semantic-release": "semantic-release",
+    "commit": "git-cz"
   },
   "keywords": [
     "react",
@@ -57,6 +59,8 @@
     "babel-preset-stage-0": "6.24.1",
     "babel-register": "6.26.0",
     "chai": "4.1.2",
+    "commitizen": "^3.0.1",
+    "cz-conventional-changelog": "^2.1.0",
     "enzyme": "3.4.2",
     "enzyme-adapter-react-16": "1.2.0",
     "eslint": "5.0.1",
@@ -72,9 +76,15 @@
     "raf": "3.4.0",
     "react-dnd-test-backend": "3.0.2",
     "react-test-renderer": "16.4.1",
+    "semantic-release": "^15.9.16",
     "sinon": "6.0.1",
     "webpack": "^4.14.0",
     "webpack-cli": "^3.0.2",
     "webpack-dev-server": "^3.1.4"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
