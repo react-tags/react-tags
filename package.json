@@ -10,7 +10,7 @@
   "sideEffects": false,
   "scripts": {
     "test": "jest --notify --coverage",
-    "test-watch": "jest --watch --notify --coverage",
+    "test:watch": "jest --watch --notify --coverage",
     "start": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
     "format": "prettier  --write src/*.js test/*.js",
     "build": "webpack --config webpack-production.config.js --progress --colors && babel src --out-dir dist-modules",
