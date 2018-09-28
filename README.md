@@ -481,6 +481,8 @@ npm install
 npm run precommit
 npm run start
 ```
+open [http://localhost:8090/example](http://localhost:8090/example)
+
 
 ### Contributing
 Got ideas on how to make this better? Open an issue!
