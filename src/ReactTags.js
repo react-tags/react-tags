@@ -55,6 +55,7 @@ class ReactTags extends Component {
       })
     ),
     allowUnique: PropTypes.bool,
+    allowedCharacters: PropTypes.object,
   };
 
   static defaultProps = {
@@ -91,6 +92,7 @@ class ReactTags extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.moveTag = this.moveTag.bind(this);
     this.handlePaste = this.handlePaste.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.resetAndFocusInput = this.resetAndFocusInput.bind(this);
     this.handleSuggestionHover = this.handleSuggestionHover.bind(this);
     this.handleSuggestionClick = this.handleSuggestionClick.bind(this);
@@ -286,6 +288,15 @@ class ReactTags extends Component {
     );
   }
 
+  handleKeyPress(e) {
+    if (this.props.allowedCharacters) {
+      const char = String.fromCharCode(e.charCode);
+      if (!this.props.allowedCharacters.test(char)) {
+        e.preventDefault();
+      }
+    }
+  }
+
   addTag = (tag) => {
     const { tags, labelField, allowUnique } = this.props;
     if (!tag.id || !tag[labelField]) {
@@ -401,6 +412,7 @@ class ReactTags extends Component {
           onChange={this.handleChange}
           onKeyDown={this.handleKeyDown}
           onPaste={this.handlePaste}
+          onKeyPress={this.handleKeyPress}
           name={inputName}
           id={inputId}
           maxLength={maxLength}

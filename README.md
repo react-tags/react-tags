@@ -156,6 +156,7 @@ Option | Type | Default | Description
 |[`maxLength`](#maxLength) | `Number` | `Infinity` | The `maxLength` attribute added to the input
 |[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line
 |[`allowUnique`](#allowUnique) | `Boolean` | `true` | Boolean value to control whether tags should be unqiue
+|[`allowedCharacters`](#allowedCharacters) | `Regex` | `undefined` | Characters allowed in input
 
 <a name="tagsOption"></a>
 ##### tags (optional, defaults to `[]`)
