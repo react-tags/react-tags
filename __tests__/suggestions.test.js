@@ -78,6 +78,20 @@ describe('Suggestions', function() {
     expect($el.find('li').length).to.equal(0);
   });
 
+  test('should not render html input in query or suggestions', function() {
+    const suggestions = [{ id: 'script', text: '<script>alert()</script>' }];
+    const $el = shallow(
+      mockItem({
+        query: '<script>alert()</script>',
+        suggestions: suggestions,
+      })
+    );
+    $el.setProps({ suggestions: suggestions });
+    expect($el.html()).to.equal(
+      '<div class="foo"><ul> <li class=""><span><mark>&lt;script&gt;alert()&lt;/script&gt;</mark></span></li> </ul></div>'
+    );
+  });
+
   test('should mark highlighted suggestions correctly', function() {
     const $el = shallow(mockItem());
     expect(

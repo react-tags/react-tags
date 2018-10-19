@@ -75,7 +75,15 @@ class Suggestions extends Component {
     const { [this.props.labelField]: labelValue } = input;
 
     return {
-      __html: labelValue.replace(RegExp(escapedRegex, 'gi'), '<mark>$&</mark>'),
+      __html: labelValue.replace(RegExp(escapedRegex, 'gi'), (x) => {
+        const escapedInput = x
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+        return '<mark>' + escapedInput + '</mark>';
+      }),
     };
   };
 
