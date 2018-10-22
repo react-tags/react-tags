@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
+import { escapeHTML } from './utils';
 
 // Polyfills
 import Number from 'core-js/library/fn/number';
@@ -76,13 +77,7 @@ class Suggestions extends Component {
 
     return {
       __html: labelValue.replace(RegExp(escapedRegex, 'gi'), (x) => {
-        const escapedInput = x
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#039;');
-        return '<mark>' + escapedInput + '</mark>';
+        return '<mark>' + escapeHTML(x) + '</mark>';
       }),
     };
   };
