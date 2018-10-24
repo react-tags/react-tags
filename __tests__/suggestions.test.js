@@ -83,10 +83,10 @@ describe('Suggestions', function() {
     const $el = shallow(
       mockItem({
         query: '<script>alert()</script>',
-        suggestions: suggestions,
+        suggestions,
       })
     );
-    $el.setProps({ suggestions: suggestions });
+    $el.setProps({ suggestions });
     expect($el.html()).to.equal(
       '<div class="foo"><ul> <li class=""><span><mark>&lt;script&gt;alert()&lt;/script&gt;</mark></span></li> </ul></div>'
     );
@@ -112,12 +112,12 @@ describe('Suggestions', function() {
       mockItem({
         minQueryLength: 2,
         query: 'q',
-        suggestions: suggestions,
+        suggestions,
       })
     );
 
     spy(Suggestions.prototype, 'componentDidUpdate');
-    $el.setProps({ suggestions: suggestions });
+    $el.setProps({ suggestions });
     expect(Suggestions.prototype.componentDidUpdate.called).to.equal(false);
     Suggestions.prototype.componentDidUpdate.restore();
   });
@@ -132,11 +132,11 @@ describe('Suggestions', function() {
       mockItem({
         minQueryLength: 2,
         query: 'qu',
-        suggestions: suggestions,
+        suggestions,
       })
     );
     spy(Suggestions.prototype, 'componentDidUpdate');
-    $el.setProps({ suggestions: suggestions });
+    $el.setProps({ suggestions });
     expect(Suggestions.prototype.componentDidUpdate.called).to.equal(true);
     Suggestions.prototype.componentDidUpdate.restore();
   });
@@ -151,11 +151,11 @@ describe('Suggestions', function() {
       mockItem({
         minQueryLength: 0,
         query: '',
-        suggestions: suggestions,
+        suggestions,
       })
     );
     spy(Suggestions.prototype, 'componentDidUpdate');
-    $el.setProps({ suggestions: suggestions });
+    $el.setProps({ suggestions });
     expect(Suggestions.prototype.componentDidUpdate.called).to.equal(true);
     Suggestions.prototype.componentDidUpdate.restore();
   });
@@ -171,11 +171,11 @@ describe('Suggestions', function() {
         shouldRenderSuggestions: function() {
           return true;
         },
-        suggestions: suggestions,
+        suggestions,
       })
     );
     spy(Suggestions.prototype, 'componentDidUpdate');
-    $el.setProps({ suggestions: suggestions });
+    $el.setProps({ suggestions });
     expect(Suggestions.prototype.componentDidUpdate.called).to.equal(true);
     Suggestions.prototype.componentDidUpdate.restore();
   });
@@ -190,7 +190,7 @@ describe('Suggestions', function() {
     let component = mockItem({
       minQueryLength: 2,
       query: '',
-      suggestions: suggestions,
+      suggestions,
     });
     var $el = ReactDOM.render(component, div);
     spy($el, 'componentDidUpdate');
@@ -200,7 +200,7 @@ describe('Suggestions', function() {
       mockItem({
         minQueryLength: 2,
         query: 'qu',
-        suggestions: suggestions,
+        suggestions,
       }),
       div
     );

@@ -17,17 +17,3 @@ export function buildRegExpFromDelimiters(delimiters) {
   const escapedDelimiterChars = escapeRegExp(delimiterChars);
   return new RegExp(`[${escapedDelimiterChars}]+`);
 }
-
-/**
- * Escape text to be used in HTML.
- * @param {string} text to be escaped
- * @returns {string} HTML
- */
-export function escapeHTML(text) {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}

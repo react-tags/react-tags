@@ -584,8 +584,10 @@ test('should allow duplicate tags when allowUnique is false', () => {
   const $input = $el.find('.ReactTags__tagInputField');
   $input.simulate('change', { target: { value: 'Apple' } });
   $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
-  expect(actual).to.have.deep.members([{
-    id: 'Apple',
-    text: 'Apple',
-  }]);
+  expect(actual).to.have.deep.members([
+    {
+      id: 'Apple',
+      text: 'Apple',
+    },
+  ]);
 });

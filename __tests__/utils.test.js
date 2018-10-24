@@ -41,11 +41,3 @@ describe('Test buildRegExpFromDelimiters', () => {
     testRegex(input, delimiters, expected);
   });
 });
-
-describe('Test escapeHTML', () => {
-  test('handles dangerous characters', () => {
-    const input = '\'"&<script>';
-    const result = escapeHTML(input);
-    expect(result).to.equal('&#039;&quot;&amp;&lt;script&gt;');
-  });
-});
