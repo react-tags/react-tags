@@ -7,7 +7,7 @@ import { mount } from 'enzyme';
 import sinon from 'sinon';
 import TestUtils from 'react-dom/test-utils';
 import noop from 'lodash/noop';
-import Tag from '../src/Tag';
+import Tag from '../src/components/Tag';
 
 function wrapInTestContext(DecoratedComponent) {
   class DecoratedComponentWrapper extends Component {
@@ -110,9 +110,9 @@ describe('Tag', () => {
     ]);
     expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.true;
     const el = TestUtils.findRenderedDOMComponentWithTag(root, 'span');
-    expect(el.style.opacity).to.equal('0');
+    expect(el.className).contains('opacity-none');
     backend.simulateEndDrag();
-    expect(el.style.opacity).to.equal('1');
+    expect(el.className).not.contains('opacity-none');
     expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.false;
   });
 
