@@ -36,19 +36,19 @@ module.exports = {
 
   // An object that configures minimum threshold enforcement for coverage results
   coverageThreshold: {
-    './src/Tag.js': {
+    './src/components/Tag.js': {
       branches: 100,
       functions: 100,
       lines: 100,
       statements: 100,
     },
-    './src/utils.js': {
+    './src/components/utils.js': {
       branches: 100,
       functions: 100,
       lines: 100,
       statements: 100,
     },
-    './src/constants.js': {
+    './src/components/constants.js': {
       branches: 100,
       functions: 100,
       lines: 100,
@@ -80,7 +80,9 @@ module.exports = {
   moduleFileExtensions: ['js'],
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
-  moduleNameMapper: {},
+  moduleNameMapper: {
+    '\\.(sa|sc|c)ss$': '<rootDir>/__tests__/__mocks__/styleMock.js',
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],

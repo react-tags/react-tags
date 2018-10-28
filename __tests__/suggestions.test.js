@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
-import Suggestions from '../src/Suggestions';
+import Suggestions from '../src/components/Suggestions';
 import noop from 'lodash/noop';
-import { DEFAULT_LABEL_FIELD } from '../src/constants';
+import { DEFAULT_LABEL_FIELD } from '../src/components/constants';
 
 const defaults = {
   query: 'ang',
