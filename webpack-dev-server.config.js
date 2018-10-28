@@ -5,7 +5,7 @@ const config = {
   mode: 'development',
   // Entry points to the project
   entry: {
-    ReactTags: path.join(__dirname, 'src/ReactTags.js'),
+    ReactTags: path.join(__dirname, 'src/components/ReactTags.js'),
   },
   // Server Configuration options
   devServer: {
