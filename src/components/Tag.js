@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
 import PropTypes from 'prop-types';
 import flow from 'lodash/flow';
-
+import ClassNames from 'classnames';
 import {
   tagSource,
   tagTarget,
@@ -27,8 +27,7 @@ class Tag extends Component {
 
     const tagComponent = (
       <span
-        style={{ opacity: isDragging ? 0 : 1 }}
-        className={props.classNames.tag}
+        className={ClassNames('tag', props.classNames.tag, {'opacity-none' : isDragging})}
         onClick={props.onTagClicked}
         onKeyDown={props.onTagClicked}>
         {label}

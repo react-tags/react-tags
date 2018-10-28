@@ -5,7 +5,10 @@ import noop from 'lodash/noop';
 import uniq from 'lodash/uniq';
 import Suggestions from './Suggestions';
 import PropTypes from 'prop-types';
+import ClassNames from 'classnames';
+
 import Tag from './Tag';
+
 import { buildRegExpFromDelimiters } from './utils';
 
 //Constants
@@ -15,6 +18,8 @@ import {
   DEFAULT_CLASSNAMES,
   DEFAULT_LABEL_FIELD,
 } from './constants';
+
+import '../styles/react-tags.scss';
 
 class ReactTags extends Component {
   static propTypes = {
@@ -423,7 +428,7 @@ class ReactTags extends Component {
     ) : null;
 
     return (
-      <div className={this.state.classNames.tags}>
+      <div className={ClassNames(this.state.classNames.tags, 'react-tags-wrapper')}>
         <div className={this.state.classNames.selected}>
           {tagItems}
           {this.props.inline && tagInput}
