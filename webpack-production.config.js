@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const config = {
   mode: 'production',
   entry: {
-    ReactTags: path.join(__dirname, 'src/ReactTags.js'),
+    ReactTags: path.join(__dirname, 'src/components/ReactTags.js'),
   },
   // Render source-map file for final build
   devtool: 'source-map',
