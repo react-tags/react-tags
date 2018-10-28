@@ -52,6 +52,7 @@ describe('Test ReactTags', () => {
       readOnly: false,
       ...defaults,
       allowUnique: true,
+      allowEmpty: false,
     };
     expect($el).to.have.length(1);
     expect($el.props().children.props).to.deep.equal(expectedProps);
@@ -588,4 +589,39 @@ test('should allow duplicate tags when allowUnique is false', () => {
     id: 'Apple',
     text: 'Apple',
   }]);
+});
+
+[
+  { allowEmpty: true, title: 'allow empty tags' },
+  { allowEmpty: false, title: 'not allow empty tags' },
+].forEach((data) => {
+  const { title, allowEmpty } = data;
+  test(`should ${title} when allowEmpty is ${allowEmpty}`, () => {
+    const actual = [];
+    const $el = mount(
+      mockItem({
+        handleAddition(tag) {
+          actual.push(tag);
+        },
+        allowEmpty: allowEmpty,
+      })
+    );
+
+    expect($el.instance().props.tags).to.have.deep.members(defaults.tags);
+    const $input = $el.find('.ReactTags__tagInputField');
+    $input.simulate('change', { target: { value: '' } });
+    $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+    if (allowEmpty) {
+      expect(actual).to.have.deep.members([{
+        id: '',
+        text: '',
+      }]);
+    }
+    else {
+      expect(actual).not.to.have.deep.members([{
+        id: '',
+        text: '',
+      }]);
+    }
+  });
 });
