@@ -591,37 +591,44 @@ test('should allow duplicate tags when allowUnique is false', () => {
   }]);
 });
 
-[
-  { allowEmpty: true, title: 'allow empty tags' },
-  { allowEmpty: false, title: 'not allow empty tags' },
-].forEach((data) => {
-  const { title, allowEmpty } = data;
-  test(`should ${title} when allowEmpty is ${allowEmpty}`, () => {
-    const actual = [];
-    const $el = mount(
-      mockItem({
-        handleAddition(tag) {
-          actual.push(tag);
-        },
-        allowEmpty: allowEmpty,
-      })
-    );
+test('should allow empty tags when allowEmpty is true', () => {
+  const actual = [];
+  const $el = mount(
+    mockItem({
+      handleAddition(tag) {
+        actual.push(tag);
+      },
+      allowEmpty: true,
+    })
+  );
 
-    expect($el.instance().props.tags).to.have.deep.members(defaults.tags);
-    const $input = $el.find('.ReactTags__tagInputField');
-    $input.simulate('change', { target: { value: '' } });
-    $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
-    if (allowEmpty) {
-      expect(actual).to.have.deep.members([{
-        id: '',
-        text: '',
-      }]);
-    }
-    else {
-      expect(actual).not.to.have.deep.members([{
-        id: '',
-        text: '',
-      }]);
-    }
-  });
+  expect($el.instance().props.tags).to.have.deep.members(defaults.tags);
+  const $input = $el.find('.ReactTags__tagInputField');
+  $input.simulate('change', { target: { value: '' } });
+  $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+  expect(actual).to.have.deep.members([{
+    id: '',
+    text: '',
+  }]);
+});
+
+test('should not allow empty tags when allowEmpty is false', () => {
+  const actual = [];
+  const $el = mount(
+    mockItem({
+      handleAddition(tag) {
+        actual.push(tag);
+      },
+      allowEmpty: false,
+    })
+  );
+
+  expect($el.instance().props.tags).to.have.deep.members(defaults.tags);
+  const $input = $el.find('.ReactTags__tagInputField');
+  $input.simulate('change', { target: { value: '' } });
+  $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+  expect(actual).not.to.have.deep.members([{
+    id: '',
+    text: '',
+  }]);
 });
