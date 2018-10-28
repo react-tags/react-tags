@@ -19,6 +19,7 @@ before_script:
 
 script:
   - npm run test
+  - npm run build
 
 after_script:
   - greenkeeper-lockfile-upload
