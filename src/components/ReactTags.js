@@ -83,13 +83,14 @@ class ReactTags extends Component {
 
   constructor(props) {
     super(props);
-
+    const { suggestions, classNames } = props;
     this.state = {
-      suggestions: this.props.suggestions,
+      suggestions,
       query: '',
       isFocused: false,
       selectedIndex: -1,
       selectionMode: false,
+      classNames: { ...DEFAULT_CLASSNAMES, ...classNames },
     };
 
     this.handleFocus = this.handleFocus.bind(this);
@@ -103,28 +104,11 @@ class ReactTags extends Component {
     this.handleSuggestionClick = this.handleSuggestionClick.bind(this);
   }
 
-  UNSAFE_componentWillMount() {
-    this.setState({
-      classNames: { ...DEFAULT_CLASSNAMES, ...this.props.classNames },
-    });
-  }
-
   componentDidMount() {
     const { autofocus, readOnly } = this.props;
     if (autofocus && !readOnly) {
       this.resetAndFocusInput();
     }
-  }
-
-  UNSAFE_componentWillReceiveProps(props) {
-    const suggestions = this.filteredSuggestions(
-      this.state.query,
-      props.suggestions
-    );
-    this.setState({
-      suggestions,
-      classNames: { ...DEFAULT_CLASSNAMES, ...props.classNames },
-    });
   }
 
   filteredSuggestions(query, suggestions) {

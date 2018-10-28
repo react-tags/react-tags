@@ -239,8 +239,10 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      tags: [{ id: 'Thailand', text: 'Thailand' }, { id: 'India', text: 'India' }],
-      suggestions: suggestions,
+      tags: [
+        { id: 'Thailand', text: 'Thailand' },
+        { id: 'India', text: 'India' },
+      ],
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAddition = this.handleAddition.bind(this);
@@ -256,7 +258,7 @@ class App extends React.Component {
   }
 
   handleAddition(tag) {
-    this.setState(state => ({ tags: [...state.tags, tag] }));
+    this.setState((state) => ({ tags: [...state.tags, tag] }));
   }
 
   handleDrag(tag, currPos, newPos) {
@@ -275,7 +277,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { tags, suggestions } = this.state;
+    const { tags } = this.state;
     return (
       <div>
         <Tags
