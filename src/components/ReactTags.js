@@ -79,6 +79,7 @@ class ReactTags extends Component {
     readOnly: false,
     allowUnique: true,
     allowDragDrop: true,
+    tags: [],
   };
 
   constructor(props) {
