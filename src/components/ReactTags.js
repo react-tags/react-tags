@@ -269,7 +269,7 @@ class ReactTags extends Component {
     let pastedText = clipboardData.getData('text');
 
     // Checking if the pasted text is greater than maxLength props
-    if (pastedText.length > this.props.maxLength) {
+    if (this.props.maxLength && pastedText.length > this.props.maxLength) {
       pastedText = pastedText.substr(0, this.props.maxLength);
     }
 
