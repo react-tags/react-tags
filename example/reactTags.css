@@ -26,7 +26,6 @@ div.ReactTags__selected span.ReactTags__tag {
     display: inline-block;
     padding: 5px;
     margin: 0 5px;
-    cursor: move;
     border-radius: 2px;
 }
 div.ReactTags__selected a.ReactTags__remove {
