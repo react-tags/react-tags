@@ -156,6 +156,7 @@ Option | Type | Default | Description
 |[`maxLength`](#maxLength) | `Number` | `Infinity` | The `maxLength` attribute added to the input
 |[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line
 |[`allowUnique`](#allowUnique) | `Boolean` | `true` | Boolean value to control whether tags should be unqiue
+|[`allowEmpty`](#allowEmpty) | `Boolean` | `false` | Boolean value to control whether empty tags should be allowed
 
 <a name="tagsOption"></a>
 ##### tags (optional, defaults to `[]`)
@@ -435,6 +436,10 @@ The inline attributes decides whether the input fields and selected tags will be
 <a name="allowUnique"></a>
 #### allowUnique (optional, defaults to `true`)
 This prop controls whether tags should be unique.
+
+<a name="allowEmpty"></a>
+#### allowEmpty (optional, defaults to `false`)
+This prop controls whether empty tags should be allowed.
 
 ### Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -

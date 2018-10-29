@@ -52,6 +52,7 @@ describe('Test ReactTags', () => {
       readOnly: false,
       ...defaults,
       allowUnique: true,
+      allowEmpty: false,
     };
     expect($el).to.have.length(1);
     expect($el.props().children.props).to.deep.equal(expectedProps);
@@ -587,5 +588,47 @@ test('should allow duplicate tags when allowUnique is false', () => {
   expect(actual).to.have.deep.members([{
     id: 'Apple',
     text: 'Apple',
+  }]);
+});
+
+test('should allow empty tags when allowEmpty is true', () => {
+  const actual = [];
+  const $el = mount(
+    mockItem({
+      handleAddition(tag) {
+        actual.push(tag);
+      },
+      allowEmpty: true,
+    })
+  );
+
+  expect($el.instance().props.tags).to.have.deep.members(defaults.tags);
+  const $input = $el.find('.ReactTags__tagInputField');
+  $input.simulate('change', { target: { value: '' } });
+  $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+  expect(actual).to.have.deep.members([{
+    id: '',
+    text: '',
+  }]);
+});
+
+test('should not allow empty tags when allowEmpty is false', () => {
+  const actual = [];
+  const $el = mount(
+    mockItem({
+      handleAddition(tag) {
+        actual.push(tag);
+      },
+      allowEmpty: false,
+    })
+  );
+
+  expect($el.instance().props.tags).to.have.deep.members(defaults.tags);
+  const $input = $el.find('.ReactTags__tagInputField');
+  $input.simulate('change', { target: { value: '' } });
+  $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+  expect(actual).not.to.have.deep.members([{
+    id: '',
+    text: '',
   }]);
 });

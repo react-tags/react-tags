@@ -9,7 +9,7 @@ import ClassNames from 'classnames';
 
 import Tag from './Tag';
 
-import { buildRegExpFromDelimiters } from './utils';
+import { buildRegExpFromDelimiters, canAddTag } from './utils';
 
 //Constants
 import {
@@ -60,6 +60,7 @@ class ReactTags extends Component {
       })
     ),
     allowUnique: PropTypes.bool,
+    allowEmpty: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -77,6 +78,7 @@ class ReactTags extends Component {
     autocomplete: false,
     readOnly: false,
     allowUnique: true,
+    allowEmpty: false,
   };
 
   constructor(props) {
@@ -234,7 +236,7 @@ class ReactTags extends Component {
           ? suggestions[selectedIndex]
           : { id: query, [this.props.labelField]: query };
 
-      if (selectedQuery !== '') {
+      if (selectedQuery !== '' || this.props.allowEmpty) {
         this.addTag(selectedQuery);
       }
     }
@@ -292,8 +294,8 @@ class ReactTags extends Component {
   }
 
   addTag = (tag) => {
-    const { tags, labelField, allowUnique } = this.props;
-    if (!tag.id || !tag[labelField]) {
+    const { tags, labelField, allowUnique, allowEmpty } = this.props;
+    if (!canAddTag(tag, labelField, allowEmpty)) {
       return;
     }
     const existingKeys = tags.map((tag) => tag.id.toLowerCase());
