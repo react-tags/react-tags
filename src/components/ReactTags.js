@@ -266,7 +266,12 @@ class ReactTags extends Component {
     e.preventDefault();
 
     const clipboardData = e.clipboardData || window.clipboardData;
-    const pastedText = clipboardData.getData('text');
+    let pastedText = clipboardData.getData('text');
+
+    // Checking if the pasted text is greater than maxLength props
+    if (pastedText.length > this.props.maxLength) {
+      pastedText = pastedText.substr(0, this.props.maxLength);
+    }
 
     // Used to determine how the pasted content is split.
     const delimiterRegExp = buildRegExpFromDelimiters(this.props.delimiters);
