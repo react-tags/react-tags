@@ -1,5 +1,7 @@
 import { expect } from 'chai';
-import { buildRegExpFromDelimiters } from '../src/components/utils';
+import noop from 'lodash/noop';
+
+import { buildRegExpFromDelimiters, canDrag, canDrop } from '../src/components/utils';
 
 const KeyCodes = {
   colon: 58,
@@ -39,5 +41,46 @@ describe('Test buildRegExpFromDelimiters', () => {
     const delimiters = [KeyCodes.colon, KeyCodes.forwardSlash, KeyCodes.period];
     const expected = ['https', 'www', 'lodash', 'com'];
     testRegex(input, delimiters, expected);
+  });
+});
+
+describe('Test canDrag', () => {
+  const input = { readOnly: false, allowDragDrop: true, moveTag: noop };
+  test('should return false when readOnly set to true', () => {
+    const result = canDrag({...input, readOnly: true});
+    expect(result).to.equal(false);
+  });
+
+  test('should return false when allowDragDrop set to false', () => {
+    const result = canDrag({...input, allowDragDrop: false});
+    expect(result).to.equal(false);
+  });
+
+  test('should return false when moveTag set to undefined', () => {
+    const result = canDrag({...input, moveTag: undefined});
+    expect(result).to.equal(false);
+  });
+
+  test('should return true when all params are truthy for canDrag', () => {
+    const result = canDrag(input);
+    expect(result).to.equal(true);
+  });
+});
+
+describe('Test canDrop', () => {
+  const input = { readOnly: false, allowDragDrop: true };
+  test('should return false when readOnly set to true', () => {
+    const result = canDrop({...input, readOnly: true});
+    expect(result).to.equal(false);
+  });
+
+  test('should return false when allowDragDrop set to false', () => {
+    const result = canDrop({...input, allowDragDrop: false});
+    expect(result).to.equal(false);
+  });
+
+  test('should return true when all params are truthy for canDrop', () => {
+    const result = canDrop(input);
+    expect(result).to.equal(true);
   });
 });

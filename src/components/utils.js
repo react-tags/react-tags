@@ -17,3 +17,25 @@ export function buildRegExpFromDelimiters(delimiters) {
   const escapedDelimiterChars = escapeRegExp(delimiterChars);
   return new RegExp(`[${escapedDelimiterChars}]+`);
 }
+
+/**
+ * Returns true when the tag is drag enabled
+ * @param {object} params props of the tag element
+ * @returns {boolean} true/false
+ * The three different properties which controls this function are moveTag, readOnly and allowDragDrop.
+ */
+export function canDrag(params) {
+  const { moveTag, readOnly, allowDragDrop } = params;
+  return moveTag !== undefined && !readOnly && allowDragDrop;
+}
+
+/**
+ * Returns true when the tag is drop enabled
+ * @param {object} params props of the tag element
+ * @returns {boolean} true/false
+ * The two different properties which controls this function are readOnly and allowDragDrop.
+ */
+export function canDrop(params) {
+  const { readOnly, allowDragDrop } = params;
+  return !readOnly && allowDragDrop;
+}

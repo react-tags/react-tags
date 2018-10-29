@@ -28,6 +28,7 @@ function mockItem(overrides) {
       tag: { id: '1', text: 'FooBar' },
       onDelete: noop,
       readOnly: false,
+      allowDragDrop: true,
       moveTag: noop,
       classNames: {
         tag: 'tag',
@@ -111,18 +112,28 @@ describe('Tag', () => {
     expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.true;
     const el = TestUtils.findRenderedDOMComponentWithTag(root, 'span');
     expect(el.className).contains('opacity-none');
+    expect(el.className).contains('cursor-move');
     backend.simulateEndDrag();
     expect(el.className).not.contains('opacity-none');
     expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.false;
   });
 
-  test('should not be draggable if readOnly is true', () => {
-    const root = TestUtils.renderIntoDocument(mockItem({ readOnly: true }));
-    const backend = root.getManager().getBackend();
-    const tag = TestUtils.findRenderedComponentWithType(root, Tag);
-    backend.simulateBeginDrag([
-      tag.getDecoratedComponentInstance().getHandlerId(),
-    ]);
-    expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.false;
+  [
+    { overrideProps: { readOnly: true }, title: 'readOnly is true' },
+    { overrideProps: { allowDragDrop: false }, title: 'allowDragDrop is false' },
+  ].forEach((data) => {
+    const { title, overrideProps } = data;
+    test(`should not be draggable when ${title}`, () => {
+      const root = TestUtils.renderIntoDocument(mockItem({...overrideProps}));
+      const backend = root.getManager().getBackend();
+      const tag = TestUtils.findRenderedComponentWithType(root, Tag);
+      backend.simulateBeginDrag([
+        tag.getDecoratedComponentInstance().getHandlerId(),
+      ]);
+      const el = TestUtils.scryRenderedDOMComponentsWithClass(root, 'cursor-move');
+      expect(el.length).eq(0);
+      expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.false;
+    });
   });
+
 });

@@ -40,6 +40,7 @@ class ReactTags extends Component {
     handleTagClick: PropTypes.func,
     allowDeleteFromEmptyInput: PropTypes.bool,
     allowAdditionFromPaste: PropTypes.bool,
+    allowDragDrop: PropTypes.bool,
     resetInputOnDelete: PropTypes.bool,
     handleInputChange: PropTypes.func,
     handleInputFocus: PropTypes.func,
@@ -77,6 +78,7 @@ class ReactTags extends Component {
     autocomplete: false,
     readOnly: false,
     allowUnique: true,
+    allowDragDrop: true,
   };
 
   constructor(props) {
@@ -357,10 +359,10 @@ class ReactTags extends Component {
       labelField,
       removeComponent,
       readOnly,
-      handleDrag,
+      allowDragDrop,
     } = this.props;
     const { classNames } = this.state;
-    const moveTag = handleDrag ? this.moveTag : null;
+    const moveTag = allowDragDrop ? this.moveTag : null;
     return tags.map((tag, index) => {
       return (
         <Tag
@@ -374,6 +376,7 @@ class ReactTags extends Component {
           onTagClicked={this.handleTagClick.bind(this, index)}
           readOnly={readOnly}
           classNames={classNames}
+          allowDragDrop={allowDragDrop}
         />
       );
     });

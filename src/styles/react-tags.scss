@@ -3,5 +3,8 @@
     &.opacity-none {
       opacity: 0;
     }
+    &.cursor-move {
+      cursor: move;
+    }
   }
 }

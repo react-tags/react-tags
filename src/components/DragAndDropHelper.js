@@ -1,10 +1,11 @@
 import { findDOMNode } from 'react-dom';
+import { canDrag, canDrop } from './utils';
 
 const tagSource = {
   beginDrag: (props) => {
     return { id: props.tag.index, index: props.index };
   },
-  canDrag: (props) => props.moveTag && !props.readOnly,
+  canDrag: (props) => canDrag(props),
 };
 
 const tagTarget = {
@@ -34,7 +35,7 @@ const tagTarget = {
 
     monitor.getItem().index = hoverIndex;
   },
-  canDrop: (props) => !props.readOnly,
+  canDrop: (props) => canDrop(props),
 };
 
 const dragSource = (connect, monitor) => {
