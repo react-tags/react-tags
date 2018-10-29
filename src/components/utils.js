@@ -17,3 +17,10 @@ export function buildRegExpFromDelimiters(delimiters) {
   const escapedDelimiterChars = escapeRegExp(delimiterChars);
   return new RegExp(`[${escapedDelimiterChars}]+`);
 }
+
+export function canAddTag(tag, labelField, allowEmpty) {
+  if (tag.id && tag[labelField]) { //Check if both of id or labelField is present
+    return true;
+  }
+  return allowEmpty;
+}
