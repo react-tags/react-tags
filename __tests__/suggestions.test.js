@@ -78,7 +78,7 @@ describe('Suggestions', function() {
     expect($el.find('li').length).to.equal(0);
   });
 
-  test('should not render html input in query or suggestions', function() {
+  test('should escape html characters in query', function() {
     const suggestions = [{ id: 'script', text: '<script>alert()</script>' }];
     const $el = shallow(
       mockItem({
@@ -86,7 +86,6 @@ describe('Suggestions', function() {
         suggestions,
       })
     );
-    $el.setProps({ suggestions });
     expect($el.html()).to.equal(
       '<div class="foo"><ul> <li class=""><span><mark>&lt;script&gt;alert()&lt;/script&gt;</mark></span></li> </ul></div>'
     );
