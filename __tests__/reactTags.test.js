@@ -228,6 +228,31 @@ describe('Test ReactTags', () => {
 
       expect(tags).to.deep.have.same.members(expected);
     });
+
+    test('should sub string the clipboard text according to maxLength', () => {
+      const tags = [...defaults.tags];
+      const $el = mount(mockItem({ handleAddition(tag) {
+            tags.push(tag);
+          }, maxLength: 5 }));
+
+      const $input = $el.find('.ReactTags__tagInputField');
+
+      $input.simulate('paste', {
+        clipboardData: {
+          getData: () => 'Thimbleberry',
+        },
+      });
+
+      // Note that 'Thimbleberry' should be sub String to 'Thimb'
+      const clipboardText = 'Thimbleberry'.substr(0, 5);
+      const expected = ['Apple', clipboardText].map((value) => ({
+        id: value,
+        text: value,
+      }));
+      expect(tags).to.have.length(2);
+      expect(tags).to.include.deep.members(expected);
+      expect(tags).to.deep.equal(expected);
+    });
   });
 
   test('should not allow duplicate tags', () => {
