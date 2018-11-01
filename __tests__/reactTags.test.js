@@ -229,7 +229,7 @@ describe('Test ReactTags', () => {
       expect(tags).to.deep.have.same.members(expected);
     });
 
-    test('should sub string the clipboard text according to maxLength', () => {
+    test('should allow pasting text only up to maxLength characters', () => {
       const tags = [...defaults.tags];
       const $el = mount(mockItem({ handleAddition(tag) {
             tags.push(tag);
