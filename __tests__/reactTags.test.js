@@ -230,7 +230,7 @@ describe('Test ReactTags', () => {
     });
 
     test('should allow pasting text only up to maxLength characters', () => {
-      const tags = [...defaults.tags];
+      const tags = [];
       const $el = mount(mockItem({ handleAddition(tag) {
             tags.push(tag);
           }, maxLength: 5 }));
@@ -249,8 +249,6 @@ describe('Test ReactTags', () => {
         id: value,
         text: value,
       }));
-      expect(tags).to.have.length(2);
-      expect(tags).to.include.deep.members(expected);
       expect(tags).to.deep.equal(expected);
     });
   });
