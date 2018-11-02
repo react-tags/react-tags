@@ -245,7 +245,7 @@ describe('Test ReactTags', () => {
 
       // Note that 'Thimbleberry' should be sub String to 'Thimb'
       const clipboardText = 'Thimbleberry'.substr(0, 5);
-      const expected = ['Apple', clipboardText].map((value) => ({
+      const expected = [clipboardText].map((value) => ({
         id: value,
         text: value,
       }));
