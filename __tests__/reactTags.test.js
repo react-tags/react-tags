@@ -231,9 +231,15 @@ describe('Test ReactTags', () => {
 
     test('should allow pasting text only up to maxLength characters', () => {
       const tags = [];
-      const $el = mount(mockItem({ handleAddition(tag) {
+      const maxLength = 5;
+      const $el = mount(
+        mockItem({
+          handleAddition(tag) {
             tags.push(tag);
-          }, maxLength: 5 }));
+          },
+          maxLength: maxLength,
+        })
+      );
 
       const $input = $el.find('.ReactTags__tagInputField');
 
@@ -243,8 +249,7 @@ describe('Test ReactTags', () => {
         },
       });
 
-      // Note that 'Thimbleberry' should be sub String to 'Thimb'
-      const clipboardText = 'Thimbleberry'.substr(0, 5);
+      const clipboardText = 'Thimbleberry'.substr(0, maxLength);
       const expected = [clipboardText].map((value) => ({
         id: value,
         text: value,
