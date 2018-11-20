@@ -228,6 +228,36 @@ describe('Test ReactTags', () => {
 
       expect(tags).to.deep.have.same.members(expected);
     });
+
+    test('should allow pasting text only up to maxLength characters', () => {
+      const tags = [];
+      const maxLength = 5;
+      const inputValue = 'Thimbleberry';
+      
+      const $el = mount(
+        mockItem({
+          handleAddition(tag) {
+            tags.push(tag);
+          },
+          maxLength,
+        })
+      );
+
+      const $input = $el.find('.ReactTags__tagInputField');
+
+      $input.simulate('paste', {
+        clipboardData: {
+          getData: () => inputValue,
+        },
+      });
+
+      const clipboardText = inputValue.substr(0, maxLength);
+      const expected = [clipboardText].map((value) => ({
+        id: value,
+        text: value,
+      }));
+      expect(tags).to.deep.equal(expected);
+    });
   });
 
   test('should not allow duplicate tags', () => {
@@ -585,8 +615,10 @@ test('should allow duplicate tags when allowUnique is false', () => {
   const $input = $el.find('.ReactTags__tagInputField');
   $input.simulate('change', { target: { value: 'Apple' } });
   $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
-  expect(actual).to.have.deep.members([{
-    id: 'Apple',
-    text: 'Apple',
-  }]);
+  expect(actual).to.have.deep.members([
+    {
+      id: 'Apple',
+      text: 'Apple',
+    },
+  ]);
 });
