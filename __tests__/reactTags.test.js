@@ -232,12 +232,14 @@ describe('Test ReactTags', () => {
     test('should allow pasting text only up to maxLength characters', () => {
       const tags = [];
       const maxLength = 5;
+      const inputValue = 'Thimbleberry';
+      
       const $el = mount(
         mockItem({
           handleAddition(tag) {
             tags.push(tag);
           },
-          maxLength: maxLength,
+          maxLength,
         })
       );
 
@@ -245,11 +247,11 @@ describe('Test ReactTags', () => {
 
       $input.simulate('paste', {
         clipboardData: {
-          getData: () => 'Thimbleberry',
+          getData: () => inputValue,
         },
       });
 
-      const clipboardText = 'Thimbleberry'.substr(0, maxLength);
+      const clipboardText = inputValue.substr(0, maxLength);
       const expected = [clipboardText].map((value) => ({
         id: value,
         text: value,
