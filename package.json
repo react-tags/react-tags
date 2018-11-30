@@ -40,7 +40,7 @@
     "prop-types": "15.6.1",
     "react": "16.4.2",
     "react-dnd": "7.0.1",
-    "react-dnd-html5-backend": "3.0.2",
+    "react-dnd-html5-backend": "7.0.1",
     "react-dom": "16.4.2"
   },
   "devDependencies": {
