@@ -92,6 +92,7 @@ class Suggestions extends Component {
           <li
             key={i}
             onMouseDown={props.handleClick.bind(null, i)}
+            onTouchStart={props.handleClick.bind(null, i)}
             onMouseOver={props.handleHover.bind(null, i)}
             className={
               i === props.selectedIndex ? props.classNames.activeSuggestion : ''
