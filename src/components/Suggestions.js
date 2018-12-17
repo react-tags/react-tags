@@ -89,7 +89,7 @@ class Suggestions extends Component {
     if (this.props.customSuggestion) {
       return this.props.customSuggestion(item, query);
     }
-    return <span dangerouslySetInnerHTML={this.markIt(item, query)} />
+    return <span dangerouslySetInnerHTML={this.markIt(item, query)} />;
   };
 
   render() {
