@@ -85,11 +85,15 @@ class Suggestions extends Component {
     return query.length >= minQueryLength && isFocused;
   };
 
+  renderSuggestion = (item, query) => {
+    if (this.props.customSuggestion) {
+      return this.props.customSuggestion(item, query);
+    }
+    return <span dangerouslySetInnerHTML={this.markIt(item, query)} />
+  };
+
   render() {
     const { props } = this;
-    const suggestion = props.customSuggestion
-      ? props.customSuggestion(item, props.query)
-      : <span dangerouslySetInnerHTML={this.markIt(item, props.query)} />
 
     const suggestions = props.suggestions.map(
       function(item, i) {
@@ -101,7 +105,7 @@ class Suggestions extends Component {
             className={
               i === props.selectedIndex ? props.classNames.activeSuggestion : ''
             }>
-            {suggestion}
+            {this.renderSuggestion(item, props.query)}
           </li>
         );
       }.bind(this)
