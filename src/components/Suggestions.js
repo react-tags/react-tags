@@ -87,6 +87,10 @@ class Suggestions extends Component {
 
   render() {
     const { props } = this;
+    const suggestion = props.customSuggestion
+      ? props.customSuggestion(item, props.query)
+      : <span dangerouslySetInnerHTML={this.markIt(item, props.query)} />
+
     const suggestions = props.suggestions.map(
       function(item, i) {
         return (
@@ -97,11 +101,7 @@ class Suggestions extends Component {
             className={
               i === props.selectedIndex ? props.classNames.activeSuggestion : ''
             }>
-            {
-              props.customSuggestion
-                ? props.customSuggestion(item, props.query)
-                : <span dangerouslySetInnerHTML={this.markIt(item, props.query)} />
-            }
+            {suggestion}
           </li>
         );
       }.bind(this)
