@@ -206,4 +206,14 @@ describe('Suggestions', function() {
 
     expect($el.componentDidUpdate.called).to.equal(true);
   });
+
+  test('should render custom suggestions', function() {
+    const $el = shallow(
+      mockItem({
+        customSuggestion: ({ text }) => <div><i />{text}</div>,
+      })
+    );
+
+    expect($el.find('i').length).to.equal(4);
+  });
 });

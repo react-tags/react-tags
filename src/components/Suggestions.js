@@ -29,6 +29,7 @@ class Suggestions extends Component {
     isFocused: PropTypes.bool.isRequired,
     classNames: PropTypes.object,
     labelField: PropTypes.string.isRequired,
+    customSuggestion: PropTypes.func,
   };
 
   static defaultProps = {
@@ -96,7 +97,11 @@ class Suggestions extends Component {
             className={
               i === props.selectedIndex ? props.classNames.activeSuggestion : ''
             }>
-            <span dangerouslySetInnerHTML={this.markIt(item, props.query)} />
+            {
+              props.customSuggestion
+                ? props.customSuggestion(item, props.query)
+                : <span dangerouslySetInnerHTML={this.markIt(item, props.query)} />
+            }
           </li>
         );
       }.bind(this)
