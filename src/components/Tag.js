@@ -19,7 +19,6 @@ class Tag extends Component {
   render() {
     const { props } = this;
     const label = props.tag[props.labelField];
-    console.log(props);
     const {
       connectDragSource,
       isDragging,
