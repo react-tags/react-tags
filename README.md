@@ -160,7 +160,7 @@ Option | Type | Default | Description
 
 <a name="tagsOption"></a>
 ##### tags (optional, defaults to `[]`)
-An array of tags that are displayed as pre-selected. Each tag should have an `id` property and a property for the label, which is specified by the [`labelField`](#labelFieldOption).
+An array of tags that are displayed as pre-selected. Each tag should have an `id` property, property for the label, which is specified by the [`labelField`](#labelFieldOption) and property for to have custom styling tags with classes, which is specified by the [`labelClassName`](#labelClassName).
 
 ```js
 // With default labelField
@@ -178,7 +178,7 @@ An array of suggestions that are used as basis for showing suggestions. These ob
 // With labelField of `name`
 const suggestions = [
     { id: "1", name: "mango" },
-    { id: "2", name: "pineapple" },
+    { id: "2", name: "pineapple", className: 'invalid'},
     { id: "3", name: "orange" },
     { id: "4", name: "pear" }
 ];
@@ -222,6 +222,21 @@ Provide an alternative `label` property for the tags.
 ```
 
 This is useful if your data uses the `text` property for something else.
+
+<a name="labelClassName"></a>
+##### labelClassName (defaults to `className`)
+
+Provide with className if you need to custom style certain tags.
+
+```
+// With labelField of `text`
+// Say question if you need to select only fruits
+const tags = [
+{ id: "1", text: "mango"},
+{id : "2", text: "car", className: "invalid"}
+];
+```
+
 
 
 <a name="handleAdditionOption"></a>

@@ -19,6 +19,7 @@ class Tag extends Component {
   render() {
     const { props } = this;
     const label = props.tag[props.labelField];
+    console.log(props);
     const {
       connectDragSource,
       isDragging,
@@ -28,7 +29,7 @@ class Tag extends Component {
 
     const tagComponent = (
       <span
-        className={ClassNames('tag-wrapper', props.classNames.tag, {'opacity-none' : isDragging}, {'cursor-move': canDrag(props)})}
+        className={ClassNames('tag-wrapper', props.classNames.tag, {'opacity-none' : isDragging}, {'cursor-move': canDrag(props)}, props.tag[props.labelClassName] ? props.tag[props.labelClassName] : '')}
         onClick={props.onTagClicked}
         onKeyDown={props.onTagClicked}>
         {label}
@@ -47,6 +48,7 @@ class Tag extends Component {
 
 Tag.propTypes = {
   labelField: PropTypes.string,
+  labelClassName: PropTypes.string,
   onDelete: PropTypes.func.isRequired,
   tag: PropTypes.object.isRequired,
   moveTag: PropTypes.func,
@@ -61,6 +63,7 @@ Tag.propTypes = {
 
 Tag.defaultProps = {
   labelField: 'text',
+  labelClassName : 'className',
   readOnly: false,
 };
 
