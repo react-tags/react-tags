@@ -85,21 +85,25 @@ class Suggestions extends Component {
     return query.length >= minQueryLength && isFocused;
   };
 
+  renderSuggestion = () => {
+    const { props } = this;
+    const suggestionLabelElement = (
+      <span
+        className={props.classNames.suggestionLabel}
+        dangerouslySetInnerHTML={this.markIt(item, props.query)}
+      />
+    );
+
+    return props.renderSuggestions
+      ? props.renderSuggestions(suggestionLabelElement)
+      : suggestionLabelElement;
+  };
+
   render() {
     const { props } = this;
     const suggestions = props.suggestions.map(
       function(item, i) {
-        const suggestionLabelElement = (
-          <span
-            className={props.classNames.suggestionLabel}
-            dangerouslySetInnerHTML={this.markIt(item, props.query)}
-          />
-        );
-
-        const content = props.renderSuggestions
-          ? props.renderSuggestions(suggestionLabelElement)
-          : suggestionLabelElement;
-
+        const content = this.renderSuggestion(item);
         return (
           <li
             key={i}

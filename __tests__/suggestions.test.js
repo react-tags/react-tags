@@ -92,7 +92,7 @@ describe('Suggestions', function() {
       })
     );
     expect($el.html()).to.equal(
-      '<div class="foo"><ul> <li class=""><span><mark>&lt;script&gt;alert()&lt;/script&gt;</mark></span></li> </ul></div>'
+      '<div class="foo"><ul> <li class=""><span class="content"><span class="label"><mark>&lt;script&gt;alert()&lt;/script&gt;</mark></span></span></li> </ul></div>'
     );
   });
 
