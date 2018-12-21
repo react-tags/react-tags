@@ -85,7 +85,7 @@ class Suggestions extends Component {
     return query.length >= minQueryLength && isFocused;
   };
 
-  renderSuggestion = () => {
+  renderSuggestion = (item) => {
     const { props } = this;
     const suggestionLabelElement = (
       <span
