@@ -19,5 +19,7 @@ export const DEFAULT_CLASSNAMES = {
   tag: 'ReactTags__tag',
   remove: 'ReactTags__remove',
   suggestions: 'ReactTags__suggestions',
+  suggestionContent: 'ReactTags__suggestionContent',
+  suggestionLabel: 'ReactTags__suggestionLabel',
   activeSuggestion: 'ReactTags__activeSuggestion',
 };

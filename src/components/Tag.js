@@ -18,13 +18,14 @@ const ItemTypes = { TAG: 'tag' };
 class Tag extends Component {
   render() {
     const { props } = this;
-    const label = props.tag[props.labelField];
     const {
       connectDragSource,
       isDragging,
       connectDropTarget,
       readOnly,
+      renderTag,
     } = props;
+    const label = renderTag ? renderTag(props.tag) : props.tag[props.labelField];
 
     const tagComponent = (
       <span
@@ -57,6 +58,7 @@ Tag.propTypes = {
   connectDragSource: PropTypes.func.isRequired,
   isDragging: PropTypes.bool.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
+  renderTag: PropTypes.func,
 };
 
 Tag.defaultProps = {

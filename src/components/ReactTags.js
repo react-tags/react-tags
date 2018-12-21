@@ -61,6 +61,8 @@ class ReactTags extends Component {
       })
     ),
     allowUnique: PropTypes.bool,
+    renderTag: PropTypes.func,
+    renderSuggestions: PropTypes.func,
   };
 
   static defaultProps = {
@@ -350,6 +352,7 @@ class ReactTags extends Component {
       removeComponent,
       readOnly,
       allowDragDrop,
+      renderTag,
     } = this.props;
     const { classNames } = this.state;
     const moveTag = allowDragDrop ? this.moveTag : null;
@@ -367,6 +370,7 @@ class ReactTags extends Component {
           readOnly={readOnly}
           classNames={classNames}
           allowDragDrop={allowDragDrop}
+          renderTag={renderTag}
         />
       );
     });
@@ -416,6 +420,7 @@ class ReactTags extends Component {
           shouldRenderSuggestions={this.props.shouldRenderSuggestions}
           isFocused={this.state.isFocused}
           classNames={this.state.classNames}
+          renderSuggestions={this.props.renderSuggestions}
         />
       </div>
     ) : null;

@@ -149,6 +149,8 @@ Option | Type | Default | Description
 |[`handleInputBlur`](#handleInputBlur) | `Function` | `undefined` | Event handler for input onBlur
 |[`minQueryLength`](#minQueryLength) | `Number` | `2` | How many characters are needed for suggestions to appear
 |[`removeComponent`](#removeComponent) | `Boolean` | `false` | Custom delete/remove tag element
+|[`renderTag`](#tagRenderer) | `Function` | `undefined` | Render function fo the tag
+|[`renderSuggestions`](#suggestionRenderer) | `Function` | `undefined` | Render function fo the suggestions
 |[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed
 |[`readOnly`](#readOnly) | `Boolean` | `false` | Read-only mode without the input box and `removeComponent` and drag-n-drop features disabled
 |[`name`](#nameOption) | `String` | `undefined` | The `name` attribute added to the input
@@ -368,6 +370,26 @@ class RemoveComponent extends React.Component {
 ```
 
 The "ReactTags__remove" className and `onClick` handler properties can be automatically included on the `<button>` by using the [JSX spread attribute](https://facebook.github.io/react/docs/jsx-spread.html), as illustrated above.
+
+<a name="renderTag"></a>
+##### renderTag (optional)
+Provide your own tag renderer
+
+```javascript
+<ReactTags
+    renderTag={this.renderTag}
+    ...>
+```
+
+<a name="renderSuggestions"></a>
+##### renderSuggestions (optional)
+Provide your own suggestion renderer
+
+```javascript
+<ReactTags
+    renderSuggestions={this.renderSuggestions}
+    ...>
+```
 
 <a name="autocomplete"></a>
 ##### autocomplete (optional, defaults to `false`)
