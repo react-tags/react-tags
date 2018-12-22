@@ -286,8 +286,8 @@ class App extends React.Component {
           delimiters={delimiters}
           handleDelete={this.handleDelete}
           handleAddition={this.handleAddition}
+          enableEditingTag={true}
           handleDrag={this.handleDrag}
-          handleTagClick={this.handleTagClick}
         />
       </div>
     );

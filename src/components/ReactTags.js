@@ -29,7 +29,7 @@ class ReactTags extends Component {
       PropTypes.shape({
         id: PropTypes.string.isRequired,
       })
-    ),
+      ),
     delimiters: PropTypes.arrayOf(PropTypes.number),
     autofocus: PropTypes.bool,
     inline: PropTypes.bool,
@@ -41,6 +41,7 @@ class ReactTags extends Component {
     allowDeleteFromEmptyInput: PropTypes.bool,
     allowAdditionFromPaste: PropTypes.bool,
     allowDragDrop: PropTypes.bool,
+    enableEditingTag: PropTypes.bool,
     resetInputOnDelete: PropTypes.bool,
     handleInputChange: PropTypes.func,
     handleInputFocus: PropTypes.func,
@@ -59,7 +60,7 @@ class ReactTags extends Component {
       PropTypes.shape({
         id: PropTypes.string.isRequired,
       })
-    ),
+      ),
     allowUnique: PropTypes.bool,
   };
 
@@ -71,7 +72,7 @@ class ReactTags extends Component {
     autofocus: true,
     inline: true,
     handleDelete: noop,
-    handleAddition: noop,
+    enableEditingTag: false,
     allowDeleteFromEmptyInput: true,
     allowAdditionFromPaste: true,
     resetInputOnDelete: true,
@@ -89,6 +90,7 @@ class ReactTags extends Component {
       suggestions,
       query: '',
       isFocused: false,
+      currentlyEditing: null,
       selectedIndex: -1,
       selectionMode: false,
       classNames: { ...DEFAULT_CLASSNAMES, ...classNames },
@@ -120,9 +122,9 @@ class ReactTags extends Component {
     return suggestions.filter((item) => {
       return (
         item[this.props.labelField]
-          .toLowerCase()
-          .indexOf(query.toLowerCase()) === 0
-      );
+        .toLowerCase()
+        .indexOf(query.toLowerCase()) === 0
+        );
     });
   }
 
@@ -133,7 +135,16 @@ class ReactTags extends Component {
       this.textInput.focus();
     }
   }
-
+  handleAddition(t) {
+    if(this.state.currentlyEditing)
+    {
+      this.state.currentlyEditing = null;
+    }
+    if(this.props.handleAddition)
+    {
+      this.props.handleAddition(t);
+    }
+  }
   handleDelete(i, e) {
     this.props.handleDelete(i, e);
     if (!this.props.resetInputOnDelete) {
@@ -147,55 +158,78 @@ class ReactTags extends Component {
   handleTagClick(i, e) {
     if (this.props.handleTagClick) {
       this.props.handleTagClick(i, e);
+
     }
-    if (!this.props.resetInputOnDelete) {
+    if(this.props.enableEditingTag)
+    {
+      if(this.state.currentlyEditing)
+      {
+        this.props.handleAddition(this.state.currentlyEditing);
+      }
+     let tags = this.props.tags;
+     this.state.currentlyEditing = tags[i];
+     let value  = tags[i][this.props.labelField];
+     this.textInput.value = value;
+     tags.splice(i,1);
+     this.textInput && this.textInput.focus();
+   }
+   else
+     { if (!this.props.resetInputOnDelete) {
       this.textInput && this.textInput.focus();
     } else {
       this.resetAndFocusInput();
     }
   }
 
-  handleChange(e) {
-    if (this.props.handleInputChange) {
-      this.props.handleInputChange(e.target.value);
-    }
+}
 
-    const query = e.target.value.trim();
-    const suggestions = this.filteredSuggestions(query, this.props.suggestions);
-
-    const { selectedIndex } = this.state;
-
-    this.setState({
-      query: query,
-      suggestions: suggestions,
-      selectedIndex:
-        selectedIndex >= suggestions.length
-          ? suggestions.length - 1
-          : selectedIndex,
-    });
+handleChange(e) {
+  if (this.props.handleInputChange) {
+    this.props.handleInputChange(e.target.value);
   }
 
-  handleFocus(e) {
-    const value = e.target.value;
-    if (this.props.handleInputFocus) {
-      this.props.handleInputFocus(value);
-    }
-    this.setState({ isFocused: true });
-  }
+  const query = e.target.value.trim();
+  const suggestions = this.filteredSuggestions(query, this.props.suggestions);
 
-  handleBlur(e) {
-    const value = e.target.value;
-    if (this.props.handleInputBlur) {
-      this.props.handleInputBlur(value);
-      if (this.textInput) {
-        this.textInput.value = '';
-      }
-    }
-    this.setState({ isFocused: false });
-  }
+  const { selectedIndex } = this.state;
 
-  handleKeyDown(e) {
-    const { query, selectedIndex, suggestions, selectionMode } = this.state;
+  this.setState({
+    query: query,
+    suggestions: suggestions,
+    selectedIndex:
+    selectedIndex >= suggestions.length
+    ? suggestions.length - 1
+    : selectedIndex,
+  });
+}
+
+handleFocus(e) {
+  const value = e.target.value;
+  if (this.props.handleInputFocus) {
+    this.props.handleInputFocus(value);
+  }
+  this.setState({ isFocused: true });
+}
+
+handleBlur(e) {
+  if(this.state.currentlyEditing)
+  {
+    this.props.handleAddition(this.state.currentlyEditing);
+    this.textInput.value = '';
+    this.state.currentlyEditing = null;
+  }
+  const value = e.target.value;
+  if (this.props.handleInputBlur) {
+    this.props.handleInputBlur(value);
+    if (this.textInput) {
+      this.textInput.value = '';
+    }
+  }
+  this.setState({ isFocused: false });
+}
+
+handleKeyDown(e) {
+  const { query, selectedIndex, suggestions, selectionMode } = this.state;
 
     // hide suggestions menu on escape
     if (e.keyCode === KEYS.ESCAPE) {
@@ -217,9 +251,9 @@ class ReactTags extends Component {
       }
 
       const selectedQuery =
-        selectionMode && selectedIndex !== -1
-          ? suggestions[selectedIndex]
-          : { id: query, [this.props.labelField]: query };
+      selectionMode && selectedIndex !== -1
+      ? suggestions[selectedIndex]
+      : { id: query, [this.props.labelField]: query };
 
       if (selectedQuery !== '') {
         this.addTag(selectedQuery);
@@ -231,16 +265,16 @@ class ReactTags extends Component {
       e.keyCode === KEYS.BACKSPACE &&
       query === '' &&
       this.props.allowDeleteFromEmptyInput
-    ) {
+      ) {
       this.handleDelete(this.props.tags.length - 1, e);
-    }
+  }
 
     // up arrow
     if (e.keyCode === KEYS.UP_ARROW) {
       e.preventDefault();
       this.setState({
         selectedIndex:
-          selectedIndex <= 0 ? suggestions.length - 1 : selectedIndex - 1,
+        selectedIndex <= 0 ? suggestions.length - 1 : selectedIndex - 1,
         selectionMode: true,
       });
     }
@@ -250,9 +284,9 @@ class ReactTags extends Component {
       e.preventDefault();
       this.setState({
         selectedIndex:
-          suggestions.length === 0
-            ? -1
-            : (selectedIndex + 1) % suggestions.length,
+        suggestions.length === 0
+        ? -1
+        : (selectedIndex + 1) % suggestions.length,
         selectionMode: true,
       });
     }
@@ -280,7 +314,7 @@ class ReactTags extends Component {
     // Only add unique tags
     uniq(tags).forEach((tag) =>
       this.addTag({ id: tag, [this.props.labelField]: tag })
-    );
+      );
   }
 
   addTag = (tag) => {
@@ -298,15 +332,15 @@ class ReactTags extends Component {
       const possibleMatches = this.filteredSuggestions(
         tag[labelField],
         this.props.suggestions
-      );
+        );
 
       if (
         (this.props.autocomplete === 1 && possibleMatches.length === 1) ||
         (this.props.autocomplete === true && possibleMatches.length)
-      ) {
+        ) {
         tag = possibleMatches[0];
-      }
     }
+  }
 
     // call method to add
     this.props.handleAddition(tag);
@@ -356,19 +390,19 @@ class ReactTags extends Component {
     return tags.map((tag, index) => {
       return (
         <Tag
-          key={`${tag.id}-${index}`}
-          index={index}
-          tag={tag}
-          labelField={labelField}
-          onDelete={this.handleDelete.bind(this, index)}
-          moveTag={moveTag}
-          removeComponent={removeComponent}
-          onTagClicked={this.handleTagClick.bind(this, index)}
-          readOnly={readOnly}
-          classNames={classNames}
-          allowDragDrop={allowDragDrop}
+        key={`${tag.id}-${index}`}
+        index={index}
+        tag={tag}
+        labelField={labelField}
+        onDelete={this.handleDelete.bind(this, index)}
+        moveTag={moveTag}
+        removeComponent={removeComponent}
+        onTagClicked={this.handleTagClick.bind(this, index)}
+        readOnly={readOnly}
+        classNames={classNames}
+        allowDragDrop={allowDragDrop}
         />
-      );
+        );
     });
   };
 
@@ -377,58 +411,58 @@ class ReactTags extends Component {
 
     // get the suggestions for the given query
     const query = this.state.query.trim(),
-      selectedIndex = this.state.selectedIndex,
-      suggestions = this.state.suggestions,
-      placeholder = this.props.placeholder,
-      inputName = this.props.name,
-      inputId = this.props.id,
-      maxLength = this.props.maxLength;
+    selectedIndex = this.state.selectedIndex,
+    suggestions = this.state.suggestions,
+    placeholder = this.props.placeholder,
+    inputName = this.props.name,
+    inputId = this.props.id,
+    maxLength = this.props.maxLength;
 
     const tagInput = !this.props.readOnly ? (
       <div className={this.state.classNames.tagInput}>
-        <input
-          ref={(input) => {
-            this.textInput = input;
-          }}
-          className={this.state.classNames.tagInputField}
-          type="text"
-          placeholder={placeholder}
-          aria-label={placeholder}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onChange={this.handleChange}
-          onKeyDown={this.handleKeyDown}
-          onPaste={this.handlePaste}
-          name={inputName}
-          id={inputId}
-          maxLength={maxLength}
-          value={this.props.inputValue}
-        />
+      <input
+      ref={(input) => {
+        this.textInput = input;
+      }}
+      className={this.state.classNames.tagInputField}
+      type="text"
+      placeholder={placeholder}
+      aria-label={placeholder}
+      onFocus={this.handleFocus}
+      onBlur={this.handleBlur}
+      onChange={this.handleChange}
+      onKeyDown={this.handleKeyDown}
+      onPaste={this.handlePaste}
+      name={inputName}
+      id={inputId}
+      maxLength={maxLength}
+      value={this.props.inputValue}
+      />
 
-        <Suggestions
-          query={query}
-          suggestions={suggestions}
-          labelField={this.props.labelField}
-          selectedIndex={selectedIndex}
-          handleClick={this.handleSuggestionClick}
-          handleHover={this.handleSuggestionHover}
-          minQueryLength={this.props.minQueryLength}
-          shouldRenderSuggestions={this.props.shouldRenderSuggestions}
-          isFocused={this.state.isFocused}
-          classNames={this.state.classNames}
-        />
+      <Suggestions
+      query={query}
+      suggestions={suggestions}
+      labelField={this.props.labelField}
+      selectedIndex={selectedIndex}
+      handleClick={this.handleSuggestionClick}
+      handleHover={this.handleSuggestionHover}
+      minQueryLength={this.props.minQueryLength}
+      shouldRenderSuggestions={this.props.shouldRenderSuggestions}
+      isFocused={this.state.isFocused}
+      classNames={this.state.classNames}
+      />
       </div>
-    ) : null;
+      ) : null;
 
     return (
       <div className={ClassNames(this.state.classNames.tags, 'react-tags-wrapper')}>
-        <div className={this.state.classNames.selected}>
-          {tagItems}
-          {this.props.inline && tagInput}
-        </div>
-        {!this.props.inline && tagInput}
+      <div className={this.state.classNames.selected}>
+      {tagItems}
+      {this.props.inline && tagInput}
       </div>
-    );
+      {!this.props.inline && tagInput}
+      </div>
+      );
   }
 }
 
