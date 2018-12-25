@@ -379,6 +379,14 @@ class ReactTags extends Component {
       })
     }
   }
+  else
+  {
+     this.setState({
+        editing: false,
+        editIndex: null,
+        editValue: null
+      })
+  }
 }
 onTagUpdateKeyDown(e)
 {
