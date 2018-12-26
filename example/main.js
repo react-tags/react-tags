@@ -261,11 +261,6 @@ class App extends React.Component {
     this.setState((state) => ({ tags: [...state.tags, tag] }));
   }
 
-  handleTagUpdate(tag, object) {
-    console.log(tag, object)
-    this.state.tags[tag] = object;
-  }
-
   handleDrag(tag, currPos, newPos) {
     const tags = [...this.state.tags];
     const newTags = tags.slice();
@@ -287,16 +282,12 @@ class App extends React.Component {
       <div>
         <Tags
           tags={tags}
-          changeInputPosition={true}
-          inputPosition={1}
           suggestions={suggestions}
           delimiters={delimiters}
-          enableEdit={true}
-          onTagUpdate={this.handleTagUpdate.bind(this)}
           handleDelete={this.handleDelete}
           handleAddition={this.handleAddition}
-          enableEditingTag={true}
           handleDrag={this.handleDrag}
+          handleTagClick={this.handleTagClick}
         />
       </div>
     );
