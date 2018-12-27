@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
 import PropTypes from 'prop-types';
 import flow from 'lodash/flow';
+import noop from 'lodash/noop';
 import ClassNames from 'classnames';
 import {
   tagSource,
@@ -22,15 +23,15 @@ class Tag extends Component {
     const {
       connectDragSource,
       isDragging,
+      enableEdit,
       connectDropTarget,
       readOnly,
     } = props;
-
     const tagComponent = (
       <span
-        className={ClassNames('tag-wrapper', props.classNames.tag, {'opacity-none' : isDragging}, {'cursor-move': canDrag(props)}, props.tag[props.labelClassName] ? props.tag[props.labelClassName] : '')}
-        
-        onDoubleClick={props.editTag}
+        className={ClassNames('tag-wrapper', props.classNames.tag, {'opacity-none' : isDragging}, {'cursor-move': canDrag(props)}, props.tag[props.labelClassName] ? props.tag[props.labelClassName] : '')}     
+        onDoubleClick={enableEdit ? props.editTag : noop}
+        onClick={enableEdit ? noop : props.onTagClicked}
         onKeyDown={props.onTagClicked}>
         {label}
         <RemoveComponent

@@ -74,7 +74,6 @@ class ReactTags extends Component {
     inline: true,
     handleDelete: noop,
     handleAddition: noop,
-    enableEditingTag: false,
     allowDeleteFromEmptyInput: true,
     allowAdditionFromPaste: true,
     enableEdit: false,
@@ -427,6 +426,7 @@ moveTag(dragIndex, hoverIndex) {
         tag={tag}
         editTag={this.editTag.bind(this, index)}
         labelField={labelField}
+        enableEdit={this.props.enableEdit ? this.props.enableEdit : false}
         onDelete={this.handleDelete.bind(this, index)}
         moveTag={moveTag}
         removeComponent={removeComponent}
@@ -454,9 +454,6 @@ moveTag(dragIndex, hoverIndex) {
     const editingTag = this.state.editing ? (
       <div className={this.state.classNames.tagInput}>
       <input
-      ref={(input) => {
-        this.editingInput = input;
-      }}
       className={this.state.classNames.tagInputField}
       type="text"
       aria-label={placeholder}
