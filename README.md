@@ -160,7 +160,7 @@ Option | Type | Default | Description
 
 <a name="tagsOption"></a>
 ##### tags (optional, defaults to `[]`)
-An array of tags that are displayed as pre-selected. Each tag should have an `id` property, property for the label, which is specified by the [`labelField`](#labelFieldOption) and property for to have custom styling tags with classes, which is specified by the [`labelClassName`](#labelClassName).
+An array of tags that are displayed as pre-selected. Each tag should have an `id` property, property for the label, which is specified by the [`labelField`](#labelFieldOption).
 
 ```js
 // With default labelField
@@ -222,9 +222,6 @@ Provide an alternative `label` property for the tags.
 ```
 
 This is useful if your data uses the `text` property for something else.
-
-<a name="labelClassName"></a>
-##### labelClassName (defaults to `className`)
 
 Provide with className if you need to custom style certain tags.
 

@@ -24,11 +24,12 @@ class Tag extends Component {
       isDragging,
       connectDropTarget,
       readOnly,
+      tag
     } = props;
-
+    const { className = '' } = tag;
     const tagComponent = (
       <span
-        className={ClassNames('tag-wrapper', props.classNames.tag, {'opacity-none' : isDragging}, {'cursor-move': canDrag(props)}, props.tag[props.labelClassName] ? props.tag[props.labelClassName] : '')}
+        className={ClassNames('tag-wrapper', props.classNames.tag, {'opacity-none' : isDragging}, {'cursor-move': canDrag(props)}, className)}
         onClick={props.onTagClicked}
         onKeyDown={props.onTagClicked}>
         {label}
@@ -47,7 +48,6 @@ class Tag extends Component {
 
 Tag.propTypes = {
   labelField: PropTypes.string,
-  labelClassName: PropTypes.string,
   onDelete: PropTypes.func.isRequired,
   tag: PropTypes.object.isRequired,
   moveTag: PropTypes.func,
@@ -62,8 +62,7 @@ Tag.propTypes = {
 
 Tag.defaultProps = {
   labelField: 'text',
-  labelClassName : 'className',
-  readOnly: false,
+  readOnly: false
 };
 
 export default flow(
