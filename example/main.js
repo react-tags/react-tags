@@ -285,9 +285,6 @@ class App extends React.Component {
           suggestions={suggestions}
           delimiters={delimiters}
           inline={true}
-          classNames={{
-            tagInputField : tags.length ? 'ReactTags__tagInputField' : 'ReactTags__tagInputField some'
-          }}
           handleDelete={this.handleDelete}
           handleAddition={this.handleAddition}
           handleDrag={this.handleDrag}

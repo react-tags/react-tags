@@ -113,13 +113,6 @@ class ReactTags extends Component {
     this.handleSuggestionClick = this.handleSuggestionClick.bind(this);
   }
 
-  componentDidMount() {
-    const { autofocus, readOnly } = this.props;
-    if (autofocus && !readOnly) {
-      this.resetAndFocusInput();
-    }
-  }
-
 
 
   static getDerivedStateFromProps(props)
@@ -130,6 +123,13 @@ class ReactTags extends Component {
       classNames : {...DEFAULT_CLASSNAMES,...classNames},
     };
 
+  }
+
+  componentDidMount() {
+    const { autofocus, readOnly } = this.props;
+    if (autofocus && !readOnly) {
+      this.resetAndFocusInput();
+    }
   }
 
   filteredSuggestions(query, suggestions) {
