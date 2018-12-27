@@ -56,11 +56,11 @@ describe('Tag', () => {
 
   test('should change for editing prop and function', () => {
     const spy = sinon.spy();
-    const $el = mount(mockItem({enableEdit: true,  editTag: spy}));
+    const $el = mount(mockItem({ enableEdit: true, editTag: spy }));
     $el.find('span').simulate('doubleclick');
     expect(spy.calledOnce).to.be.true;
     spy.resetHistory();
-  })
+  });
 
   test('should not show cross for removing tag when read-only is true', () => {
     const $el = mount(mockItem({ readOnly: true }));
@@ -114,10 +114,9 @@ describe('Tag', () => {
   test('ClassNames should be assigned from props without enable editing', () => {
     let $el = mount(mockItem());
     expect($el.find('.action').length).to.equal(1);
-     $el = mount(mockItem({enableEdit: true}));
+    $el = mount(mockItem({ enableEdit: true }));
     expect($el.find('.action').length).to.equal(1);
   });
-
 
   test('should be draggable', () => {
     const root = TestUtils.renderIntoDocument(mockItem());
