@@ -27,21 +27,20 @@ class Tag extends Component {
       connectDropTarget,
       readOnly,
     } = props;
-    const tagComponent = (
-      <span
-        className={ClassNames('tag-wrapper', props.classNames.tag, {'opacity-none' : isDragging}, {'cursor-move': canDrag(props)}, props.tag[props.labelClassName] ? props.tag[props.labelClassName] : '')}
-        onDoubleClick={enableEdit ? props.editTag : noop}
-        onClick={enableEdit ? noop : props.onTagClicked}
-        onKeyDown={props.onTagClicked}>
-        {label}
-        <RemoveComponent
-          tag={props.tag}
-          className={props.classNames.remove}
-          removeComponent={props.removeComponent}
-          onClick={props.onDelete}
-          readOnly={readOnly}
-        />
-      </span>
+    const tagComponent = ( <span
+      className={ClassNames('tag-wrapper', props.classNames.tag, {'opacity-none' : isDragging}, {'cursor-move': canDrag(props)}, props.tag[props.labelClassName] ? props.tag[props.labelClassName] : '')}
+      onDoubleClick={enableEdit ? props.editTag : noop}
+      onClick={enableEdit ? noop : props.onTagClicked}
+      onKeyDown={props.onTagClicked}>
+      {label}
+      <RemoveComponent
+        tag={props.tag}
+        className={props.classNames.remove}
+        removeComponent={props.removeComponent}
+        onClick={props.onDelete}
+        readOnly={readOnly}
+      />
+    </span>
     );
     return connectDragSource(connectDropTarget(tagComponent));
   }
