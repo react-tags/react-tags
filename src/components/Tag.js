@@ -24,7 +24,7 @@ class Tag extends Component {
       isDragging,
       connectDropTarget,
       readOnly,
-      tag
+      tag,
     } = props;
     const { className = '' } = tag;
     const tagComponent = (
@@ -62,7 +62,7 @@ Tag.propTypes = {
 
 Tag.defaultProps = {
   labelField: 'text',
-  readOnly: false
+  readOnly: false,
 };
 
 export default flow(
