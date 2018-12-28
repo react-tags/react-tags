@@ -92,7 +92,7 @@ describe('Tag', () => {
     expect(spy.calledOnce).to.be.true;
   });
 
-  test('ClassNames should be assigned from props', () => {
+  test('should add className passed in tags to the tag', () => {
     const $el = mount(mockItem());
     expect($el.find('.action').length).to.equal(1);
   });
