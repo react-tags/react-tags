@@ -49,7 +49,10 @@ class Tag extends Component {
 Tag.propTypes = {
   labelField: PropTypes.string,
   onDelete: PropTypes.func.isRequired,
-  tag: PropTypes.object.isRequired,
+  tag: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    className: PropTypes.string,
+  }),
   moveTag: PropTypes.func,
   removeComponent: PropTypes.func,
   onTagClicked: PropTypes.func,
