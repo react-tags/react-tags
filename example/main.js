@@ -284,7 +284,6 @@ class App extends React.Component {
           tags={tags}
           suggestions={suggestions}
           delimiters={delimiters}
-          inline={true}
           handleDelete={this.handleDelete}
           handleAddition={this.handleAddition}
           handleDrag={this.handleDrag}
