@@ -160,7 +160,7 @@ Option | Type | Default | Description
 
 <a name="tagsOption"></a>
 ##### tags (optional, defaults to `[]`)
-An array of tags that are displayed as pre-selected. Each tag should have an `id` property, property for the label, which is specified by the [`labelField`](#labelFieldOption) and class for label, which is specified by [`className`].
+An array of tags that are displayed as pre-selected. Each tag should have an `id` property, property for the label, which is specified by the [`labelField`](#labelFieldOption) and class for label, which is specified by `className`.
 
 ```js
 // With default labelField
@@ -169,7 +169,7 @@ const tags =  [ { id: "1", text: "Apples" } ]
 // With labelField of `name`
 const tags =  [ { id: "1", name: "Apples" } ]
 
-//With className
+// With className
 const tags = [ { id: "1", text: "Apples", className: 'red'} ] 
 ```
 
@@ -185,15 +185,6 @@ const suggestions = [
     { id: "3", name: "orange" },
     { id: "4", name: "pear" }
 ];
-
-//With className to style the tags
-const suggestions = [
-    { id: "1", name: "mango" },
-    { id: "2", name: "tomato", className: 'invalid'},
-    { id: "3", name: "orange" },
-    { id: "4", name: "banana" }
-];
-```
 
 <a name="delimiters"></a>
 ##### delimiters (optional, defaults to `[ENTER, TAB]`)
@@ -233,17 +224,6 @@ Provide an alternative `label` property for the tags.
 ```
 
 This is useful if your data uses the `text` property for something else.
-
-Provide with className if you need to custom style certain tags.
-
-```
-// Say question if you need to select only fruits
-const tags = [
-{ id: "1", text: "mango"},
-{id : "2", text: "car", className: "invalid"}
-];
-```
-
 
 
 <a name="handleAdditionOption"></a>
