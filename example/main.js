@@ -282,13 +282,12 @@ class App extends React.Component {
       <div>
         <Tags
           tags={tags}
-          changeInputPosition={true}
-          inputPosition={1}
           suggestions={suggestions}
           delimiters={delimiters}
           handleDelete={this.handleDelete}
           handleAddition={this.handleAddition}
           handleDrag={this.handleDrag}
+          handleTagClick={this.handleTagClick}
         />
       </div>
     );

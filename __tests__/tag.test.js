@@ -25,7 +25,7 @@ function mockItem(overrides) {
   const props = Object.assign(
     {},
     {
-      tag: { id: '1', text: 'FooBar', className: 'action' },
+      tag: { id: '1', text: 'FooBar' },
       onDelete: noop,
       readOnly: false,
       allowDragDrop: true,
@@ -109,13 +109,6 @@ describe('Tag', () => {
     spy.resetHistory();
     $el.find('span').simulate('keyDown');
     expect(spy.calledOnce).to.be.true;
-  });
-
-  test('ClassNames should be assigned from props without enable editing', () => {
-    let $el = mount(mockItem());
-    expect($el.find('.action').length).to.equal(1);
-    $el = mount(mockItem({ enableEdit: true }));
-    expect($el.find('.action').length).to.equal(1);
   });
 
   test('should be draggable', () => {
