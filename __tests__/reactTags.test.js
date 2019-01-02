@@ -233,7 +233,7 @@ describe('Test ReactTags', () => {
       const tags = [];
       const maxLength = 5;
       const inputValue = 'Thimbleberry';
-      
+
       const $el = mount(
         mockItem({
           handleAddition(tag) {

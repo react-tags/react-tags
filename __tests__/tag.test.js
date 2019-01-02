@@ -120,20 +120,25 @@ describe('Tag', () => {
 
   [
     { overrideProps: { readOnly: true }, title: 'readOnly is true' },
-    { overrideProps: { allowDragDrop: false }, title: 'allowDragDrop is false' },
+    {
+      overrideProps: { allowDragDrop: false },
+      title: 'allowDragDrop is false',
+    },
   ].forEach((data) => {
     const { title, overrideProps } = data;
     test(`should not be draggable when ${title}`, () => {
-      const root = TestUtils.renderIntoDocument(mockItem({...overrideProps}));
+      const root = TestUtils.renderIntoDocument(mockItem({ ...overrideProps }));
       const backend = root.getManager().getBackend();
       const tag = TestUtils.findRenderedComponentWithType(root, Tag);
       backend.simulateBeginDrag([
         tag.getDecoratedComponentInstance().getHandlerId(),
       ]);
-      const el = TestUtils.scryRenderedDOMComponentsWithClass(root, 'cursor-move');
+      const el = TestUtils.scryRenderedDOMComponentsWithClass(
+        root,
+        'cursor-move'
+      );
       expect(el.length).eq(0);
       expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.false;
     });
   });
-
 });
