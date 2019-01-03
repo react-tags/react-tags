@@ -106,12 +106,12 @@ class ReactTags extends Component {
   }
 
   static getDerivedStateFromProps(props)
-   {
-     const { classNames } = props;
- 
-      return {
-       classNames : {...DEFAULT_CLASSNAMES,...classNames},
-     }; 
+  {
+    const { classNames } = props;
+
+    return {
+      classNames : {...DEFAULT_CLASSNAMES,...classNames},
+    };
   }
 
   componentDidMount() {
