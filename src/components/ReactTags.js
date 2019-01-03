@@ -111,8 +111,7 @@ class ReactTags extends Component {
  
       return {
        classNames : {...DEFAULT_CLASSNAMES,...classNames},
-     };
- 
+     }; 
   }
 
   componentDidMount() {
