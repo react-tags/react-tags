@@ -24,22 +24,23 @@ class Tag extends Component {
       isDragging,
       connectDropTarget,
       readOnly,
+      tag,
+      classNames,
     } = props;
-
-    const tagComponent = (
-      <span
-        className={ClassNames('tag-wrapper', props.classNames.tag, {'opacity-none' : isDragging}, {'cursor-move': canDrag(props)})}
-        onClick={props.onTagClicked}
-        onKeyDown={props.onTagClicked}>
-        {label}
-        <RemoveComponent
-          tag={props.tag}
-          className={props.classNames.remove}
-          removeComponent={props.removeComponent}
-          onClick={props.onDelete}
-          readOnly={readOnly}
-        />
-      </span>
+    const { className = '' } = tag;
+    const tagComponent = ( <span
+      className={ClassNames('tag-wrapper', classNames.tag, {'opacity-none' : isDragging}, {'cursor-move': canDrag(props)}, className)}
+      onClick={props.onTagClicked}
+      onKeyDown={props.onTagClicked}>
+      {label}
+      <RemoveComponent
+        tag={props.tag}
+        className={classNames.remove}
+        removeComponent={props.removeComponent}
+        onClick={props.onDelete}
+        readOnly={readOnly}
+      />
+    </span>
     );
     return connectDragSource(connectDropTarget(tagComponent));
   }
@@ -48,7 +49,10 @@ class Tag extends Component {
 Tag.propTypes = {
   labelField: PropTypes.string,
   onDelete: PropTypes.func.isRequired,
-  tag: PropTypes.object.isRequired,
+  tag: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    className: PropTypes.string,
+  }),
   moveTag: PropTypes.func,
   removeComponent: PropTypes.func,
   onTagClicked: PropTypes.func,
