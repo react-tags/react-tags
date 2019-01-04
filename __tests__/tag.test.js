@@ -53,19 +53,6 @@ describe('Tag', () => {
     expect($el.find('a.remove').length).to.equal(1);
   });
 
-  test('should change class name dynamically on prop change', () => {
-    let $el = mount(mockItem());
-    expect($el.find('.tag').length).to.equal(1);
-    $el = mount(
-      mockItem({
-        classNames: {
-          tag: 'changed',
-        },
-      })
-    );
-    expect($el.find('.changed').length).to.equal(1);
-  });
-
   test('should not show cross for removing tag when read-only is true', () => {
     const $el = mount(mockItem({ readOnly: true }));
     expect($el.find('a.remove').length).to.equal(0);
