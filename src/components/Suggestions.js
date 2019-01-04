@@ -29,7 +29,7 @@ class Suggestions extends Component {
     isFocused: PropTypes.bool.isRequired,
     classNames: PropTypes.object,
     labelField: PropTypes.string.isRequired,
-    customSuggestion: PropTypes.func,
+    renderSuggestion: PropTypes.func,
   };
 
   static defaultProps = {
@@ -86,8 +86,8 @@ class Suggestions extends Component {
   };
 
   renderSuggestion = (item, query) => {
-    if (this.props.customSuggestion) {
-      return this.props.customSuggestion(item, query);
+    if (this.props.renderSuggestion) {
+      return this.props.renderSuggestion(item, query);
     }
     return <span dangerouslySetInnerHTML={this.markIt(item, query)} />;
   };
