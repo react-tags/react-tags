@@ -86,8 +86,9 @@ class Suggestions extends Component {
   };
 
   renderSuggestion = (item, query) => {
-    if (this.props.renderSuggestion) {
-      return this.props.renderSuggestion(item, query);
+    const { renderSuggestion } = this.props;
+    if (typeof renderSuggestion === 'function') {
+      return renderSuggestion(item, query);
     }
     return <span dangerouslySetInnerHTML={this.markIt(item, query)} />;
   };
