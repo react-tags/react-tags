@@ -210,7 +210,7 @@ describe('Suggestions', function() {
   test('should render custom suggestions', function() {
     const $el = shallow(
       mockItem({
-        customSuggestion: ({ text }) => (
+        renderSuggestion: ({ text }) => (
           <div className="bar">
             <i />
             {text}

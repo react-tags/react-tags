@@ -157,7 +157,7 @@ Option | Type | Default | Description
 |[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line
 |[`allowUnique`](#allowUnique) | `Boolean` | `true` | Boolean value to control whether tags should be unqiue
 |[`allowDragDrop`](#allowDragDrop) | `Boolean` | `true` | Boolean value to control whether tags should have drag-n-drop features enabled
-|[`customSuggestion`](#customSuggestion) | `Function` | `undefined` | Function that returns a custom suggestion for overriding the default one
+|[`renderSuggestion`](#renderSuggestion) | `Function` | `undefined` | Function that returns a custom suggestion for overriding the default one
 
 <a name="tagsOption"></a>
 ##### tags (optional, defaults to `[]`)
@@ -442,13 +442,13 @@ This prop controls whether tags should be unique.
 #### allowDragDrop (optional, defaults to `true`)
 This prop controls whether tags should have the drag-n-drop feature enabled.
 
-<a name="customSuggestion"></a>
-#### customSuggestion (optional)
-This props allows to override the default suggestion component and return a custom one. It receives the suggestion and the query string as parameters. For example:
+<a name="renderSuggestion"></a>
+#### renderSuggestion (optional)
+This props allows to provide your own suggestion renderer and override the default one. It receives the suggestion and the query string as parameters. For example:
 
 ```
 <ReactTags
-    customSuggestion = {({ text }, query) => <div style={{ textDecoration: 'underline', textDecorationStyle: 'wavy' }}>{text} ({ query })</div>}
+    renderSuggestion = {({ text }, query) => <div style={{ textDecoration: 'underline', textDecorationStyle: 'wavy' }}>{text} ({ query })</div>}
     ...>
 ```
 
