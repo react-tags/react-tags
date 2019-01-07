@@ -6,7 +6,7 @@ import uniq from 'lodash/uniq';
 import Suggestions from './Suggestions';
 import PropTypes from 'prop-types';
 import ClassNames from 'classnames';
-
+import memoizeOne from 'memoize-one';
 import Tag from './Tag';
 
 import { buildRegExpFromDelimiters } from './utils';
@@ -20,6 +20,14 @@ import {
 } from './constants';
 
 import '../styles/react-tags.scss';
+
+const updateClass  = (classNames) => 
+  {
+    return {
+      classNames : {...DEFAULT_CLASSNAMES,...classNames},
+    };
+  }
+ const memoizedUpdate = memoizeOne(updateClass);
 
 class ReactTags extends Component {
   static propTypes = {
@@ -82,6 +90,8 @@ class ReactTags extends Component {
     tags: [],
   };
 
+  
+
   constructor(props) {
     super(props);
     const { suggestions, classNames } = props;
@@ -103,16 +113,16 @@ class ReactTags extends Component {
     this.resetAndFocusInput = this.resetAndFocusInput.bind(this);
     this.handleSuggestionHover = this.handleSuggestionHover.bind(this);
     this.handleSuggestionClick = this.handleSuggestionClick.bind(this);
+   
   }
 
   static getDerivedStateFromProps(props)
   {
     const { classNames } = props;
-
-    return {
-      classNames : {...DEFAULT_CLASSNAMES,...classNames},
-    };
+    return memoizedUpdate(classNames)
   }
+
+  
 
   componentDidMount() {
     const { autofocus, readOnly } = this.props;

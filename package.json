@@ -37,6 +37,7 @@
     "classnames": "^2.2.6",
     "core-js": "2.6.0",
     "lodash": "4.17.11",
+    "memoize-one": "^5.0.0",
     "prop-types": "15.6.1",
     "react": "16.4.2",
     "react-dnd": "5.0.0",
