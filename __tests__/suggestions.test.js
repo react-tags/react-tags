@@ -211,7 +211,7 @@ describe('Suggestions', function() {
     const $el = shallow(
       mockItem({
         customSuggestion: ({ text }) => (
-          <div>
+          <div className="bar">
             <i />
             {text}
           </div>
@@ -219,6 +219,6 @@ describe('Suggestions', function() {
       })
     );
 
-    expect($el.find('i').length).to.equal(4);
+    expect($el.find('.bar').length).to.equal(4);
   });
 });
