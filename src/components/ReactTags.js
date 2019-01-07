@@ -21,13 +21,13 @@ import {
 
 import '../styles/react-tags.scss';
 
-const updateClass  = (classNames) => 
-  {
-    return {
-      classNames : {...DEFAULT_CLASSNAMES,...classNames},
-    };
-  }
- const memoizedUpdate = memoizeOne(updateClass);
+const updateClass  = (classNames) =>
+{
+  return {
+    classNames : {...DEFAULT_CLASSNAMES,...classNames},
+  };
+};
+const memoizedUpdate = memoizeOne(updateClass);
 
 class ReactTags extends Component {
   static propTypes = {
@@ -90,7 +90,7 @@ class ReactTags extends Component {
     tags: [],
   };
 
-  
+
 
   constructor(props) {
     super(props);
@@ -113,16 +113,16 @@ class ReactTags extends Component {
     this.resetAndFocusInput = this.resetAndFocusInput.bind(this);
     this.handleSuggestionHover = this.handleSuggestionHover.bind(this);
     this.handleSuggestionClick = this.handleSuggestionClick.bind(this);
-   
+
   }
 
   static getDerivedStateFromProps(props)
   {
     const { classNames } = props;
-    return memoizedUpdate(classNames)
+    return memoizedUpdate(classNames);
   }
 
-  
+
 
   componentDidMount() {
     const { autofocus, readOnly } = this.props;
