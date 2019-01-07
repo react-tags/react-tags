@@ -10,7 +10,7 @@ const config = {
   // Server Configuration options
   devServer: {
     contentBase: './', // Relative directory for base of server
-    port: 8000, // Port Number
+    port: 8090, // Port Number
     host: 'localhost', // Change to '0.0.0.0' for external facing server
   },
   devtool: 'cheap-module-source-map',
