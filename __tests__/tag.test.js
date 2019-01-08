@@ -25,7 +25,7 @@ function mockItem(overrides) {
   const props = Object.assign(
     {},
     {
-      tag: { id: '1', text: 'FooBar' },
+      tag: { id: '1', text: 'FooBar', className: 'action' },
       onDelete: noop,
       readOnly: false,
       allowDragDrop: true,
@@ -90,6 +90,11 @@ describe('Tag', () => {
     spy.resetHistory();
     $el.find('a.remove').simulate('keyDown');
     expect(spy.calledOnce).to.be.true;
+  });
+
+  test('should add className passed in tags to the tag', () => {
+    const $el = mount(mockItem());
+    expect($el.find('.action').length).to.equal(1);
   });
 
   test('calls the tag click handler correctly', () => {
