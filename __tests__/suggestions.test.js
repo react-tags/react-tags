@@ -207,7 +207,7 @@ describe('Suggestions', function() {
     expect($el.componentDidUpdate.called).to.equal(true);
   });
 
-  test('should render custom suggestions', function() {
+  test('should render custom suggestions when renderSuggestion prop is provided', function() {
     const $el = shallow(
       mockItem({
         renderSuggestion: ({ text }) => (
