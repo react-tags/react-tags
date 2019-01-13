@@ -157,6 +157,7 @@ Option | Type | Default | Description
 |[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line
 |[`allowUnique`](#allowUnique) | `Boolean` | `true` | Boolean value to control whether tags should be unqiue
 |[`allowDragDrop`](#allowDragDrop) | `Boolean` | `true` | Boolean value to control whether tags should have drag-n-drop features enabled
+|[`renderSuggestion`](#renderSuggestion) | `Function` | `undefined` | Render prop for rendering your own suggestions
 
 <a name="tagsOption"></a>
 ##### tags (optional, defaults to `[]`)
@@ -442,6 +443,16 @@ This prop controls whether tags should be unique.
 <a name="allowDragDrop"></a>
 #### allowDragDrop (optional, defaults to `true`)
 This prop controls whether tags should have the drag-n-drop feature enabled.
+
+<a name="renderSuggestion"></a>
+#### renderSuggestion (optional)
+This props allows to provide your own suggestion renderer and override the default one. It receives the suggestion and the query string as parameters. For example:
+
+```
+<ReactTags
+    renderSuggestion = {({ text }, query) => <div style={{ textDecoration: 'underline', textDecorationStyle: 'wavy' }}>{text} ({ query })</div>}
+    ...>
+```
 
 ### Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -

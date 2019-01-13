@@ -62,6 +62,7 @@ class ReactTags extends Component {
       })
     ),
     allowUnique: PropTypes.bool,
+    renderSuggestion: PropTypes.func,
   };
 
   static defaultProps = {
@@ -417,6 +418,7 @@ class ReactTags extends Component {
           shouldRenderSuggestions={this.props.shouldRenderSuggestions}
           isFocused={this.state.isFocused}
           classNames={this.state.classNames}
+          renderSuggestion={this.props.renderSuggestion}
         />
       </div>
     ) : null;

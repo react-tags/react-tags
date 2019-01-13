@@ -29,6 +29,7 @@ class Suggestions extends Component {
     isFocused: PropTypes.bool.isRequired,
     classNames: PropTypes.object,
     labelField: PropTypes.string.isRequired,
+    renderSuggestion: PropTypes.func,
   };
 
   static defaultProps = {
@@ -84,8 +85,17 @@ class Suggestions extends Component {
     return query.length >= minQueryLength && isFocused;
   };
 
+  renderSuggestion = (item, query) => {
+    const { renderSuggestion } = this.props;
+    if (typeof renderSuggestion === 'function') {
+      return renderSuggestion(item, query);
+    }
+    return <span dangerouslySetInnerHTML={this.markIt(item, query)} />;
+  };
+
   render() {
     const { props } = this;
+
     const suggestions = props.suggestions.map(
       function(item, i) {
         return (
@@ -96,7 +106,7 @@ class Suggestions extends Component {
             className={
               i === props.selectedIndex ? props.classNames.activeSuggestion : ''
             }>
-            <span dangerouslySetInnerHTML={this.markIt(item, props.query)} />
+            {this.renderSuggestion(item, props.query)}
           </li>
         );
       }.bind(this)
