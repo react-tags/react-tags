@@ -21,7 +21,7 @@ import {
 
 import '../styles/react-tags.scss';
 
-const memoizedUpdate  = memoizeOne((classNames) =>
+const updateClassNames  = memoizeOne((classNames) =>
 {
   return {
     classNames : {...DEFAULT_CLASSNAMES,...classNames},
@@ -100,7 +100,7 @@ class ReactTags extends Component {
       selectionMode: false,
       classNames: { ...DEFAULT_CLASSNAMES, ...classNames },
     };
-    // TODO : remove classNames from state and change updateClass to instance function
+    // TODO : remove classNames from state and change updateClassNames to instance function
     this.handleFocus = this.handleFocus.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
