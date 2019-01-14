@@ -116,7 +116,7 @@ class ReactTags extends Component {
   static getDerivedStateFromProps(props)
   {
     const { classNames } = props;
-    return memoizedUpdate(classNames);
+    return updateClassNames(classNames);
   }
 
   componentDidMount() {
