@@ -58,6 +58,23 @@ describe('Test ReactTags', () => {
     expect($el.props().children.props).to.deep.equal(expectedProps);
   });
 
+  test('should update the class when the prop classNames changes', () => {
+    let $el = mount(
+      mockItem({
+        classNames: {
+          tag: 'tag',
+        },
+      })
+    );
+    expect($el.find('.tag').length).to.equal(1);
+    $el.setProps({
+      classNames: {
+        tag: 'changed',
+      },
+    });
+    expect($el.find('.changed').length).to.equal(1);
+  });
+
   test('focus on input by default', () => {
     const $el = mount(mockItem());
     expect(document.activeElement.tagName).to.equal('INPUT');
