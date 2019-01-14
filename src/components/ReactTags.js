@@ -119,8 +119,6 @@ class ReactTags extends Component {
     return memoizedUpdate(classNames);
   }
 
-
-
   componentDidMount() {
     const { autofocus, readOnly } = this.props;
     if (autofocus && !readOnly) {
