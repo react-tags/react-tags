@@ -21,13 +21,12 @@ import {
 
 import '../styles/react-tags.scss';
 
-const updateClass  = (classNames) =>
+const memoizedUpdate  = memoizeOne((classNames) =>
 {
   return {
     classNames : {...DEFAULT_CLASSNAMES,...classNames},
   };
-};
-const memoizedUpdate = memoizeOne(updateClass);
+});
 
 class ReactTags extends Component {
   static propTypes = {
@@ -90,8 +89,6 @@ class ReactTags extends Component {
     tags: [],
   };
 
-
-
   constructor(props) {
     super(props);
     const { suggestions, classNames } = props;
@@ -103,7 +100,7 @@ class ReactTags extends Component {
       selectionMode: false,
       classNames: { ...DEFAULT_CLASSNAMES, ...classNames },
     };
-
+    // TODO : remove classNames from state and change updateClass to instance function
     this.handleFocus = this.handleFocus.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);

@@ -58,7 +58,7 @@ describe('Test ReactTags', () => {
     expect($el.props().children.props).to.deep.equal(expectedProps);
   });
 
-  test('should change class name dynamically on prop change', () => {
+  test('should update the class when the prop classNames changes', () => {
     let $el = mount(
       mockItem({
         classNames: {
