@@ -25,7 +25,7 @@ function mockItem(overrides) {
   const props = Object.assign(
     {},
     {
-      tag: { id: '1', text: 'FooBar' },
+      tag: { id: '1', text: 'FooBar', className: 'action' },
       onDelete: noop,
       readOnly: false,
       allowDragDrop: true,
@@ -92,6 +92,11 @@ describe('Tag', () => {
     expect(spy.calledOnce).to.be.true;
   });
 
+  test('should add className passed in tags to the tag', () => {
+    const $el = mount(mockItem());
+    expect($el.find('.action').length).to.equal(1);
+  });
+
   test('calls the tag click handler correctly', () => {
     const spy = sinon.spy();
     const $el = mount(mockItem({ onTagClicked: spy }));
@@ -121,29 +126,35 @@ describe('Tag', () => {
     ]);
     expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.true;
     const el = TestUtils.findRenderedDOMComponentWithTag(root, 'span');
-    expect(el.className).contains('opacity-none');
-    expect(el.className).contains('cursor-move');
+    const { _values: styleAttributes } = el.style;
+    expect(styleAttributes.opacity).to.equal('0');
+    expect(styleAttributes.cursor).to.equal('move');
     backend.simulateEndDrag();
-    expect(el.className).not.contains('opacity-none');
+    expect(styleAttributes.opacity).to.equal('1');
     expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.false;
   });
 
   [
     { overrideProps: { readOnly: true }, title: 'readOnly is true' },
-    { overrideProps: { allowDragDrop: false }, title: 'allowDragDrop is false' },
+    {
+      overrideProps: { allowDragDrop: false },
+      title: 'allowDragDrop is false',
+    },
   ].forEach((data) => {
     const { title, overrideProps } = data;
     test(`should not be draggable when ${title}`, () => {
-      const root = TestUtils.renderIntoDocument(mockItem({...overrideProps}));
+      const root = TestUtils.renderIntoDocument(mockItem({ ...overrideProps }));
       const backend = root.getManager().getBackend();
       const tag = TestUtils.findRenderedComponentWithType(root, Tag);
       backend.simulateBeginDrag([
         tag.getDecoratedComponentInstance().getHandlerId(),
       ]);
-      const el = TestUtils.scryRenderedDOMComponentsWithClass(root, 'cursor-move');
+      const el = TestUtils.scryRenderedDOMComponentsWithClass(
+        root,
+        'cursor-move'
+      );
       expect(el.length).eq(0);
       expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.false;
     });
   });
-
 });

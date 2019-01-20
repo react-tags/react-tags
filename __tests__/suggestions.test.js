@@ -206,4 +206,19 @@ describe('Suggestions', function() {
 
     expect($el.componentDidUpdate.called).to.equal(true);
   });
+
+  test('should render custom suggestions when renderSuggestion prop is provided', function() {
+    const $el = shallow(
+      mockItem({
+        renderSuggestion: ({ text }) => (
+          <div className="bar">
+            <i />
+            {text}
+          </div>
+        ),
+      })
+    );
+
+    expect($el.find('.bar').length).to.equal(4);
+  });
 });

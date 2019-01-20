@@ -6,7 +6,7 @@ import uniq from 'lodash/uniq';
 import Suggestions from './Suggestions';
 import PropTypes from 'prop-types';
 import ClassNames from 'classnames';
-
+import memoizeOne from 'memoize-one';
 import Tag from './Tag';
 
 import { buildRegExpFromDelimiters } from './utils';
@@ -19,7 +19,12 @@ import {
   DEFAULT_LABEL_FIELD,
 } from './constants';
 
-import '../styles/react-tags.scss';
+const updateClassNames  = memoizeOne((classNames) =>
+{
+  return {
+    classNames : {...DEFAULT_CLASSNAMES,...classNames},
+  };
+});
 
 class ReactTags extends Component {
   static propTypes = {
@@ -58,9 +63,11 @@ class ReactTags extends Component {
     tags: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
+        className: PropTypes.string,
       })
     ),
     allowUnique: PropTypes.bool,
+    renderSuggestion: PropTypes.func,
   };
 
   static defaultProps = {
@@ -93,7 +100,7 @@ class ReactTags extends Component {
       selectionMode: false,
       classNames: { ...DEFAULT_CLASSNAMES, ...classNames },
     };
-
+    // TODO : remove classNames from state and change updateClassNames to instance function
     this.handleFocus = this.handleFocus.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -103,6 +110,13 @@ class ReactTags extends Component {
     this.resetAndFocusInput = this.resetAndFocusInput.bind(this);
     this.handleSuggestionHover = this.handleSuggestionHover.bind(this);
     this.handleSuggestionClick = this.handleSuggestionClick.bind(this);
+
+  }
+
+  static getDerivedStateFromProps(props)
+  {
+    const { classNames } = props;
+    return updateClassNames(classNames);
   }
 
   componentDidMount() {
@@ -416,6 +430,7 @@ class ReactTags extends Component {
           shouldRenderSuggestions={this.props.shouldRenderSuggestions}
           isFocused={this.state.isFocused}
           classNames={this.state.classNames}
+          renderSuggestion={this.props.renderSuggestion}
         />
       </div>
     ) : null;

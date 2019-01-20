@@ -14,9 +14,6 @@ React-Tags
 
 React-tags is a simple tagging component ready to drop in your React projects. The component is inspired by GMail's *To* field in the compose window.
 
-### [Looking for Maintainers](https://github.com/prakhar1989/react-tags/issues/197)
-Interested in working on this library as an owner and working with the community to add more features? Let me [know!](https://github.com/prakhar1989/react-tags/issues/197)
-
 ### Features
 - Autocomplete based on a suggestion list
 - Keyboard friendly and mouse support
@@ -157,10 +154,11 @@ Option | Type | Default | Description
 |[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line
 |[`allowUnique`](#allowUnique) | `Boolean` | `true` | Boolean value to control whether tags should be unqiue
 |[`allowDragDrop`](#allowDragDrop) | `Boolean` | `true` | Boolean value to control whether tags should have drag-n-drop features enabled
+|[`renderSuggestion`](#renderSuggestion) | `Function` | `undefined` | Render prop for rendering your own suggestions
 
 <a name="tagsOption"></a>
 ##### tags (optional, defaults to `[]`)
-An array of tags that are displayed as pre-selected. Each tag should have an `id` property and a property for the label, which is specified by the [`labelField`](#labelFieldOption).
+An array of tags that are displayed as pre-selected. Each tag should have an `id` property, property for the label, which is specified by the [`labelField`](#labelFieldOption) and class for label, which is specified by `className`.
 
 ```js
 // With default labelField
@@ -168,6 +166,9 @@ const tags =  [ { id: "1", text: "Apples" } ]
 
 // With labelField of `name`
 const tags =  [ { id: "1", name: "Apples" } ]
+
+// With className
+const tags = [ { id: "1", text: "Apples", className: 'red'} ] 
 ```
 
 <a name="suggestionsOption"></a>
@@ -178,11 +179,10 @@ An array of suggestions that are used as basis for showing suggestions. These ob
 // With labelField of `name`
 const suggestions = [
     { id: "1", name: "mango" },
-    { id: "2", name: "pineapple" },
+    { id: "2", name: "pineapple"},
     { id: "3", name: "orange" },
     { id: "4", name: "pear" }
 ];
-```
 
 <a name="delimiters"></a>
 ##### delimiters (optional, defaults to `[ENTER, TAB]`)
@@ -440,6 +440,16 @@ This prop controls whether tags should be unique.
 <a name="allowDragDrop"></a>
 #### allowDragDrop (optional, defaults to `true`)
 This prop controls whether tags should have the drag-n-drop feature enabled.
+
+<a name="renderSuggestion"></a>
+#### renderSuggestion (optional)
+This props allows to provide your own suggestion renderer and override the default one. It receives the suggestion and the query string as parameters. For example:
+
+```
+<ReactTags
+    renderSuggestion = {({ text }, query) => <div style={{ textDecoration: 'underline', textDecorationStyle: 'wavy' }}>{text} ({ query })</div>}
+    ...>
+```
 
 ### Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
