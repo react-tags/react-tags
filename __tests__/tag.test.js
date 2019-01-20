@@ -102,6 +102,16 @@ describe('Tag', () => {
     expect(spy.calledOnce).to.be.true;
   });
 
+  test('calls the tag touch handler correctly on touchStart', () => {
+    const spy = sinon.spy();
+    const $el = mount(mockItem({ onTagClicked: spy }));
+    $el.find('span').simulate('touchStart');
+    expect(spy.calledOnce).to.be.true;
+    spy.resetHistory();
+    $el.find('span').simulate('keyDown');
+    expect(spy.calledOnce).to.be.true;
+  });
+
   test('should be draggable', () => {
     const root = TestUtils.renderIntoDocument(mockItem());
     const backend = root.getManager().getBackend();

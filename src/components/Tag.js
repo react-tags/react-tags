@@ -30,6 +30,7 @@ class Tag extends Component {
       <span
         className={ClassNames('tag-wrapper', props.classNames.tag, {'opacity-none' : isDragging}, {'cursor-move': canDrag(props)})}
         onClick={props.onTagClicked}
+        onTouchStart={props.onTagClicked}
         onKeyDown={props.onTagClicked}>
         {label}
         <RemoveComponent
