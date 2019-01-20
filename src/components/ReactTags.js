@@ -19,8 +19,6 @@ import {
   DEFAULT_LABEL_FIELD,
 } from './constants';
 
-import '../styles/react-tags.scss';
-
 const updateClassNames  = memoizeOne((classNames) =>
 {
   return {
