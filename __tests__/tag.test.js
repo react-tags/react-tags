@@ -116,10 +116,11 @@ describe('Tag', () => {
     ]);
     expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.true;
     const el = TestUtils.findRenderedDOMComponentWithTag(root, 'span');
-    expect(el.className).contains('opacity-none');
-    expect(el.className).contains('cursor-move');
+    const { _values: styleAttributes } = el.style;
+    expect(styleAttributes.opacity).to.equal('0');
+    expect(styleAttributes.cursor).to.equal('move');
     backend.simulateEndDrag();
-    expect(el.className).not.contains('opacity-none');
+    expect(styleAttributes.opacity).to.equal('1');
     expect(tag.getDecoratedComponentInstance().state.isDragging).to.be.false;
   });
 
