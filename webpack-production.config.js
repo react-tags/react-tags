@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const config = {
   mode: 'production',
@@ -20,6 +20,7 @@ const config = {
     react: 'React',
     'react-dom': 'ReactDOM',
     'react-dnd': 'ReactDnD',
+    'react-dnd-html5-backend': 'ReactDnDHTML5Backend',
   },
   plugins: [
     // Define production build to allow React to strip out unnecessary checks
@@ -30,7 +31,7 @@ const config = {
     }),
     // Allows error warnings but does not stop compiling.
     new webpack.NoEmitOnErrorsPlugin(),
-    new MiniCssExtractPlugin({ filename: '[name].css' }),
+    //new BundleAnalyzerPlugin(),
   ],
   module: {
     rules: [
@@ -44,14 +45,7 @@ const config = {
         ],
         exclude: /node_modules/,
       },
-      {
-        test: /\.(sa|sc|c)ss$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-      },
     ],
-  },
-  optimization: {
-    minimize: true,
   },
 };
 
