@@ -221,4 +221,10 @@ describe('Suggestions', function() {
 
     expect($el.find('.bar').length).to.equal(4);
   });
+
+  test('simulate onTouchStart', function(){
+    const $el = mount(mockItem());
+    const instances = $el.find('span');
+    instances.map(instance=> expect(instance.simulate('touchStart')));
+  });
 });
