@@ -108,7 +108,7 @@ describe('Tag', () => {
   });
 
   test('calls the tag touch handler correctly on touchStart', () => {
-    const spy = sinon.spy();
+    const spy = sinon.stub();
     const $el = mount(mockItem({ onTagClicked: spy }));
     $el.find('span').simulate('touchStart');
     expect(spy.calledOnce).to.be.true;

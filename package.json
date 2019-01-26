@@ -31,18 +31,16 @@
   "repository": "https://github.com/prakhar1989/react-tags",
   "peerDependencies": {
     "react": "^16.3.1",
+    "react-dnd": "^5.0.0",
+    "react-dnd-html5-backend": "^3.0.2",
     "react-dom": "^16.3.1"
   },
   "dependencies": {
-    "classnames": "^2.2.6",
+    "classnames": "2.2.6",
     "core-js": "2.6.0",
     "lodash": "4.17.11",
-    "memoize-one": "^5.0.0",
-    "prop-types": "15.6.1",
-    "react": "16.4.2",
-    "react-dnd": "5.0.0",
-    "react-dnd-html5-backend": "3.0.2",
-    "react-dom": "16.4.2"
+    "memoize-one": "5.0.0",
+    "prop-types": "15.6.1"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
@@ -62,26 +60,30 @@
     "enzyme-adapter-react-16": "1.2.0",
     "eslint": "5.12.1",
     "eslint-plugin-jest": "22.1.3",
-    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-jsx-a11y": "6.2.0",
     "eslint-plugin-react": "7.12.3",
     "greenkeeper-lockfile": "1.15.1",
     "jest": "22.1.4",
     "jsdom": "11.6.2",
-    "mini-css-extract-plugin": "^0.4.4",
     "node-sass": "^4.9.4",
     "npm-run-all": "4.1.4",
     "opn": "5.2.0",
-    "prettier": "1.15.3",
+    "prettier": "1.16.1",
     "raf": "3.4.1",
+    "react": "16.4.2",
+    "react-dnd": "5.0.0",
+    "react-dnd-html5-backend": "3.0.2",
     "react-dnd-test-backend": "3.0.2",
+    "react-dom": "16.4.2",
     "react-test-renderer": "16.4.2",
     "sass-loader": "^7.1.0",
     "semantic-release": "^15.9.16",
     "sinon": "7.2.3",
     "style-loader": "^0.23.1",
     "webpack": "^4.14.0",
+    "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.0.2",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-dev-server": "^3.1.14"
   },
   "config": {
     "commitizen": {
