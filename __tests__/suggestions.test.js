@@ -227,5 +227,5 @@ describe('Suggestions', function() {
     const $el = mount(mockItem({ onTagClickedStub: onTagClickedStub }));
     const instances = $el.find('span');
     instances.map(instance => expect(instance.simulate('touchStart')));
-  });
+ });
 });
