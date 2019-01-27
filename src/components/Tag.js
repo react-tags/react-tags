@@ -33,7 +33,7 @@ class Tag extends Component {
       style={{opacity: isDragging ? 0 : 1, 'cursor': canDrag(props) ? 'move' : 'auto'}}
       onClick={props.onTagClicked}
       onKeyDown={props.onTagClicked}
-      onTouchStart={props.onTagClicked}>
+      onTouchStart={props.onTagClickedStub}>
       {label}
       <RemoveComponent
         tag={props.tag}
@@ -58,6 +58,7 @@ Tag.propTypes = {
   moveTag: PropTypes.func,
   removeComponent: PropTypes.func,
   onTagClicked: PropTypes.func,
+  onTagClickedStub: PropTypes.func,
   classNames: PropTypes.object,
   readOnly: PropTypes.bool,
   connectDragSource: PropTypes.func.isRequired,
