@@ -107,14 +107,14 @@ describe('Tag', () => {
     expect(spy.calledOnce).to.be.true;
   });
 
-  test('calls the tag touch handler correctly on touchStart', () => {
-    const stub = sinon.stub();
-    const $el = mount(mockItem({ onTagClicked: stub }));
+  test('should trigger the tag click handler on touchStart', () => {
+    const onTagClickedStub = sinon.stub();
+    const $el = mount(mockItem({ onTagClicked: stuonTagClickedStubb }));
     $el.find('span').simulate('touchStart');
-    expect(stub.calledOnce).to.be.true;
-    stub.resetHistory();
+    expect(onTagClickedStub.calledOnce).to.be.true;
+    onTagClickedStub.resetHistory();
     $el.find('span').simulate('keyDown');
-    expect(stub.calledOnce).to.be.true;
+    expect(onTagClickedStub.calledOnce).to.be.true;
   });
 
   test('should be draggable', () => {
