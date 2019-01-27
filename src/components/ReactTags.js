@@ -236,7 +236,7 @@ class ReactTags extends Component {
           : { id: query, [this.props.labelField]: query };
 
       if (selectedQuery !== '') {
-        this.addTag(selectedQuery);
+        this.addTag(selectedQuery, e);
       }
     }
 
@@ -293,11 +293,11 @@ class ReactTags extends Component {
 
     // Only add unique tags
     uniq(tags).forEach((tag) =>
-      this.addTag({ id: tag, [this.props.labelField]: tag })
+      this.addTag({ id: tag, [this.props.labelField]: tag }, e)
     );
   }
 
-  addTag = (tag) => {
+    addTag = (tag, e) => {
     const { tags, labelField, allowUnique } = this.props;
     if (!tag.id || !tag[labelField]) {
       return;
@@ -323,7 +323,7 @@ class ReactTags extends Component {
     }
 
     // call method to add
-    this.props.handleAddition(tag);
+    this.props.handleAddition(tag, e);
 
     // reset the state
     this.setState({
@@ -335,8 +335,8 @@ class ReactTags extends Component {
     this.resetAndFocusInput();
   };
 
-  handleSuggestionClick(i) {
-    this.addTag(this.state.suggestions[i]);
+  handleSuggestionClick(i, e) {
+      this.addTag(this.state.suggestions[i], e);
   }
 
   handleSuggestionHover(i) {
