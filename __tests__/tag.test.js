@@ -109,7 +109,7 @@ describe('Tag', () => {
 
   test('should trigger the tag click handler on touchStart', () => {
     const onTagClickedStub = sinon.stub();
-    const $el = mount(mockItem({ onTagClickedStub: onTagClickedStub }));
+    const $el = mount(mockItem({ onTagClicked: onTagClickedStub }));
     $el.find('span').simulate('touchStart');
     expect(onTagClickedStub.calledOnce).to.be.true;
   });

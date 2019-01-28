@@ -224,8 +224,8 @@ describe('Suggestions', function() {
 
   test('should trigger the click handler on touchStart', function () {
     const onTagClickedStub = stub();
-    const $el = mount(mockItem({ onTagClickedStub: onTagClickedStub }));
-    const instances = $el.find('span');
-    instances.map(instance => expect(instance.simulate('touchStart')));
+    const $el = mount(mockItem({ handleClick: onTagClickedStub }));
+    $el.find('li').first().simulate('touchStart');
+    expect(onTagClickedStub.calledOnce).to.be.true;
   });
 });
