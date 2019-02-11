@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import Suggestions from '../src/components/Suggestions';
 import noop from 'lodash/noop';
 import { DEFAULT_LABEL_FIELD } from '../src/components/constants';
@@ -220,5 +220,12 @@ describe('Suggestions', function() {
     );
 
     expect($el.find('.bar').length).to.equal(4);
+  });
+
+  test('should trigger the click handler on touchStart', function () {
+    const onTagClickedStub = stub();
+    const $el = mount(mockItem({ handleClick: onTagClickedStub }));
+    $el.find('li').first().simulate('touchStart');
+    expect(onTagClickedStub.calledOnce).to.be.true;
   });
 });
