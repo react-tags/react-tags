@@ -36,6 +36,7 @@ npm install --save react-tag-input
 ```
 make sure you have installed the **peer dependencies** as well with below versions
 ```
+react: ^16.3.1,
 react-dnd: ^5.0.0
 react-dnd-html5-backend: ^3.0.2
 react-dom": ^16.3.1
