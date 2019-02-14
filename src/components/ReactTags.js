@@ -17,6 +17,7 @@ import {
   DEFAULT_PLACEHOLDER,
   DEFAULT_CLASSNAMES,
   DEFAULT_LABEL_FIELD,
+  INPUT_FIELD_POSITIONS,
 } from './constants';
 
 const updateClassNames  = memoizeOne((classNames) =>
@@ -37,7 +38,8 @@ class ReactTags extends Component {
     ),
     delimiters: PropTypes.arrayOf(PropTypes.number),
     autofocus: PropTypes.bool,
-    inline: PropTypes.bool,
+    inline: PropTypes.bool, // TODO: Remove in v6.x.x
+    inputFieldPosition: PropTypes.oneOf([INPUT_FIELD_POSITIONS.INLINE, INPUT_FIELD_POSITIONS.TOP, INPUT_FIELD_POSITIONS.BOTTOM]),
     handleDelete: PropTypes.func,
     handleAddition: PropTypes.func,
     handleDrag: PropTypes.func,
@@ -76,7 +78,8 @@ class ReactTags extends Component {
     suggestions: [],
     delimiters: [KEYS.ENTER, KEYS.TAB],
     autofocus: true,
-    inline: true,
+    inline: true, // TODO: Remove in v6.x.x
+    inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
     handleDelete: noop,
     handleAddition: noop,
     allowDeleteFromEmptyInput: true,
@@ -398,6 +401,9 @@ class ReactTags extends Component {
       inputId = this.props.id,
       maxLength = this.props.maxLength;
 
+    // read inputFieldPosition
+    const inputFieldPosition = !this.props.inline ? INPUT_FIELD_POSITIONS.BOTTOM : this.props.inputFieldPosition;
+
     const tagInput = !this.props.readOnly ? (
       <div className={this.state.classNames.tagInput}>
         <input
@@ -437,11 +443,12 @@ class ReactTags extends Component {
 
     return (
       <div className={ClassNames(this.state.classNames.tags, 'react-tags-wrapper')}>
+        {inputFieldPosition === INPUT_FIELD_POSITIONS.TOP && tagInput}
         <div className={this.state.classNames.selected}>
           {tagItems}
-          {this.props.inline && tagInput}
+          {inputFieldPosition === INPUT_FIELD_POSITIONS.INLINE && tagInput}
         </div>
-        {!this.props.inline && tagInput}
+        {inputFieldPosition === INPUT_FIELD_POSITIONS.BOTTOM && tagInput}
       </div>
     );
   }

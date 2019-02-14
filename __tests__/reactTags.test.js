@@ -43,6 +43,7 @@ describe('Test ReactTags', () => {
       autofocus: true,
       labelField: DEFAULT_LABEL_FIELD,
       inline: true,
+      inputFieldPosition: 'inline',
       handleDelete: noop,
       handleAddition: noop,
       allowDeleteFromEmptyInput: true,
