@@ -107,6 +107,13 @@ describe('Tag', () => {
     expect(spy.calledOnce).to.be.true;
   });
 
+  test('should trigger the tag click handler on touchStart', () => {
+    const onTagClickedStub = sinon.stub();
+    const $el = mount(mockItem({ onTagClicked: onTagClickedStub }));
+    $el.find('span').simulate('touchStart');
+    expect(onTagClickedStub.calledOnce).to.be.true;
+  });
+
   test('should be draggable', () => {
     const root = TestUtils.renderIntoDocument(mockItem());
     const backend = root.getManager().getBackend();
