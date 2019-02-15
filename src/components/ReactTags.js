@@ -316,7 +316,7 @@ class ReactTags extends Component {
 
       if (
         (this.props.autocomplete === 1 && possibleMatches.length === 1) ||
-        (this.props.autocomplete === true && possibleMatches.length)
+        (this.props.autocomplete === true && possibleMatches.length === 1)
       ) {
         tag = possibleMatches[0];
       }
