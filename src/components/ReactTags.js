@@ -137,7 +137,14 @@ class ReactTags extends Component {
           .toLowerCase()
           .indexOf(query.toLowerCase()) === 0
       );
-    });
+    })
+      .concat(suggestions.filter((item) => {
+        return (
+          item[this.props.labelField]
+            .toLowerCase()
+            .indexOf(query.toLowerCase()) > 0
+        );
+      }));
   }
 
   resetAndFocusInput() {
