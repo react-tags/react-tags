@@ -10,6 +10,7 @@ import {
   KEYS,
   DEFAULT_PLACEHOLDER,
   DEFAULT_LABEL_FIELD,
+  INPUT_FIELD_POSITIONS,
 } from '../src/components/constants';
 
 /* eslint-disable no-console */
@@ -43,7 +44,7 @@ describe('Test ReactTags', () => {
       autofocus: true,
       labelField: DEFAULT_LABEL_FIELD,
       inline: true,
-      inputFieldPosition: 'inline',
+      inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
       handleDelete: noop,
       handleAddition: noop,
       allowDeleteFromEmptyInput: true,
@@ -639,4 +640,38 @@ test('should allow duplicate tags when allowUnique is false', () => {
       text: 'Apple',
     },
   ]);
+});
+
+test('should display input field and tags inline when inputFieldPosition is passed as inline', () => {
+  const $el = mount(
+    mockItem({
+      inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
+    })
+  );
+
+  const $tagContainer = $el.find('.ReactTags__selected');
+  const childLength = $tagContainer.children().length;
+  expect($tagContainer.children().get(childLength-1).props.className).to.equal('ReactTags__tagInput');
+});
+
+test('should display input field above tags when inputFieldPosition is passed as top', () => {
+  const $el = mount(
+    mockItem({
+      inputFieldPosition: INPUT_FIELD_POSITIONS.TOP,
+    })
+  );
+
+  const $tagContainer = $el.find('.ReactTags__tags');
+  expect($tagContainer.children().get(0).props.className).to.equal('ReactTags__tagInput');
+});
+
+test('should display input field below tags when inputFieldPosition is passed as bottom', () => {
+  const $el = mount(
+    mockItem({
+      inputFieldPosition: INPUT_FIELD_POSITIONS.BOTTOM,
+    })
+  );
+
+  const $tagContainer = $el.find('.ReactTags__tags');
+  expect($tagContainer.children().get(1).props.className).to.equal('ReactTags__tagInput');
 });

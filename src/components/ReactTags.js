@@ -38,7 +38,7 @@ class ReactTags extends Component {
     ),
     delimiters: PropTypes.arrayOf(PropTypes.number),
     autofocus: PropTypes.bool,
-    inline: PropTypes.bool, // TODO: Remove in v6.x.x
+    inline: PropTypes.bool, // TODO: Remove in v7.x.x
     inputFieldPosition: PropTypes.oneOf([INPUT_FIELD_POSITIONS.INLINE, INPUT_FIELD_POSITIONS.TOP, INPUT_FIELD_POSITIONS.BOTTOM]),
     handleDelete: PropTypes.func,
     handleAddition: PropTypes.func,
@@ -78,7 +78,7 @@ class ReactTags extends Component {
     suggestions: [],
     delimiters: [KEYS.ENTER, KEYS.TAB],
     autofocus: true,
-    inline: true, // TODO: Remove in v6.x.x
+    inline: true, // TODO: Remove in v7.x.x
     inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
     handleDelete: noop,
     handleAddition: noop,
@@ -94,6 +94,13 @@ class ReactTags extends Component {
 
   constructor(props) {
     super(props);
+
+    if (!props.inline) {
+      /* eslint-disable no-console */
+      console.warn('[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.');
+      /* eslint-enable no-console */
+    }
+
     const { suggestions, classNames } = props;
     this.state = {
       suggestions,
@@ -399,10 +406,11 @@ class ReactTags extends Component {
       placeholder = this.props.placeholder,
       inputName = this.props.name,
       inputId = this.props.id,
-      maxLength = this.props.maxLength;
+      maxLength = this.props.maxLength,
+      inline = this.props.inline,
+      inputFieldPosition = this.props.inputFieldPosition;
 
-    // read inputFieldPosition
-    const inputFieldPosition = !this.props.inline ? INPUT_FIELD_POSITIONS.BOTTOM : this.props.inputFieldPosition;
+    const position = !inline ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
 
     const tagInput = !this.props.readOnly ? (
       <div className={this.state.classNames.tagInput}>
@@ -443,12 +451,12 @@ class ReactTags extends Component {
 
     return (
       <div className={ClassNames(this.state.classNames.tags, 'react-tags-wrapper')}>
-        {inputFieldPosition === INPUT_FIELD_POSITIONS.TOP && tagInput}
+        {position === INPUT_FIELD_POSITIONS.TOP && tagInput}
         <div className={this.state.classNames.selected}>
           {tagItems}
-          {inputFieldPosition === INPUT_FIELD_POSITIONS.INLINE && tagInput}
+          {position === INPUT_FIELD_POSITIONS.INLINE && tagInput}
         </div>
-        {inputFieldPosition === INPUT_FIELD_POSITIONS.BOTTOM && tagInput}
+        {position === INPUT_FIELD_POSITIONS.BOTTOM && tagInput}
       </div>
     );
   }

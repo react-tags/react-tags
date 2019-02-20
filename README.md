@@ -442,7 +442,7 @@ The inline attributes decides whether the input fields and selected tags will be
 
 ![img](docs/inline-false.png)
 
-_This attribute is deprecated and will be removed in v6.x.x, see [inputFieldPosition](#inputFieldPosition)._
+_This attribute is deprecated and will be removed in v7.x.x, see [inputFieldPosition](#inputFieldPosition)._
 
 <a name="inputFieldPosition"></a>
 ##### inputFieldPosition (optional, defaults to `inline`)
