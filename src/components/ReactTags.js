@@ -405,10 +405,9 @@ class ReactTags extends Component {
       suggestions = this.state.suggestions,
       placeholder = this.props.placeholder,
       inputName = this.props.name,
-      inputId = this.props.id,
-      maxLength = this.props.maxLength,
-      inline = this.props.inline,
-      inputFieldPosition = this.props.inputFieldPosition;
+      inputId = this.props.id;
+
+    const { maxLength, inline, inputFieldPosition } = this.props;
 
     const position = !inline ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
 

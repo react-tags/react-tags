@@ -642,36 +642,38 @@ test('should allow duplicate tags when allowUnique is false', () => {
   ]);
 });
 
-test('should display input field and tags inline when inputFieldPosition is passed as inline', () => {
-  const $el = mount(
-    mockItem({
-      inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
-    })
-  );
+describe('Test inputFieldPosition', () => {
+  test('should display input field and tags inline when "inputFieldPosition" is inline', () => {
+    const $el = mount(
+      mockItem({
+        inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
+      })
+    );
 
-  const $tagContainer = $el.find('.ReactTags__selected');
-  const childLength = $tagContainer.children().length;
-  expect($tagContainer.children().get(childLength-1).props.className).to.equal('ReactTags__tagInput');
-});
+    const $tagContainer = $el.find('.ReactTags__selected');
+    const childLength = $tagContainer.children().length;
+    expect($tagContainer.children().get(childLength-1).props.className).to.equal('ReactTags__tagInput');
+  });
 
-test('should display input field above tags when inputFieldPosition is passed as top', () => {
-  const $el = mount(
-    mockItem({
-      inputFieldPosition: INPUT_FIELD_POSITIONS.TOP,
-    })
-  );
+  test('should display input field above tags when "inputFieldPosition" is top', () => {
+    const $el = mount(
+      mockItem({
+        inputFieldPosition: INPUT_FIELD_POSITIONS.TOP,
+      })
+    );
 
-  const $tagContainer = $el.find('.ReactTags__tags');
-  expect($tagContainer.children().get(0).props.className).to.equal('ReactTags__tagInput');
-});
+    const $tagContainer = $el.find('.ReactTags__tags');
+    expect($tagContainer.children().get(0).props.className).to.equal('ReactTags__tagInput');
+  });
 
-test('should display input field below tags when inputFieldPosition is passed as bottom', () => {
-  const $el = mount(
-    mockItem({
-      inputFieldPosition: INPUT_FIELD_POSITIONS.BOTTOM,
-    })
-  );
+  test('should display input field below tags when "inputFieldPosition" is bottom', () => {
+    const $el = mount(
+      mockItem({
+        inputFieldPosition: INPUT_FIELD_POSITIONS.BOTTOM,
+      })
+    );
 
-  const $tagContainer = $el.find('.ReactTags__tags');
-  expect($tagContainer.children().get(1).props.className).to.equal('ReactTags__tagInput');
+    const $tagContainer = $el.find('.ReactTags__tags');
+    expect($tagContainer.children().get(1).props.className).to.equal('ReactTags__tagInput');
+  });
 });
