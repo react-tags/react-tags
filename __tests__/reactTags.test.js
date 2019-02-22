@@ -1,7 +1,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { mount, shallow } from 'enzyme';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import noop from 'lodash/noop';
 
 import { WithContext as ReactTags } from '../src/components/ReactTags';
@@ -675,5 +675,20 @@ describe('Test inputFieldPosition', () => {
 
     const $tagContainer = $el.find('.ReactTags__tags');
     expect($tagContainer.children().get(1).props.className).to.equal('ReactTags__tagInput');
+  });
+
+  test('should show console warning when "inline" is false', () => {
+    const $consoleStub = stub(console, 'warn');
+
+    mount(
+      mockItem({
+        inline: false,
+      })
+    );
+
+    expect( $consoleStub.calledOnce ).to.be.true;
+    expect( $consoleStub.calledWith('[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.') ).to.be.true;
+
+    $consoleStub.restore();
   });
 });

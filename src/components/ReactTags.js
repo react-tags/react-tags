@@ -402,12 +402,16 @@ class ReactTags extends Component {
     // get the suggestions for the given query
     const query = this.state.query.trim(),
       selectedIndex = this.state.selectedIndex,
-      suggestions = this.state.suggestions,
-      placeholder = this.props.placeholder,
-      inputName = this.props.name,
-      inputId = this.props.id;
+      suggestions = this.state.suggestions;
 
-    const { maxLength, inline, inputFieldPosition } = this.props;
+    const {
+      placeholder,
+      name: inputName,
+      id: inputId,
+      maxLength,
+      inline,
+      inputFieldPosition,
+    } = this.props;
 
     const position = !inline ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
 
