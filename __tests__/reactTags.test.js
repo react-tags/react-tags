@@ -684,7 +684,7 @@ describe('Test inputFieldPosition', () => {
   });
 
   test('should show console warning when "inline" is false', () => {
-    const $consoleWarnStub = stub(console, 'warn');
+    const consoleWarnStub = stub(console, 'warn');
 
     mount(
       mockItem({
@@ -692,11 +692,9 @@ describe('Test inputFieldPosition', () => {
       })
     );
 
-    expect($consoleWarnStub.calledOnce).to.be.true;
-    expect(
-      $consoleWarnStub.to.be.calledWithExactly('[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.')
-    ).to.be.true;
+    expect(consoleWarnStub.calledOnce ).to.be.true;
+    expect(consoleWarnStub.calledWithExactly('[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.')).to.be.true;
 
-    $consoleWarnStub.restore();
+    consoleWarnStub.restore();
   });
 });
