@@ -652,7 +652,9 @@ describe('Test inputFieldPosition', () => {
 
     const $tagContainer = $el.find('.ReactTags__selected');
     const childLength = $tagContainer.children().length;
-    expect($tagContainer.children().get(childLength-1).props.className).to.equal('ReactTags__tagInput');
+    expect(
+      $tagContainer.children().get(childLength - 1).props.className
+    ).to.equal('ReactTags__tagInput');
   });
 
   test('should display input field above tags when "inputFieldPosition" is top', () => {
@@ -663,7 +665,9 @@ describe('Test inputFieldPosition', () => {
     );
 
     const $tagContainer = $el.find('.ReactTags__tags');
-    expect($tagContainer.children().get(0).props.className).to.equal('ReactTags__tagInput');
+    expect($tagContainer.children().get(0).props.className).to.equal(
+      'ReactTags__tagInput'
+    );
   });
 
   test('should display input field below tags when "inputFieldPosition" is bottom', () => {
@@ -674,11 +678,13 @@ describe('Test inputFieldPosition', () => {
     );
 
     const $tagContainer = $el.find('.ReactTags__tags');
-    expect($tagContainer.children().get(1).props.className).to.equal('ReactTags__tagInput');
+    expect($tagContainer.children().get(1).props.className).to.equal(
+      'ReactTags__tagInput'
+    );
   });
 
   test('should show console warning when "inline" is false', () => {
-    const $consoleStub = stub(console, 'warn');
+    const $consoleWarnStub = stub(console, 'warn');
 
     mount(
       mockItem({
@@ -686,9 +692,11 @@ describe('Test inputFieldPosition', () => {
       })
     );
 
-    expect( $consoleStub.calledOnce ).to.be.true;
-    expect( $consoleStub.calledWith('[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.') ).to.be.true;
+    expect($consoleWarnStub.calledOnce).to.be.true;
+    expect(
+      $consoleWarnStub.to.be.calledWithExactly('[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.')
+    ).to.be.true;
 
-    $consoleStub.restore();
+    $consoleWarnStub.restore();
   });
 });
