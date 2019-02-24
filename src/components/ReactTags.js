@@ -297,7 +297,7 @@ class ReactTags extends Component {
     );
   }
 
-    addTag = (tag, e) => {
+  addTag = (tag, e) => {
     const { tags, labelField, allowUnique } = this.props;
     if (!tag.id || !tag[labelField]) {
       return;
