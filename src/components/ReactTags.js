@@ -336,7 +336,7 @@ class ReactTags extends Component {
   };
 
   handleSuggestionClick(i, e) {
-      this.addTag(this.state.suggestions[i], e);
+    this.addTag(this.state.suggestions[i], e);
   }
 
   handleSuggestionHover(i) {
