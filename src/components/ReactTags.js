@@ -131,19 +131,15 @@ class ReactTags extends Component {
       return this.props.handleFilterSuggestions(query, suggestions);
     }
 
+    const queryIndex = (item) =>
+      item[this.props.labelField]
+        .toLowerCase()
+        .indexOf(query.toLowerCase());
     return suggestions.filter((item) => {
-      return (
-        item[this.props.labelField]
-          .toLowerCase()
-          .indexOf(query.toLowerCase()) === 0
-      );
+      return queryIndex(item) === 0;
     })
       .concat(suggestions.filter((item) => {
-        return (
-          item[this.props.labelField]
-            .toLowerCase()
-            .indexOf(query.toLowerCase()) > 0
-        );
+        return queryIndex(item) > 0;
       }));
   }
 
