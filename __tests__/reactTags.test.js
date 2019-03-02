@@ -1,7 +1,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { mount, shallow } from 'enzyme';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import noop from 'lodash/noop';
 
 import { WithContext as ReactTags } from '../src/components/ReactTags';
@@ -10,6 +10,7 @@ import {
   KEYS,
   DEFAULT_PLACEHOLDER,
   DEFAULT_LABEL_FIELD,
+  INPUT_FIELD_POSITIONS,
 } from '../src/components/constants';
 
 /* eslint-disable no-console */
@@ -43,6 +44,7 @@ describe('Test ReactTags', () => {
       autofocus: true,
       labelField: DEFAULT_LABEL_FIELD,
       inline: true,
+      inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
       handleDelete: noop,
       handleAddition: noop,
       allowDeleteFromEmptyInput: true,
@@ -638,4 +640,61 @@ test('should allow duplicate tags when allowUnique is false', () => {
       text: 'Apple',
     },
   ]);
+});
+
+describe('Test inputFieldPosition', () => {
+  test('should display input field and tags inline when "inputFieldPosition" is inline', () => {
+    const $el = mount(
+      mockItem({
+        inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
+      })
+    );
+
+    const $tagContainer = $el.find('.ReactTags__selected');
+    const childLength = $tagContainer.children().length;
+    expect(
+      $tagContainer.children().get(childLength - 1).props.className
+    ).to.equal('ReactTags__tagInput');
+  });
+
+  test('should display input field above tags when "inputFieldPosition" is top', () => {
+    const $el = mount(
+      mockItem({
+        inputFieldPosition: INPUT_FIELD_POSITIONS.TOP,
+      })
+    );
+
+    const $tagContainer = $el.find('.ReactTags__tags');
+    expect($tagContainer.children().get(0).props.className).to.equal(
+      'ReactTags__tagInput'
+    );
+  });
+
+  test('should display input field below tags when "inputFieldPosition" is bottom', () => {
+    const $el = mount(
+      mockItem({
+        inputFieldPosition: INPUT_FIELD_POSITIONS.BOTTOM,
+      })
+    );
+
+    const $tagContainer = $el.find('.ReactTags__tags');
+    expect($tagContainer.children().get(1).props.className).to.equal(
+      'ReactTags__tagInput'
+    );
+  });
+
+  test('should show console warning when "inline" is false', () => {
+    const consoleWarnStub = stub(console, 'warn');
+
+    mount(
+      mockItem({
+        inline: false,
+      })
+    );
+
+    expect(consoleWarnStub.calledOnce ).to.be.true;
+    expect(consoleWarnStub.calledWithExactly('[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.')).to.be.true;
+
+    consoleWarnStub.restore();
+  });
 });

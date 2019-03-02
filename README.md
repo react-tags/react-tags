@@ -160,6 +160,7 @@ Option | Type | Default | Description
 |[`id`](#idOption) | `String` | `undefined` | The `id` attribute added to the input
 |[`maxLength`](#maxLength) | `Number` | `Infinity` | The `maxLength` attribute added to the input
 |[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line
+|[`inputFieldPosition`](#inputFieldPosition) | `String` | `inline` | Specify position of input field relative to tags
 |[`allowUnique`](#allowUnique) | `Boolean` | `true` | Boolean value to control whether tags should be unqiue
 |[`allowDragDrop`](#allowDragDrop) | `Boolean` | `true` | Boolean value to control whether tags should have drag-n-drop features enabled
 |[`renderSuggestion`](#renderSuggestion) | `Function` | `undefined` | Render prop for rendering your own suggestions
@@ -176,7 +177,7 @@ const tags =  [ { id: "1", text: "Apples" } ]
 const tags =  [ { id: "1", name: "Apples" } ]
 
 // With className
-const tags = [ { id: "1", text: "Apples", className: 'red'} ] 
+const tags = [ { id: "1", text: "Apples", className: 'red'} ]
 ```
 
 <a name="suggestionsOption"></a>
@@ -440,6 +441,36 @@ The inline attributes decides whether the input fields and selected tags will be
 ```
 
 ![img](docs/inline-false.png)
+
+_This attribute is deprecated and will be removed in v7.x.x, see [inputFieldPosition](#inputFieldPosition)._
+
+<a name="inputFieldPosition"></a>
+##### inputFieldPosition (optional, defaults to `inline`)
+The inputFieldPosition attribute decides the positioning of the input field relative to the tags. Can be one of `inline`, `top` or `bottom`.
+
+```
+<ReactTags
+    inputFieldPosition="inline"
+    ...>
+```
+
+![img](docs/input-field-position-inline.png)
+
+```
+<ReactTags
+    inputFieldPosition="top"
+    ...>
+```
+
+![img](docs/input-field-position-top.png)
+
+```
+<ReactTags
+    inputFieldPosition="bottom"
+    ...>
+```
+
+![img](docs/input-field-position-bottom.png)
 
 <a name="allowUnique"></a>
 #### allowUnique (optional, defaults to `true`)

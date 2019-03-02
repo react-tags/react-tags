@@ -17,6 +17,7 @@ import {
   DEFAULT_PLACEHOLDER,
   DEFAULT_CLASSNAMES,
   DEFAULT_LABEL_FIELD,
+  INPUT_FIELD_POSITIONS,
 } from './constants';
 
 const updateClassNames  = memoizeOne((classNames) =>
@@ -37,7 +38,8 @@ class ReactTags extends Component {
     ),
     delimiters: PropTypes.arrayOf(PropTypes.number),
     autofocus: PropTypes.bool,
-    inline: PropTypes.bool,
+    inline: PropTypes.bool, // TODO: Remove in v7.x.x
+    inputFieldPosition: PropTypes.oneOf([INPUT_FIELD_POSITIONS.INLINE, INPUT_FIELD_POSITIONS.TOP, INPUT_FIELD_POSITIONS.BOTTOM]),
     handleDelete: PropTypes.func,
     handleAddition: PropTypes.func,
     handleDrag: PropTypes.func,
@@ -76,7 +78,8 @@ class ReactTags extends Component {
     suggestions: [],
     delimiters: [KEYS.ENTER, KEYS.TAB],
     autofocus: true,
-    inline: true,
+    inline: true, // TODO: Remove in v7.x.x
+    inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
     handleDelete: noop,
     handleAddition: noop,
     allowDeleteFromEmptyInput: true,
@@ -91,6 +94,13 @@ class ReactTags extends Component {
 
   constructor(props) {
     super(props);
+
+    if (!props.inline) {
+      /* eslint-disable no-console */
+      console.warn('[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.');
+      /* eslint-enable no-console */
+    }
+
     const { suggestions, classNames } = props;
     this.state = {
       suggestions,
@@ -392,11 +402,18 @@ class ReactTags extends Component {
     // get the suggestions for the given query
     const query = this.state.query.trim(),
       selectedIndex = this.state.selectedIndex,
-      suggestions = this.state.suggestions,
-      placeholder = this.props.placeholder,
-      inputName = this.props.name,
-      inputId = this.props.id,
-      maxLength = this.props.maxLength;
+      suggestions = this.state.suggestions;
+
+    const {
+      placeholder,
+      name: inputName,
+      id: inputId,
+      maxLength,
+      inline,
+      inputFieldPosition,
+    } = this.props;
+
+    const position = !inline ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
 
     const tagInput = !this.props.readOnly ? (
       <div className={this.state.classNames.tagInput}>
@@ -437,11 +454,12 @@ class ReactTags extends Component {
 
     return (
       <div className={ClassNames(this.state.classNames.tags, 'react-tags-wrapper')}>
+        {position === INPUT_FIELD_POSITIONS.TOP && tagInput}
         <div className={this.state.classNames.selected}>
           {tagItems}
-          {this.props.inline && tagInput}
+          {position === INPUT_FIELD_POSITIONS.INLINE && tagInput}
         </div>
-        {!this.props.inline && tagInput}
+        {position === INPUT_FIELD_POSITIONS.BOTTOM && tagInput}
       </div>
     );
   }
