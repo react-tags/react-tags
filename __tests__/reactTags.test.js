@@ -429,6 +429,12 @@ describe('Test ReactTags', () => {
       $input.simulate('change', { target: { value: 'or' } });
       expect(ReactTagsInstance.state.suggestions).to.have.members([]);
 
+      $input.simulate('change', { target: { value: 'ea' } });
+      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+        { id: 'Pear', text: 'Pear' },
+        { id: 'Peach', text: 'Peach' },
+      ]);
+
       $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
         { id: 'Apple', text: 'Apple' },

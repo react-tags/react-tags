@@ -135,12 +135,13 @@ class ReactTags extends Component {
       item[this.props.labelField]
         .toLowerCase()
         .indexOf(query.toLowerCase());
-    return suggestions.filter((item) => {
+    const exactSuggestions = suggestions.filter((item) => {
       return queryIndex(item) === 0;
-    })
-      .concat(suggestions.filter((item) => {
-        return queryIndex(item) > 0;
-      }));
+    });
+    const partialSuggestions = suggestions.filter((item) => {
+      return queryIndex(item) > 0;
+    });
+    return exactSuggestions.concat(partialSuggestions);
   }
 
   resetAndFocusInput() {
