@@ -428,8 +428,14 @@ describe('Test ReactTags', () => {
         defaults.suggestions
       );
 
-      $input.simulate('change', { target: { value: 'ea' } });
+      $input.simulate('change', { target: { value: 'or' } });
       expect(ReactTagsInstance.state.suggestions).to.have.members([]);
+
+      $input.simulate('change', { target: { value: 'ea' } });
+      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+        { id: 'Pear', text: 'Pear' },
+        { id: 'Peach', text: 'Peach' },
+      ]);
 
       $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
@@ -540,10 +546,10 @@ describe('Test ReactTags', () => {
       );
       const $input = $el.find('.ReactTags__tagInputField');
 
-      $input.simulate('change', { target: { value: 'Ea' } });
+      $input.simulate('change', { target: { value: 'Or' } });
       $input.simulate('focus');
       $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
-      expect(actual).to.have.deep.members([{ id: 'Ea', text: 'Ea' }]);
+      expect(actual).to.have.deep.members([{ id: 'Or', text: 'Or' }]);
     });
     test('should add tag with custom label field and default suggestion filter', () => {
       const labelField = 'name';
@@ -564,10 +570,10 @@ describe('Test ReactTags', () => {
         })
       );
       const $input = $el.find('.ReactTags__tagInputField');
-      $input.simulate('change', { target: { value: 'Ea' } });
+      $input.simulate('change', { target: { value: 'Or' } });
       $input.simulate('focus');
       $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
-      expect(actual).to.have.deep.members([{ id: 'Ea', name: 'Ea' }]);
+      expect(actual).to.have.deep.members([{ id: 'Or', name: 'Or' }]);
     });
     test('should select the correct suggestion using the keyboard when label is custom', () => {
       const labelField = 'name';
