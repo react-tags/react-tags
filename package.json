@@ -73,7 +73,7 @@
     "react": "16.4.2",
     "react-dnd": "7.1.0",
     "react-dnd-html5-backend": "7.1.0",
-    "react-dnd-test-backend": "3.0.2",
+    "react-dnd-test-backend": "7.1.0",
     "react-dom": "16.4.2",
     "react-test-renderer": "16.4.2",
     "sass-loader": "^7.1.0",
