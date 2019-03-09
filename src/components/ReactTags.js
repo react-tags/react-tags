@@ -141,16 +141,20 @@ class ReactTags extends Component {
       return this.props.handleFilterSuggestions(query, suggestions);
     }
 
-    const { tags, allowUnique } = this.props;
-    const isTagUnique = (item) =>
-      !(allowUnique && tags.some(tag => tag.id === item.id));
     const exactSuggestions = suggestions.filter((item) => {
-      return this.getQueryIndex(query, item) === 0 && isTagUnique(item);
+      return this.getQueryIndex(query, item) === 0;
     });
     const partialSuggestions = suggestions.filter((item) => {
-      return this.getQueryIndex(query, item) > 0 && isTagUnique(item);
+      return this.getQueryIndex(query, item) > 0;
     });
-    return exactSuggestions.concat(partialSuggestions);
+    let totalSuggestions = exactSuggestions.concat(partialSuggestions);
+    const { tags, allowUnique } = this.props;
+    if (allowUnique) {
+      totalSuggestions = totalSuggestions.filter((item) =>
+        !tags.some(tag => tag.id === item.id)
+      );
+    }
+    return totalSuggestions;
   }
 
   getQueryIndex = (query, item) => {
