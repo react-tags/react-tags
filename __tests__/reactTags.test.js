@@ -439,7 +439,6 @@ describe('Test ReactTags', () => {
 
       $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Apple', text: 'Apple' },
         { id: 'Apricot', text: 'Apricot' },
       ]);
     });
