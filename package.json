@@ -59,7 +59,7 @@
     "enzyme": "3.9.0",
     "enzyme-adapter-react-16": "1.9.1",
     "eslint": "5.15.0",
-    "eslint-plugin-jest": "22.1.3",
+    "eslint-plugin-jest": "22.3.2",
     "eslint-plugin-jsx-a11y": "6.2.1",
     "eslint-plugin-react": "7.12.3",
     "greenkeeper-lockfile": "1.15.1",
