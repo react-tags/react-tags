@@ -156,6 +156,7 @@ Option | Type | Default | Description
 |[`removeComponent`](#removeComponent) | `Boolean` | `false` | Custom delete/remove tag element
 |[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed
 |[`readOnly`](#readOnly) | `Boolean` | `false` | Read-only mode without the input box and `removeComponent` and drag-n-drop features disabled
+|[`disabled`](#disabled) | `Boolean` | `false` | Disables the input field, preventing text from being entered.
 |[`name`](#nameOption) | `String` | `undefined` | The `name` attribute added to the input
 |[`id`](#idOption) | `String` | `undefined` | The `id` attribute added to the input
 |[`maxLength`](#maxLength) | `Number` | `Infinity` | The `maxLength` attribute added to the input
@@ -391,6 +392,10 @@ This option has no effect if there are no [`suggestions`](#suggestionsOption).
 <a name="readOnly"></a>
 ##### readOnly (optional, defaults to `false`)
 Renders the component in read-only mode without the input box and `removeComponent`. This also disables the drag-n-drop feature.
+
+<a name="disabled"></a>
+##### disabled (optional, defaults to `false`)
+Disables the input field, preventing text from being entered.
 
 <a name="nameOption"></a>
 ##### name (optional)

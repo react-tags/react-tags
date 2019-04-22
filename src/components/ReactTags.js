@@ -57,6 +57,7 @@ class ReactTags extends Component {
     removeComponent: PropTypes.func,
     autocomplete: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
     readOnly: PropTypes.bool,
+    disabled: PropTypes.bool,
     classNames: PropTypes.object,
     name: PropTypes.string,
     id: PropTypes.string,
@@ -87,6 +88,7 @@ class ReactTags extends Component {
     resetInputOnDelete: true,
     autocomplete: false,
     readOnly: false,
+    disabled: false,
     allowUnique: true,
     allowDragDrop: true,
     tags: [],
@@ -417,6 +419,7 @@ class ReactTags extends Component {
       maxLength,
       inline,
       inputFieldPosition,
+      disabled,
     } = this.props;
 
     const position = !inline ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
@@ -440,6 +443,7 @@ class ReactTags extends Component {
           id={inputId}
           maxLength={maxLength}
           value={this.props.inputValue}
+          disabled={disabled}
         />
 
         <Suggestions

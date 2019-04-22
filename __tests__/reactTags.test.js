@@ -52,6 +52,7 @@ describe('Test ReactTags', () => {
       resetInputOnDelete: true,
       autocomplete: false,
       readOnly: false,
+      disabled: false,
       allowDragDrop: true,
       ...defaults,
       allowUnique: true,
@@ -698,9 +699,42 @@ describe('Test inputFieldPosition', () => {
       })
     );
 
-    expect(consoleWarnStub.calledOnce ).to.be.true;
-    expect(consoleWarnStub.calledWithExactly('[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.')).to.be.true;
+    expect(consoleWarnStub.calledOnce).to.be.true;
+    expect(
+      consoleWarnStub.calledWithExactly(
+        '[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.'
+      )
+    ).to.be.true;
 
     consoleWarnStub.restore();
+  });
+});
+
+describe('Tests disabled prop', () => {
+  test('should disable the input when disabled prop is true', () => {
+    const $el = mount(
+      mockItem({
+        disabled: true,
+      })
+    );
+
+    const $input = $el.find('.ReactTags__tagInputField');
+
+    expect($input.prop('disabled')).to.be.true;
+    expect($input.prop('placeholder')).to.equal(DEFAULT_PLACEHOLDER);
+  });
+
+  test('should custom placeholder when input field is disabled', () => {
+    const $el = mount(
+      mockItem({
+        disabled: true,
+        placeholder: 'Input field is disabled',
+      })
+    );
+
+    const $input = $el.find('.ReactTags__tagInputField');
+
+    expect($input.prop('disabled')).to.be.true;
+    expect($input.prop('placeholder')).to.equal('Input field is disabled');
   });
 });
