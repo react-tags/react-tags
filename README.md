@@ -164,6 +164,7 @@ Option | Type | Default | Description
 |[`allowUnique`](#allowUnique) | `Boolean` | `true` | Boolean value to control whether tags should be unqiue
 |[`allowDragDrop`](#allowDragDrop) | `Boolean` | `true` | Boolean value to control whether tags should have drag-n-drop features enabled
 |[`renderSuggestion`](#renderSuggestion) | `Function` | `undefined` | Render prop for rendering your own suggestions
+|[`inputFieldAutocomplete`](#inputFieldAutocomplete) | `String` | `on` | Specify whether or not input field should have autocomplete enabled
 
 <a name="tagsOption"></a>
 ##### tags (optional, defaults to `[]`)
@@ -489,6 +490,10 @@ This props allows to provide your own suggestion renderer and override the defau
     renderSuggestion = {({ text }, query) => <div style={{ textDecoration: 'underline', textDecorationStyle: 'wavy' }}>{text} ({ query })</div>}
     ...>
 ```
+
+<a name="inputFieldAutocomplete"></a>
+##### inputFieldAutocomplete (optional, defaults to `on`)
+The inputFieldAutocomplete attribute specifies whether or not input field should have autocomplete enabled.
 
 ### Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -

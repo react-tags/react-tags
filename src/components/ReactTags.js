@@ -70,6 +70,7 @@ class ReactTags extends Component {
     ),
     allowUnique: PropTypes.bool,
     renderSuggestion: PropTypes.func,
+    inputFieldAutocomplete: PropTypes.string,
   };
 
   static defaultProps = {
@@ -90,6 +91,7 @@ class ReactTags extends Component {
     allowUnique: true,
     allowDragDrop: true,
     tags: [],
+    inputFieldAutocomplete: 'on',
   };
 
   constructor(props) {
@@ -417,6 +419,7 @@ class ReactTags extends Component {
       maxLength,
       inline,
       inputFieldPosition,
+      inputFieldAutocomplete,
     } = this.props;
 
     const position = !inline ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
@@ -439,6 +442,7 @@ class ReactTags extends Component {
           name={inputName}
           id={inputId}
           maxLength={maxLength}
+          autoComplete={inputFieldAutocomplete}
           value={this.props.inputValue}
         />
 
