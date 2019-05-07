@@ -153,7 +153,8 @@ Option | Type | Default | Description
 |[`handleInputFocus`](#handleInputFocus) | `Function` | `undefined` | Event handler for input onFocus
 |[`handleInputBlur`](#handleInputBlur) | `Function` | `undefined` | Event handler for input onBlur
 |[`minQueryLength`](#minQueryLength) | `Number` | `2` | How many characters are needed for suggestions to appear
-|[`removeComponent`](#removeComponent) | `Boolean` | `false` | Custom delete/remove tag element
+|[`inputComponent`](#inputComponent) | `Component` | `'input'` | Custom input component
+|[`removeComponent`](#removeComponent) | `Component` | `'a'` | Custom delete/remove tag element
 |[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed
 |[`readOnly`](#readOnly) | `Boolean` | `false` | Read-only mode without the input box and `removeComponent` and drag-n-drop features disabled
 |[`name`](#nameOption) | `String` | `undefined` | The `name` attribute added to the input
@@ -352,6 +353,37 @@ Optional event handler for input onBlur
 ##### minQueryLength (optional, defaults to `2`)
 How many characters are needed for suggestions to appear.
 
+<a name="inputComponent"></a>
+##### inputComponent (optional)
+Provide a custom input component. Handy when using ReactTags together with a react UI framework such as Material UI. Example usage:
+
+```js
+<ReactTags
+    inputComponent={(props) => <TextField fullWidth {...props} />}
+    ...>
+```
+
+```javascript
+import {WithContext as ReactTags} from 'react-tag-input'
+import {TextField} from '@material-ui/core';
+
+class Foo extends React.Component {
+   render() {
+      return <ReactTags inputComponent={InputComponent}/>
+   }
+}
+
+class InputComponent extends React.Component {
+   render() {
+      return (
+        <TextField {...this.props} />
+      )
+   }
+}
+```
+
+The "ReactTags__remove" className and `onClick` handler properties can be automatically included on the `<button>` by using the [JSX spread attribute](https://facebook.github.io/react/docs/jsx-spread.html), as illustrated above.
+
 <a name="removeComponent"></a>
 ##### removeComponent (optional)
 If you'd like to supply your own tag delete/remove element, create a React component and pass it as a property to ReactTags using the `removeComponent` option. By default, a simple anchor link with an "x" text node as its only child is rendered, but if you'd like to, say, replace this with a `<button>` element that uses an image instead of text, your markup may look something like this:
@@ -390,7 +422,7 @@ This option has no effect if there are no [`suggestions`](#suggestionsOption).
 
 <a name="readOnly"></a>
 ##### readOnly (optional, defaults to `false`)
-Renders the component in read-only mode without the input box and `removeComponent`. This also disables the drag-n-drop feature.
+Renders the component in read-only mode without the `inputComponent` and `removeComponent`. This also disables the drag-n-drop feature.
 
 <a name="nameOption"></a>
 ##### name (optional)

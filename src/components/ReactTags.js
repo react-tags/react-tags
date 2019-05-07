@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import ClassNames from 'classnames';
 import memoizeOne from 'memoize-one';
 import Tag from './Tag';
+import InputComponent from './InputComponent';
 
 import { buildRegExpFromDelimiters } from './utils';
 
@@ -55,6 +56,7 @@ class ReactTags extends Component {
     minQueryLength: PropTypes.number,
     shouldRenderSuggestions: PropTypes.func,
     removeComponent: PropTypes.func,
+    inputComponent: PropTypes.func,
     autocomplete: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
     readOnly: PropTypes.bool,
     classNames: PropTypes.object,
@@ -104,8 +106,9 @@ class ReactTags extends Component {
     const { suggestions, classNames } = props;
     this.state = {
       suggestions,
-      query: '',
+      query: props.inputValue || '',
       isFocused: false,
+      shouldFocus: false,
       selectedIndex: -1,
       selectionMode: false,
       classNames: { ...DEFAULT_CLASSNAMES, ...classNames },
@@ -156,18 +159,21 @@ class ReactTags extends Component {
       .indexOf(query.toLowerCase());
   }
 
+  focusInput() {
+    this.setState({shouldFocus: true})
+  }
+
   resetAndFocusInput() {
-    this.setState({ query: '' });
-    if (this.textInput) {
-      this.textInput.value = '';
-      this.textInput.focus();
-    }
+    this.setState({
+      query: ''
+    });
+    this.focusInput();
   }
 
   handleDelete(i, e) {
     this.props.handleDelete(i, e);
     if (!this.props.resetInputOnDelete) {
-      this.textInput && this.textInput.focus();
+      this.focusInput();
     } else {
       this.resetAndFocusInput();
     }
@@ -179,7 +185,7 @@ class ReactTags extends Component {
       this.props.handleTagClick(i, e);
     }
     if (!this.props.resetInputOnDelete) {
-      this.textInput && this.textInput.focus();
+      this.focusInput();
     } else {
       this.resetAndFocusInput();
     }
@@ -210,18 +216,21 @@ class ReactTags extends Component {
     if (this.props.handleInputFocus) {
       this.props.handleInputFocus(value);
     }
-    this.setState({ isFocused: true });
+    this.setState({
+      shouldFocus: true,
+      isFocused: true
+    });
   }
 
   handleBlur(e) {
     const value = e.target.value;
     if (this.props.handleInputBlur) {
       this.props.handleInputBlur(value);
-      if (this.textInput) {
-        this.textInput.value = '';
-      }
     }
-    this.setState({ isFocused: false });
+    this.setState({
+      shouldFocus: false,
+      isFocused: false
+    });
   }
 
   handleKeyDown(e) {
@@ -417,16 +426,16 @@ class ReactTags extends Component {
       maxLength,
       inline,
       inputFieldPosition,
+      inputComponent
     } = this.props;
 
     const position = !inline ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
 
     const tagInput = !this.props.readOnly ? (
       <div className={this.state.classNames.tagInput}>
-        <input
-          ref={(input) => {
-            this.textInput = input;
-          }}
+        <InputComponent
+          inputComponent={inputComponent}
+          focus={this.state.shouldFocus}
           className={this.state.classNames.tagInputField}
           type="text"
           placeholder={placeholder}
@@ -439,7 +448,7 @@ class ReactTags extends Component {
           name={inputName}
           id={inputId}
           maxLength={maxLength}
-          value={this.props.inputValue}
+          value={this.state.query}
         />
 
         <Suggestions
