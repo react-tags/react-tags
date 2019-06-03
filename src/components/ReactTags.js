@@ -339,16 +339,16 @@ class ReactTags extends Component {
     }
 
     // call method to add
-    this.props.handleAddition(tag);
+    if (this.props.handleAddition(tag) !== false) {
+      // reset the state
+      this.setState({
+        query: '',
+        selectionMode: false,
+        selectedIndex: -1,
+      });
 
-    // reset the state
-    this.setState({
-      query: '',
-      selectionMode: false,
-      selectedIndex: -1,
-    });
-
-    this.resetAndFocusInput();
+      this.resetAndFocusInput();
+    }
   };
 
   handleSuggestionClick(i) {
