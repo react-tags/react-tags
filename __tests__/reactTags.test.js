@@ -419,6 +419,29 @@ describe('Test ReactTags', () => {
     });
   });
   describe('autocomplete/suggestions filtering', () => {
+    test('updates suggestions state if the suggestions prop changes', () => {
+      const $el = mount(mockItem());
+      const ReactTagsInstance = $el.instance().getDecoratedComponentInstance();
+      const $input = $el.find('.ReactTags__tagInputField');
+
+      $input.simulate('change', { target: { value: 'ap' } });
+      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+        { id: 'Apple', text: 'Apple' },
+        { id: 'Apricot', text: 'Apricot' },
+      ]);
+
+      $el.setProps({
+        suggestions: [
+          { id: 'Papaya', text: 'Papaya' },
+          { id: 'Paprika', text: 'Paprika' },
+        ],
+      });
+      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+        { id: 'Papaya', text: 'Papaya' },
+        { id: 'Paprika', text: 'Paprika' },
+      ]);
+    });
+
     test('updates suggestions state as expected based on default filter logic', () => {
       const $el = mount(mockItem());
       const ReactTagsInstance = $el.instance().getDecoratedComponentInstance();

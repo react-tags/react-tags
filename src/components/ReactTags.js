@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import isEqual from 'lodash/isEqual';
 import noop from 'lodash/noop';
 import uniq from 'lodash/uniq';
 import Suggestions from './Suggestions';
@@ -125,6 +126,7 @@ class ReactTags extends Component {
     this.resetAndFocusInput = this.resetAndFocusInput.bind(this);
     this.handleSuggestionHover = this.handleSuggestionHover.bind(this);
     this.handleSuggestionClick = this.handleSuggestionClick.bind(this);
+    this.updateSuggestions = this.updateSuggestions.bind(this);
   }
 
   static getDerivedStateFromProps(props) {
@@ -136,6 +138,12 @@ class ReactTags extends Component {
     const { autofocus, readOnly } = this.props;
     if (autofocus && !readOnly) {
       this.resetAndFocusInput();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!isEqual(prevProps.suggestions, this.props.suggestions)) {
+      this.updateSuggestions();
     }
   }
 
@@ -194,12 +202,15 @@ class ReactTags extends Component {
     }
 
     const query = e.target.value.trim();
+
+    this.setState({ query }, this.updateSuggestions);
+  }
+
+  updateSuggestions() {
+    const { query, selectedIndex } = this.state;
     const suggestions = this.filteredSuggestions(query, this.props.suggestions);
 
-    const { selectedIndex } = this.state;
-
     this.setState({
-      query: query,
       suggestions: suggestions,
       selectedIndex:
         selectedIndex >= suggestions.length
