@@ -7,7 +7,6 @@ import uniq from 'lodash/uniq';
 import Suggestions from './Suggestions';
 import PropTypes from 'prop-types';
 import ClassNames from 'classnames';
-import memoizeOne from 'memoize-one';
 import Tag from './Tag';
 
 import { buildRegExpFromDelimiters } from './utils';
@@ -20,12 +19,6 @@ import {
   DEFAULT_LABEL_FIELD,
   INPUT_FIELD_POSITIONS,
 } from './constants';
-
-const updateClassNames = memoizeOne((classNames) => {
-  return {
-    classNames: { ...DEFAULT_CLASSNAMES, ...classNames },
-  };
-});
 
 class ReactTags extends Component {
   static propTypes = {
@@ -107,16 +100,14 @@ class ReactTags extends Component {
       /* eslint-enable no-console */
     }
 
-    const { suggestions, classNames } = props;
+    const { suggestions } = props;
     this.state = {
       suggestions,
       query: '',
       isFocused: false,
       selectedIndex: -1,
       selectionMode: false,
-      classNames: { ...DEFAULT_CLASSNAMES, ...classNames },
     };
-    // TODO : remove classNames from state and change updateClassNames to instance function
     this.handleFocus = this.handleFocus.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -127,11 +118,6 @@ class ReactTags extends Component {
     this.handleSuggestionHover = this.handleSuggestionHover.bind(this);
     this.handleSuggestionClick = this.handleSuggestionClick.bind(this);
     this.updateSuggestions = this.updateSuggestions.bind(this);
-  }
-
-  static getDerivedStateFromProps(props) {
-    const { classNames } = props;
-    return updateClassNames(classNames);
   }
 
   componentDidMount() {
@@ -389,13 +375,14 @@ class ReactTags extends Component {
 
   getTagItems = () => {
     const {
+      classNames,
       tags,
       labelField,
       removeComponent,
       readOnly,
       allowDragDrop,
     } = this.props;
-    const { classNames } = this.state;
+
     const moveTag = allowDragDrop ? this.moveTag : null;
     return tags.map((tag, index) => {
       return (
@@ -409,7 +396,7 @@ class ReactTags extends Component {
           removeComponent={removeComponent}
           onTagClicked={this.handleTagClick.bind(this, index)}
           readOnly={readOnly}
-          classNames={classNames}
+          classNames={{ ...DEFAULT_CLASSNAMES, ...classNames }}
           allowDragDrop={allowDragDrop}
         />
       );
@@ -418,6 +405,7 @@ class ReactTags extends Component {
 
   render() {
     const tagItems = this.getTagItems();
+    const classNames = { ...DEFAULT_CLASSNAMES, ...this.props.classNames };
 
     // get the suggestions for the given query
     const query = this.state.query.trim(),
@@ -438,12 +426,12 @@ class ReactTags extends Component {
       : inputFieldPosition;
 
     const tagInput = !this.props.readOnly ? (
-      <div className={this.state.classNames.tagInput}>
+      <div className={classNames.tagInput}>
         <input
           ref={(input) => {
             this.textInput = input;
           }}
-          className={this.state.classNames.tagInputField}
+          className={classNames.tagInputField}
           type="text"
           placeholder={placeholder}
           aria-label={placeholder}
@@ -468,20 +456,16 @@ class ReactTags extends Component {
           minQueryLength={this.props.minQueryLength}
           shouldRenderSuggestions={this.props.shouldRenderSuggestions}
           isFocused={this.state.isFocused}
-          classNames={this.state.classNames}
+          classNames={classNames}
           renderSuggestion={this.props.renderSuggestion}
         />
       </div>
     ) : null;
 
     return (
-      <div
-        className={ClassNames(
-          this.state.classNames.tags,
-          'react-tags-wrapper'
-        )}>
+      <div className={ClassNames(classNames.tags, 'react-tags-wrapper')}>
         {position === INPUT_FIELD_POSITIONS.TOP && tagInput}
-        <div className={this.state.classNames.selected}>
+        <div className={classNames.selected}>
           {tagItems}
           {position === INPUT_FIELD_POSITIONS.INLINE && tagInput}
         </div>
