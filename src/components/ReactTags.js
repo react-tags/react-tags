@@ -20,10 +20,9 @@ import {
   INPUT_FIELD_POSITIONS,
 } from './constants';
 
-const updateClassNames  = memoizeOne((classNames) =>
-{
+const updateClassNames = memoizeOne((classNames) => {
   return {
-    classNames : {...DEFAULT_CLASSNAMES,...classNames},
+    classNames: { ...DEFAULT_CLASSNAMES, ...classNames },
   };
 });
 
@@ -39,7 +38,11 @@ class ReactTags extends Component {
     delimiters: PropTypes.arrayOf(PropTypes.number),
     autofocus: PropTypes.bool,
     inline: PropTypes.bool, // TODO: Remove in v7.x.x
-    inputFieldPosition: PropTypes.oneOf([INPUT_FIELD_POSITIONS.INLINE, INPUT_FIELD_POSITIONS.TOP, INPUT_FIELD_POSITIONS.BOTTOM]),
+    inputFieldPosition: PropTypes.oneOf([
+      INPUT_FIELD_POSITIONS.INLINE,
+      INPUT_FIELD_POSITIONS.TOP,
+      INPUT_FIELD_POSITIONS.BOTTOM,
+    ]),
     handleDelete: PropTypes.func,
     handleAddition: PropTypes.func,
     handleDrag: PropTypes.func,
@@ -97,7 +100,9 @@ class ReactTags extends Component {
 
     if (!props.inline) {
       /* eslint-disable no-console */
-      console.warn('[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.');
+      console.warn(
+        '[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.'
+      );
       /* eslint-enable no-console */
     }
 
@@ -120,11 +125,9 @@ class ReactTags extends Component {
     this.resetAndFocusInput = this.resetAndFocusInput.bind(this);
     this.handleSuggestionHover = this.handleSuggestionHover.bind(this);
     this.handleSuggestionClick = this.handleSuggestionClick.bind(this);
-
   }
 
-  static getDerivedStateFromProps(props)
-  {
+  static getDerivedStateFromProps(props) {
     const { classNames } = props;
     return updateClassNames(classNames);
   }
@@ -154,7 +157,7 @@ class ReactTags extends Component {
     return item[this.props.labelField]
       .toLowerCase()
       .indexOf(query.toLowerCase());
-  }
+  };
 
   resetAndFocusInput() {
     this.setState({ query: '' });
@@ -419,7 +422,9 @@ class ReactTags extends Component {
       inputFieldPosition,
     } = this.props;
 
-    const position = !inline ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
+    const position = !inline
+      ? INPUT_FIELD_POSITIONS.BOTTOM
+      : inputFieldPosition;
 
     const tagInput = !this.props.readOnly ? (
       <div className={this.state.classNames.tagInput}>
@@ -459,7 +464,11 @@ class ReactTags extends Component {
     ) : null;
 
     return (
-      <div className={ClassNames(this.state.classNames.tags, 'react-tags-wrapper')}>
+      <div
+        className={ClassNames(
+          this.state.classNames.tags,
+          'react-tags-wrapper'
+        )}>
         {position === INPUT_FIELD_POSITIONS.TOP && tagInput}
         <div className={this.state.classNames.selected}>
           {tagItems}
