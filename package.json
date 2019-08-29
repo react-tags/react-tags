@@ -76,7 +76,7 @@
     "react-dnd-test-backend": "3.0.2",
     "react-dom": "16.4.2",
     "react-test-renderer": "16.4.2",
-    "sass-loader": "^7.1.0",
+    "sass-loader": "^8.0.0",
     "semantic-release": "^15.9.16",
     "sinon": "7.2.7",
     "style-loader": "^0.23.1",
