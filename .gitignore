@@ -3,6 +3,4 @@ npm-debug.log
 .idea
 .vscode
 coverage
-dist-modules
-dist
 yarn.lock
