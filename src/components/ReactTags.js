@@ -70,6 +70,7 @@ class ReactTags extends Component {
     ),
     allowUnique: PropTypes.bool,
     renderSuggestion: PropTypes.func,
+    inputType: PropTypes.oneOf(["input", "textarea"]),
   };
 
   static defaultProps = {
@@ -90,6 +91,7 @@ class ReactTags extends Component {
     allowUnique: true,
     allowDragDrop: true,
     tags: [],
+    inputType: "input",
   };
 
   constructor(props) {
@@ -420,10 +422,10 @@ class ReactTags extends Component {
     } = this.props;
 
     const position = !inline ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
-
+    const InputHtmlTag = this.props.inputType;
     const tagInput = !this.props.readOnly ? (
       <div className={this.state.classNames.tagInput}>
-        <input
+        <InputHtmlTag
           ref={(input) => {
             this.textInput = input;
           }}
