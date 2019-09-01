@@ -419,10 +419,10 @@ class ReactTags extends Component {
       maxLength,
       inline,
       inputFieldPosition,
+      inputType: InputHtmlTag,
     } = this.props;
 
     const position = !inline ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
-    const InputHtmlTag = this.props.inputType;
     const tagInput = !this.props.readOnly ? (
       <div className={this.state.classNames.tagInput}>
         <InputHtmlTag
