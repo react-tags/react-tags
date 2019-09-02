@@ -70,7 +70,7 @@ class ReactTags extends Component {
     ),
     allowUnique: PropTypes.bool,
     renderSuggestion: PropTypes.func,
-    inputType: PropTypes.oneOf(["input", "textarea"]),
+    inputType: PropTypes.oneOf(['input', 'textarea']),
   };
 
   static defaultProps = {
@@ -91,7 +91,7 @@ class ReactTags extends Component {
     allowUnique: true,
     allowDragDrop: true,
     tags: [],
-    inputType: "input",
+    inputType: 'input',
   };
 
   constructor(props) {
