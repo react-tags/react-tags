@@ -55,6 +55,7 @@ describe('Test ReactTags', () => {
       allowDragDrop: true,
       ...defaults,
       allowUnique: true,
+      inputType: 'input',
     };
     expect($el).to.have.length(1);
     expect($el.props().children.props).to.deep.equal(expectedProps);
