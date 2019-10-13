@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "classnames": "~2.2.6",
-    "core-js": "~2.6.5",
+    "core-js": "~3.3.0",
     "lodash": "~4.17.12",
     "memoize-one": "~5.0.1",
     "prop-types": "~15.7.0"
