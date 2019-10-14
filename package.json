@@ -64,7 +64,7 @@
     "eslint-plugin-react": "^7.12.3",
     "greenkeeper-lockfile": "^1.15.1",
     "jest": "^22.1.4",
-    "jsdom": "^11.6.2",
+    "jsdom": "^15.2.0",
     "node-sass": "^4.9.4",
     "npm-run-all": "^4.1.4",
     "opn": "^5.2.0",
