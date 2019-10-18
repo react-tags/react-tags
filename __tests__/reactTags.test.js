@@ -700,8 +700,12 @@ describe('Test inputFieldPosition', () => {
       })
     );
 
-    expect(consoleWarnStub.calledOnce ).to.be.true;
-    expect(consoleWarnStub.calledWithExactly('[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.')).to.be.true;
+    expect(consoleWarnStub.calledOnce).to.be.true;
+    expect(
+      consoleWarnStub.calledWithExactly(
+        '[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.'
+      )
+    ).to.be.true;
 
     consoleWarnStub.restore();
   });
