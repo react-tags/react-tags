@@ -248,6 +248,7 @@ class App extends React.Component {
     this.handleAddition = this.handleAddition.bind(this);
     this.handleDrag = this.handleDrag.bind(this);
     this.handleTagClick = this.handleTagClick.bind(this);
+    this.handleClearAll = this.handleClearAll.bind(this);
   }
 
   handleDelete(i) {
@@ -276,6 +277,12 @@ class App extends React.Component {
     console.log('The tag at index ' + index + ' was clicked');
   }
 
+  handleClearAll() {
+    this.setState({
+      tags: [],
+    });
+  }
+
   render() {
     const { tags } = this.state;
     return (
@@ -288,6 +295,8 @@ class App extends React.Component {
           handleAddition={this.handleAddition}
           handleDrag={this.handleDrag}
           handleTagClick={this.handleTagClick}
+          allowClearAll
+          handleClearAll={this.handleClearAll}
         />
       </div>
     );

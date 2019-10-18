@@ -501,6 +501,7 @@ This props allows to provide your own suggestion renderer and override the defau
 - `ReactTags__selected ReactTags__remove`
 - `ReactTags__suggestions`
 - `ReactTags__activeSuggestion`
+- `ReactTags__clearAll`
 
 An example can be found in `/example/reactTags.css`.
 
