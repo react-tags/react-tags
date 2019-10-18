@@ -18,6 +18,7 @@ React-tags is a simple tagging component ready to drop in your React projects. T
 - Autocomplete based on a suggestion list
 - Keyboard friendly and mouse support
 - Reorder tags using drag and drop
+- Optional clear all button
 
 ### Why
 Because I was looking for an excuse to build a standalone component and publish it in the wild? To be honest, I needed a tagging component that provided the above features for my [React-Surveyman](http://github.com/prakhar1989/react-surveyman) project. Since I was unable to find one which met my requirements (and the fact that I generally enjoy re-inventing the wheel) this is what I came up with.
@@ -164,6 +165,8 @@ Option | Type | Default | Description
 |[`allowUnique`](#allowUnique) | `Boolean` | `true` | Boolean value to control whether tags should be unqiue
 |[`allowDragDrop`](#allowDragDrop) | `Boolean` | `true` | Boolean value to control whether tags should have drag-n-drop features enabled
 |[`renderSuggestion`](#renderSuggestion) | `Function` | `undefined` | Render prop for rendering your own suggestions
+|[`allowClearAll`](#allowClearAll) | `Boolean` | `false` | Boolean value to control whether 'clear tags' button should be visible
+|[`handleClearAll`](#handleClearAll) | `Function` | `undefined` | Event handler for 'clear tags' button click
 
 <a name="tagsOption"></a>
 ##### tags (optional, defaults to `[]`)
@@ -490,6 +493,14 @@ This props allows to provide your own suggestion renderer and override the defau
     ...>
 ```
 
+<a name="allowClearAll"></a>
+#### allowClearAll (optional)
+This props controls whether 'clear tags' button should be visible or not.
+
+<a name="handleClearAll"></a>
+#### handleClearAll (optional)
+Optional event handler for 'clear tags' button click.
+
 ### Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
 
@@ -501,6 +512,7 @@ This props allows to provide your own suggestion renderer and override the defau
 - `ReactTags__selected ReactTags__remove`
 - `ReactTags__suggestions`
 - `ReactTags__activeSuggestion`
+- `ReactTags__clearAll`
 
 An example can be found in `/example/reactTags.css`.
 
@@ -517,7 +529,8 @@ a `classNames` prop.
       tag: 'tagClass',
       remove: 'removeClass',
       suggestions: 'suggestionsClass',
-      activeSuggestion: 'activeSuggestionClass'
+      activeSuggestion: 'activeSuggestionClass',
+      clearAll: 'clearAllClass',
     }}
     ...>
 ```

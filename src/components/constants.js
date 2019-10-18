@@ -20,6 +20,8 @@ export const DEFAULT_CLASSNAMES = {
   remove: 'ReactTags__remove',
   suggestions: 'ReactTags__suggestions',
   activeSuggestion: 'ReactTags__activeSuggestion',
+  clearAll: 'ReactTags__clearAll',
+
 };
 
 export const INPUT_FIELD_POSITIONS = {

@@ -3,6 +3,7 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import noop from 'lodash/noop';
 import uniq from 'lodash/uniq';
+import ClearAllTags from './ClearAllTags';
 import Suggestions from './Suggestions';
 import PropTypes from 'prop-types';
 import ClassNames from 'classnames';
@@ -70,6 +71,8 @@ class ReactTags extends Component {
     ),
     allowUnique: PropTypes.bool,
     renderSuggestion: PropTypes.func,
+    allowClearAll: PropTypes.bool,
+    handleClearAll: PropTypes.func,
   };
 
   static defaultProps = {
@@ -90,6 +93,8 @@ class ReactTags extends Component {
     allowUnique: true,
     allowDragDrop: true,
     tags: [],
+    allowClearAll: false,
+    handleClearAll: noop,
   };
 
   constructor(props) {
@@ -120,6 +125,7 @@ class ReactTags extends Component {
     this.resetAndFocusInput = this.resetAndFocusInput.bind(this);
     this.handleSuggestionHover = this.handleSuggestionHover.bind(this);
     this.handleSuggestionClick = this.handleSuggestionClick.bind(this);
+    this.handleClearAllClick = this.handleClearAllClick.bind(this);
 
   }
 
@@ -355,6 +361,12 @@ class ReactTags extends Component {
     this.addTag(this.state.suggestions[i]);
   }
 
+  handleClearAllClick() {
+    if (this.props.handleClearAll) {
+      this.props.handleClearAll();
+    }
+  }
+
   handleSuggestionHover(i) {
     this.setState({
       selectedIndex: i,
@@ -417,6 +429,8 @@ class ReactTags extends Component {
       maxLength,
       inline,
       inputFieldPosition,
+      allowClearAll,
+      tags,
     } = this.props;
 
     const position = !inline ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
@@ -460,6 +474,9 @@ class ReactTags extends Component {
 
     return (
       <div className={ClassNames(this.state.classNames.tags, 'react-tags-wrapper')}>
+        {allowClearAll && tags.length > 0 && (
+          <ClearAllTags classNames={this.state.classNames} handleClick={this.handleClearAllClick} />
+        )}
         {position === INPUT_FIELD_POSITIONS.TOP && tagInput}
         <div className={this.state.classNames.selected}>
           {tagItems}

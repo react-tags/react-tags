@@ -55,6 +55,8 @@ describe('Test ReactTags', () => {
       allowDragDrop: true,
       ...defaults,
       allowUnique: true,
+      allowClearAll: false,
+      handleClearAll: noop,
     };
     expect($el).to.have.length(1);
     expect($el.props().children.props).to.deep.equal(expectedProps);
@@ -698,9 +700,41 @@ describe('Test inputFieldPosition', () => {
       })
     );
 
-    expect(consoleWarnStub.calledOnce ).to.be.true;
-    expect(consoleWarnStub.calledWithExactly('[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.')).to.be.true;
+    expect(consoleWarnStub.calledOnce).to.be.true;
+    expect(
+      consoleWarnStub.calledWithExactly(
+        '[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.'
+      )
+    ).to.be.true;
 
     consoleWarnStub.restore();
+  });
+
+  test('should not show a clear tags span as default', () => {
+    const $el = mount(mockItem());
+    expect($el.exists('.ReactTags__clearAll')).to.equal(false);
+  });
+
+  test('should show a clear tags span if "allowClearTags" is enabled', () => {
+    const $el = mount(
+      mockItem({
+        allowClearAll: true,
+      })
+    );
+    expect($el.exists('.ReactTags__clearAll')).to.equal(true);
+  });
+
+  test('should invoke "handleClearAll" on clear tags mouse down', () => {
+    const handleClearAll = spy();
+    const $el = mount(
+      mockItem({
+        allowClearAll: true,
+        handleClearAll,
+      })
+    );
+
+    const $clearAll = $el.find('.ReactTags__clearAll');
+    $clearAll.simulate('mousedown');
+    expect(handleClearAll.callCount).to.equal(1);
   });
 });

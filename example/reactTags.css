@@ -3,6 +3,13 @@ div.ReactTags__tags {
     position: relative;
 }
 
+/* Styles for the clear tags span */
+span.ReactTags__clearAll {
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+}
+
 /* Styles for the input */
 div.ReactTags__tagInput {
     width: 200px;
