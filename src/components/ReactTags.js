@@ -93,7 +93,7 @@ class ReactTags extends Component {
     allowUnique: true,
     allowDragDrop: true,
     tags: [],
-    allowClearAll: true,
+    allowClearAll: false,
     handleClearAll: noop,
   };
 
