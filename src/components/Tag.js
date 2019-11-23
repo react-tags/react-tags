@@ -1,54 +1,97 @@
-import React, { Component } from 'react';
-import { DragSource, DropTarget } from 'react-dnd';
+import React, { useRef } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
 import PropTypes from 'prop-types';
-import flow from 'lodash/flow';
 import ClassNames from 'classnames';
-import {
-  tagSource,
-  tagTarget,
-  dragSource,
-  dropCollect,
-} from './DragAndDropHelper';
-import { canDrag } from './utils';
+import { canDrag, canDrop } from './utils';
 
 import RemoveComponent from './RemoveComponent';
 
 const ItemTypes = { TAG: 'tag' };
 
-class Tag extends Component {
-  render() {
-    const { props } = this;
-    const label = props.tag[props.labelField];
-    const {
-      connectDragSource,
-      isDragging,
-      connectDropTarget,
-      readOnly,
-      tag,
-      classNames,
-    } = props;
-    const { className = '' } = tag;
-    const tagComponent = ( <span
+const Tag = ({
+  readOnly,
+  tag,
+  classNames,
+  labelField,
+  onTagClicked,
+  removeComponent,
+  onDelete,
+  moveTag,
+  allowDragDrop,
+  index,
+}) => {
+  const label = tag[labelField];
+  const { className = '' } = tag;
+
+  const ref = useRef(null);
+  const [{ isDragging }, drag] = useDrag({
+    item: { type: ItemTypes.TAG, id: tag.index, index: index },
+    collect: monitor => ({
+      isDragging: monitor.isDragging(),
+    }),
+    canDrag: () => canDrag({ moveTag, readOnly, allowDragDrop }),
+  });
+
+  const [, drop] = useDrop({
+    accept: ItemTypes.TAG,
+    hover: (item, monitor) => {
+      if (!ref.current) {
+        return;
+      }
+
+      const dragIndex = item.index;
+      const hoverIndex = index;
+
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+
+      const hoverBoundingRect = ref.current.getBoundingClientRect();
+      const hoverMiddleX = (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
+      const clientOffset = monitor.getClientOffset();
+      const hoverClientX = clientOffset.x - hoverBoundingRect.left;
+
+      // Only perform the move when the mouse has crossed half of the items width
+      if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
+        return;
+      }
+
+      if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
+        return;
+      }
+
+      moveTag(dragIndex, hoverIndex);
+
+      item.index = hoverIndex;
+    },
+    canDrop: (props) => canDrop(props),
+  });
+
+  drag(drop(ref));
+
+  return (
+    <span
+      ref={ref}
       className={ClassNames('tag-wrapper', classNames.tag, className)}
-      style={{opacity: isDragging ? 0 : 1, 'cursor': canDrag(props) ? 'move' : 'auto'}}
-      onClick={props.onTagClicked}
-      onKeyDown={props.onTagClicked}
-      onTouchStart={props.onTagClicked}>
+      style={{opacity: isDragging ? 0 : 1, 'cursor': canDrag({ moveTag, readOnly, allowDragDrop }) ? 'move' : 'auto'}}
+      onClick={onTagClicked}
+      onKeyDown={onTagClicked}
+      onTouchStart={onTagClicked}
+    >
       {label}
       <RemoveComponent
-        tag={props.tag}
+        tag={tag}
         className={classNames.remove}
-        removeComponent={props.removeComponent}
-        onClick={props.onDelete}
+        removeComponent={removeComponent}
+        onClick={onDelete}
         readOnly={readOnly}
       />
     </span>
-    );
-    return connectDragSource(connectDropTarget(tagComponent));
-  }
-}
+  );
+};
 
 Tag.propTypes = {
+  index: PropTypes.number.isRequired,
   labelField: PropTypes.string,
   onDelete: PropTypes.func.isRequired,
   tag: PropTypes.shape({
@@ -60,9 +103,7 @@ Tag.propTypes = {
   onTagClicked: PropTypes.func,
   classNames: PropTypes.object,
   readOnly: PropTypes.bool,
-  connectDragSource: PropTypes.func.isRequired,
-  isDragging: PropTypes.bool.isRequired,
-  connectDropTarget: PropTypes.func.isRequired,
+  allowDragDrop: PropTypes.bool.isRequired,
 };
 
 Tag.defaultProps = {
@@ -70,7 +111,4 @@ Tag.defaultProps = {
   readOnly: false,
 };
 
-export default flow(
-  DragSource(ItemTypes.TAG, tagSource, dragSource),
-  DropTarget(ItemTypes.TAG, tagTarget, dropCollect)
-)(Tag);
+export default Tag;
