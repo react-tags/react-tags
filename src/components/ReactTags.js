@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import isEqual from 'lodash/isEqual';
 import noop from 'lodash/noop';
 import uniq from 'lodash/uniq';
 import Suggestions from './Suggestions';
 import PropTypes from 'prop-types';
 import ClassNames from 'classnames';
-import memoizeOne from 'memoize-one';
 import Tag from './Tag';
 
 import { buildRegExpFromDelimiters } from './utils';
@@ -20,13 +20,6 @@ import {
   INPUT_FIELD_POSITIONS,
 } from './constants';
 
-const updateClassNames  = memoizeOne((classNames) =>
-{
-  return {
-    classNames : {...DEFAULT_CLASSNAMES,...classNames},
-  };
-});
-
 class ReactTags extends Component {
   static propTypes = {
     placeholder: PropTypes.string,
@@ -39,7 +32,11 @@ class ReactTags extends Component {
     delimiters: PropTypes.arrayOf(PropTypes.number),
     autofocus: PropTypes.bool,
     inline: PropTypes.bool, // TODO: Remove in v7.x.x
-    inputFieldPosition: PropTypes.oneOf([INPUT_FIELD_POSITIONS.INLINE, INPUT_FIELD_POSITIONS.TOP, INPUT_FIELD_POSITIONS.BOTTOM]),
+    inputFieldPosition: PropTypes.oneOf([
+      INPUT_FIELD_POSITIONS.INLINE,
+      INPUT_FIELD_POSITIONS.TOP,
+      INPUT_FIELD_POSITIONS.BOTTOM,
+    ]),
     handleDelete: PropTypes.func,
     handleAddition: PropTypes.func,
     handleDrag: PropTypes.func,
@@ -97,20 +94,20 @@ class ReactTags extends Component {
 
     if (!props.inline) {
       /* eslint-disable no-console */
-      console.warn('[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.');
+      console.warn(
+        '[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.'
+      );
       /* eslint-enable no-console */
     }
 
-    const { suggestions, classNames } = props;
+    const { suggestions } = props;
     this.state = {
       suggestions,
       query: '',
       isFocused: false,
       selectedIndex: -1,
       selectionMode: false,
-      classNames: { ...DEFAULT_CLASSNAMES, ...classNames },
     };
-    // TODO : remove classNames from state and change updateClassNames to instance function
     this.handleFocus = this.handleFocus.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -120,19 +117,19 @@ class ReactTags extends Component {
     this.resetAndFocusInput = this.resetAndFocusInput.bind(this);
     this.handleSuggestionHover = this.handleSuggestionHover.bind(this);
     this.handleSuggestionClick = this.handleSuggestionClick.bind(this);
-
-  }
-
-  static getDerivedStateFromProps(props)
-  {
-    const { classNames } = props;
-    return updateClassNames(classNames);
   }
 
   componentDidMount() {
     const { autofocus, readOnly } = this.props;
+    
     if (autofocus && !readOnly) {
       this.resetAndFocusInput();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!isEqual(prevProps.suggestions, this.props.suggestions)) {
+      this.updateSuggestions();
     }
   }
 
@@ -154,7 +151,7 @@ class ReactTags extends Component {
     return item[this.props.labelField]
       .toLowerCase()
       .indexOf(query.toLowerCase());
-  }
+  };
 
   resetAndFocusInput() {
     this.setState({ query: '' });
@@ -191,12 +188,15 @@ class ReactTags extends Component {
     }
 
     const query = e.target.value.trim();
+
+    this.setState({ query }, this.updateSuggestions);
+  }
+
+  updateSuggestions = () => {
+    const { query, selectedIndex } = this.state;
     const suggestions = this.filteredSuggestions(query, this.props.suggestions);
 
-    const { selectedIndex } = this.state;
-
     this.setState({
-      query: query,
       suggestions: suggestions,
       selectedIndex:
         selectedIndex >= suggestions.length
@@ -375,13 +375,14 @@ class ReactTags extends Component {
 
   getTagItems = () => {
     const {
+      classNames,
       tags,
       labelField,
       removeComponent,
       readOnly,
       allowDragDrop,
     } = this.props;
-    const { classNames } = this.state;
+
     const moveTag = allowDragDrop ? this.moveTag : null;
     return tags.map((tag, index) => {
       return (
@@ -395,7 +396,7 @@ class ReactTags extends Component {
           removeComponent={removeComponent}
           onTagClicked={this.handleTagClick.bind(this, index)}
           readOnly={readOnly}
-          classNames={classNames}
+          classNames={{ ...DEFAULT_CLASSNAMES, ...classNames }}
           allowDragDrop={allowDragDrop}
         />
       );
@@ -404,6 +405,7 @@ class ReactTags extends Component {
 
   render() {
     const tagItems = this.getTagItems();
+    const classNames = { ...DEFAULT_CLASSNAMES, ...this.props.classNames };
 
     // get the suggestions for the given query
     const query = this.state.query.trim(),
@@ -419,15 +421,17 @@ class ReactTags extends Component {
       inputFieldPosition,
     } = this.props;
 
-    const position = !inline ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
+    const position = !inline
+      ? INPUT_FIELD_POSITIONS.BOTTOM
+      : inputFieldPosition;
 
     const tagInput = !this.props.readOnly ? (
-      <div className={this.state.classNames.tagInput}>
+      <div className={classNames.tagInput}>
         <input
           ref={(input) => {
             this.textInput = input;
           }}
-          className={this.state.classNames.tagInputField}
+          className={classNames.tagInputField}
           type="text"
           placeholder={placeholder}
           aria-label={placeholder}
@@ -452,16 +456,16 @@ class ReactTags extends Component {
           minQueryLength={this.props.minQueryLength}
           shouldRenderSuggestions={this.props.shouldRenderSuggestions}
           isFocused={this.state.isFocused}
-          classNames={this.state.classNames}
+          classNames={classNames}
           renderSuggestion={this.props.renderSuggestion}
         />
       </div>
     ) : null;
 
     return (
-      <div className={ClassNames(this.state.classNames.tags, 'react-tags-wrapper')}>
+      <div className={ClassNames(classNames.tags, 'react-tags-wrapper')}>
         {position === INPUT_FIELD_POSITIONS.TOP && tagInput}
-        <div className={this.state.classNames.selected}>
+        <div className={classNames.selected}>
           {tagItems}
           {position === INPUT_FIELD_POSITIONS.INLINE && tagInput}
         </div>
