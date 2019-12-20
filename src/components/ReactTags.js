@@ -117,11 +117,11 @@ class ReactTags extends Component {
     this.resetAndFocusInput = this.resetAndFocusInput.bind(this);
     this.handleSuggestionHover = this.handleSuggestionHover.bind(this);
     this.handleSuggestionClick = this.handleSuggestionClick.bind(this);
-    this.updateSuggestions = this.updateSuggestions.bind(this);
   }
 
   componentDidMount() {
     const { autofocus, readOnly } = this.props;
+    
     if (autofocus && !readOnly) {
       this.resetAndFocusInput();
     }
@@ -192,7 +192,7 @@ class ReactTags extends Component {
     this.setState({ query }, this.updateSuggestions);
   }
 
-  updateSuggestions() {
+  updateSuggestions = () => {
     const { query, selectedIndex } = this.state;
     const suggestions = this.filteredSuggestions(query, this.props.suggestions);
 
