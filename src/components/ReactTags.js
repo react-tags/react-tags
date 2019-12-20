@@ -120,7 +120,7 @@ class ReactTags extends Component {
   }
 
   componentDidMount() {
-    const { autofocus, readOnly } = this.props
+    const { autofocus, readOnly } = this.props;
     
     if (autofocus && !readOnly) {
       this.resetAndFocusInput();
