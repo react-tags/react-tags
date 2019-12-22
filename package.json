@@ -77,7 +77,7 @@
     "react-test-renderer": "^16.4.2",
     "sass-loader": "^7.1.0",
     "semantic-release": "^15.13.19",
-    "sinon": "^7.2.7",
+    "sinon": "^8.0.0",
     "style-loader": "^1.0.1",
     "webpack": "^4.14.0",
     "webpack-bundle-analyzer": "^3.3.2",
