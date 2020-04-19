@@ -52,7 +52,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
-    "commitizen": "^3.0.1",
+    "commitizen": "^4.0.4",
     "css-loader": "^3.2.1",
     "cz-conventional-changelog": "^3.0.0",
     "enzyme": "^3.9.0",
