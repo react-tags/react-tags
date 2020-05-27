@@ -54,6 +54,7 @@ Tag.propTypes = {
   tag: PropTypes.shape({
     id: PropTypes.string.isRequired,
     className: PropTypes.string,
+    key: PropTypes.string,
   }),
   moveTag: PropTypes.func,
   removeComponent: PropTypes.func,

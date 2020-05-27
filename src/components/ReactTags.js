@@ -387,7 +387,7 @@ class ReactTags extends Component {
     return tags.map((tag, index) => {
       return (
         <Tag
-          key={`${tag.id}-${index}`}
+          key={tag.key || tag.id}
           index={index}
           tag={tag}
           labelField={labelField}
