@@ -28,6 +28,7 @@ class Tag extends Component {
       classNames,
     } = props;
     const { className = '' } = tag;
+    // eslint-disable-next-line
     const tagComponent = ( <span
       className={ClassNames('tag-wrapper', classNames.tag, className)}
       style={{opacity: isDragging ? 0 : 1, 'cursor': canDrag(props) ? 'move' : 'auto'}}
