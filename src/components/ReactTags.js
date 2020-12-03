@@ -162,7 +162,6 @@ class ReactTags extends Component {
   }
 
   handleDelete(i, e) {
-    console.log('delete')
     this.props.handleDelete(i, e);
     if (!this.props.resetInputOnDelete) {
       this.textInput && this.textInput.focus();
