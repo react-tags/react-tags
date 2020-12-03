@@ -8,6 +8,7 @@ import sinon from 'sinon';
 import TestUtils from 'react-dom/test-utils';
 import noop from 'lodash/noop';
 import Tag from '../src/components/Tag';
+import RemoveComponent from '../src/components/RemoveComponent';
 
 function wrapInTestContext(DecoratedComponent) {
   class DecoratedComponentWrapper extends Component {
@@ -50,7 +51,7 @@ describe('Tag', () => {
 
   test('should show cross for removing tag when read-only is false', () => {
     const $el = mount(mockItem());
-    expect($el.find('a.remove').length).to.equal(1);
+    expect($el.find(RemoveComponent).length).to.equal(1);
   });
 
   test('should not show cross for removing tag when read-only is true', () => {
@@ -85,11 +86,9 @@ describe('Tag', () => {
   test('calls the delete handler correctly', () => {
     const spy = sinon.spy();
     const $el = mount(mockItem({ onDelete: spy }));
-    $el.find('a.remove').simulate('click');
+    $el.find(RemoveComponent).simulate('click');
     expect(spy.calledOnce).to.be.true;
     spy.resetHistory();
-    $el.find('a.remove').simulate('keyDown');
-    expect(spy.calledOnce).to.be.true;
   });
 
   test('should add className passed in tags to the tag', () => {
@@ -103,8 +102,6 @@ describe('Tag', () => {
     $el.find('span').simulate('click');
     expect(spy.calledOnce).to.be.true;
     spy.resetHistory();
-    $el.find('span').simulate('keyDown');
-    expect(spy.calledOnce).to.be.true;
   });
 
   test('should trigger the tag click handler on touchStart', () => {
