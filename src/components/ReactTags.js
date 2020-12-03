@@ -121,7 +121,7 @@ class ReactTags extends Component {
 
   componentDidMount() {
     const { autofocus, readOnly } = this.props;
-    
+
     if (autofocus && !readOnly) {
       this.resetAndFocusInput();
     }
@@ -162,6 +162,7 @@ class ReactTags extends Component {
   }
 
   handleDelete(i, e) {
+    console.log('delete')
     this.props.handleDelete(i, e);
     if (!this.props.resetInputOnDelete) {
       this.textInput && this.textInput.focus();
