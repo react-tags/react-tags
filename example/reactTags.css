@@ -67,4 +67,5 @@
 .ReactTags__remove {
     border: none;
     cursor: pointer;
+    background: none;
 }
