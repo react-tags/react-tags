@@ -45,7 +45,6 @@ class ReactTags extends Component {
     allowDeleteFromEmptyInput: PropTypes.bool,
     allowAdditionFromPaste: PropTypes.bool,
     allowDragDrop: PropTypes.bool,
-    resetInputOnDelete: PropTypes.bool,
     handleInputChange: PropTypes.func,
     handleInputFocus: PropTypes.func,
     handleInputBlur: PropTypes.func,
@@ -81,7 +80,6 @@ class ReactTags extends Component {
     handleAddition: noop,
     allowDeleteFromEmptyInput: true,
     allowAdditionFromPaste: true,
-    resetInputOnDelete: true,
     autocomplete: false,
     readOnly: false,
     allowUnique: true,
@@ -114,7 +112,6 @@ class ReactTags extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.moveTag = this.moveTag.bind(this);
     this.handlePaste = this.handlePaste.bind(this);
-    this.resetAndFocusInput = this.resetAndFocusInput.bind(this);
     this.handleSuggestionHover = this.handleSuggestionHover.bind(this);
     this.handleSuggestionClick = this.handleSuggestionClick.bind(this);
   }
@@ -153,7 +150,7 @@ class ReactTags extends Component {
       .indexOf(query.toLowerCase());
   };
 
-  resetAndFocusInput() {
+  resetAndFocusInput = () => {
     this.setState({ query: '' });
     if (this.textInput) {
       this.textInput.value = '';
@@ -161,24 +158,14 @@ class ReactTags extends Component {
     }
   }
 
-  handleDelete(i, e) {
-    this.props.handleDelete(i, e);
-    if (!this.props.resetInputOnDelete) {
-      this.textInput && this.textInput.focus();
-    } else {
-      this.resetAndFocusInput();
-    }
-    e.stopPropagation();
+  handleDelete(index, event) {
+    this.props.handleDelete(index, event);
+    event.stopPropagation();
   }
 
   handleTagClick(i, e) {
     if (this.props.handleTagClick) {
       this.props.handleTagClick(i, e);
-    }
-    if (!this.props.resetInputOnDelete) {
-      this.textInput && this.textInput.focus();
-    } else {
-      this.resetAndFocusInput();
     }
   }
 

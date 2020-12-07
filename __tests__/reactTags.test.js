@@ -49,7 +49,6 @@ describe('Test ReactTags', () => {
       handleAddition: noop,
       allowDeleteFromEmptyInput: true,
       allowAdditionFromPaste: true,
-      resetInputOnDelete: true,
       autocomplete: false,
       readOnly: false,
       allowDragDrop: true,
@@ -322,7 +321,7 @@ describe('Test ReactTags', () => {
       throw error;
     });
 
-    const $el = mount(mockItem({ readOnly: true, resetInputOnDelete: false }));
+    const $el = mount(mockItem({ readOnly: true}));
     const $tag = $el.find('.ReactTags__tag');
     $tag.simulate('click');
   });
