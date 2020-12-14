@@ -167,7 +167,6 @@ class ReactTags extends Component {
     this.props.handleDelete(index, event);
 
     const allTags = document.querySelectorAll('.ReactTags__remove');
-    console.log(this.props.tags);
     let nextElementToFocus, nextIndex;
     if (index === 0) {
       nextElementToFocus = allTags[1];
