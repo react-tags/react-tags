@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const crossStr = String.fromCharCode(215);
 const RemoveComponent = (props) => {
-  const { readOnly, removeComponent, onClick, className, tag } = props;
+  const { readOnly, removeComponent, onClick, className, tag, index } = props;
   if (readOnly) {
     return <span />;
   }
@@ -14,7 +14,7 @@ const RemoveComponent = (props) => {
   }
 
   return (
-    <button onClick={onClick} className={className} aria-label={`remove ${tag.text}`}>
+    <button onClick={onClick} className={className} aria-label={`Tag at index ${index} with value ${tag.id} focussed. Press enter to remove`}>
       {crossStr}
     </button>
   );
@@ -30,6 +30,7 @@ RemoveComponent.propTypes = {
     className: PropTypes.string,
     key: PropTypes.string,
   }),
+  index: PropTypes.number.isRequired,
 };
 
 export default RemoveComponent;

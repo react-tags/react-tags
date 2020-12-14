@@ -26,6 +26,7 @@ class Tag extends Component {
       readOnly,
       tag,
       classNames,
+      index,
     } = props;
     const { className = '' } = tag;
     // eslint-disable-next-line
@@ -41,6 +42,7 @@ class Tag extends Component {
         removeComponent={props.removeComponent}
         onClick={props.onDelete}
         readOnly={readOnly}
+        index={index}
       />
     </span>
     );

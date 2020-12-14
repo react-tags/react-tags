@@ -105,6 +105,7 @@ class ReactTags extends Component {
       isFocused: false,
       selectedIndex: -1,
       selectionMode: false,
+      ariaLiveStatus: '',
     };
     this.handleFocus = this.handleFocus.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
@@ -159,8 +160,37 @@ class ReactTags extends Component {
   }
 
   handleDelete(index, event) {
-    this.props.handleDelete(index, event);
+    event.preventDefault();
     event.stopPropagation();
+    let ariaLiveStatus = `Tag at index ${index} with value ${this.props.tags[index].id} deleted`;
+
+    this.props.handleDelete(index, event);
+
+    const allTags = document.querySelectorAll('.ReactTags__remove');
+    console.log(this.props.tags);
+    let nextElementToFocus, nextIndex;
+    if (index === 0) {
+      nextElementToFocus = allTags[1];
+      nextIndex = 1;
+    } else {
+      nextElementToFocus = allTags[index-1];
+      nextIndex = index - 1;
+    }
+    if (!nextElementToFocus) {
+      nextIndex = -1;
+      nextElementToFocus = this.textInput;
+    }
+    if (nextIndex >= 0) {
+      ariaLiveStatus +=`Tag at index ${nextIndex} with value ${this.props.tags[nextIndex].id} focussed`;
+    }
+    else {
+      ariaLiveStatus += 'Input focussed';
+    }
+    nextElementToFocus.focus();
+    this.setState({
+      ariaLiveStatus,
+    });
+
   }
 
   handleTagClick(i, e) {
@@ -192,16 +222,20 @@ class ReactTags extends Component {
     });
   }
 
-  handleFocus(e) {
-    const value = e.target.value;
+  handleFocus(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const value = event.target.value;
     if (this.props.handleInputFocus) {
       this.props.handleInputFocus(value);
     }
     this.setState({ isFocused: true });
   }
 
-  handleBlur(e) {
-    const value = e.target.value;
+  handleBlur(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const value = event.target.value;
     if (this.props.handleInputBlur) {
       this.props.handleInputBlur(value);
       if (this.textInput) {
@@ -451,6 +485,7 @@ class ReactTags extends Component {
 
     return (
       <div className={ClassNames(classNames.tags, 'react-tags-wrapper')}>
+        <p role={'alert'} className="react-tags-sr-only" aria-atomic={true}>{this.state.ariaLiveStatus}</p>
         {position === INPUT_FIELD_POSITIONS.TOP && tagInput}
         <div className={classNames.selected}>
           {tagItems}
