@@ -180,7 +180,7 @@ class ReactTags extends Component {
       nextElementToFocus = this.textInput;
     }
     if (nextIndex >= 0) {
-      ariaLiveStatus += `Tag at index ${nextIndex} with value ${currentTags[nextIndex].id} focussed`;
+      ariaLiveStatus += `Tag at index ${nextIndex} with value ${currentTags[nextIndex].id} focussed. Press backspace to remove`;
     } else {
       ariaLiveStatus += 'Input focussed. Press enter to add a new tag';
     }
