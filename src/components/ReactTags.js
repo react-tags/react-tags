@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,  createRef} from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import isEqual from 'lodash/isEqual';
@@ -107,6 +107,7 @@ class ReactTags extends Component {
       selectionMode: false,
       ariaLiveStatus: '',
     };
+    this.reactTagsRef = createRef();
     this.handleFocus = this.handleFocus.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -162,10 +163,9 @@ class ReactTags extends Component {
   handleDelete(index, event) {
     event.preventDefault();
     event.stopPropagation();
-    this.props.handleDelete(index, event);
-
     let ariaLiveStatus = `Tag at index ${index} with value ${this.props.tags[index].id} deleted`;
-    const allTags = document.querySelectorAll('.ReactTags__remove');
+    this.props.handleDelete(index, event);
+    const allTags = this.reactTagsRef.current.querySelectorAll('.ReactTags__remove');
     let nextElementToFocus, nextIndex;
     if (index === 0) {
       nextElementToFocus = allTags[1];
@@ -480,7 +480,7 @@ class ReactTags extends Component {
     ) : null;
 
     return (
-      <div className={ClassNames(classNames.tags, 'react-tags-wrapper')}>
+      <div className={ClassNames(classNames.tags, 'react-tags-wrapper')} ref={this.reactTagsRef}>
         <p
           role="alert"
           className="sr-only"
