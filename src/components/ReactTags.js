@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,  createRef} from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import isEqual from 'lodash/isEqual';
@@ -105,7 +105,9 @@ class ReactTags extends Component {
       isFocused: false,
       selectedIndex: -1,
       selectionMode: false,
+      ariaLiveStatus: '',
     };
+    this.reactTagsRef = createRef();
     this.handleFocus = this.handleFocus.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -156,11 +158,36 @@ class ReactTags extends Component {
       this.textInput.value = '';
       this.textInput.focus();
     }
-  }
+  };
 
   handleDelete(index, event) {
-    this.props.handleDelete(index, event);
+    event.preventDefault();
     event.stopPropagation();
+    const currentTags = this.props.tags.slice();
+    let ariaLiveStatus = `Tag at index ${index} with value ${currentTags[index].id} deleted`;
+    this.props.handleDelete(index, event);
+    const allTags = this.reactTagsRef.current.querySelectorAll('.ReactTags__remove');
+    let nextElementToFocus, nextIndex;
+    if (index === 0 && currentTags.length > 1) {
+      nextElementToFocus = allTags[0];
+      nextIndex = 1;
+    } else {
+      nextElementToFocus = allTags[index - 1];
+      nextIndex = index - 1;
+    }
+    if (!nextElementToFocus) {
+      nextIndex = -1;
+      nextElementToFocus = this.textInput;
+    }
+    if (nextIndex >= 0) {
+      ariaLiveStatus += `Tag at index ${nextIndex} with value ${currentTags[nextIndex].id} focussed. Press backspace to remove`;
+    } else {
+      ariaLiveStatus += 'Input focussed. Press enter to add a new tag';
+    }
+    nextElementToFocus.focus();
+    this.setState({
+      ariaLiveStatus,
+    });
   }
 
   handleTagClick(i, e) {
@@ -190,18 +217,18 @@ class ReactTags extends Component {
           ? suggestions.length - 1
           : selectedIndex,
     });
-  }
+  };
 
-  handleFocus(e) {
-    const value = e.target.value;
+  handleFocus(event) {
+    const value = event.target.value;
     if (this.props.handleInputFocus) {
       this.props.handleInputFocus(value);
     }
     this.setState({ isFocused: true });
   }
 
-  handleBlur(e) {
-    const value = e.target.value;
+  handleBlur(event) {
+    const value = event.target.value;
     if (this.props.handleInputBlur) {
       this.props.handleInputBlur(value);
       if (this.textInput) {
@@ -374,7 +401,7 @@ class ReactTags extends Component {
     return tags.map((tag, index) => {
       return (
         <Tag
-          key={tag.key || tag.id}
+          key={index}
           index={index}
           tag={tag}
           labelField={labelField}
@@ -450,7 +477,23 @@ class ReactTags extends Component {
     ) : null;
 
     return (
-      <div className={ClassNames(classNames.tags, 'react-tags-wrapper')}>
+      <div className={ClassNames(classNames.tags, 'react-tags-wrapper')} ref={this.reactTagsRef}>
+        <p
+          role="alert"
+          className="sr-only"
+          style={{
+            position: 'absolute',
+            overflow: 'hidden',
+            clip: 'rect(0 0 0 0)',
+            margin: '-1px',
+            padding: 0,
+            width: '1px',
+            height: '1px',
+            border: 0,
+          }}
+        >
+          {this.state.ariaLiveStatus}
+        </p>
         {position === INPUT_FIELD_POSITIONS.TOP && tagInput}
         <div className={classNames.selected}>
           {tagItems}

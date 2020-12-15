@@ -35,7 +35,7 @@ function mockItem(overrides) {
 }
 
 describe('Test ReactTags', () => {
-  test('should render with expected props', function() {
+  test('should render with expected props', function () {
     const $el = shallow(mockItem());
     const expectedProps = {
       placeholder: DEFAULT_PLACEHOLDER,
@@ -626,107 +626,108 @@ describe('Test ReactTags', () => {
       $el.unmount();
     });
   });
-});
 
-test('should render default tags with custom label field', () => {
-  const labelField = 'name';
-  const mapper = (data) => ({ id: data.id, name: data.text });
-  const tags = defaults.tags.map(mapper);
-  const suggestions = defaults.suggestions.map(mapper);
 
-  const expectedText = tags[0][labelField];
+  test('should render default tags with custom label field', () => {
+    const labelField = 'name';
+    const mapper = (data) => ({ id: data.id, name: data.text });
+    const tags = defaults.tags.map(mapper);
+    const suggestions = defaults.suggestions.map(mapper);
 
-  const props = {
-    labelField,
-    tags,
-    suggestions,
-  };
+    const expectedText = tags[0][labelField];
 
-  const $el = mount(mockItem(props));
-  expect($el.text().slice(0, -1)).to.equal(expectedText);
-  $el.unmount();
-});
+    const props = {
+      labelField,
+      tags,
+      suggestions,
+    };
 
-test('should allow duplicate tags when allowUnique is false', () => {
-  const actual = [];
-  const $el = mount(
-    mockItem({
-      handleAddition(tag) {
-        actual.push(tag);
+    const $el = mount(mockItem(props));
+    expect($el.text().slice(0, -1)).to.equal(expectedText);
+    $el.unmount();
+  });
+
+  test('should allow duplicate tags when allowUnique is false', () => {
+    const actual = [];
+    const $el = mount(
+      mockItem({
+        handleAddition(tag) {
+          actual.push(tag);
+        },
+        allowUnique: false,
+      })
+    );
+
+    expect($el.instance().props.tags).to.have.deep.members(defaults.tags);
+    const $input = $el.find('.ReactTags__tagInputField');
+    $input.simulate('change', { target: { value: 'Apple' } });
+    $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+    expect(actual).to.have.deep.members([
+      {
+        id: 'Apple',
+        text: 'Apple',
       },
-      allowUnique: false,
-    })
-  );
-
-  expect($el.instance().props.tags).to.have.deep.members(defaults.tags);
-  const $input = $el.find('.ReactTags__tagInputField');
-  $input.simulate('change', { target: { value: 'Apple' } });
-  $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
-  expect(actual).to.have.deep.members([
-    {
-      id: 'Apple',
-      text: 'Apple',
-    },
-  ]);
-});
-
-describe('Test inputFieldPosition', () => {
-  test('should display input field and tags inline when "inputFieldPosition" is inline', () => {
-    const $el = mount(
-      mockItem({
-        inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
-      })
-    );
-
-    const $tagContainer = $el.find('.ReactTags__selected');
-    const childLength = $tagContainer.children().length;
-    expect(
-      $tagContainer.children().get(childLength - 1).props.className
-    ).to.equal('ReactTags__tagInput');
+    ]);
   });
 
-  test('should display input field above tags when "inputFieldPosition" is top', () => {
-    const $el = mount(
-      mockItem({
-        inputFieldPosition: INPUT_FIELD_POSITIONS.TOP,
-      })
-    );
+  describe('Test inputFieldPosition', () => {
+    test('should display input field and tags inline when "inputFieldPosition" is inline', () => {
+      const $el = mount(
+        mockItem({
+          inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
+        })
+      );
 
-    const $tagContainer = $el.find('.ReactTags__tags');
-    expect($tagContainer.children().get(0).props.className).to.equal(
-      'ReactTags__tagInput'
-    );
-  });
+      const $tagContainer = $el.find('.ReactTags__selected');
+      const childLength = $tagContainer.children().length;
+      expect(
+        $tagContainer.children().get(childLength - 1).props.className
+      ).to.equal('ReactTags__tagInput');
+    });
 
-  test('should display input field below tags when "inputFieldPosition" is bottom', () => {
-    const $el = mount(
-      mockItem({
-        inputFieldPosition: INPUT_FIELD_POSITIONS.BOTTOM,
-      })
-    );
+    test('should display input field above tags when "inputFieldPosition" is top', () => {
+      const $el = mount(
+        mockItem({
+          inputFieldPosition: INPUT_FIELD_POSITIONS.TOP,
+        })
+      );
 
-    const $tagContainer = $el.find('.ReactTags__tags');
-    expect($tagContainer.children().get(1).props.className).to.equal(
-      'ReactTags__tagInput'
-    );
-  });
+      const $tagContainer = $el.find('.ReactTags__tags');
+      expect($tagContainer.children().get(1).props.className).to.equal(
+        'ReactTags__tagInput'
+      );
+    });
 
-  test('should show console warning when "inline" is false', () => {
-    const consoleWarnStub = stub(console, 'warn');
+    test('should display input field below tags when "inputFieldPosition" is bottom', () => {
+      const $el = mount(
+        mockItem({
+          inputFieldPosition: INPUT_FIELD_POSITIONS.BOTTOM,
+        })
+      );
 
-    mount(
-      mockItem({
-        inline: false,
-      })
-    );
+      const $tagContainer = $el.find('.ReactTags__tags');
+      expect($tagContainer.children().get(2).props.className).to.equal(
+        'ReactTags__tagInput'
+      );
+    });
 
-    expect(consoleWarnStub.calledOnce).to.be.true;
-    expect(
-      consoleWarnStub.calledWithExactly(
-        '[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.'
-      )
-    ).to.be.true;
+    test('should show console warning when "inline" is false', () => {
+      const consoleWarnStub = stub(console, 'warn');
 
-    consoleWarnStub.restore();
+      mount(
+        mockItem({
+          inline: false,
+        })
+      );
+
+      expect(consoleWarnStub.calledOnce).to.be.true;
+      expect(
+        consoleWarnStub.calledWithExactly(
+          '[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.'
+        )
+      ).to.be.true;
+
+      consoleWarnStub.restore();
+    });
   });
 });

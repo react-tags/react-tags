@@ -26,6 +26,7 @@ class Tag extends Component {
       readOnly,
       tag,
       classNames,
+      index,
     } = props;
     const { className = '' } = tag;
     // eslint-disable-next-line
@@ -39,8 +40,10 @@ class Tag extends Component {
         tag={props.tag}
         className={classNames.remove}
         removeComponent={props.removeComponent}
-        onClick={props.onDelete}
+        onRemove={props.onDelete}
         readOnly={readOnly}
+        index={index}
+        onKeyDown={onkeydown}
       />
     </span>
     );
@@ -64,6 +67,7 @@ Tag.propTypes = {
   connectDragSource: PropTypes.func.isRequired,
   isDragging: PropTypes.bool.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 Tag.defaultProps = {
