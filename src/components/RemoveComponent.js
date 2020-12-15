@@ -7,7 +7,6 @@ const RemoveComponent = (props) => {
   const { readOnly, removeComponent, onRemove, className, tag, index } = props;
 
   const onKeydown = (event) => {
-    console.log(event);
     if (event.keyCode === KEYS.ENTER || event.keyCode === KEYS.SPACE) {
       event.preventDefault();
       event.stopPropagation();
