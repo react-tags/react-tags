@@ -157,22 +157,21 @@ class ReactTags extends Component {
       this.textInput.value = '';
       this.textInput.focus();
     }
-  }
+  };
 
   handleDelete(index, event) {
     event.preventDefault();
     event.stopPropagation();
-    let ariaLiveStatus = `Tag at index ${index} with value ${this.props.tags[index].id} deleted`;
-
     this.props.handleDelete(index, event);
 
+    let ariaLiveStatus = `Tag at index ${index} with value ${this.props.tags[index].id} deleted`;
     const allTags = document.querySelectorAll('.ReactTags__remove');
     let nextElementToFocus, nextIndex;
     if (index === 0) {
       nextElementToFocus = allTags[1];
       nextIndex = 1;
     } else {
-      nextElementToFocus = allTags[index-1];
+      nextElementToFocus = allTags[index - 1];
       nextIndex = index - 1;
     }
     if (!nextElementToFocus) {
@@ -180,16 +179,14 @@ class ReactTags extends Component {
       nextElementToFocus = this.textInput;
     }
     if (nextIndex >= 0) {
-      ariaLiveStatus +=`Tag at index ${nextIndex} with value ${this.props.tags[nextIndex].id} focussed`;
-    }
-    else {
-      ariaLiveStatus += 'Input focussed';
+      ariaLiveStatus += `Tag at index ${nextIndex} with value ${this.props.tags[nextIndex].id} focussed`;
+    } else {
+      ariaLiveStatus += 'Input focussed, Add a new tag';
     }
     nextElementToFocus.focus();
     this.setState({
       ariaLiveStatus,
     });
-
   }
 
   handleTagClick(i, e) {
@@ -219,7 +216,7 @@ class ReactTags extends Component {
           ? suggestions.length - 1
           : selectedIndex,
     });
-  }
+  };
 
   handleFocus(event) {
     event.preventDefault();
@@ -484,7 +481,22 @@ class ReactTags extends Component {
 
     return (
       <div className={ClassNames(classNames.tags, 'react-tags-wrapper')}>
-        <p role={'alert'} className="react-tags-sr-only" aria-atomic={true}>{this.state.ariaLiveStatus}</p>
+        <p
+          role="alert"
+          className="sr-only"
+          style={{
+            position: 'absolute',
+            overflow: 'hidden',
+            clip: 'rect(0 0 0 0)',
+            margin: '-1px',
+            padding: 0,
+            width: '1px',
+            height: '1px',
+            border: 0,
+          }}
+        >
+          {this.state.ariaLiveStatus}
+        </p>
         {position === INPUT_FIELD_POSITIONS.TOP && tagInput}
         <div className={classNames.selected}>
           {tagItems}
