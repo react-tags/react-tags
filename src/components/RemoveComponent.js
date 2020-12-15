@@ -1,9 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {KEYS} from './constants';
 
 const crossStr = String.fromCharCode(215);
 const RemoveComponent = (props) => {
-  const { readOnly, removeComponent, onClick, className, tag, index } = props;
+  const { readOnly, removeComponent, onRemove, className, tag, index } = props;
+
+  const onKeydown = (event) => {
+    console.log(event);
+    if (event.keyCode === KEYS.ENTER || event.keyCode === KEYS.SPACE) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    if (event.keyCode === KEYS.BACKSPACE) {
+      onRemove(event);
+    }
+  };
+
   if (readOnly) {
     return <span />;
   }
@@ -14,7 +28,11 @@ const RemoveComponent = (props) => {
   }
 
   return (
-    <button onClick={onClick} className={className} aria-label={`Tag at index ${index} with value ${tag.id} focussed. Press enter to remove`}>
+    <button
+      onClick={onRemove}
+      onKeyDown={onKeydown}
+      className={className}
+      aria-label={`Tag at index ${index} with value ${tag.id} focussed. Press backspace to remove`}>
       {crossStr}
     </button>
   );
@@ -22,7 +40,7 @@ const RemoveComponent = (props) => {
 
 RemoveComponent.propTypes = {
   className: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   removeComponent: PropTypes.func,
   tag: PropTypes.shape({

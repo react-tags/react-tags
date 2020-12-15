@@ -40,9 +40,10 @@ class Tag extends Component {
         tag={props.tag}
         className={classNames.remove}
         removeComponent={props.removeComponent}
-        onClick={props.onDelete}
+        onRemove={props.onDelete}
         readOnly={readOnly}
         index={index}
+        onKeyDown={onkeydown}
       />
     </span>
     );

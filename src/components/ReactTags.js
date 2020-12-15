@@ -163,12 +163,13 @@ class ReactTags extends Component {
   handleDelete(index, event) {
     event.preventDefault();
     event.stopPropagation();
-    let ariaLiveStatus = `Tag at index ${index} with value ${this.props.tags[index].id} deleted`;
+    const currentTags = this.props.tags.slice();
+    let ariaLiveStatus = `Tag at index ${index} with value ${currentTags[index].id} deleted`;
     this.props.handleDelete(index, event);
     const allTags = this.reactTagsRef.current.querySelectorAll('.ReactTags__remove');
     let nextElementToFocus, nextIndex;
-    if (index === 0) {
-      nextElementToFocus = allTags[1];
+    if (index === 0 && currentTags.length > 1) {
+      nextElementToFocus = allTags[0];
       nextIndex = 1;
     } else {
       nextElementToFocus = allTags[index - 1];
@@ -179,9 +180,9 @@ class ReactTags extends Component {
       nextElementToFocus = this.textInput;
     }
     if (nextIndex >= 0) {
-      ariaLiveStatus += `Tag at index ${nextIndex} with value ${this.props.tags[nextIndex].id} focussed`;
+      ariaLiveStatus += `Tag at index ${nextIndex} with value ${currentTags[nextIndex].id} focussed`;
     } else {
-      ariaLiveStatus += 'Input focussed, Add a new tag';
+      ariaLiveStatus += 'Input focussed. Press enter to add a new tag';
     }
     nextElementToFocus.focus();
     this.setState({
@@ -219,8 +220,6 @@ class ReactTags extends Component {
   };
 
   handleFocus(event) {
-    event.preventDefault();
-    event.stopPropagation();
     const value = event.target.value;
     if (this.props.handleInputFocus) {
       this.props.handleInputFocus(value);
@@ -404,7 +403,7 @@ class ReactTags extends Component {
     return tags.map((tag, index) => {
       return (
         <Tag
-          key={tag.key || tag.id}
+          key={index}
           index={index}
           tag={tag}
           labelField={labelField}
