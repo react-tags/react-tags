@@ -170,7 +170,7 @@ class ReactTags extends Component {
     let nextElementToFocus, nextIndex;
     if (index === 0 && currentTags.length > 1) {
       nextElementToFocus = allTags[0];
-      nextIndex = 1;
+      nextIndex = 0;
     } else {
       nextElementToFocus = allTags[index - 1];
       nextIndex = index - 1;
