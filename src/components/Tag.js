@@ -66,6 +66,7 @@ Tag.propTypes = {
   connectDragSource: PropTypes.func.isRequired,
   isDragging: PropTypes.bool.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 Tag.defaultProps = {
