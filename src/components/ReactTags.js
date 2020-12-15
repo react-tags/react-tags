@@ -228,8 +228,6 @@ class ReactTags extends Component {
   }
 
   handleBlur(event) {
-    event.preventDefault();
-    event.stopPropagation();
     const value = event.target.value;
     if (this.props.handleInputBlur) {
       this.props.handleInputBlur(value);
