@@ -86,13 +86,13 @@ describe('Test ReactTags', () => {
   });
 
   test('should not focus on input if autofocus is false', () => {
-    const $el = mount(mockItem({autofocus: false}));
+    const $el = mount(mockItem({ autofocus: false }));
     expect(document.activeElement.tagName).to.equal('BODY');
     $el.unmount();
   });
 
   test('should not focus on input if readOnly is true', () => {
-    const $el = mount(mockItem({autofocus: false}));
+    const $el = mount(mockItem({ autofocus: false }));
     expect(document.activeElement.tagName).to.equal('BODY');
     $el.unmount();
   });
@@ -119,7 +119,7 @@ describe('Test ReactTags', () => {
     expect(handleInputBlur.callCount).to.equal(0);
 
     // Will be invoked despite the input being empty.
-    $el.setProps({handleInputBlur});
+    $el.setProps({ handleInputBlur });
     $el.find('.ReactTags__tagInputField').simulate('blur');
     expect(handleInputBlur.callCount).to.equal(1);
     expect(handleInputBlur.calledWith('')).to.be.true;
@@ -128,9 +128,9 @@ describe('Test ReactTags', () => {
 
   test('invokes the onFocus event', () => {
     const handleInputFocus = spy();
-    const $el = mount(mockItem({inputValue: 'Example'}));
+    const $el = mount(mockItem({ inputValue: 'Example' }));
 
-    $el.setProps({handleInputFocus});
+    $el.setProps({ handleInputFocus });
     $el.find('.ReactTags__tagInputField').simulate('focus');
     expect(handleInputFocus.callCount).to.equal(1);
     expect(handleInputFocus.calledWith('Example')).to.be.true;
@@ -138,10 +138,10 @@ describe('Test ReactTags', () => {
 
   test('invokes the onBlur event when input has value', () => {
     const handleInputBlur = spy();
-    const $el = mount(mockItem({inputValue: 'Example'}));
+    const $el = mount(mockItem({ inputValue: 'Example' }));
 
     // Will also be invoked for when the input has a value.
-    $el.setProps({handleInputBlur});
+    $el.setProps({ handleInputBlur });
     $el.find('.ReactTags__tagInputField').simulate('blur');
     expect(handleInputBlur.callCount).to.equal(1);
     expect(handleInputBlur.calledWith('Example')).to.be.true;
@@ -207,7 +207,7 @@ describe('Test ReactTags', () => {
         'Pear',
         'Peach',
         'Kiwi',
-      ].map((value) => ({id: value, text: value}));
+      ].map((value) => ({ id: value, text: value }));
 
       expect(tags).to.deep.have.same.members(expected);
     });
@@ -290,9 +290,9 @@ describe('Test ReactTags', () => {
 
     expect($el.instance().props.tags).to.have.deep.members(defaults.tags);
     const $input = $el.find('.ReactTags__tagInputField');
-    $input.simulate('change', {target: {value: 'Apple'}});
+    $input.simulate('change', { target: { value: 'Apple' } });
 
-    $input.simulate('keyDown', {keyCode: ENTER_ARROW_KEY_CODE});
+    $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
     expect(actual).to.have.length(0);
   });
 
@@ -310,8 +310,8 @@ describe('Test ReactTags', () => {
     expect($el.instance().props.tags).to.have.members(defaults.tags);
 
     const $input = $el.find('.ReactTags__tagInputField');
-    $input.simulate('keyDown', {keyCode: DOWN_ARROW_KEY_CODE});
-    $input.simulate('keyDown', {keyCode: ENTER_ARROW_KEY_CODE});
+    $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
+    $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
     expect(actual).to.have.length(0);
   });
 
@@ -321,7 +321,7 @@ describe('Test ReactTags', () => {
       throw error;
     });
 
-    const $el = mount(mockItem({readOnly: true}));
+    const $el = mount(mockItem({ readOnly: true}));
     const $tag = $el.find('.ReactTags__tag');
     $tag.simulate('click');
   });
@@ -333,8 +333,8 @@ describe('Test ReactTags', () => {
 
     let modifiedTags = [
       ...defaults.tags,
-      {id: 'NewYork', text: 'NewYork'},
-      {id: 'Austria', text: 'Austria'},
+      { id: 'NewYork', text: 'NewYork' },
+      { id: 'Austria', text: 'Austria' },
     ];
     const $el = mount(
       mockItem({
@@ -354,10 +354,10 @@ describe('Test ReactTags', () => {
       .find('.ReactTags__remove')
       .at(1)
       .simulate('click');
-    $el.setProps({tags: modifiedTags});
+    $el.setProps({ tags: modifiedTags });
     const $input = $el.find('.ReactTags__tagInputField');
-    $input.simulate('change', {target: {value: 'Hello'}});
-    $input.simulate('keyDown', {keyCode: DOWN_ARROW_KEY_CODE});
+    $input.simulate('change', { target: { value: 'Hello' } });
+    $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
   });
 
   describe('render tags correctly when html passed in  text attribute, fix #267', () => {
@@ -368,13 +368,13 @@ describe('Test ReactTags', () => {
       actual = [];
       modifiedTags = [
         ...defaults.tags,
-        {id: '1', text: <span style={{color: 'red'}}> NewYork</span>},
-        {id: '2', text: <span style={{color: 'blue'}}> Austria</span>},
+        { id: '1', text: <span style={{ color: 'red' }}> NewYork</span> },
+        { id: '2', text: <span style={{ color: 'blue' }}> Austria</span> },
       ];
-      handleAddition = ({id, text}) => {
+      handleAddition = ({ id, text }) => {
         actual.push({
           id,
-          text: <span style={{color: 'yellow'}}>{text}</span>,
+          text: <span style={{ color: 'yellow' }}>{text}</span>,
         });
       };
     });
@@ -395,9 +395,9 @@ describe('Test ReactTags', () => {
         })
       );
       const $input = $el.find('.ReactTags__tagInputField');
-      $input.simulate('change', {target: {value: 'Custom tag'}});
+      $input.simulate('change', { target: { value: 'Custom tag' } });
 
-      $input.simulate('keyDown', {keyCode: ENTER_ARROW_KEY_CODE});
+      $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
       expect(actual).to.have.length(1);
       expect(React.isValidElement(actual[0].text)).to.be.true;
     });
@@ -411,9 +411,9 @@ describe('Test ReactTags', () => {
         })
       );
       const $input = $el.find('.ReactTags__tagInputField');
-      $input.simulate('change', {target: {value: 'Austria'}});
+      $input.simulate('change', { target: { value: 'Austria' } });
 
-      $input.simulate('keyDown', {keyCode: ENTER_ARROW_KEY_CODE});
+      $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
       expect(actual).to.have.length(0);
     });
   });
@@ -423,21 +423,21 @@ describe('Test ReactTags', () => {
       const ReactTagsInstance = $el.instance().getDecoratedComponentInstance();
       const $input = $el.find('.ReactTags__tagInputField');
 
-      $input.simulate('change', {target: {value: 'ap'}});
+      $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        {id: 'Apple', text: 'Apple'},
-        {id: 'Apricot', text: 'Apricot'},
+        { id: 'Apple', text: 'Apple' },
+        { id: 'Apricot', text: 'Apricot' },
       ]);
 
       $el.setProps({
         suggestions: [
-          {id: 'Papaya', text: 'Papaya'},
-          {id: 'Paprika', text: 'Paprika'},
+          { id: 'Papaya', text: 'Papaya' },
+          { id: 'Paprika', text: 'Paprika' },
         ],
       });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        {id: 'Papaya', text: 'Papaya'},
-        {id: 'Paprika', text: 'Paprika'},
+        { id: 'Papaya', text: 'Papaya' },
+        { id: 'Paprika', text: 'Paprika' },
       ]);
     });
 
@@ -450,19 +450,19 @@ describe('Test ReactTags', () => {
         defaults.suggestions
       );
 
-      $input.simulate('change', {target: {value: 'or'}});
+      $input.simulate('change', { target: { value: 'or' } });
       expect(ReactTagsInstance.state.suggestions).to.have.members([]);
 
-      $input.simulate('change', {target: {value: 'ea'}});
+      $input.simulate('change', { target: { value: 'ea' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        {id: 'Pear', text: 'Pear'},
-        {id: 'Peach', text: 'Peach'},
+        { id: 'Pear', text: 'Pear' },
+        { id: 'Peach', text: 'Peach' },
       ]);
 
-      $input.simulate('change', {target: {value: 'ap'}});
+      $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        {id: 'Apple', text: 'Apple'},
-        {id: 'Apricot', text: 'Apricot'},
+        { id: 'Apple', text: 'Apple' },
+        { id: 'Apricot', text: 'Apricot' },
       ]);
     });
 
@@ -485,16 +485,16 @@ describe('Test ReactTags', () => {
         defaults.suggestions
       );
 
-      $input.simulate('change', {target: {value: 'Ea'}});
+      $input.simulate('change', { target: { value: 'Ea' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        {id: 'Pear', text: 'Pear'},
-        {id: 'Peach', text: 'Peach'},
+        { id: 'Pear', text: 'Pear' },
+        { id: 'Peach', text: 'Peach' },
       ]);
 
-      $input.simulate('change', {target: {value: 'ap'}});
+      $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        {id: 'Apple', text: 'Apple'},
-        {id: 'Apricot', text: 'Apricot'},
+        { id: 'Apple', text: 'Apple' },
+        { id: 'Apricot', text: 'Apricot' },
       ]);
     });
 
@@ -518,18 +518,18 @@ describe('Test ReactTags', () => {
         defaults.suggestions
       );
 
-      $input.simulate('change', {target: {value: 'Ea'}});
+      $input.simulate('change', { target: { value: 'Ea' } });
       $input.simulate('focus');
-      $input.simulate('keyDown', {keyCode: DOWN_ARROW_KEY_CODE});
-      $input.simulate('keyDown', {keyCode: DOWN_ARROW_KEY_CODE});
+      $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
+      $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        {id: 'Pear', text: 'Pear'},
-        {id: 'Peach', text: 'Peach'},
+        { id: 'Pear', text: 'Pear' },
+        { id: 'Peach', text: 'Peach' },
       ]);
       expect(ReactTagsInstance.state.selectedIndex).to.equal(1);
-      $input.simulate('change', {target: {value: 'Each'}});
+      $input.simulate('change', { target: { value: 'Each' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        {id: 'Peach', text: 'Peach'},
+        { id: 'Peach', text: 'Peach' },
       ]);
       expect(ReactTagsInstance.state.selectedIndex).to.equal(0);
     });
@@ -547,11 +547,11 @@ describe('Test ReactTags', () => {
       );
       const $input = $el.find('.ReactTags__tagInputField');
 
-      $input.simulate('keyDown', {keyCode: DOWN_ARROW_KEY_CODE});
-      $input.simulate('keyDown', {keyCode: DOWN_ARROW_KEY_CODE});
-      $input.simulate('keyDown', {keyCode: DOWN_ARROW_KEY_CODE});
-      $input.simulate('keyDown', {keyCode: ENTER_ARROW_KEY_CODE});
-      expect(actual).to.have.deep.members([{id: 'Apricot', text: 'Apricot'}]);
+      $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
+      $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
+      $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
+      $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+      expect(actual).to.have.deep.members([{ id: 'Apricot', text: 'Apricot' }]);
 
       $el.unmount();
     });
@@ -568,14 +568,14 @@ describe('Test ReactTags', () => {
       );
       const $input = $el.find('.ReactTags__tagInputField');
 
-      $input.simulate('change', {target: {value: 'Or'}});
+      $input.simulate('change', { target: { value: 'Or' } });
       $input.simulate('focus');
-      $input.simulate('keyDown', {keyCode: ENTER_ARROW_KEY_CODE});
-      expect(actual).to.have.deep.members([{id: 'Or', text: 'Or'}]);
+      $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+      expect(actual).to.have.deep.members([{ id: 'Or', text: 'Or' }]);
     });
     test('should add tag with custom label field and default suggestion filter', () => {
       const labelField = 'name';
-      const mapper = (data) => ({id: data.id, name: data.text});
+      const mapper = (data) => ({ id: data.id, name: data.text });
       const tags = defaults.tags.map(mapper);
       const suggestions = defaults.suggestions.map(mapper);
 
@@ -592,14 +592,14 @@ describe('Test ReactTags', () => {
         })
       );
       const $input = $el.find('.ReactTags__tagInputField');
-      $input.simulate('change', {target: {value: 'Or'}});
+      $input.simulate('change', { target: { value: 'Or' } });
       $input.simulate('focus');
-      $input.simulate('keyDown', {keyCode: ENTER_ARROW_KEY_CODE});
-      expect(actual).to.have.deep.members([{id: 'Or', name: 'Or'}]);
+      $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+      expect(actual).to.have.deep.members([{ id: 'Or', name: 'Or' }]);
     });
     test('should select the correct suggestion using the keyboard when label is custom', () => {
       const labelField = 'name';
-      const mapper = (data) => ({id: data.id, name: data.text});
+      const mapper = (data) => ({ id: data.id, name: data.text });
       let actual = [];
       const suggestions = defaults.suggestions.map(mapper);
 
@@ -616,12 +616,12 @@ describe('Test ReactTags', () => {
 
       const $input = $el.find('.ReactTags__tagInputField');
 
-      $input.simulate('change', {target: {value: 'Ap'}});
-      $input.simulate('keyDown', {keyCode: DOWN_ARROW_KEY_CODE});
-      $input.simulate('keyDown', {keyCode: DOWN_ARROW_KEY_CODE});
-      $input.simulate('keyDown', {keyCode: ENTER_ARROW_KEY_CODE});
+      $input.simulate('change', { target: { value: 'Ap' } });
+      $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
+      $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
+      $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
       expect(actual).to.have.deep.members([
-        {id: 'Apricot', [labelField]: 'Apricot'},
+        { id: 'Apricot', [labelField]: 'Apricot' },
       ]);
       $el.unmount();
     });
@@ -630,7 +630,7 @@ describe('Test ReactTags', () => {
 
   test('should render default tags with custom label field', () => {
     const labelField = 'name';
-    const mapper = (data) => ({id: data.id, name: data.text});
+    const mapper = (data) => ({ id: data.id, name: data.text });
     const tags = defaults.tags.map(mapper);
     const suggestions = defaults.suggestions.map(mapper);
 
@@ -660,8 +660,8 @@ describe('Test ReactTags', () => {
 
     expect($el.instance().props.tags).to.have.deep.members(defaults.tags);
     const $input = $el.find('.ReactTags__tagInputField');
-    $input.simulate('change', {target: {value: 'Apple'}});
-    $input.simulate('keyDown', {keyCode: ENTER_ARROW_KEY_CODE});
+    $input.simulate('change', { target: { value: 'Apple' } });
+    $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
     expect(actual).to.have.deep.members([
       {
         id: 'Apple',
