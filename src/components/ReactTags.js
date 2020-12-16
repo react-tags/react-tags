@@ -1,4 +1,4 @@
-import React, { Component,  createRef} from 'react';
+import React, { Component, createRef } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import isEqual from 'lodash/isEqual';
@@ -164,23 +164,27 @@ class ReactTags extends Component {
     event.preventDefault();
     event.stopPropagation();
     const currentTags = this.props.tags.slice();
-    let ariaLiveStatus = `Tag at index ${index} with value ${currentTags[index].id} deleted`;
+    let ariaLiveStatus = `Tag at index ${index} with value ${currentTags[index].id} deleted.`;
     this.props.handleDelete(index, event);
-    const allTags = this.reactTagsRef.current.querySelectorAll('.ReactTags__remove');
-    let nextElementToFocus, nextIndex;
+    const allTags = this.reactTagsRef.current.querySelectorAll(
+      '.ReactTags__remove'
+    );
+    let nextElementToFocus, nextIndex, nextTag;
     if (index === 0 && currentTags.length > 1) {
       nextElementToFocus = allTags[0];
       nextIndex = 0;
+      nextTag = currentTags[1];
     } else {
       nextElementToFocus = allTags[index - 1];
       nextIndex = index - 1;
+      nextTag = currentTags[nextIndex];
     }
     if (!nextElementToFocus) {
       nextIndex = -1;
       nextElementToFocus = this.textInput;
     }
     if (nextIndex >= 0) {
-      ariaLiveStatus += `Tag at index ${nextIndex} with value ${currentTags[nextIndex].id} focussed. Press backspace to remove`;
+      ariaLiveStatus += ` Tag at index ${nextIndex} with value ${nextTag.id} focussed. Press backspace to remove`;
     } else {
       ariaLiveStatus += 'Input focussed. Press enter to add a new tag';
     }
@@ -477,7 +481,9 @@ class ReactTags extends Component {
     ) : null;
 
     return (
-      <div className={ClassNames(classNames.tags, 'react-tags-wrapper')} ref={this.reactTagsRef}>
+      <div
+        className={ClassNames(classNames.tags, 'react-tags-wrapper')}
+        ref={this.reactTagsRef}>
         <p
           role="alert"
           className="sr-only"
@@ -490,8 +496,7 @@ class ReactTags extends Component {
             width: '1px',
             height: '1px',
             border: 0,
-          }}
-        >
+          }}>
           {this.state.ariaLiveStatus}
         </p>
         {position === INPUT_FIELD_POSITIONS.TOP && tagInput}
