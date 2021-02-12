@@ -164,13 +164,11 @@ class ReactTags extends Component {
     event.preventDefault();
     event.stopPropagation();
     const currentTags = this.props.tags.slice();
-    
-    // Early exit from the function if the array 
+    // Early exit from the function if the array
     // is already empty
     if (currentTags.length === 0) {
       return;
     }
-    
     let ariaLiveStatus = `Tag at index ${index} with value ${currentTags[index].id} deleted.`;
     this.props.handleDelete(index, event);
     const allTags = this.reactTagsRef.current.querySelectorAll(
