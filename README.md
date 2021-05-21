@@ -6,8 +6,8 @@ React-Tags
 [![npm downloads](https://img.shields.io/npm/dm/react-tag-input.svg?style=flat-square)](https://www.npmjs.com/package/react-tag-input)
 [![build status](https://img.shields.io/travis/react-tags/react-tags.svg?style=flat-square)](https://travis-ci.org/react-tags/react-tags)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-<a href="https://codeclimate.com/github/prakhar1989/react-tags/maintainability"><img src="https://api.codeclimate.com/v1/badges/b9edb2810b02bb845d20/maintainability" /></a>
-<a href="https://codeclimate.com/github/prakhar1989/react-tags/test_coverage"><img src="https://api.codeclimate.com/v1/badges/b9edb2810b02bb845d20/test_coverage" /></a>
+<a href="https://codeclimate.com/github/react-tags/react-tags/maintainability"><img src="https://api.codeclimate.com/v1/badges/b9edb2810b02bb845d20/maintainability" /></a>
+<a href="https://codeclimate.com/github/react-tags/react-tags/test_coverage"><img src="https://api.codeclimate.com/v1/badges/b9edb2810b02bb845d20/test_coverage" /></a>
 
 React-tags is a simple tagging component ready to drop in your React projects. The component is inspired by GMail's *To* field in the compose window.
 
@@ -526,7 +526,7 @@ The component is written in ES6 and uses [Webpack](http://webpack.github.io/) as
 #### Set up instructions
 
 ```
-git clone git@github.com:prakhar1989/react-tags.git
+git clone git@github.com:react-tags/react-tags.git
 cd react-tags
 npm install
 npm run precommit
