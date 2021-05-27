@@ -11,6 +11,8 @@ React-Tags
 
 React-tags is a simple tagging component ready to drop in your React projects. The component is inspired by GMail's *To* field in the compose window.
 
+Follow [@react-tags](https://twitter.com/ReactTags) on twitter!
+
 ### Features
 - Autocomplete based on a suggestion list
 - Keyboard friendly and mouse support
