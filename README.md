@@ -1,17 +1,17 @@
 React-Tags
 ===
 
-[![MIT](https://img.shields.io/npm/l/react-tag-input.svg?style=flat-square)](https://github.com/prakhar1989/react-tags/blob/master/LICENSE)
+[![MIT](https://img.shields.io/npm/l/react-tag-input.svg?style=flat-square)](https://github.com/react-tags/react-tags/blob/master/LICENSE)
 [![NPM Version](https://img.shields.io/npm/v/react-tag-input.svg?style=flat-square)](https://www.npmjs.com/package/react-tag-input)
-[![Dependency Status](https://david-dm.org/yahoo/react-dnd-touch-backend.svg)](https://david-dm.org/yahoo/react-dnd-touch-backend)
-[![devDependency Status](https://david-dm.org/yahoo/react-dnd-touch-backend/dev-status.svg)](https://david-dm.org/yahoo/react-dnd-touch-backend#info=devDependencies)
 [![npm downloads](https://img.shields.io/npm/dm/react-tag-input.svg?style=flat-square)](https://www.npmjs.com/package/react-tag-input)
-[![build status](https://img.shields.io/travis/prakhar1989/react-tags.svg?style=flat-square)](https://travis-ci.org/prakhar1989/react-tags)
+[![build status](https://img.shields.io/travis/react-tags/react-tags.svg?style=flat-square)](https://travis-ci.org/react-tags/react-tags)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-<a href="https://codeclimate.com/github/prakhar1989/react-tags/maintainability"><img src="https://api.codeclimate.com/v1/badges/b9edb2810b02bb845d20/maintainability" /></a>
-<a href="https://codeclimate.com/github/prakhar1989/react-tags/test_coverage"><img src="https://api.codeclimate.com/v1/badges/b9edb2810b02bb845d20/test_coverage" /></a>
+<a href="https://codeclimate.com/github/react-tags/react-tags/maintainability"><img src="https://api.codeclimate.com/v1/badges/b9edb2810b02bb845d20/maintainability" /></a>
+<a href="https://codeclimate.com/github/react-tags/react-tags/test_coverage"><img src="https://api.codeclimate.com/v1/badges/b9edb2810b02bb845d20/test_coverage" /></a>
 
 React-tags is a simple tagging component ready to drop in your React projects. The component is inspired by GMail's *To* field in the compose window.
+
+Follow [@react-tags](https://twitter.com/ReactTags) on twitter!
 
 ### Features
 - Autocomplete based on a suggestion list
@@ -129,7 +129,7 @@ One of the dependencies of this component is the [react-dnd](https://github.com/
 ```javascript
 const ReactTags = require('react-tag-input').WithOutContext;
 ```
-Otherwise, you can simply import along with the backend itself (as shown above). If you have ideas to make this API better, I'd [love to hear](https://github.com/prakhar1989/react-tags/issues/new).
+Otherwise, you can simply import along with the backend itself (as shown above). If you have ideas to make this API better, I'd [love to hear](https://github.com/react-tags/react-tags/issues/new).
 
 <a name="Options"></a>
 ### Options
@@ -528,7 +528,7 @@ The component is written in ES6 and uses [Webpack](http://webpack.github.io/) as
 #### Set up instructions
 
 ```
-git clone git@github.com:prakhar1989/react-tags.git
+git clone git@github.com:react-tags/react-tags.git
 cd react-tags
 npm install
 npm run precommit
@@ -547,5 +547,5 @@ The autocomplete dropdown is inspired by Lea Verou's [awesomeplete](https://gith
 Also thanks to the awesome contributors who've made the library far better!
 
 
-[default-suggestions-filter-logic]: https://github.com/prakhar1989/react-tags/blob/v4.0.1/lib/ReactTags.js#L83
+[default-suggestions-filter-logic]: https://github.com/react-tags/react-tags/blob/v4.0.1/lib/ReactTags.js#L83
 [includes-polyfill]: https://github.com/mathiasbynens/String.prototype.includes
