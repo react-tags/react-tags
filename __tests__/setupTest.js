@@ -1,4 +1,4 @@
 import Enzyme from 'enzyme';
-import React16Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
-Enzyme.configure({ adapter: new React16Adapter() });
+Enzyme.configure({ adapter: new Adapter() });
