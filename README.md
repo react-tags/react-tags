@@ -164,7 +164,7 @@ Option | Type | Default | Description
 |[`renderSuggestion`](#renderSuggestion) | `Function` | `undefined` | Render prop for rendering your own suggestions
 | [`inputProps`](#inputProps) | Object |`{}` | The extra attributes which are passed to the input field.
 
-###tags (optional, defaults to `[]`)
+### tags
 An array of tags that are displayed as pre-selected. Each tag should have an `id` property, property for the label, which is specified by the [`labelField`](#labelFieldOption) and class for label, which is specified by `className`.
 
 ```js
@@ -178,7 +178,7 @@ const tags =  [ { id: "1", name: "Apples" } ]
 const tags = [ { id: "1", text: "Apples", className: 'red'} ]
 ```
 
-###suggestions (optional, defaults to `[]`)
+### suggestions
 An array of suggestions that are used as basis for showing suggestions. These objects should follow the same structure as the `tags`. So if the `labelField` is `name`, the following would work:
 
 ```js
@@ -206,14 +206,14 @@ const Keys = {
 ```
 
 
-###placeholder(optional, defaults to `Add new tag`)
+### placeholder
 The placeholder shown for the input.
 
 ```js
 let placeholder = "Add new country"
 ```
 
-###labelField (optional, defaults to `text`)
+### labelField
 Provide an alternative `label` property for the tags.
 
 ```jsx
@@ -228,7 +228,7 @@ Provide an alternative `label` property for the tags.
 This is useful if your data uses the `text` property for something else.
 
 
-###handleAddition (required)
+### handleAddition
 Function called when the user wants to add a tag (either a click, a tab press or carriage return)
 
 ```js
@@ -237,7 +237,7 @@ function(tag) {
 }
 ```
 
-###handleDelete (required)
+### handleDelete
 Function called when the user wants to delete a tag
 
 ```js
@@ -246,8 +246,7 @@ function(i) {
 }
 ```
 
-<a name="handleDragOption"></a>
-### handleDrag (optional)
+### handleDrag
 If you want tags to be draggable, you need to provide this function.
 Function called when the user drags a tag.
 
@@ -257,7 +256,7 @@ function(tag, currPos, newPos) {
 }
 ```
 
-### handleFilterSuggestions (optional)
+### handleFilterSuggestions
 To assert control over the suggestions filter, you may contribute a function that is executed whenever a filtered set
 of suggestions is expected. By default, the text input value will be matched against each suggestion, and [those that
 **start with** the entered text][default-suggestions-filter-logic] will be included in the filters suggestions list. If you do contribute a custom filter
@@ -282,7 +281,7 @@ either refactor the above filter based on the capabilities of your supported bro
 `String.prototype.includes`][includes-polyfill].
 
 
-### handleTagClick (optional)
+### handleTagClick
 Function called when the user wants to know which tag was clicked
 
 ```js
@@ -291,7 +290,7 @@ function(i) {
 }
 ```
 
-### autofocus (optional, defaults to `true`)
+### autofocus
 Optional boolean param to control whether the text-input should be autofocused on mount.
 
 ```jsx
@@ -300,7 +299,7 @@ Optional boolean param to control whether the text-input should be autofocused o
     ...>
 ```
 
-### allowDeleteFromEmptyInput (optional, defaults to `true`)
+### allowDeleteFromEmptyInput
 Optional boolean param to control whether tags should be deleted when the 'Delete' key is pressed in an empty Input Box.
 
 ```js
@@ -309,7 +308,7 @@ Optional boolean param to control whether tags should be deleted when the 'Delet
     ...>
 ```
 
-### handleInputChange (optional)
+### handleInputChange
 Optional event handler for input onChange
 
 ```js
@@ -318,7 +317,7 @@ Optional event handler for input onChange
     ...>
 ```
 
-### handleInputFocus (optional)
+### handleInputFocus
 Optional event handler for input onFocus
 
 ```js
@@ -327,7 +326,7 @@ Optional event handler for input onFocus
     ...>
 ```
 
-### handleInputBlur (optional)
+### handleInputBlur
 Optional event handler for input onBlur
 
 ```js
@@ -336,10 +335,10 @@ Optional event handler for input onBlur
     ...>
 ```
 
-### minQueryLength (optional, defaults to `2`)
-How many characters are needed for suggestions to appear.
+### minQueryLength
+Minimum number of characters needed for suggestions to appear. Defaults to `2`.
 
-### removeComponent (optional)
+### removeComponent
 If you'd like to supply your own tag delete/remove element, create a React component and pass it as a property to ReactTags using the `removeComponent` option. By default, a simple anchor link with an "x" text node as its only child is rendered, but if you'd like to, say, replace this with a `<button>` element that uses an image instead of text, your markup may look something like this:
 
 ```javascript
@@ -364,7 +363,7 @@ class RemoveComponent extends React.Component {
 
 The "ReactTags__remove" className and `onClick` handler properties can be automatically included on the `<button>` by using the [JSX spread attribute](https://facebook.github.io/react/docs/jsx-spread.html), as illustrated above.
 
-### autocomplete (optional, defaults to `false`)
+### autocomplete
 Useful for enhancing data entry workflows for your users by ensuring the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed (such as the enter key). This option has three possible values:
 
 - `true` - when delimeter key (such as enter) is pressed, first matching suggestion is used.
@@ -373,10 +372,10 @@ Useful for enhancing data entry workflows for your users by ensuring the first m
 
 This option has no effect if there are no [`suggestions`](#suggestionsOption).
 
-### readOnly (optional, defaults to `false`)
+### readOnly
 Renders the component in read-only mode without the input box and `removeComponent`. This also disables the drag-n-drop feature.
 
-### name (optional)
+### name
 The name attribute added to the input.
 
 ```
@@ -385,7 +384,7 @@ The name attribute added to the input.
     ...>
 ```
 
-### id (optional)
+### id
 The id attribute added to the input.
 
 ```
@@ -394,7 +393,7 @@ The id attribute added to the input.
     ...>
 ```
 
-### maxLength (optional)
+### maxLength
 The maxLength attribute added to the input. Specifies the maximum number of characters allowed in the input field.
 
 ```
@@ -451,13 +450,13 @@ The inputFieldPosition attribute decides the positioning of the input field rela
 
 ![img](docs/input-field-position-bottom.png)
 
-### allowUnique (optional, defaults to `true`)
+### allowUnique
 This prop controls whether tags should be unique.
 
-### allowDragDrop (optional, defaults to `true`)
+### allowDragDrop
 This prop controls whether tags should have the drag-n-drop feature enabled.
 
-### renderSuggestion (optional)
+### renderSuggestion
 This props allows to provide your own suggestion renderer and override the default one. It receives the suggestion and the query string as parameters. For example:
 
 ```
@@ -466,7 +465,7 @@ This props allows to provide your own suggestion renderer and override the defau
     ...>
 ```
 
-### inputProps (optional)
+### inputProps
 
 When you want to pass additional attributes to the input element (for example autocomplete, disabled etc) you can use this prop. 
 
