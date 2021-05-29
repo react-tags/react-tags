@@ -2,14 +2,10 @@ import React from 'react';
 import { expect } from 'chai';
 import { mount, shallow } from 'enzyme';
 import { spy, stub } from 'sinon';
-import noop from 'lodash/noop';
 
 import { WithContext as ReactTags } from '../src/components/ReactTags';
 
 import {
-  KEYS,
-  DEFAULT_PLACEHOLDER,
-  DEFAULT_LABEL_FIELD,
   INPUT_FIELD_POSITIONS,
 } from '../src/components/constants';
 
@@ -37,26 +33,8 @@ function mockItem(overrides) {
 describe('Test ReactTags', () => {
   test('should render with expected props', function () {
     const $el = shallow(mockItem());
-    const expectedProps = {
-      placeholder: DEFAULT_PLACEHOLDER,
-      suggestions: [],
-      delimiters: [KEYS.ENTER, KEYS.TAB],
-      autofocus: true,
-      labelField: DEFAULT_LABEL_FIELD,
-      inline: true,
-      inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
-      handleDelete: noop,
-      handleAddition: noop,
-      allowDeleteFromEmptyInput: true,
-      allowAdditionFromPaste: true,
-      autocomplete: false,
-      readOnly: false,
-      allowDragDrop: true,
-      ...defaults,
-      allowUnique: true,
-    };
     expect($el).to.have.length(1);
-    expect($el.props().children.props).to.deep.equal(expectedProps);
+    jestExpect($el.props().children.props).toMatchSnapshot();
   });
 
   test('should update the class when the prop classNames changes', () => {
