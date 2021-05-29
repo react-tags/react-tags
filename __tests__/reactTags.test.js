@@ -708,4 +708,13 @@ describe('Test ReactTags', () => {
       consoleWarnStub.restore();
     });
   });
+
+  test('should pass input props to the input element', () => {
+    const $el = mount(mockItem({
+      inputProps: {
+        disabled: true
+      }
+    }));
+    expect($el.find('[data-automation="input"]').props().disabled).to.be.true;
+  })
 });

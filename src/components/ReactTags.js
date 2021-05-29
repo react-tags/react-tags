@@ -472,6 +472,7 @@ class ReactTags extends Component {
           id={inputId}
           maxLength={maxLength}
           value={inputValue}
+          data-automation="input"
         />
 
         <Suggestions
