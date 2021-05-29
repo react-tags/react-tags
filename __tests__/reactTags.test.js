@@ -5,9 +5,7 @@ import { spy, stub } from 'sinon';
 
 import { WithContext as ReactTags } from '../src/components/ReactTags';
 
-import {
-  INPUT_FIELD_POSITIONS,
-} from '../src/components/constants';
+import { INPUT_FIELD_POSITIONS } from '../src/components/constants';
 
 /* eslint-disable no-console */
 
@@ -299,7 +297,7 @@ describe('Test ReactTags', () => {
       throw error;
     });
 
-    const $el = mount(mockItem({ readOnly: true}));
+    const $el = mount(mockItem({ readOnly: true }));
     const $tag = $el.find('.ReactTags__tag');
     $tag.simulate('click');
   });
@@ -323,15 +321,9 @@ describe('Test ReactTags', () => {
       })
     );
     //remove Apple
-    $el
-      .find('.ReactTags__remove')
-      .at(0)
-      .simulate('click');
+    $el.find('.ReactTags__remove').at(0).simulate('click');
     //remove NewYork
-    $el
-      .find('.ReactTags__remove')
-      .at(1)
-      .simulate('click');
+    $el.find('.ReactTags__remove').at(1).simulate('click');
     $el.setProps({ tags: modifiedTags });
     const $input = $el.find('.ReactTags__tagInputField');
     $input.simulate('change', { target: { value: 'Hello' } });
@@ -605,7 +597,6 @@ describe('Test ReactTags', () => {
     });
   });
 
-
   test('should render default tags with custom label field', () => {
     const labelField = 'name';
     const mapper = (data) => ({ id: data.id, name: data.text });
@@ -710,11 +701,13 @@ describe('Test ReactTags', () => {
   });
 
   test('should pass input props to the input element', () => {
-    const $el = mount(mockItem({
-      inputProps: {
-        disabled: true
-      }
-    }));
+    const $el = mount(
+      mockItem({
+        inputProps: {
+          disabled: true,
+        },
+      })
+    );
     expect($el.find('[data-automation="input"]').props().disabled).to.be.true;
-  })
+  });
 });
