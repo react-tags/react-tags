@@ -190,8 +190,9 @@ const suggestions = [
     { id: "4", name: "pear" }
 ];
 
-<a name="delimiters"></a>
-##### delimiters (optional, defaults to `[ENTER, TAB]`)
+```
+
+### delimiters
 Specifies which characters should terminate tags input. An array of character codes.
 
 ```js
@@ -402,7 +403,7 @@ The maxLength attribute added to the input. Specifies the maximum number of char
     ...>
 ```
 
-### inline (optional, defaults to `true`)
+### inline
 The inline attributes decides whether the input fields and selected tags will be rendered in-line.
 
 ```
@@ -423,7 +424,7 @@ The inline attributes decides whether the input fields and selected tags will be
 
 _This attribute is deprecated and will be removed in v7.x.x, see [inputFieldPosition](#inputFieldPosition)._
 
-### inputFieldPosition (optional, defaults to `inline`)
+### inputFieldPosition
 The inputFieldPosition attribute decides the positioning of the input field relative to the tags. Can be one of `inline`, `top` or `bottom`.
 
 ```
