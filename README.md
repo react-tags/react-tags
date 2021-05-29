@@ -1,4 +1,4 @@
-#React tags
+# React tags
 
 [![MIT](https://img.shields.io/npm/l/react-tag-input.svg?style=flat-square)](https://github.com/react-tags/react-tags/blob/master/LICENSE)
 [![NPM Version](https://img.shields.io/npm/v/react-tag-input.svg?style=flat-square)](https://www.npmjs.com/package/react-tag-input)
@@ -135,16 +135,16 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-|[`tags`](#tagsOption) | `Array` | `[]` | An array of tags that are displayed as pre-selected
-|[`suggestions`](#suggestionsOption) | `Array` | `[]` | An array of suggestions that are used as basis for showing suggestions
+|[`tags`](#tags) | `Array` | `[]` | An array of tags that are displayed as pre-selected
+|[`suggestions`](#suggestions) | `Array` | `[]` | An array of suggestions that are used as basis for showing suggestions
 |[`delimiters`](#delimiters) | `Array` | `[ENTER, TAB]` | Specifies which characters should terminate tags input
-|[`placeholder`](#placeholderOption) | `String` | `Add new tag` | The placeholder shown for the input
-|[`labelField`](#labelFieldOption) | `String` | `text` | Provide an alternative `label` property for the tags
-|[`handleAddition`](#handleAdditionOption) | `Function` | `undefined` | Function called when the user wants to add a tag (required)
-|[`handleDelete`](#handleDeleteOption) | `Function` | `undefined` | Function called when the user wants to delete a tag (required)
-|[`handleDrag`](#handleDragOption) | `Function` | `undefined` | Function called when the user drags a tag
+|[`placeholder`](#placeholder) | `String` | `Add new tag` | The placeholder shown for the input
+|[`labelField`](#labelField) | `String` | `text` | Provide an alternative `label` property for the tags
+|[`handleAddition`](#handleAddition) | `Function` | `undefined` | Function called when the user wants to add a tag (required)
+|[`handleDelete`](#handleDelete) | `Function` | `undefined` | Function called when the user wants to delete a tag (required)
+|[`handleDrag`](#handleDrag) | `Function` | `undefined` | Function called when the user drags a tag
 |[`handleFilterSuggestions`](#handleFilterSuggestions) | `Function` | `undefined` | Function called when filtering suggestions
-|[`handleTagClick`](#handleTagClickOption) | `Function` | `undefined` | Function called when the user wants to know which tag was clicked
+|[`handleTagClick`](#handleTagClick) | `Function` | `undefined` | Function called when the user wants to know which tag was clicked
 |[`autofocus`](#autofocus) | `Boolean` | `true` | Boolean value to control whether the text-input should be autofocused on mount
 |[`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput) | `Boolean` | `true` | Boolean value to control whether tags should be deleted when the 'Delete' key is pressed in an empty Input Box
 |[`handleInputChange`](#handleInputChange) | `Function` | `undefined` | Event handler for input onChange
@@ -154,8 +154,8 @@ Option | Type | Default | Description
 |[`removeComponent`](#removeComponent) | `Boolean` | `false` | Custom delete/remove tag element
 |[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed
 |[`readOnly`](#readOnly) | `Boolean` | `false` | Read-only mode without the input box and `removeComponent` and drag-n-drop features disabled
-|[`name`](#nameOption) | `String` | `undefined` | The `name` attribute added to the input
-|[`id`](#idOption) | `String` | `undefined` | The `id` attribute added to the input
+|[`name`](#name) | `String` | `undefined` | The `name` attribute added to the input
+|[`id`](#id) | `String` | `undefined` | The `id` attribute added to the input
 |[`maxLength`](#maxLength) | `Number` | `Infinity` | The `maxLength` attribute added to the input
 |[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line
 |[`inputFieldPosition`](#inputFieldPosition) | `String` | `inline` | Specify position of input field relative to tags
