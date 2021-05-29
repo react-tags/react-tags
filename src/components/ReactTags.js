@@ -66,6 +66,7 @@ class ReactTags extends Component {
     ),
     allowUnique: PropTypes.bool,
     renderSuggestion: PropTypes.func,
+    inputProps: PropTypes.object,
   };
 
   static defaultProps = {
@@ -85,6 +86,7 @@ class ReactTags extends Component {
     allowUnique: true,
     allowDragDrop: true,
     tags: [],
+    inputProps: {},
   };
 
   constructor(props) {
@@ -442,6 +444,8 @@ class ReactTags extends Component {
       maxLength,
       inline,
       inputFieldPosition,
+      inputValue,
+      inputProps,
     } = this.props;
 
     const position = !inline
@@ -451,6 +455,7 @@ class ReactTags extends Component {
     const tagInput = !this.props.readOnly ? (
       <div className={classNames.tagInput}>
         <input
+          {...inputProps}
           ref={(input) => {
             this.textInput = input;
           }}
@@ -466,7 +471,7 @@ class ReactTags extends Component {
           name={inputName}
           id={inputId}
           maxLength={maxLength}
-          value={this.props.inputValue}
+          value={inputValue}
         />
 
         <Suggestions
