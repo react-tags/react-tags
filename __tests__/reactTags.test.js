@@ -2,16 +2,10 @@ import React from 'react';
 import { expect } from 'chai';
 import { mount, shallow } from 'enzyme';
 import { spy, stub } from 'sinon';
-import noop from 'lodash/noop';
 
 import { WithContext as ReactTags } from '../src/components/ReactTags';
 
-import {
-  KEYS,
-  DEFAULT_PLACEHOLDER,
-  DEFAULT_LABEL_FIELD,
-  INPUT_FIELD_POSITIONS,
-} from '../src/components/constants';
+import { INPUT_FIELD_POSITIONS } from '../src/components/constants';
 
 /* eslint-disable no-console */
 
@@ -37,26 +31,8 @@ function mockItem(overrides) {
 describe('Test ReactTags', () => {
   test('should render with expected props', function () {
     const $el = shallow(mockItem());
-    const expectedProps = {
-      placeholder: DEFAULT_PLACEHOLDER,
-      suggestions: [],
-      delimiters: [KEYS.ENTER, KEYS.TAB],
-      autofocus: true,
-      labelField: DEFAULT_LABEL_FIELD,
-      inline: true,
-      inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
-      handleDelete: noop,
-      handleAddition: noop,
-      allowDeleteFromEmptyInput: true,
-      allowAdditionFromPaste: true,
-      autocomplete: false,
-      readOnly: false,
-      allowDragDrop: true,
-      ...defaults,
-      allowUnique: true,
-    };
     expect($el).to.have.length(1);
-    expect($el.props().children.props).to.deep.equal(expectedProps);
+    jestExpect($el.props().children.props).toMatchSnapshot();
   });
 
   test('should update the class when the prop classNames changes', () => {
@@ -321,7 +297,7 @@ describe('Test ReactTags', () => {
       throw error;
     });
 
-    const $el = mount(mockItem({ readOnly: true}));
+    const $el = mount(mockItem({ readOnly: true }));
     const $tag = $el.find('.ReactTags__tag');
     $tag.simulate('click');
   });
@@ -345,15 +321,9 @@ describe('Test ReactTags', () => {
       })
     );
     //remove Apple
-    $el
-      .find('.ReactTags__remove')
-      .at(0)
-      .simulate('click');
+    $el.find('.ReactTags__remove').at(0).simulate('click');
     //remove NewYork
-    $el
-      .find('.ReactTags__remove')
-      .at(1)
-      .simulate('click');
+    $el.find('.ReactTags__remove').at(1).simulate('click');
     $el.setProps({ tags: modifiedTags });
     const $input = $el.find('.ReactTags__tagInputField');
     $input.simulate('change', { target: { value: 'Hello' } });
@@ -627,7 +597,6 @@ describe('Test ReactTags', () => {
     });
   });
 
-
   test('should render default tags with custom label field', () => {
     const labelField = 'name';
     const mapper = (data) => ({ id: data.id, name: data.text });
@@ -729,5 +698,16 @@ describe('Test ReactTags', () => {
 
       consoleWarnStub.restore();
     });
+  });
+
+  test('should pass input props to the input element', () => {
+    const $el = mount(
+      mockItem({
+        inputProps: {
+          disabled: true,
+        },
+      })
+    );
+    expect($el.find('[data-automation="input"]').props().disabled).to.be.true;
   });
 });
