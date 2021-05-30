@@ -27,23 +27,29 @@ Because I was looking for an excuse to build a standalone component and publish 
 Check it out [here](https://stackblitz.com/edit/react-tag-input-1nelrc)
 
 ## Installation
-The preferred way of using the component is via NPM
+You can use npm
 
 ```
 npm install --save react-tag-input
 ```
+
+or via Yarn
+
+```js
+yarn add react-tag-input
+```
 make sure you have installed the **peer dependencies** as well with below versions
 ```
-react: ^16.3.1,
+react: ^17.0.2,
 react-dnd: ^5.0.0
 react-dnd-html5-backend: ^3.0.2
-react-dom": ^16.3.1
+react-dom": ^17.0.2
 
 ```
 It is, however, also available to be used separately (`dist/ReactTags.min.js`). If you prefer this method remember to include [ReactDND](https://github.com/gaearon/react-dnd) as a dependancy. Refer to the [example](https://stackblitz.com/edit/react-tag-input) to see how this works.
 
 ## Usage
-
+    
 Here's a sample implementation that initializes the component with a list of initial `tags` and `suggestions` list. Apart from this, there are multiple events, handlers for which need to be set. For more details, go through the [API](#Options).
 
 
