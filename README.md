@@ -370,8 +370,8 @@ The below props will be passed to the `removeComponent`. You will need to forwar
 | `onRemove` | `Function` | The callback to be  triggered when tag is removed, you will need to pass this to the `onClick` handler of the remove component |
 |`onKeyDown` | `Function` | The callback to be triggered when keydown event occurs. You will need to pass this to `onKeyDown` handler of the remove component|
 | `aria-label` | string | The `aria-label` to be announced when the tag at an index is deleted |
-| tag | <pre>{ id?: string, className: string, key: string }</pre> | The tag to be deleted.
-| index | number | the index of the tag to be deleted.
+| `tag` | <pre>{ id?: string, className: string, key: string }</pre> | The `tag` to be deleted.
+| `index` | number | the `index` of the tag to be deleted.
 
 
 
