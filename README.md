@@ -151,7 +151,7 @@ Option | Type | Default | Description
 |[`handleInputFocus`](#handleInputFocus) | `Function` | `undefined` | Event handler for input onFocus
 |[`handleInputBlur`](#handleInputBlur) | `Function` | `undefined` | Event handler for input onBlur
 |[`minQueryLength`](#minQueryLength) | `Number` | `2` | How many characters are needed for suggestions to appear
-|[`removeComponent`](#removeComponent) | `Boolean` | `false` | Custom delete/remove tag element
+|[`removeComponent`](#removeComponent) | `Function` |  | Function to render custom remove component for the tags.
 |[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed
 |[`readOnly`](#readOnly) | `Boolean` | `false` | Read-only mode without the input box and `removeComponent` and drag-n-drop features disabled
 |[`name`](#name) | `String` | `undefined` | The `name` attribute added to the input
