@@ -151,7 +151,7 @@ Option | Type | Default | Description
 |[`handleInputFocus`](#handleInputFocus) | `Function` | `undefined` | Event handler for input onFocus
 |[`handleInputBlur`](#handleInputBlur) | `Function` | `undefined` | Event handler for input onBlur
 |[`minQueryLength`](#minQueryLength) | `Number` | `2` | How many characters are needed for suggestions to appear
-|[`removeComponent`](#removeComponent) | `Boolean` | `false` | Custom delete/remove tag element
+|[`removeComponent`](#removeComponent) | `Function` |  | Function to render custom remove component for the tags.
 |[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed
 |[`readOnly`](#readOnly) | `Boolean` | `false` | Read-only mode without the input box and `removeComponent` and drag-n-drop features disabled
 |[`name`](#name) | `String` | `undefined` | The `name` attribute added to the input
@@ -353,16 +353,27 @@ class Foo extends React.Component {
 
 class RemoveComponent extends React.Component {
    render() {
+     const { className, onRemove } = this.props;
       return (
-         <button {...this.props}>
+         <button onClick={onRemove} className={className}>
             <img src="my-icon.png" />
          </button>
       )
    }
 }
 ```
+The below props will be passed to the `removeComponent`. You will need to forward the relevant props to your custom remove component to make it work.
 
-The "ReactTags__remove" className and `onClick` handler properties can be automatically included on the `<button>` by using the [JSX spread attribute](https://facebook.github.io/react/docs/jsx-spread.html), as illustrated above.
+| Name | Type  | Description |
+| --- | ---  | --- |
+| `className` | `string`  | The prop `classNames.remove` passed to the `ReactTags` component gets forwarded to the remove component. Defaults to `ReactTags__remove` |
+| `onRemove` | `Function` | The callback to be  triggered when tag is removed, you will need to pass this to the `onClick` handler of the remove component |
+|`onKeyDown` | `Function` | The callback to be triggered when keydown event occurs. You will need to pass this to `onKeyDown` handler of the remove component|
+| `aria-label` | string | The `aria-label` to be announced when the tag at an index is deleted |
+| `tag` | <pre>{ id?: string, className: string, key: string }</pre> | The `tag` to be deleted.
+| `index` | number | the `index` of the tag to be deleted.
+
+
 
 ### autocomplete
 Useful for enhancing data entry workflows for your users by ensuring the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed (such as the enter key). This option has three possible values:

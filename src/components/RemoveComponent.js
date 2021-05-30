@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {KEYS} from './constants';
+import { KEYS } from './constants';
 
 const crossStr = String.fromCharCode(215);
 const RemoveComponent = (props) => {
@@ -21,9 +21,19 @@ const RemoveComponent = (props) => {
     return <span />;
   }
 
+  const ariaLabel = `Tag at index ${index} with value ${tag.id} focussed. Press backspace to remove`;
   if (removeComponent) {
     const Component = removeComponent;
-    return <Component {...props} />;
+    return (
+      <Component
+        onRemove={onRemove}
+        onKeyDown={onKeydown}
+        className={className}
+        aria-label={ariaLabel}
+        tag={tag}
+        index={index}
+      />
+    );
   }
 
   return (
@@ -31,7 +41,7 @@ const RemoveComponent = (props) => {
       onClick={onRemove}
       onKeyDown={onKeydown}
       className={className}
-      aria-label={`Tag at index ${index} with value ${tag.id} focussed. Press backspace to remove`}>
+      aria-label={ariaLabel}>
       {crossStr}
     </button>
   );

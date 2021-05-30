@@ -60,7 +60,7 @@ describe('Tag', () => {
   });
 
   test('renders passed in removed component correctly', () => {
-    const CustomRemoveComponent = function() {
+    const CustomRemoveComponent = function () {
       return <a className="remove">delete me</a>;
     };
     const $el = mount(mockItem({ removeComponent: CustomRemoveComponent }));
@@ -68,8 +68,8 @@ describe('Tag', () => {
     expect($el.text()).to.have.string('delete me');
   });
 
-  test('renders conditionaly passed in removed component correctly', () => {
-    const CustomConditionRemoveComponent = function(props) {
+  test('renders conditional passed in removed component correctly', () => {
+    const CustomConditionRemoveComponent = function (props) {
       return props.tag.id === '1' ? null : <a className="removeTag">x</a>;
     };
     CustomConditionRemoveComponent.propTypes = {
