@@ -222,10 +222,13 @@ describe('Suggestions', function() {
     expect($el.find('.bar').length).to.equal(4);
   });
 
-  test('should trigger the click handler on touchStart', function () {
+  test('should trigger the click handler on touchStart', function() {
     const onTagClickedStub = stub();
     const $el = mount(mockItem({ handleClick: onTagClickedStub }));
-    $el.find('li').first().simulate('touchStart');
+    $el
+      .find('li')
+      .first()
+      .simulate('touchStart');
     expect(onTagClickedStub.calledOnce).to.be.true;
   });
 });

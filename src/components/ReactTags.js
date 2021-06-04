@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import isEqual from 'lodash/isEqual';
 import noop from 'lodash/noop';
 import uniq from 'lodash/uniq';
 import Suggestions from './Suggestions';
 import PropTypes from 'prop-types';
 import ClassNames from 'classnames';
-import memoizeOne from 'memoize-one';
 import Tag from './Tag';
 
 import { buildRegExpFromDelimiters } from './utils';
@@ -20,13 +20,6 @@ import {
   INPUT_FIELD_POSITIONS,
 } from './constants';
 
-const updateClassNames  = memoizeOne((classNames) =>
-{
-  return {
-    classNames : {...DEFAULT_CLASSNAMES,...classNames},
-  };
-});
-
 class ReactTags extends Component {
   static propTypes = {
     placeholder: PropTypes.string,
@@ -39,7 +32,11 @@ class ReactTags extends Component {
     delimiters: PropTypes.arrayOf(PropTypes.number),
     autofocus: PropTypes.bool,
     inline: PropTypes.bool, // TODO: Remove in v7.x.x
-    inputFieldPosition: PropTypes.oneOf([INPUT_FIELD_POSITIONS.INLINE, INPUT_FIELD_POSITIONS.TOP, INPUT_FIELD_POSITIONS.BOTTOM]),
+    inputFieldPosition: PropTypes.oneOf([
+      INPUT_FIELD_POSITIONS.INLINE,
+      INPUT_FIELD_POSITIONS.TOP,
+      INPUT_FIELD_POSITIONS.BOTTOM,
+    ]),
     handleDelete: PropTypes.func,
     handleAddition: PropTypes.func,
     handleDrag: PropTypes.func,
@@ -48,7 +45,6 @@ class ReactTags extends Component {
     allowDeleteFromEmptyInput: PropTypes.bool,
     allowAdditionFromPaste: PropTypes.bool,
     allowDragDrop: PropTypes.bool,
-    resetInputOnDelete: PropTypes.bool,
     handleInputChange: PropTypes.func,
     handleInputFocus: PropTypes.func,
     handleInputBlur: PropTypes.func,
@@ -70,6 +66,7 @@ class ReactTags extends Component {
     ),
     allowUnique: PropTypes.bool,
     renderSuggestion: PropTypes.func,
+    inputProps: PropTypes.object,
   };
 
   static defaultProps = {
@@ -84,12 +81,12 @@ class ReactTags extends Component {
     handleAddition: noop,
     allowDeleteFromEmptyInput: true,
     allowAdditionFromPaste: true,
-    resetInputOnDelete: true,
     autocomplete: false,
     readOnly: false,
     allowUnique: true,
     allowDragDrop: true,
     tags: [],
+    inputProps: {},
   };
 
   constructor(props) {
@@ -97,42 +94,43 @@ class ReactTags extends Component {
 
     if (!props.inline) {
       /* eslint-disable no-console */
-      console.warn('[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.');
+      console.warn(
+        '[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.'
+      );
       /* eslint-enable no-console */
     }
 
-    const { suggestions, classNames } = props;
+    const { suggestions } = props;
     this.state = {
       suggestions,
       query: '',
       isFocused: false,
       selectedIndex: -1,
       selectionMode: false,
-      classNames: { ...DEFAULT_CLASSNAMES, ...classNames },
+      ariaLiveStatus: '',
     };
-    // TODO : remove classNames from state and change updateClassNames to instance function
+    this.reactTagsRef = createRef();
     this.handleFocus = this.handleFocus.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.moveTag = this.moveTag.bind(this);
     this.handlePaste = this.handlePaste.bind(this);
-    this.resetAndFocusInput = this.resetAndFocusInput.bind(this);
     this.handleSuggestionHover = this.handleSuggestionHover.bind(this);
     this.handleSuggestionClick = this.handleSuggestionClick.bind(this);
-
-  }
-
-  static getDerivedStateFromProps(props)
-  {
-    const { classNames } = props;
-    return updateClassNames(classNames);
   }
 
   componentDidMount() {
     const { autofocus, readOnly } = this.props;
+
     if (autofocus && !readOnly) {
       this.resetAndFocusInput();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!isEqual(prevProps.suggestions, this.props.suggestions)) {
+      this.updateSuggestions();
     }
   }
 
@@ -154,34 +152,58 @@ class ReactTags extends Component {
     return item[this.props.labelField]
       .toLowerCase()
       .indexOf(query.toLowerCase());
-  }
+  };
 
-  resetAndFocusInput() {
+  resetAndFocusInput = () => {
     this.setState({ query: '' });
     if (this.textInput) {
       this.textInput.value = '';
       this.textInput.focus();
     }
-  }
+  };
 
-  handleDelete(i, e) {
-    this.props.handleDelete(i, e);
-    if (!this.props.resetInputOnDelete) {
-      this.textInput && this.textInput.focus();
-    } else {
-      this.resetAndFocusInput();
+  handleDelete(index, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const currentTags = this.props.tags.slice();
+    // Early exit from the function if the array
+    // is already empty
+    if (currentTags.length === 0) {
+      return;
     }
-    e.stopPropagation();
+    let ariaLiveStatus = `Tag at index ${index} with value ${currentTags[index].id} deleted.`;
+    this.props.handleDelete(index, event);
+    const allTags = this.reactTagsRef.current.querySelectorAll(
+      '.ReactTags__remove'
+    );
+    let nextElementToFocus, nextIndex, nextTag;
+    if (index === 0 && currentTags.length > 1) {
+      nextElementToFocus = allTags[0];
+      nextIndex = 0;
+      nextTag = currentTags[1];
+    } else {
+      nextElementToFocus = allTags[index - 1];
+      nextIndex = index - 1;
+      nextTag = currentTags[nextIndex];
+    }
+    if (!nextElementToFocus) {
+      nextIndex = -1;
+      nextElementToFocus = this.textInput;
+    }
+    if (nextIndex >= 0) {
+      ariaLiveStatus += ` Tag at index ${nextIndex} with value ${nextTag.id} focussed. Press backspace to remove`;
+    } else {
+      ariaLiveStatus += 'Input focussed. Press enter to add a new tag';
+    }
+    nextElementToFocus.focus();
+    this.setState({
+      ariaLiveStatus,
+    });
   }
 
   handleTagClick(i, e) {
     if (this.props.handleTagClick) {
       this.props.handleTagClick(i, e);
-    }
-    if (!this.props.resetInputOnDelete) {
-      this.textInput && this.textInput.focus();
-    } else {
-      this.resetAndFocusInput();
     }
   }
 
@@ -191,30 +213,33 @@ class ReactTags extends Component {
     }
 
     const query = e.target.value.trim();
+
+    this.setState({ query }, this.updateSuggestions);
+  }
+
+  updateSuggestions = () => {
+    const { query, selectedIndex } = this.state;
     const suggestions = this.filteredSuggestions(query, this.props.suggestions);
 
-    const { selectedIndex } = this.state;
-
     this.setState({
-      query: query,
       suggestions: suggestions,
       selectedIndex:
         selectedIndex >= suggestions.length
           ? suggestions.length - 1
           : selectedIndex,
     });
-  }
+  };
 
-  handleFocus(e) {
-    const value = e.target.value;
+  handleFocus(event) {
+    const value = event.target.value;
     if (this.props.handleInputFocus) {
       this.props.handleInputFocus(value);
     }
     this.setState({ isFocused: true });
   }
 
-  handleBlur(e) {
-    const value = e.target.value;
+  handleBlur(event) {
+    const value = event.target.value;
     if (this.props.handleInputBlur) {
       this.props.handleInputBlur(value);
       if (this.textInput) {
@@ -375,18 +400,19 @@ class ReactTags extends Component {
 
   getTagItems = () => {
     const {
+      classNames,
       tags,
       labelField,
       removeComponent,
       readOnly,
       allowDragDrop,
     } = this.props;
-    const { classNames } = this.state;
+
     const moveTag = allowDragDrop ? this.moveTag : null;
     return tags.map((tag, index) => {
       return (
         <Tag
-          key={`${tag.id}-${index}`}
+          key={index}
           index={index}
           tag={tag}
           labelField={labelField}
@@ -395,7 +421,7 @@ class ReactTags extends Component {
           removeComponent={removeComponent}
           onTagClicked={this.handleTagClick.bind(this, index)}
           readOnly={readOnly}
-          classNames={classNames}
+          classNames={{ ...DEFAULT_CLASSNAMES, ...classNames }}
           allowDragDrop={allowDragDrop}
         />
       );
@@ -404,6 +430,7 @@ class ReactTags extends Component {
 
   render() {
     const tagItems = this.getTagItems();
+    const classNames = { ...DEFAULT_CLASSNAMES, ...this.props.classNames };
 
     // get the suggestions for the given query
     const query = this.state.query.trim(),
@@ -417,17 +444,22 @@ class ReactTags extends Component {
       maxLength,
       inline,
       inputFieldPosition,
+      inputValue,
+      inputProps,
     } = this.props;
 
-    const position = !inline ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
+    const position = !inline
+      ? INPUT_FIELD_POSITIONS.BOTTOM
+      : inputFieldPosition;
 
     const tagInput = !this.props.readOnly ? (
-      <div className={this.state.classNames.tagInput}>
+      <div className={classNames.tagInput}>
         <input
+          {...inputProps}
           ref={(input) => {
             this.textInput = input;
           }}
-          className={this.state.classNames.tagInputField}
+          className={classNames.tagInputField}
           type="text"
           placeholder={placeholder}
           aria-label={placeholder}
@@ -439,7 +471,8 @@ class ReactTags extends Component {
           name={inputName}
           id={inputId}
           maxLength={maxLength}
-          value={this.props.inputValue}
+          value={inputValue}
+          data-automation="input"
         />
 
         <Suggestions
@@ -452,16 +485,33 @@ class ReactTags extends Component {
           minQueryLength={this.props.minQueryLength}
           shouldRenderSuggestions={this.props.shouldRenderSuggestions}
           isFocused={this.state.isFocused}
-          classNames={this.state.classNames}
+          classNames={classNames}
           renderSuggestion={this.props.renderSuggestion}
         />
       </div>
     ) : null;
 
     return (
-      <div className={ClassNames(this.state.classNames.tags, 'react-tags-wrapper')}>
+      <div
+        className={ClassNames(classNames.tags, 'react-tags-wrapper')}
+        ref={this.reactTagsRef}>
+        <p
+          role="alert"
+          className="sr-only"
+          style={{
+            position: 'absolute',
+            overflow: 'hidden',
+            clip: 'rect(0 0 0 0)',
+            margin: '-1px',
+            padding: 0,
+            width: '1px',
+            height: '1px',
+            border: 0,
+          }}>
+          {this.state.ariaLiveStatus}
+        </p>
         {position === INPUT_FIELD_POSITIONS.TOP && tagInput}
-        <div className={this.state.classNames.selected}>
+        <div className={classNames.selected}>
           {tagItems}
           {position === INPUT_FIELD_POSITIONS.INLINE && tagInput}
         </div>

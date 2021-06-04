@@ -5,9 +5,10 @@ export const KEYS = {
   UP_ARROW: 38,
   DOWN_ARROW: 40,
   ESCAPE: 27,
+  SPACE: 32,
 };
 
-export const DEFAULT_PLACEHOLDER = 'Add new tag';
+export const DEFAULT_PLACEHOLDER = 'Press enter to add new tag';
 
 export const DEFAULT_LABEL_FIELD = 'text';
 

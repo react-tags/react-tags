@@ -13,9 +13,6 @@ const Tag = ({
   tag,
   classNames,
   labelField,
-  onTagClicked,
-  removeComponent,
-  onDelete,
   moveTag,
   allowDragDrop,
   index,
@@ -73,36 +70,38 @@ const Tag = ({
     <span
       ref={ref}
       className={ClassNames('tag-wrapper', classNames.tag, className)}
-      style={{opacity: isDragging ? 0 : 1, 'cursor': canDrag({ moveTag, readOnly, allowDragDrop }) ? 'move' : 'auto'}}
-      onClick={onTagClicked}
-      onKeyDown={onTagClicked}
-      onTouchStart={onTagClicked}
-    >
+      style={{opacity: isDragging ? 0 : 1, 'cursor': canDrag(props) ? 'move' : 'auto'}}
+      onClick={props.onTagClicked}
+      onTouchStart={props.onTagClicked}>
       {label}
       <RemoveComponent
         tag={tag}
         className={classNames.remove}
-        removeComponent={removeComponent}
-        onClick={onDelete}
+        removeComponent={props.removeComponent}
+        onRemove={props.onDelete}
         readOnly={readOnly}
+        index={index}
+        onKeyDown={onkeydown}
       />
     </span>
   );
 };
 
 Tag.propTypes = {
-  index: PropTypes.number.isRequired,
   labelField: PropTypes.string,
   onDelete: PropTypes.func.isRequired,
   tag: PropTypes.shape({
     id: PropTypes.string.isRequired,
     className: PropTypes.string,
+    key: PropTypes.string,
   }),
   moveTag: PropTypes.func,
   removeComponent: PropTypes.func,
   onTagClicked: PropTypes.func,
   classNames: PropTypes.object,
   readOnly: PropTypes.bool,
+  isDragging: PropTypes.bool.isRequired,
+  index: PropTypes.number.isRequired,
   allowDragDrop: PropTypes.bool.isRequired,
 };
 
