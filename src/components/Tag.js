@@ -15,16 +15,15 @@ const Tag = (props) => {
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
-    item: { index: props.index },
+    item: props,
     canDrag: () => canDrag(props),
   }));
 
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.TAG,
-    hover: (item, monitor) => {
+    drop: (item, monitor) => {
       const dragIndex = item.index;
       const hoverIndex = index;
-
       if (dragIndex === hoverIndex) {
         return;
       }
@@ -45,11 +44,8 @@ const Tag = (props) => {
       }
 
       props.moveTag(dragIndex, hoverIndex);
-
-      ///monitor.getItem().index = hoverIndex;
-      item.index = hoverIndex;
     },
-    canDrop: () => canDrop(props),
+    canDrop: (item) => canDrop(item),
   }));
 
   drag(drop(tagRef));
@@ -58,7 +54,6 @@ const Tag = (props) => {
   const { readOnly, tag, classNames, index } = props;
   const { className = '' } = tag;
 
-  // eslint-disable-next-line
   const tagComponent = (
     <span
       ref={tagRef}

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 // List of countries in the world
-const Countries = [
+const COUNTRIES = [
   'Afghanistan',
   'Albania',
   'Algeria',
@@ -187,7 +187,7 @@ const Countries = [
   'Tajikistan',
   'Tanzania',
   'Thailand',
-  'Timor L\'Este',
+  "Timor L'Este",
   'Togo',
   'Tonga',
   'Trinidad & Tobago',
@@ -210,7 +210,7 @@ const Countries = [
   'Zimbabwe',
 ];
 
-const suggestions = Countries.map((country) => {
+const suggestions = COUNTRIES.map((country) => {
   return {
     id: country,
     text: country,
@@ -224,14 +224,6 @@ const KeyCodes = {
 
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
-/*
- * If your app already uses react-dnd, then having multiple
- * backend will raise an integrity violation exception. In such cases
- * use the WithOutContext version of the component.
- * var Tags = ReactTags.WithOutContext;
- * The example below uses the `WithContext` since this the sole component
- * using the react-dnd component.
-*/
 const Tags = ReactTags.WithContext;
 
 class App extends React.Component {
@@ -243,6 +235,7 @@ class App extends React.Component {
         { id: 'Thailand', text: 'Thailand' },
         { id: 'India', text: 'India' },
       ],
+      suggestions: suggestions,
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAddition = this.handleAddition.bind(this);
@@ -277,21 +270,25 @@ class App extends React.Component {
   }
 
   render() {
-    const { tags } = this.state;
+    const { tags, suggestions } = this.state;
     return (
-      <div>
-        <Tags
-          tags={tags}
-          suggestions={suggestions}
-          delimiters={delimiters}
-          handleDelete={this.handleDelete}
-          handleAddition={this.handleAddition}
-          handleDrag={this.handleDrag}
-          handleTagClick={this.handleTagClick}
-        />
+      <div className="app">
+        <h1> React Tags Example </h1>
+        <div>
+          <Tags
+            tags={tags}
+            suggestions={suggestions}
+            delimiters={delimiters}
+            handleDelete={this.handleDelete}
+            handleAddition={this.handleAddition}
+            handleDrag={this.handleDrag}
+            handleTagClick={this.handleTagClick}
+            inputFieldPosition="bottom"
+            autocomplete
+          />
+        </div>
       </div>
     );
   }
 }
-
 ReactDOM.render(<App />, document.getElementById('app'));
