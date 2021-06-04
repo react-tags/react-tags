@@ -1,6 +1,6 @@
 import React, { Component, createRef } from 'react';
 import { DndProvider } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import isEqual from 'lodash/isEqual';
 import noop from 'lodash/noop';
 import uniq from 'lodash/uniq';
@@ -173,9 +173,8 @@ class ReactTags extends Component {
     }
     let ariaLiveStatus = `Tag at index ${index} with value ${currentTags[index].id} deleted.`;
     this.props.handleDelete(index, event);
-    const allTags = this.reactTagsRef.current.querySelectorAll(
-      '.ReactTags__remove'
-    );
+    const allTags =
+      this.reactTagsRef.current.querySelectorAll('.ReactTags__remove');
     let nextElementToFocus, nextIndex, nextTag;
     if (index === 0 && currentTags.length > 1) {
       nextElementToFocus = allTags[0];
@@ -524,7 +523,7 @@ class ReactTags extends Component {
 module.exports = {
   WithContext: ({ ...props }) => (
     <DndProvider backend={HTML5Backend}>
-      <ReactTags {...props}/>
+      <ReactTags {...props} />
     </DndProvider>
   ),
   WithOutContext: ReactTags,

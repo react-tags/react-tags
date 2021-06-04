@@ -8,34 +8,20 @@ import RemoveComponent from './RemoveComponent';
 
 const ItemTypes = { TAG: 'tag' };
 
-const Tag = ({
-  readOnly,
-  tag,
-  classNames,
-  labelField,
-  moveTag,
-  allowDragDrop,
-  index,
-}) => {
-  const label = tag[labelField];
-  const { className = '' } = tag;
-
-  const ref = useRef(null);
-  const [{ isDragging }, drag] = useDrag({
-    item: { type: ItemTypes.TAG, id: tag.index, index: index },
-    collect: monitor => ({
-      isDragging: monitor.isDragging(),
+const Tag = (props) => {
+  const tagRef = useRef(null);
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: ItemTypes.TAG,
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
     }),
-    canDrag: () => canDrag({ moveTag, readOnly, allowDragDrop }),
-  });
+    item: { index: props.index },
+    canDrag: () => canDrag(props),
+  }));
 
-  const [, drop] = useDrop({
+  const [, drop] = useDrop(() => ({
     accept: ItemTypes.TAG,
     hover: (item, monitor) => {
-      if (!ref.current) {
-        return;
-      }
-
       const dragIndex = item.index;
       const hoverIndex = index;
 
@@ -43,8 +29,9 @@ const Tag = ({
         return;
       }
 
-      const hoverBoundingRect = ref.current.getBoundingClientRect();
-      const hoverMiddleX = (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
+      const hoverBoundingRect = tagRef.current.getBoundingClientRect();
+      const hoverMiddleX =
+        (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
       const clientOffset = monitor.getClientOffset();
       const hoverClientX = clientOffset.x - hoverBoundingRect.left;
 
@@ -57,25 +44,34 @@ const Tag = ({
         return;
       }
 
-      moveTag(dragIndex, hoverIndex);
+      props.moveTag(dragIndex, hoverIndex);
 
+      ///monitor.getItem().index = hoverIndex;
       item.index = hoverIndex;
     },
-    canDrop: (props) => canDrop(props),
-  });
+    canDrop: () => canDrop(props),
+  }));
 
-  drag(drop(ref));
+  drag(drop(tagRef));
 
-  return (
+  const label = props.tag[props.labelField];
+  const { readOnly, tag, classNames, index } = props;
+  const { className = '' } = tag;
+
+  // eslint-disable-next-line
+  const tagComponent = (
     <span
-      ref={ref}
+      ref={tagRef}
       className={ClassNames('tag-wrapper', classNames.tag, className)}
-      style={{opacity: isDragging ? 0 : 1, 'cursor': canDrag(props) ? 'move' : 'auto'}}
+      style={{
+        opacity: isDragging ? 0 : 1,
+        cursor: canDrag(props) ? 'move' : 'auto',
+      }}
       onClick={props.onTagClicked}
       onTouchStart={props.onTagClicked}>
       {label}
       <RemoveComponent
-        tag={tag}
+        tag={props.tag}
         className={classNames.remove}
         removeComponent={props.removeComponent}
         onRemove={props.onDelete}
@@ -85,6 +81,7 @@ const Tag = ({
       />
     </span>
   );
+  return tagComponent;
 };
 
 Tag.propTypes = {
@@ -100,9 +97,7 @@ Tag.propTypes = {
   onTagClicked: PropTypes.func,
   classNames: PropTypes.object,
   readOnly: PropTypes.bool,
-  isDragging: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
-  allowDragDrop: PropTypes.bool.isRequired,
 };
 
 Tag.defaultProps = {
