@@ -47,7 +47,9 @@ const Tag = (props) => {
     },
     canDrop: (item) => canDrop(item),
   }));
+
   drag(drop(tagRef));
+
   const label = props.tag[props.labelField];
   const { readOnly, tag, classNames, index } = props;
   const { className = '' } = tag;
