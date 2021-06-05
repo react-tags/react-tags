@@ -1,4 +1,10 @@
 /* Example Styles for React Tags*/
+.app {
+    padding: 40px;
+    text-align: center;
+}
+
+/* Example Styles for React Tags*/
 
 .container {
     margin: auto;
@@ -26,7 +32,8 @@
 /* Styles for selected tags */
 .ReactTags__selected span.ReactTags__tag {
     border: 1px solid #ddd;
-    background: #eee;
+    background: #63bcfd;
+    color: white;
     font-size: 12px;
     display: inline-block;
     padding: 5px;
@@ -45,7 +52,7 @@
 }
 .ReactTags__suggestions ul {
     list-style-type: none;
-    box-shadow: .05em .01em .5em rgba(0,0,0,.2);
+    box-shadow: 0.05em 0.01em 0.5em rgba(0, 0, 0, 0.2);
     background: white;
     width: 200px;
 }
@@ -68,4 +75,5 @@
     border: none;
     cursor: pointer;
     background: none;
+    color: white;
 }

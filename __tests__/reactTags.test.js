@@ -1,25 +1,43 @@
 import React from 'react';
 import { expect } from 'chai';
 import { mount, shallow } from 'enzyme';
-import { spy, stub } from 'sinon';
+import { spy, stub, createSandbox } from 'sinon';
 
-import { WithContext as ReactTags } from '../src/components/ReactTags';
+import {
+  WithContext as ReactTags,
+  WithOutContext as PureReactTags,
+} from '../src/components/ReactTags';
 
 import { INPUT_FIELD_POSITIONS } from '../src/components/constants';
+import { fireEvent, render } from '@testing-library/react';
 
 /* eslint-disable no-console */
 
-const defaults = {
-  tags: [{ id: 'Apple', text: 'Apple' }],
-  suggestions: [
-    { id: 'Banana', text: 'Banana' },
-    { id: 'Apple', text: 'Apple' },
-    { id: 'Apricot', text: 'Apricot' },
-    { id: 'Pear', text: 'Pear' },
-    { id: 'Peach', text: 'Peach' },
-  ],
-};
+let defaults;
+const sandbox = createSandbox();
+let handleDragStub;
+beforeAll(() => {
+  handleDragStub = sandbox.stub();
+  defaults = {
+    tags: [{ id: 'Apple', text: 'Apple' }],
+    suggestions: [
+      { id: 'Banana', text: 'Banana' },
+      { id: 'Apple', text: 'Apple' },
+      { id: 'Apricot', text: 'Apricot' },
+      { id: 'Pear', text: 'Pear' },
+      { id: 'Peach', text: 'Peach' },
+    ],
+    handleDrag: handleDragStub,
+  };
+});
 
+beforeEach(() => {
+  sandbox.resetHistory();
+});
+
+afterAll(() => {
+  sandbox.restore();
+});
 const DOWN_ARROW_KEY_CODE = 40;
 const ENTER_ARROW_KEY_CODE = 13;
 
@@ -263,8 +281,9 @@ describe('Test ReactTags', () => {
         },
       })
     );
-
-    expect($el.instance().props.tags).to.have.deep.members(defaults.tags);
+    expect($el.find(PureReactTags).instance().props.tags).to.have.deep.members(
+      defaults.tags
+    );
     const $input = $el.find('.ReactTags__tagInputField');
     $input.simulate('change', { target: { value: 'Apple' } });
 
@@ -283,7 +302,9 @@ describe('Test ReactTags', () => {
       })
     );
 
-    expect($el.instance().props.tags).to.have.members(defaults.tags);
+    expect($el.find(PureReactTags).instance().props.tags).to.have.members(
+      defaults.tags
+    );
 
     const $input = $el.find('.ReactTags__tagInputField');
     $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
@@ -354,7 +375,9 @@ describe('Test ReactTags', () => {
           tags: modifiedTags,
         })
       );
-      expect($el.instance().props.tags).to.have.members(modifiedTags);
+      expect($el.find(PureReactTags).instance().props.tags).to.have.members(
+        modifiedTags
+      );
     });
 
     test('allow adding tag which is not in the list', () => {
@@ -390,7 +413,7 @@ describe('Test ReactTags', () => {
   describe('autocomplete/suggestions filtering', () => {
     test('updates suggestions state if the suggestions prop changes', () => {
       const $el = mount(mockItem());
-      const ReactTagsInstance = $el.instance().getDecoratedComponentInstance();
+      const ReactTagsInstance = $el.find(PureReactTags).instance();
       const $input = $el.find('.ReactTags__tagInputField');
 
       $input.simulate('change', { target: { value: 'ap' } });
@@ -413,7 +436,7 @@ describe('Test ReactTags', () => {
 
     test('updates suggestions state as expected based on default filter logic', () => {
       const $el = mount(mockItem());
-      const ReactTagsInstance = $el.instance().getDecoratedComponentInstance();
+      const ReactTagsInstance = $el.find(PureReactTags).instance();
       const $input = $el.find('.ReactTags__tagInputField');
 
       expect(ReactTagsInstance.state.suggestions).to.have.members(
@@ -448,7 +471,7 @@ describe('Test ReactTags', () => {
           },
         })
       );
-      const ReactTagsInstance = $el.instance().getDecoratedComponentInstance();
+      const ReactTagsInstance = $el.find(PureReactTags).instance();
       const $input = $el.find('.ReactTags__tagInputField');
 
       expect(ReactTagsInstance.state.suggestions).to.have.members(
@@ -481,7 +504,7 @@ describe('Test ReactTags', () => {
           },
         })
       );
-      const ReactTagsInstance = $el.instance().getDecoratedComponentInstance();
+      const ReactTagsInstance = $el.find(PureReactTags).instance();
       const $input = $el.find('.ReactTags__tagInputField');
 
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members(
@@ -627,7 +650,9 @@ describe('Test ReactTags', () => {
       })
     );
 
-    expect($el.instance().props.tags).to.have.deep.members(defaults.tags);
+    expect($el.find(PureReactTags).instance().props.tags).to.have.deep.members(
+      defaults.tags
+    );
     const $input = $el.find('.ReactTags__tagInputField');
     $input.simulate('change', { target: { value: 'Apple' } });
     $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
@@ -695,8 +720,6 @@ describe('Test ReactTags', () => {
           '[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.'
         )
       ).to.be.true;
-
-      consoleWarnStub.restore();
     });
   });
 
@@ -709,5 +732,77 @@ describe('Test ReactTags', () => {
       })
     );
     expect($el.find('[data-automation="input"]').props().disabled).to.be.true;
+  });
+
+  describe('Test drag and drop', () => {
+    test('should be draggable', () => {
+      const root = render(
+        mockItem({
+          tags: [
+            ...defaults.tags,
+            { id: 'Litchi', text: 'Litchi' },
+            { id: 'Mango', text: 'Mango' },
+          ],
+        })
+      );
+      const src = root.getByText('Apple');
+      const dest = root.getByText('Mango');
+      fireEvent.dragStart(src);
+      const styles = getComputedStyle(src);
+      expect(styles.cursor).to.equal('move');
+      fireEvent.dragEnter(dest);
+      fireEvent.drop(dest);
+      fireEvent.dragLeave(dest);
+      fireEvent.dragEnd(dest);
+
+      const dragTag = defaults.tags[0];
+      const dragIndex = 0;
+      const hoverIndex = 2;
+      expect(handleDragStub.calledWithExactly(dragTag, dragIndex, hoverIndex))
+        .to.be.true;
+    });
+
+    test('should not be draggable when drag and drop index is same', () => {
+      const root = render(mockItem());
+      const src = root.getByText('Apple');
+      fireEvent.dragStart(src);
+      fireEvent.dragEnter(src);
+      fireEvent.drop(src);
+      fireEvent.dragLeave(src);
+      fireEvent.dragEnd(src);
+
+      expect(handleDragStub.called).to.be.false;
+    });
+
+    [
+      { overrideProps: { readOnly: true }, title: 'readOnly is true' },
+      {
+        overrideProps: { allowDragDrop: false },
+        title: 'allowDragDrop is false',
+      },
+    ].forEach((data) => {
+      const { title, overrideProps } = data;
+      test(`should not be draggable when ${title}`, () => {
+        const root = render(
+          mockItem({
+            ...overrideProps,
+            tags: [
+              ...defaults.tags,
+              { id: 'Litchi', text: 'Litchi' },
+              { id: 'Mango', text: 'Mango' },
+            ],
+          })
+        );
+        const src = root.getByText('Apple');
+        const dest = root.getByText('Mango');
+        fireEvent.dragStart(src);
+        fireEvent.dragEnter(dest);
+        fireEvent.dragLeave(dest);
+        fireEvent.dragEnd(dest);
+        expect(handleDragStub.called).to.be.false;
+        const styles = getComputedStyle(src);
+        expect(styles.cursor).to.equal('auto');
+      });
+    });
   });
 });
