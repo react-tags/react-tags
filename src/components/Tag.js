@@ -10,7 +10,7 @@ const ItemTypes = { TAG: 'tag' };
 
 const Tag = (props) => {
   const tagRef = useRef(null);
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const [{ isDragging }, drag, dragPreview] = useDrag(() => ({
     type: ItemTypes.TAG,
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
@@ -22,7 +22,7 @@ const Tag = (props) => {
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.TAG,
     drop: (item, monitor) => {
-      const dragIndex = item.index;
+      const dragIndex = monitor.getItem().index;
       const hoverIndex = index;
       if (dragIndex === hoverIndex) {
         return;
@@ -38,7 +38,6 @@ const Tag = (props) => {
       if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
         return;
       }
-
       if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
         return;
       }
@@ -47,9 +46,7 @@ const Tag = (props) => {
     },
     canDrop: (item) => canDrop(item),
   }));
-
   drag(drop(tagRef));
-
   const label = props.tag[props.labelField];
   const { readOnly, tag, classNames, index } = props;
   const { className = '' } = tag;
