@@ -10,7 +10,7 @@ const ItemTypes = { TAG: 'tag' };
 
 const Tag = (props) => {
   const tagRef = useRef(null);
-  const [{ isDragging }, drag, dragPreview] = useDrag(() => ({
+  const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.TAG,
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
@@ -41,7 +41,6 @@ const Tag = (props) => {
       if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
         return;
       }
-
       props.moveTag(dragIndex, hoverIndex);
     },
     canDrop: (item) => canDrop(item),
