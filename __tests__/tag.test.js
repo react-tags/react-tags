@@ -23,6 +23,7 @@ function mockItem(overrides) {
         tag: 'tag',
         remove: 'remove',
       },
+      index: 0,
     },
     overrides
   );

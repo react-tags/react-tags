@@ -35,9 +35,11 @@ const Tag = (props) => {
       const hoverClientX = clientOffset.x - hoverBoundingRect.left;
 
       // Only perform the move when the mouse has crossed half of the items width
+      /* istanbul ignore next */
       if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
         return;
       }
+      /* istanbul ignore next */
       if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
         return;
       }
