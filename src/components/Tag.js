@@ -51,13 +51,14 @@ const Tag = (props) => {
   const label = props.tag[props.labelField];
   const { readOnly, tag, classNames, index } = props;
   const { className = '' } = tag;
-
+  /* istanbul ignore next */
+  const opacity = isDragging ? 0 : 1;
   const tagComponent = (
     <span
       ref={tagRef}
       className={ClassNames('tag-wrapper', classNames.tag, className)}
       style={{
-        opacity: isDragging ? 0 : 1,
+        opacity,
         cursor: canDrag(props) ? 'move' : 'auto',
       }}
       onClick={props.onTagClicked}
