@@ -13,7 +13,7 @@
     "test:watch": "jest --watch --notify --coverage",
     "start": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
     "format": "prettier  --write src/*.js __tests__/*.js",
-    "build": "webpack --config webpack-production.config.js --progress --colors && babel src --out-dir dist-modules --copy-files",
+    "build": "webpack --config webpack-production.config.js --progress --color && babel src --out-dir dist-modules --copy-files",
     "precommit": "./set_up_hooks.sh",
     "semantic-release": "semantic-release",
     "commit": "git-cz"
