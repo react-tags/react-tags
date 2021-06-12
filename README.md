@@ -8,7 +8,7 @@
 <a href="https://codeclimate.com/github/react-tags/react-tags/maintainability"><img src="https://api.codeclimate.com/v1/badges/b9edb2810b02bb845d20/maintainability" /></a>
 <a href="https://codeclimate.com/github/react-tags/react-tags/test_coverage"><img src="https://api.codeclimate.com/v1/badges/b9edb2810b02bb845d20/test_coverage" /></a>
 
-React-tags is a simple tagging component ready to drop in your React projects. The component is inspired by GMail's *To* field in the compose window.
+React-tags is a simple tagging component ready to drop in your projects. The component is inspired by GMail's *To* field in the compose window.
 
 Follow [@ReactTags](https://twitter.com/ReactTags) on twitter!
 
