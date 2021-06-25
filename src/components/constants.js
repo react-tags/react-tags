@@ -1,5 +1,5 @@
 export const KEYS = {
-  ENTER: 13,
+  ENTER: [10, 13],
   TAB: 9,
   BACKSPACE: 8,
   UP_ARROW: 38,

@@ -9,6 +9,7 @@ Object {
   "autocomplete": false,
   "autofocus": true,
   "delimiters": Array [
+    10,
     13,
     9,
   ],

@@ -219,10 +219,10 @@ const suggestions = COUNTRIES.map((country) => {
 
 const KeyCodes = {
   comma: 188,
-  enter: 13,
+  enter: [10, 13],
 };
 
-const delimiters = [KeyCodes.comma, KeyCodes.enter];
+const delimiters = [...KeyCodes.enter, KeyCodes.comma];
 
 const Tags = ReactTags.WithContext;
 
