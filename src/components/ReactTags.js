@@ -73,7 +73,7 @@ class ReactTags extends Component {
     placeholder: DEFAULT_PLACEHOLDER,
     labelField: DEFAULT_LABEL_FIELD,
     suggestions: [],
-    delimiters: [KEYS.ENTER, KEYS.TAB],
+    delimiters: [...KEYS.ENTER, KEYS.TAB],
     autofocus: true,
     inline: true, // TODO: Remove in v7.x.x
     inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,

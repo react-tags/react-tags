@@ -206,6 +206,37 @@ describe('Test ReactTags', () => {
       expect(tags).to.deep.have.same.members(expected);
     });
 
+    test('should split the clipboard when delimited with new lines', () => {
+      const Keys = {
+        ENTER: [10, 13],
+      };
+
+      const tags = [];
+      const $el = mount(
+        mockItem({
+          delimiters: [...Keys.ENTER],
+          handleAddition(tag) {
+            tags.push(tag);
+          },
+          tags,
+        })
+      );
+
+      const $input = $el.find('.ReactTags__tagInputField');
+
+      $input.simulate('paste', {
+        clipboardData: {
+          getData: () => 'Banana\nApple\rApricot\r\n\r\nOrange',
+        },
+      });
+
+      const expected = ['Banana', 'Apple', 'Apricot', 'Orange'].map(
+        (value) => ({ id: value, text: value })
+      );
+
+      expect(tags).to.deep.have.same.members(expected);
+    });
+
     test('should not allow duplicate tags', () => {
       const Keys = {
         TAB: 9,
