@@ -450,7 +450,6 @@ describe('Test ReactTags', () => {
 
       $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Apple', text: 'Apple' },
         { id: 'Apricot', text: 'Apricot' },
       ]);
 
@@ -486,7 +485,6 @@ describe('Test ReactTags', () => {
 
       $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Apple', text: 'Apple' },
         { id: 'Apricot', text: 'Apricot' },
       ]);
     });
@@ -518,7 +516,6 @@ describe('Test ReactTags', () => {
 
       $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Apple', text: 'Apple' },
         { id: 'Apricot', text: 'Apricot' },
       ]);
     });
@@ -649,28 +646,6 @@ describe('Test ReactTags', () => {
         { id: 'Apricot', [labelField]: 'Apricot' },
       ]);
       $el.unmount();
-    });
-
-    test('should not show suggestions for the tags which are already added when "allowUnique" is true', () => {
-      const actual = [];
-      const $el = mount(
-        mockItem({
-          autocomplete: true,
-          handleAddition(tag) {
-            actual.push(tag);
-          },
-        })
-      );
-
-      const ReactTagsInstance = $el.find(PureReactTags).instance();
-
-      const $input = $el.find('.ReactTags__tagInputField');
-      $input.simulate('change', { target: { value: 'App' } });
-
-      // Since `Apple` is already in the list so it shouldn't show in suggestion
-      $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
-      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([]);
-      expect(actual).to.have.deep.members([{ id: 'App', text: 'App' }]);
     });
 
     test('should show suggestions for the tags which are already added when "allowUnique" is false', () => {
