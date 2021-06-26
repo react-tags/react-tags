@@ -134,7 +134,14 @@ class ReactTags extends Component {
     }
   }
 
-  filteredSuggestions(query, suggestions) {
+  filteredSuggestions = (query) => {
+    let { suggestions } = this.props;
+    if (this.props.allowUnique) {
+      const existingTags = this.props.tags.map((tag) => tag.id.toLowerCase());
+      suggestions = suggestions.filter(
+        (suggestion) => !existingTags.includes(suggestion.id.toLowerCase())
+      );
+    }
     if (this.props.handleFilterSuggestions) {
       return this.props.handleFilterSuggestions(query, suggestions);
     }
@@ -146,7 +153,7 @@ class ReactTags extends Component {
       return this.getQueryIndex(query, item) > 0;
     });
     return exactSuggestions.concat(partialSuggestions);
-  }
+  };
 
   getQueryIndex = (query, item) => {
     return item[this.props.labelField]
@@ -218,7 +225,7 @@ class ReactTags extends Component {
 
   updateSuggestions = () => {
     const { query, selectedIndex } = this.state;
-    const suggestions = this.filteredSuggestions(query, this.props.suggestions);
+    const suggestions = this.filteredSuggestions(query);
 
     this.setState({
       suggestions: suggestions,
@@ -349,10 +356,7 @@ class ReactTags extends Component {
       return;
     }
     if (this.props.autocomplete) {
-      const possibleMatches = this.filteredSuggestions(
-        tag[labelField],
-        this.props.suggestions
-      );
+      const possibleMatches = this.filteredSuggestions(tag[labelField]);
 
       if (
         (this.props.autocomplete === 1 && possibleMatches.length === 1) ||

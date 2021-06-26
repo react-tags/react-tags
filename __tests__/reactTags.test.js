@@ -8,7 +8,7 @@ import {
   WithOutContext as PureReactTags,
 } from '../src/components/ReactTags';
 
-import { INPUT_FIELD_POSITIONS } from '../src/components/constants';
+import { INPUT_FIELD_POSITIONS, KEYS } from '../src/components/constants';
 import { fireEvent, render } from '@testing-library/react';
 
 /* eslint-disable no-console */
@@ -318,7 +318,7 @@ describe('Test ReactTags', () => {
     const $input = $el.find('.ReactTags__tagInputField');
     $input.simulate('change', { target: { value: 'Apple' } });
 
-    $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+    $input.simulate('keyDown', { keyCode: KEYS.ENTER[1] });
     expect(actual).to.have.length(0);
   });
 
@@ -441,6 +441,7 @@ describe('Test ReactTags', () => {
       expect(actual).to.have.length(0);
     });
   });
+
   describe('autocomplete/suggestions filtering', () => {
     test('updates suggestions state if the suggestions prop changes', () => {
       const $el = mount(mockItem());
@@ -449,7 +450,6 @@ describe('Test ReactTags', () => {
 
       $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Apple', text: 'Apple' },
         { id: 'Apricot', text: 'Apricot' },
       ]);
 
@@ -485,7 +485,6 @@ describe('Test ReactTags', () => {
 
       $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Apple', text: 'Apple' },
         { id: 'Apricot', text: 'Apricot' },
       ]);
     });
@@ -517,7 +516,6 @@ describe('Test ReactTags', () => {
 
       $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Apple', text: 'Apple' },
         { id: 'Apricot', text: 'Apricot' },
       ]);
     });
@@ -648,6 +646,30 @@ describe('Test ReactTags', () => {
         { id: 'Apricot', [labelField]: 'Apricot' },
       ]);
       $el.unmount();
+    });
+
+    test('should show suggestions for the tags which are already added when "allowUnique" is false', () => {
+      const actual = [];
+      const $el = mount(
+        mockItem({
+          autocomplete: true,
+          handleAddition(tag) {
+            actual.push(tag);
+          },
+          allowUnique: false,
+        })
+      );
+
+      const ReactTagsInstance = $el.find(PureReactTags).instance();
+
+      const $input = $el.find('.ReactTags__tagInputField');
+      $input.simulate('change', { target: { value: 'App' } });
+
+      $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+        { id: 'Apple', text: 'Apple' },
+      ]);
+      expect(actual).to.have.deep.members([{ id: 'Apple', text: 'Apple' }]);
     });
   });
 
