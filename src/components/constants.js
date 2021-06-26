@@ -6,6 +6,7 @@ export const KEYS = {
   DOWN_ARROW: 40,
   ESCAPE: 27,
   SPACE: 32,
+  COMMA: 188,
 };
 
 export const DEFAULT_PLACEHOLDER = 'Press enter to add new tag';
