@@ -58,7 +58,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "enzyme": "^3.11.0",
     "eslint": "^7.3.1",
-    "eslint-plugin-jest": "^22.21.0",
+    "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.23.2",
     "jest": "^22.4.4",
