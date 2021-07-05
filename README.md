@@ -213,7 +213,6 @@ const Keys = {
     delimiters={[Keys.TAB, Keys.SPACE, Keys.COMMA]}
  />
 ```
-Here is a [demo](http://www.jinno.io/app/6/delimiters?source=react-tag-input).
 
 ### placeholder
 The placeholder shown for the input.
