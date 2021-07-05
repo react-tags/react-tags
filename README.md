@@ -143,7 +143,7 @@ Option | Type | Default | Description
 --- | --- | --- | ---
 |[`tags`](#tags) | `Array` | `[]` | An array of tags that are displayed as pre-selected. Here is a [demo](http://www.jinno.io/app/6/tags?source=react-tag-input).|
 |[`suggestions`](#suggestions) | `Array` | `[]` | An array of suggestions that are used as basis for showing suggestions. Here is a [demo](http://www.jinno.io/app/6/suggestions?source=react-tag-input).
-|[`delimiters`](#delimiters) | `Array` | `[ENTER, TAB]` | Specifies which characters should terminate tags input.Here is a [demo](http://www.jinno.io/app/6/delimiters?source=react-tag-input).
+|[`delimiters`](#delimiters) | `Array` | `[ENTER, TAB]` | Specifies which characters should terminate tags input.
 |[`placeholder`](#placeholder) | `String` | `Add new tag` | The placeholder shown for the input. Here is a [demo](http://www.jinno.io/app/6/placeholder?source=react-tag-input).
 |[`labelField`](#labelField) | `String` | `text` | Provide an alternative `label` property for the tags. Here is a [demo](http://www.jinno.io/app/6/labelField?source=react-tag-input)
 |[`handleAddition`](#handleAddition) | `Function` | `undefined` | Function called when the user wants to add a tag (required).
