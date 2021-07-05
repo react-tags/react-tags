@@ -168,7 +168,7 @@ Option | Type | Default | Description
 |[`allowUnique`](#allowUnique) | `Boolean` | `true` | Boolean value to control whether tags should be unqiue. Here is a [demo](http://www.jinno.io/app/6/allowUnique?source=react-tag-input).
 |[`allowDragDrop`](#allowDragDrop) | `Boolean` | `true` | Boolean value to control whether tags should have drag-n-drop features enabled. Here is a [demo](http://www.jinno.io/app/6/allowDragDrop?source=react-tag-input).
 |[`renderSuggestion`](#renderSuggestion) | `Function` | `undefined` | Render prop for rendering your own suggestions.
-| [`inputProps`](#inputProps) | Object |`{}` | The extra attributes which are passed to the input field. Here is a [demo](http://www.jinno.io/app/6/inputProps?source=react-tag-input).
+| [`inputProps`](#inputProps) | Object |`{}` | The extra attributes which are passed to the input field. 
 
 ### tags 
 An array of tags that are displayed as pre-selected. Each tag should have an `id` property, property for the label, which is specified by the [`labelField`](#labelFieldOption) and class for label, which is specified by `className`.
