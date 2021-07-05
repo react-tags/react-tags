@@ -141,32 +141,32 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-|[`tags`](#tags) | `Array` | `[]` | An array of tags that are displayed as pre-selected.Check out the. Check out the [demo](http://www.jinno.io/app/6/tags?source=react-tag-input)|
-|[`suggestions`](#suggestions) | `Array` | `[]` | An array of suggestions that are used as basis for showing suggestions. Check out the [demo](http://www.jinno.io/app/6/suggestions?source=react-tag-input)
+|[`tags`](#tags) | `Array` | `[]` | An array of tags that are displayed as pre-selected.Here is a [demo](http://www.jinno.io/app/6/tags?source=react-tag-input)|
+|[`suggestions`](#suggestions) | `Array` | `[]` | An array of suggestions that are used as basis for showing suggestions. Here is a [demo](http://www.jinno.io/app/6/suggestions?source=react-tag-input)
 |[`delimiters`](#delimiters) | `Array` | `[ENTER, TAB]` | Specifies which characters should terminate tags input
-|[`placeholder`](#placeholder) | `String` | `Add new tag` | The placeholder shown for the input. Check out the [demo](http://www.jinno.io/app/6/placeholder?source=react-tag-input)
-|[`labelField`](#labelField) | `String` | `text` | Provide an alternative `label` property for the tags. Check out the [demo](http://www.jinno.io/app/6/labelField?source=react-tag-input)
+|[`placeholder`](#placeholder) | `String` | `Add new tag` | The placeholder shown for the input. Here is a [demo](http://www.jinno.io/app/6/placeholder?source=react-tag-input)
+|[`labelField`](#labelField) | `String` | `text` | Provide an alternative `label` property for the tags. Here is a [demo](http://www.jinno.io/app/6/labelField?source=react-tag-input)
 |[`handleAddition`](#handleAddition) | `Function` | `undefined` | Function called when the user wants to add a tag (required).
 |[`handleDelete`](#handleDelete) | `Function` | `undefined` | Function called when the user wants to delete a tag (required).
 |[`handleDrag`](#handleDrag) | `Function` | `undefined` | Function called when the user drags a tag.
 |[`handleFilterSuggestions`](#handleFilterSuggestions) | `Function` | `undefined` | Function called when filtering suggestions.
 |[`handleTagClick`](#handleTagClick) | `Function` | `undefined` | Function called when the user wants to know which tag was clicked.
-|[`autofocus`](#autofocus) | `Boolean` | `true` | Boolean value to control whether the text-input should be autofocused on mount. Check out the [demo](http://www.jinno.io/app/6/autofocus?source=react-tag-input)
-|[`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput) | `Boolean` | `true` | Boolean value to control whether tags should be deleted when the 'Delete' key is pressed in an empty Input Box. Check out the [demo](http://www.jinno.io/app/6/allowDeleteFromEmptyInput?source=react-tag-input)
+|[`autofocus`](#autofocus) | `Boolean` | `true` | Boolean value to control whether the text-input should be autofocused on mount. Here is a [demo](http://www.jinno.io/app/6/autofocus?source=react-tag-input)
+|[`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput) | `Boolean` | `true` | Boolean value to control whether tags should be deleted when the 'Delete' key is pressed in an empty Input Box. Here is a [demo](http://www.jinno.io/app/6/allowDeleteFromEmptyInput?source=react-tag-input)
 |[`handleInputChange`](#handleInputChange) | `Function` | `undefined` | Event handler for input onChange.
 |[`handleInputFocus`](#handleInputFocus) | `Function` | `undefined` | Event handler for input onFocus.
 |[`handleInputBlur`](#handleInputBlur) | `Function` | `undefined` | Event handler for input onBlur.
-|[`minQueryLength`](#minQueryLength) | `Number` | `2` | How many characters are needed for suggestions to appear. Check out the [demo](http://www.jinno.io/app/6/minQueryLength?source=react-tag-input)
+|[`minQueryLength`](#minQueryLength) | `Number` | `2` | How many characters are needed for suggestions to appear. Here is a [demo](http://www.jinno.io/app/6/minQueryLength?source=react-tag-input)
 |[`removeComponent`](#removeComponent) | `Function` |  | Function to render custom remove component for the tags.
-|[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed. Check out the [demo](http://www.jinno.io/app/6/autocomplete?source=react-tag-input)
-|[`readOnly`](#readOnly) | `Boolean` | `false` | Read-only mode without the input box and `removeComponent` and drag-n-drop features disabled. Check out the [demo](http://www.jinno.io/app/6/readOnly?source=react-tag-input)
-|[`name`](#name) | `String` | `undefined` | The `name` attribute added to the input . Check out the[demo](http://www.jinno.io/app/6/name?source=react-tag-input)
-|[`id`](#id) | `String` | `undefined` | The `id` attribute added to the input . Check out the[demo](http://www.jinno.io/app/6/id?source=react-tag-input)
-|[`maxLength`](#maxLength) | `Number` | `Infinity` | The `maxLength` attribute added to the input. Check out the [demo](http://www.jinno.io/app/6/maxLength?source=react-tag-input)
-|[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line. Check out the [demo](http://www.jinno.io/app/6/inline?source=react-tag-input)
+|[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed. Here is a [demo](http://www.jinno.io/app/6/autocomplete?source=react-tag-input)
+|[`readOnly`](#readOnly) | `Boolean` | `false` | Read-only mode without the input box and `removeComponent` and drag-n-drop features disabled. Here is a [demo](http://www.jinno.io/app/6/readOnly?source=react-tag-input)
+|[`name`](#name) | `String` | `undefined` | The `name` attribute added to the input . Here is a[demo](http://www.jinno.io/app/6/name?source=react-tag-input)
+|[`id`](#id) | `String` | `undefined` | The `id` attribute added to the input . Here is a[demo](http://www.jinno.io/app/6/id?source=react-tag-input)
+|[`maxLength`](#maxLength) | `Number` | `Infinity` | The `maxLength` attribute added to the input. Here is a [demo](http://www.jinno.io/app/6/maxLength?source=react-tag-input)
+|[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line. Here is a [demo](http://www.jinno.io/app/6/inline?source=react-tag-input)
 |[`inputFieldPosition`](#inputFieldPosition) | `String` | `inline` | Specify position of input field relative to tags
-|[`allowUnique`](#allowUnique) | `Boolean` | `true` | Boolean value to control whether tags should be unqiue. Check out the [demo](http://www.jinno.io/app/6/allowUnique?source=react-tag-input)
-|[`allowDragDrop`](#allowDragDrop) | `Boolean` | `true` | Boolean value to control whether tags should have drag-n-drop features enabled. Check out the [demo](http://www.jinno.io/app/6/allowDragDrop?source=react-tag-input)
+|[`allowUnique`](#allowUnique) | `Boolean` | `true` | Boolean value to control whether tags should be unqiue. Here is a [demo](http://www.jinno.io/app/6/allowUnique?source=react-tag-input)
+|[`allowDragDrop`](#allowDragDrop) | `Boolean` | `true` | Boolean value to control whether tags should have drag-n-drop features enabled. Here is a [demo](http://www.jinno.io/app/6/allowDragDrop?source=react-tag-input)
 |[`renderSuggestion`](#renderSuggestion) | `Function` | `undefined` | Render prop for rendering your own suggestions.
 | [`inputProps`](#inputProps) | Object |`{}` | The extra attributes which are passed to the input field.
 
@@ -183,7 +183,7 @@ const tags =  [ { id: "1", name: "Apples" } ]
 // With className
 const tags = [ { id: "1", text: "Apples", className: 'red'} ]
 ```
-Check out the [demo](http://www.jinno.io/app/6/tags?source=react-tag-input).
+Here is a [demo](http://www.jinno.io/app/6/tags?source=react-tag-input).
 
 ### suggestions
 An array of suggestions that are used as basis for showing suggestions. These objects should follow the same structure as the `tags`. So if the `labelField` is `name`, the following would work:
@@ -198,7 +198,7 @@ const suggestions = [
 ];
 
 ```
-Check out the [demo](http://www.jinno.io/app/6/suggestions?source=react-tag-input)
+Here is a [demo](http://www.jinno.io/app/6/suggestions?source=react-tag-input)
 
 ### delimiters
 Specifies which characters should terminate tags input. An array of character codes.
@@ -221,7 +221,7 @@ The placeholder shown for the input.
 ```js
 let placeholder = "Add new country"
 ```
-Check out the [demo](http://www.jinno.io/app/6/placeholder?source=react-tag-input)
+Here is a [demo](http://www.jinno.io/app/6/placeholder?source=react-tag-input)
 
 ### labelField
 Provide an alternative `label` property for the tags.
@@ -236,7 +236,7 @@ Provide an alternative `label` property for the tags.
 ```
 
 This is useful if your data uses the `text` property for something else.
-Check out the [demo](http://www.jinno.io/app/6/labelField?source=react-tag-input).
+Here is a [demo](http://www.jinno.io/app/6/labelField?source=react-tag-input).
 
 ### handleAddition
 Function called when the user wants to add a tag (either a click, a tab press or carriage return)
@@ -306,7 +306,7 @@ Optional boolean param to control whether the text-input should be autofocused o
     autofocus={false}
     ...>
 ```
-Check out the [demo](http://www.jinno.io/app/6/autofocus?source=react-tag-input).
+Here is a [demo](http://www.jinno.io/app/6/autofocus?source=react-tag-input).
 
 ### allowDeleteFromEmptyInput
 Optional boolean param to control whether tags should be deleted when the 'Delete' key is pressed in an empty Input Box.
@@ -316,7 +316,7 @@ Optional boolean param to control whether tags should be deleted when the 'Delet
     allowDeleteFromEmptyInput={false}
     ...>
 ```
-Check out the [demo](http://www.jinno.io/app/6/allowDeleteFromEmptyInput?source=react-tag-input).
+Here is a [demo](http://www.jinno.io/app/6/allowDeleteFromEmptyInput?source=react-tag-input).
 
 ### handleInputChange
 Optional event handler for input onChange
@@ -349,7 +349,7 @@ Optional event handler for input onBlur
 ### minQueryLength
 Minimum number of characters needed for suggestions to appear. Defaults to `2`.
 
-Check out the [demo](http://www.jinno.io/app/6/minQueryLength?source=react-tag-input).
+Here is a [demo](http://www.jinno.io/app/6/minQueryLength?source=react-tag-input).
 
 ### removeComponent
 If you'd like to supply your own tag delete/remove element, create a React component and pass it as a property to ReactTags using the `removeComponent` option. By default, a simple anchor link with an "x" text node as its only child is rendered, but if you'd like to, say, replace this with a `<button>` element that uses an image instead of text, your markup may look something like this:
@@ -394,12 +394,12 @@ Useful for enhancing data entry workflows for your users by ensuring the first m
 - `false` (default) - tags are not autocompleted on enter/delimiter
 
 This option has no effect if there are no [`suggestions`](#suggestionsOption).
-Check out the [demo](http://www.jinno.io/app/6/autocomplete?source=react-tag-input).
+Here is a [demo](http://www.jinno.io/app/6/autocomplete?source=react-tag-input).
 
 ### readOnly
 Renders the component in read-only mode without the input box and `removeComponent`. This also disables the drag-n-drop feature.
 
-Check out the [demo](http://www.jinno.io/app/6/readOnly?source=react-tag-input).
+Here is a [demo](http://www.jinno.io/app/6/readOnly?source=react-tag-input).
 
 ### name
 The name attribute added to the input.
@@ -409,7 +409,7 @@ The name attribute added to the input.
     name = "inputName"
     ...>
 ```
-Check out the [demo](http://www.jinno.io/app/6/name?source=react-tag-input).
+Here is a [demo](http://www.jinno.io/app/6/name?source=react-tag-input).
 
 ### id
 The id attribute added to the input.
@@ -419,7 +419,7 @@ The id attribute added to the input.
     id = "inputId"
     ...>
 ```
-Check out the [demo](http://www.jinno.io/app/6/id?source=react-tag-input).
+Here is a [demo](http://www.jinno.io/app/6/id?source=react-tag-input).
 
 
 ### maxLength
@@ -430,7 +430,7 @@ The maxLength attribute added to the input. Specifies the maximum number of char
     maxLength = "42"
     ...>
 ```
-Check out the [demo](http://www.jinno.io/app/6/maxLength?source=react-tag-input).
+Here is a [demo](http://www.jinno.io/app/6/maxLength?source=react-tag-input).
 
 ### inline
 The inline attributes decides whether the input fields and selected tags will be rendered in-line.
@@ -452,7 +452,7 @@ The inline attributes decides whether the input fields and selected tags will be
 ![img](docs/inline-false.png)
 
 _This attribute is deprecated and will be removed in v7.x.x, see [inputFieldPosition](#inputFieldPosition)._
-Check out the [demo](http://www.jinno.io/app/6/inline?source=react-tag-input).
+Here is a [demo](http://www.jinno.io/app/6/inline?source=react-tag-input).
 
 ### inputFieldPosition
 The inputFieldPosition attribute decides the positioning of the input field relative to the tags. Can be one of `inline`, `top` or `bottom`.
@@ -481,16 +481,16 @@ The inputFieldPosition attribute decides the positioning of the input field rela
 
 ![img](docs/input-field-position-bottom.png)
 
-Check out the [demo](http://www.jinno.io/app/6/inputFieldPosition?source=react-tag-input).
+Here is a [demo](http://www.jinno.io/app/6/inputFieldPosition?source=react-tag-input).
 
 ### allowUnique 
 This prop controls whether tags should be unique.
-Check out the [demo](http://www.jinno.io/app/6/allowUnique?source=react-tag-input).
+Here is a [demo](http://www.jinno.io/app/6/allowUnique?source=react-tag-input).
 
 ### allowDragDrop
 This prop controls whether tags should have the drag-n-drop feature enabled.
 
-Check out the [demo](http://www.jinno.io/app/6/allowDragDrop?source=react-tag-input).
+Here is a [demo](http://www.jinno.io/app/6/allowDragDrop?source=react-tag-input).
 
 ### renderSuggestion
 This props allows to provide your own suggestion renderer and override the default one. It receives the suggestion and the query string as parameters. For example:
