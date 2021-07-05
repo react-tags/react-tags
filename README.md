@@ -141,9 +141,9 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-|[`tags`](#tags) | `Array` | `[]` | An array of tags that are displayed as pre-selected.Here is a [demo](http://www.jinno.io/app/6/tags?source=react-tag-input)|
+|[`tags`](#tags) | `Array` | `[]` | An array of tags that are displayed as pre-selected. Here is a [demo](http://www.jinno.io/app/6/tags?source=react-tag-input)|
 |[`suggestions`](#suggestions) | `Array` | `[]` | An array of suggestions that are used as basis for showing suggestions. Here is a [demo](http://www.jinno.io/app/6/suggestions?source=react-tag-input)
-|[`delimiters`](#delimiters) | `Array` | `[ENTER, TAB]` | Specifies which characters should terminate tags input
+|[`delimiters`](#delimiters) | `Array` | `[ENTER, TAB]` | Specifies which characters should terminate tags input. [demo](http://www.jinno.io/app/6/delimiters?source=react-tag-input)
 |[`placeholder`](#placeholder) | `String` | `Add new tag` | The placeholder shown for the input. Here is a [demo](http://www.jinno.io/app/6/placeholder?source=react-tag-input)
 |[`labelField`](#labelField) | `String` | `text` | Provide an alternative `label` property for the tags. Here is a [demo](http://www.jinno.io/app/6/labelField?source=react-tag-input)
 |[`handleAddition`](#handleAddition) | `Function` | `undefined` | Function called when the user wants to add a tag (required).
@@ -160,7 +160,7 @@ Option | Type | Default | Description
 |[`removeComponent`](#removeComponent) | `Function` |  | Function to render custom remove component for the tags.
 |[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed. Here is a [demo](http://www.jinno.io/app/6/autocomplete?source=react-tag-input)
 |[`readOnly`](#readOnly) | `Boolean` | `false` | Read-only mode without the input box and `removeComponent` and drag-n-drop features disabled. Here is a [demo](http://www.jinno.io/app/6/readOnly?source=react-tag-input)
-|[`name`](#name) | `String` | `undefined` | The `name` attribute added to the input . Here is a[demo](http://www.jinno.io/app/6/name?source=react-tag-input)
+|[`name`](#name) | `String` | `undefined` | The `name` attribute added to the input . Here is a [demo](http://www.jinno.io/app/6/name?source=react-tag-input)
 |[`id`](#id) | `String` | `undefined` | The `id` attribute added to the input . Here is a[demo](http://www.jinno.io/app/6/id?source=react-tag-input)
 |[`maxLength`](#maxLength) | `Number` | `Infinity` | The `maxLength` attribute added to the input. Here is a [demo](http://www.jinno.io/app/6/maxLength?source=react-tag-input)
 |[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line. Here is a [demo](http://www.jinno.io/app/6/inline?source=react-tag-input)
@@ -168,7 +168,7 @@ Option | Type | Default | Description
 |[`allowUnique`](#allowUnique) | `Boolean` | `true` | Boolean value to control whether tags should be unqiue. Here is a [demo](http://www.jinno.io/app/6/allowUnique?source=react-tag-input)
 |[`allowDragDrop`](#allowDragDrop) | `Boolean` | `true` | Boolean value to control whether tags should have drag-n-drop features enabled. Here is a [demo](http://www.jinno.io/app/6/allowDragDrop?source=react-tag-input)
 |[`renderSuggestion`](#renderSuggestion) | `Function` | `undefined` | Render prop for rendering your own suggestions.
-| [`inputProps`](#inputProps) | Object |`{}` | The extra attributes which are passed to the input field.
+| [`inputProps`](#inputProps) | Object |`{}` | The extra attributes which are passed to the input field. [demo](http://www.jinno.io/app/6/inputProps?source=react-tag-input)
 
 ### tags 
 An array of tags that are displayed as pre-selected. Each tag should have an `id` property, property for the label, which is specified by the [`labelField`](#labelFieldOption) and class for label, which is specified by `className`.
@@ -213,7 +213,7 @@ const Keys = {
     delimiters={[Keys.TAB, Keys.SPACE, Keys.COMMA]}
  />
 ```
-
+[demo](http://www.jinno.io/app/6/delimiters?source=react-tag-input)
 
 ### placeholder
 The placeholder shown for the input.
@@ -513,6 +513,7 @@ When you want to pass additional attributes to the input element (for example au
   }}
 />
 ```
+[demo](http://www.jinno.io/app/6/inputProps?source=react-tag-input)
 
 ## Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
