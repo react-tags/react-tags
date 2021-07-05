@@ -21,7 +21,7 @@ Follow [@ReactTags](https://twitter.com/ReactTags) on twitter!
 Because I was looking for an excuse to build a standalone component and publish it in the wild? To be honest, I needed a tagging component that provided the above features for my [React-Surveyman](http://github.com/prakhar1989/react-surveyman) project. Since I was unable to find one which met my requirements (and the fact that I generally enjoy re-inventing the wheel) this is what I came up with.
 
 
-## demo
+## Demo
 ![img](demo.gif)
 
 Check it out [here](http://www.jinno.io/app/6?source=react-tag-input)
