@@ -170,7 +170,8 @@ Option | Type | Default | Description
 |[`renderSuggestion`](#renderSuggestion) | `Function` | `undefined` | Render prop for rendering your own suggestions [Demo](http://www.jinno.io/app/6/renderSuggestion?source=react-tag-input)
 | [`inputProps`](#inputProps) | Object |`{}` | The extra attributes which are passed to the input field.
 
-### tags [Demo](http://www.jinno.io/app/6/tags?source=react-tag-input)
+### tags 
+Check out the [Demo](http://www.jinno.io/app/6/tags?source=react-tag-input)
 An array of tags that are displayed as pre-selected. Each tag should have an `id` property, property for the label, which is specified by the [`labelField`](#labelFieldOption) and class for label, which is specified by `className`.
 
 ```js
