@@ -146,18 +146,18 @@ Option | Type | Default | Description
 |[`delimiters`](#delimiters) | `Array` | `[ENTER, TAB]` | Specifies which characters should terminate tags input
 |[`placeholder`](#placeholder) | `String` | `Add new tag` | The placeholder shown for the input. Check out the [demo](http://www.jinno.io/app/6/placeholder?source=react-tag-input)
 |[`labelField`](#labelField) | `String` | `text` | Provide an alternative `label` property for the tags. Check out the [demo](http://www.jinno.io/app/6/labelField?source=react-tag-input)
-|[`handleAddition`](#handleAddition) | `Function` | `undefined` | Function called when the user wants to add a tag (required). Check out the [demo](http://www.jinno.io/app/6/handleAddition?source=react-tag-input)
-|[`handleDelete`](#handleDelete) | `Function` | `undefined` | Function called when the user wants to delete a tag (required). Check out the [demo](http://www.jinno.io/app/6/handleDelete?source=react-tag-input)
-|[`handleDrag`](#handleDrag) | `Function` | `undefined` | Function called when the user drags a tag. Check out the [demo](http://www.jinno.io/app/6/handleDrag?source=react-tag-input)
-|[`handleFilterSuggestions`](#handleFilterSuggestions) | `Function` | `undefined` | Function called when filtering suggestions. Check out the [demo](http://www.jinno.io/app/6/handleFilterSuggestions?source=react-tag-input)
-|[`handleTagClick`](#handleTagClick) | `Function` | `undefined` | Function called when the user wants to know which tag was clicked. Check out the [demo](http://www.jinno.io/app/6/handleTagClick?source=react-tag-input)
+|[`handleAddition`](#handleAddition) | `Function` | `undefined` | Function called when the user wants to add a tag (required).
+|[`handleDelete`](#handleDelete) | `Function` | `undefined` | Function called when the user wants to delete a tag (required).
+|[`handleDrag`](#handleDrag) | `Function` | `undefined` | Function called when the user drags a tag.
+|[`handleFilterSuggestions`](#handleFilterSuggestions) | `Function` | `undefined` | Function called when filtering suggestions.
+|[`handleTagClick`](#handleTagClick) | `Function` | `undefined` | Function called when the user wants to know which tag was clicked.
 |[`autofocus`](#autofocus) | `Boolean` | `true` | Boolean value to control whether the text-input should be autofocused on mount. Check out the [demo](http://www.jinno.io/app/6/autofocus?source=react-tag-input)
 |[`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput) | `Boolean` | `true` | Boolean value to control whether tags should be deleted when the 'Delete' key is pressed in an empty Input Box. Check out the [demo](http://www.jinno.io/app/6/allowDeleteFromEmptyInput?source=react-tag-input)
-|[`handleInputChange`](#handleInputChange) | `Function` | `undefined` | Event handler for input onChange. Check out the [demo](http://www.jinno.io/app/6/handleInputChange?source=react-tag-input)
-|[`handleInputFocus`](#handleInputFocus) | `Function` | `undefined` | Event handler for input onFocus. Check out the [demo](http://www.jinno.io/app/6/handleInputFocus?source=react-tag-input)
-|[`handleInputBlur`](#handleInputBlur) | `Function` | `undefined` | Event handler for input onBlur. Check out the [demo](http://www.jinno.io/app/6/handleInputBlur?source=react-tag-input)
+|[`handleInputChange`](#handleInputChange) | `Function` | `undefined` | Event handler for input onChange.
+|[`handleInputFocus`](#handleInputFocus) | `Function` | `undefined` | Event handler for input onFocus.
+|[`handleInputBlur`](#handleInputBlur) | `Function` | `undefined` | Event handler for input onBlur.
 |[`minQueryLength`](#minQueryLength) | `Number` | `2` | How many characters are needed for suggestions to appear. Check out the [demo](http://www.jinno.io/app/6/minQueryLength?source=react-tag-input)
-|[`removeComponent`](#removeComponent) | `Function` |  | Function to render custom remove component for the tags.. Check out the [demo](http://www.jinno.io/app/6/removeComponent?source=react-tag-input)
+|[`removeComponent`](#removeComponent) | `Function` |  | Function to render custom remove component for the tags.
 |[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed. Check out the [demo](http://www.jinno.io/app/6/autocomplete?source=react-tag-input)
 |[`readOnly`](#readOnly) | `Boolean` | `false` | Read-only mode without the input box and `removeComponent` and drag-n-drop features disabled. Check out the [demo](http://www.jinno.io/app/6/readOnly?source=react-tag-input)
 |[`name`](#name) | `String` | `undefined` | The `name` attribute added to the input . Check out the[demo](http://www.jinno.io/app/6/name?source=react-tag-input)
@@ -167,7 +167,7 @@ Option | Type | Default | Description
 |[`inputFieldPosition`](#inputFieldPosition) | `String` | `inline` | Specify position of input field relative to tags
 |[`allowUnique`](#allowUnique) | `Boolean` | `true` | Boolean value to control whether tags should be unqiue. Check out the [demo](http://www.jinno.io/app/6/allowUnique?source=react-tag-input)
 |[`allowDragDrop`](#allowDragDrop) | `Boolean` | `true` | Boolean value to control whether tags should have drag-n-drop features enabled. Check out the [demo](http://www.jinno.io/app/6/allowDragDrop?source=react-tag-input)
-|[`renderSuggestion`](#renderSuggestion) | `Function` | `undefined` | Render prop for rendering your own suggestions. Check out the [demo](http://www.jinno.io/app/6/renderSuggestion?source=react-tag-input)
+|[`renderSuggestion`](#renderSuggestion) | `Function` | `undefined` | Render prop for rendering your own suggestions.
 | [`inputProps`](#inputProps) | Object |`{}` | The extra attributes which are passed to the input field.
 
 ### tags 
@@ -246,8 +246,6 @@ function(tag) {
     // add the tag to the tag list
 }
 ```
-Checkout the [demo](http://www.jinno.io/app/6/handleAddition?source=react-tag-input).
-
 ### handleDelete
 Function called when the user wants to delete a tag
 
@@ -256,8 +254,6 @@ function(i) {
     // delete the tag at index i
 }
 ```
-Checkout the [demo](http://www.jinno.io/app/6/handleDelete?source=react-tag-input).
-
 ### handleDrag
 If you want tags to be draggable, you need to provide this function.
 Function called when the user drags a tag.
@@ -267,7 +263,6 @@ function(tag, currPos, newPos) {
     // remove tag from currPos and add in newPos
 }
 ```
-Check out the [demo](http://www.jinno.io/app/6/handleDrag?source=react-tag-input)
 
 ### handleFilterSuggestions
 To assert control over the suggestions filter, you may contribute a function that is executed whenever a filtered set
@@ -293,8 +288,6 @@ specification. If you need to support a browser that does not yet include suppor
 either refactor the above filter based on the capabilities of your supported browsers, or import a [polyfill for
 `String.prototype.includes`][includes-polyfill].
 
-Check out the[demo](http://www.jinno.io/app/6/handleFilterSuggestions?source=react-tag-input)
-
 
 ### handleTagClick
 Function called when the user wants to know which tag was clicked
@@ -304,8 +297,6 @@ function(i) {
     // use the tag details at index i
 }
 ```
-Check out the [demo](http://www.jinno.io/app/6/handleTagClick?source=react-tag-input).
-
 
 ### autofocus
 Optional boolean param to control whether the text-input should be autofocused on mount.
@@ -329,7 +320,6 @@ Check out the [demo](http://www.jinno.io/app/6/allowDeleteFromEmptyInput?source=
 
 ### handleInputChange
 Optional event handler for input onChange
-Check out the [demo](http://www.jinno.io/app/6/handleInputChange?source=react-tag-input).
 
 ```js
 <ReactTags
@@ -345,10 +335,9 @@ Optional event handler for input onFocus
     handleInputFocus={this.handleInputFocus}
     ...>
 ```
-Check out the [demo](http://www.jinno.io/app/6/handleInputFocus?source=react-tag-input).
 
 
-### handleInputBlur [demo](http://www.jinno.io/app/6/handleInputBlur?source=react-tag-input)
+### handleInputBlur
 Optional event handler for input onBlur
 
 ```js
@@ -356,7 +345,6 @@ Optional event handler for input onBlur
     handleInputBlur={this.handleInputBlur}
     ...>
 ```
-Check out the [demo](http://www.jinno.io/app/6/handleInputBlur?source=react-tag-input).
 
 ### minQueryLength
 Minimum number of characters needed for suggestions to appear. Defaults to `2`.
@@ -396,8 +384,6 @@ The below props will be passed to the `removeComponent`. You will need to forwar
 | `aria-label` | string | The `aria-label` to be announced when the tag at an index is deleted |
 | `tag` | <pre>{ id?: string, className: string, key: string }</pre> | The `tag` to be deleted.
 | `index` | number | the `index` of the tag to be deleted.
-
-Check out the [demo](http://www.jinno.io/app/6/removeComponent?source=react-tag-input).
 
 
 ### autocomplete
@@ -514,7 +500,6 @@ This props allows to provide your own suggestion renderer and override the defau
     renderSuggestion = {({ text }, query) => <div style={{ textDecoration: 'underline', textDecorationStyle: 'wavy' }}>{text} ({ query })</div>}
     ...>
 ```
-Check out the [demo](http://www.jinno.io/app/6/renderSuggestion?source=react-tag-input).
 
 ### inputProps
 
