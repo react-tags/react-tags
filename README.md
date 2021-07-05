@@ -141,7 +141,8 @@ Otherwise, you can simply import along with the backend itself (as shown above).
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-|[`tags`](#tags) | `Array` | `[]` | An array of tags that are displayed as pre-selected [Demo](http://www.jinno.io/app/6/tags?source=react-tag-input)
+|[`tags`](#tags) | `Array` | `[]` | An array of tags that are displayed as pre-selected.
+ Check out the  [Demo](http://www.jinno.io/app/6/tags?source=react-tag-input)
 |[`suggestions`](#suggestions) | `Array` | `[]` | An array of suggestions that are used as basis for showing suggestions [Demo](http://www.jinno.io/app/6/suggestions?source=react-tag-input)
 |[`delimiters`](#delimiters) | `Array` | `[ENTER, TAB]` | Specifies which characters should terminate tags input
 |[`placeholder`](#placeholder) | `String` | `Add new tag` | The placeholder shown for the input [Demo](http://www.jinno.io/app/6/placeholder?source=react-tag-input)
