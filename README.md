@@ -161,7 +161,7 @@ Option | Type | Default | Description
 |[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed. Here is a [demo](http://www.jinno.io/app/6/autocomplete?source=react-tag-input).
 |[`readOnly`](#readOnly) | `Boolean` | `false` | Read-only mode without the input box and `removeComponent` and drag-n-drop features disabled. Here is a [demo](http://www.jinno.io/app/6/readOnly?source=react-tag-input).
 |[`name`](#name) | `String` | `undefined` | The `name` attribute added to the input . Here is a [demo](http://www.jinno.io/app/6/name?source=react-tag-input).
-|[`id`](#id) | `String` | `undefined` | The `id` attribute added to the input . Here is a[demo](http://www.jinno.io/app/6/id?source=react-tag-input).
+|[`id`](#id) | `String` | `undefined` | The `id` attribute added to the input . Here is a [demo](http://www.jinno.io/app/6/id?source=react-tag-input).
 |[`maxLength`](#maxLength) | `Number` | `Infinity` | The `maxLength` attribute added to the input. Here is a [demo](http://www.jinno.io/app/6/maxLength?source=react-tag-input).
 |[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line. Here is a [demo](http://www.jinno.io/app/6/inline?source=react-tag-input).
 |[`inputFieldPosition`](#inputFieldPosition) | `String` | `inline` | Specify position of input field relative to tags
