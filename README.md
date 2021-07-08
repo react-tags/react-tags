@@ -512,7 +512,6 @@ When you want to pass additional attributes to the input element (for example au
   }}
 />
 ```
-Here is a [demo](http://www.jinno.io/app/6/inputProps?source=react-tag-input).
 
 ## Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
