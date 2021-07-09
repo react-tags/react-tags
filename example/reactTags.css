@@ -28,6 +28,10 @@
     width: 100%;
     border: 1px solid #eee;
 }
+.ReactTags__editInput {
+    width: 100px;
+    border-radius: 1px;
+}
 
 /* Styles for selected tags */
 .ReactTags__selected span.ReactTags__tag {
