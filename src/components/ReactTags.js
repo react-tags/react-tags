@@ -447,6 +447,7 @@ class ReactTags extends Component {
               onKeyDown={this.handleKeyDown}
               onBlur={this.handleBlur}
               className={classNames.editTagInputField}
+              onPaste={this.handlePaste}
             />
           </div>
         );
