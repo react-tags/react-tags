@@ -179,7 +179,7 @@ Option | Type | Default | Description
 |[`allowDragDrop`](#allowDragDrop) | `Boolean` | `true` | Boolean value to control whether tags should have drag-n-drop features enabled. Here is a [demo](http://www.jinno.io/app/6/allowDragDrop?source=react-tag-input).
 |[`renderSuggestion`](#renderSuggestion) | `Function` | `undefined` | Render prop for rendering your own suggestions.
 | [`inputProps`](#inputProps) | Object |`{}` | The extra attributes which are passed to the input field. 
-| [`allowAdditionFromPaste`](#allowAdditionFromPaste) | `boolean` | `true` | Implies whether allow paste action when adding tags.
+| [`allowAdditionFromPaste`](#allowAdditionFromPaste) | `boolean` | `true` | Implies whether to allow paste action when adding tags.
 
 ### tags 
 An array of tags that are displayed as pre-selected. Each tag should have an `id` property, property for the label, which is specified by the [`labelField`](#labelFieldOption) and class for label, which is specified by `className`.
