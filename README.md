@@ -30,7 +30,10 @@ Because I was looking for an excuse to build a standalone component and publish 
 Check it out [here](http://www.jinno.io/app/6?source=react-tag-input)
 
 ## Support
-If you like this library, you can support at <a href="https://www.buymeacoffee.com/aakansha" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee"  height=40 ></a>
+If you like this library, you can support to help it improve:)
+
+<a href="https://www.buymeacoffee.com/aakansha" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee"  height=40 style={margin:10} ></a>
+
 
 
 ## Installation
