@@ -7,6 +7,10 @@
     "dist-modules",
     "dist"
   ],
+  "funding": {
+    "type": "individual",
+    "url": "https://www.buymeacoffee.com/aakansha"
+  },
   "sideEffects": false,
   "scripts": {
     "test": "jest --notify --coverage",
