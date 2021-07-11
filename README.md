@@ -17,6 +17,10 @@ Follow [@ReactTags](https://twitter.com/ReactTags) on twitter!
 - Reorder tags using drag and drop
 
 ## Why
+Started by [Prakhar Srivastav](https://github.com/prakhar1989) and later maintained by [Aakansha Doshi](https://github.com/ad1992).
+
+In Prakhar's words here is why he started it👇🏻
+
 Because I was looking for an excuse to build a standalone component and publish it in the wild? To be honest, I needed a tagging component that provided the above features for my [React-Surveyman](http://github.com/prakhar1989/react-surveyman) project. Since I was unable to find one which met my requirements (and the fact that I generally enjoy re-inventing the wheel) this is what I came up with.
 
 
@@ -24,6 +28,10 @@ Because I was looking for an excuse to build a standalone component and publish 
 ![img](demo.gif)
 
 Check it out [here](http://www.jinno.io/app/6?source=react-tag-input)
+
+## Support
+If you like this library, you can support at <a href="https://www.buymeacoffee.com/aakansha" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee"  height=40 ></a>
+
 
 ## Installation
 You can use npm
