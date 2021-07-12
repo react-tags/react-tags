@@ -6,7 +6,7 @@ node_js:
   - "14"
 before_install:
 - npm install -g yarn
-install: npm install
+install: yarn
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
