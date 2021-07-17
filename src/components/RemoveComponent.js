@@ -41,6 +41,7 @@ const RemoveComponent = (props) => {
       onClick={onRemove}
       onKeyDown={onKeydown}
       className={className}
+      type="button"
       aria-label={ariaLabel}>
       {crossStr}
     </button>
