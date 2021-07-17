@@ -28,9 +28,13 @@
     width: 100%;
     border: 1px solid #eee;
 }
+
 .ReactTags__editInput {
-    width: 100px;
     border-radius: 1px;
+}
+
+.ReactTags__editTagInput {
+    display: inline-flex;
 }
 
 /* Styles for selected tags */
