@@ -79,7 +79,7 @@ const suggestions = COUNTRIES.map(country => {
 
 const KeyCodes = {
   comma: 188,
-  enter: [10, 13]
+  enter: 13
 };
 
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
