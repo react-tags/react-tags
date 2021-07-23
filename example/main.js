@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/*eslint-disable */
 
 // List of countries in the world
 const COUNTRIES = [
