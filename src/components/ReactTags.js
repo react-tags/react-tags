@@ -112,7 +112,7 @@ class ReactTags extends Component {
       selectedIndex: -1,
       selectionMode: false,
       ariaLiveStatus: '',
-      currentEditIndex: null,
+      currentEditIndex: -1,
     };
     this.reactTagsRef = createRef();
     this.handleFocus = this.handleFocus.bind(this);
@@ -264,7 +264,7 @@ class ReactTags extends Component {
         this.textInput.value = '';
       }
     }
-    this.setState({ isFocused: false, currentEditIndex: null });
+    this.setState({ isFocused: false, currentEditIndex: -1 });
   }
 
   handleKeyDown(e) {
@@ -278,7 +278,7 @@ class ReactTags extends Component {
         selectedIndex: -1,
         selectionMode: false,
         suggestions: [],
-        currentEditIndex: null,
+        currentEditIndex: -1,
       });
     }
 
@@ -381,7 +381,7 @@ class ReactTags extends Component {
     }
 
     // call method to add
-    if (currentEditIndex !== null && this.props.handleUpdateTag)
+    if (currentEditIndex !== -1 && this.props.handleUpdateTag)
       this.props.handleUpdateTag(currentEditIndex, tag);
     else
       this.props.handleAddition(tag);
@@ -391,7 +391,7 @@ class ReactTags extends Component {
       query: '',
       selectionMode: false,
       selectedIndex: -1,
-      currentEditIndex: null,
+      currentEditIndex: -1,
     });
 
     this.resetAndFocusInput();
@@ -440,7 +440,6 @@ class ReactTags extends Component {
                 this.tagInput = input;
               }}
               key={index}
-              d-index={index}
               onFocus={this.handleFocus}
               value={query}
               onChange={this.handleChange}
