@@ -64,78 +64,78 @@ Here's a sample implementation that initializes the component with a list of ini
 
 
 ```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState } from 'react';
+import { render } from 'react-dom';
+import { COUNTRIES } from './countries';
+import './style.css';
 import { WithContext as ReactTags } from 'react-tag-input';
+
+const suggestions = COUNTRIES.map(country => {
+  return {
+    id: country,
+    text: country
+  };
+});
 
 const KeyCodes = {
   comma: 188,
-  enter: [10, 13],
+  enter: 13
 };
 
-const delimiters = [...KeyCodes.enter, KeyCodes.comma];
+const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
+const App = () => {
+  const [tags, setTags] = React.useState([
+    { id: 'Thailand', text: 'Thailand' },
+    { id: 'India', text: 'India' },
+    { id: 'Vietnam', text: 'Vietnam' },
+    { id: 'Turkey', text: 'Turkey' }
+  ]);
 
-        this.state = {
-            tags: [
-                { id: "Thailand", text: "Thailand" },
-                { id: "India", text: "India" }
-             ],
-            suggestions: [
-                { id: 'USA', text: 'USA' },
-                { id: 'Germany', text: 'Germany' },
-                { id: 'Austria', text: 'Austria' },
-                { id: 'Costa Rica', text: 'Costa Rica' },
-                { id: 'Sri Lanka', text: 'Sri Lanka' },
-                { id: 'Thailand', text: 'Thailand' }
-             ]
-        };
-        this.handleDelete = this.handleDelete.bind(this);
-        this.handleAddition = this.handleAddition.bind(this);
-        this.handleDrag = this.handleDrag.bind(this);
-    }
+  const handleDelete = i => {
+    setTags(tags.filter((tag, index) => index !== i));
+  };
 
-    handleDelete(i) {
-        const { tags } = this.state;
-        this.setState({
-         tags: tags.filter((tag, index) => index !== i),
-        });
-    }
+  const handleAddition = tag => {
+    setTags([...tags, tag]);
+  };
 
-    handleAddition(tag) {
-        this.setState(state => ({ tags: [...state.tags, tag] }));
-    }
+  const handleDrag = (tag, currPos, newPos) => {
+    const newTags = tags.slice();
 
-    handleDrag(tag, currPos, newPos) {
-        const tags = [...this.state.tags];
-        const newTags = tags.slice();
+    newTags.splice(currPos, 1);
+    newTags.splice(newPos, 0, tag);
 
-        newTags.splice(currPos, 1);
-        newTags.splice(newPos, 0, tag);
+    // re-render
+    setTags(newTags);
+  };
 
-        // re-render
-        this.setState({ tags: newTags });
-    }
+  const handleTagClick = index => {
+    console.log('The tag at index ' + index + ' was clicked');
+  };
 
-    render() {
-        const { tags, suggestions } = this.state;
-        return (
-            <div>
-                <ReactTags tags={tags}
-                    suggestions={suggestions}
-                    handleDelete={this.handleDelete}
-                    handleAddition={this.handleAddition}
-                    handleDrag={this.handleDrag}
-                    delimiters={delimiters} />
-            </div>
-        )
-    }
+  return (
+    <div className="app">
+      <h1> React Tags Example </h1>
+      <div>
+        <ReactTags
+          tags={tags}
+          suggestions={suggestions}
+          delimiters={delimiters}
+          handleDelete={handleDelete}
+          handleAddition={handleAddition}
+          handleDrag={handleDrag}
+          handleTagClick={handleTagClick}
+          inputFieldPosition="bottom"
+          autocomplete
+        />
+      </div>
+    </div>
+  );
 };
 
-ReactDOM.render(<App />, document.getElementById('app'));
+render(<App />, document.getElementById('root'));
+
 ```
 
 **A note about `Contexts`**
