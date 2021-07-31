@@ -1,6 +1,3 @@
-env:
-  global:
-    - CC_TEST_REPORTER_ID: 2592c4db9597cc4393571ac1283548abf792edaf49b926665e2b2042671f3938
 language: node_js
 node_js:
   - "14"
@@ -8,17 +5,13 @@ before_install:
 - npm install -g yarn
 install: yarn
 before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+  - bash <(curl -Ls https://coverage.codacy.com/get.sh) download
 
 script:
   - yarn test
   - yarn build
 
-after_script:
-  - ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $TRAVIS_TEST_RESULT
-
 after_success:
+  - bash <(curl -Ls https://coverage.codacy.com/get.sh)
   - yarn semantic-release
 
