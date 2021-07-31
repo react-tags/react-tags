@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test ReactTags When ClearAll is true should show a clear tags span if "allowClearTags" is enabled 1`] = `
+exports[`Test ReactTags When ClearAll is true should render a clear all button 1`] = `
 <div>
   <div
     class="ReactTags__tags react-tags-wrapper"
