@@ -11,6 +11,7 @@ React-tags is a simple tagging component ready to drop in your projects. The com
 - Autocomplete based on a suggestion list
 - Keyboard friendly and mouse support
 - Reorder tags using drag and drop
+- Edit tag support
 - Optional clear all button
 
 ## Why
