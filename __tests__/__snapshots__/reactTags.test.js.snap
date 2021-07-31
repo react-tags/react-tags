@@ -1,5 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Test ReactTags When ClearAll is true should show a clear tags span if "allowClearTags" is enabled 1`] = `
+<div>
+  <div
+    class="ReactTags__tags react-tags-wrapper"
+  >
+    <p
+      class="sr-only"
+      role="alert"
+      style="position: absolute; overflow: hidden; margin: -1px; padding: 0px; width: 1px; height: 1px; border: 0px;"
+    />
+    <div
+      class="ReactTags__selected"
+    >
+      <span
+        class="tag-wrapper ReactTags__tag"
+        draggable="true"
+        style="opacity: 1; cursor: move;"
+      >
+        Apple
+        <button
+          aria-label="Tag at index 0 with value Apple focussed. Press backspace to remove"
+          class="ReactTags__remove"
+          type="button"
+        >
+          ×
+        </button>
+      </span>
+      <div
+        class="ReactTags__tagInput"
+      >
+        <input
+          aria-label="Press enter to add new tag"
+          class="ReactTags__tagInputField"
+          data-automation="input"
+          data-testid="input"
+          placeholder="Press enter to add new tag"
+          type="text"
+          value=""
+        />
+        <button
+          class="ReactTags__clearAll"
+        >
+          Clear all
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Test ReactTags When editable should update the tag to input and focus the tag when clicked 1`] = `
 <div>
   <div

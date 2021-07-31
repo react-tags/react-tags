@@ -904,31 +904,28 @@ describe('Test ReactTags', () => {
     });
   });
 
-  test('should not show a clear tags span as default', () => {
-    const $el = mount(mockItem());
-    expect($el.exists('.ReactTags__clearAll')).to.equal(false);
-  });
+  describe('When ClearAll is true', () => {
+    it('should show a clear tags span if "allowClearTags" is enabled', () => {
+      const tags = render(
+        mockItem({
+          clearAll: true,
+        })
+      );
+      jestExpect(tags.container).toMatchSnapshot();
+    });
 
-  test('should show a clear tags span if "allowClearTags" is enabled', () => {
-    const $el = mount(
-      mockItem({
-        allowClearAll: true,
-      })
-    );
-    expect($el.exists('.ReactTags__clearAll')).to.equal(true);
-  });
+    it('should trigger "onClearAll" callback if present when clear all button is clicked', () => {
+      const onClearAllStub = sandbox.stub();
+      const tags = render(
+        mockItem({
+          clearAll: true,
+          onClearAll: onClearAllStub,
+        })
+      );
 
-  test('should invoke "handleClearAll" on clear tags mouse down', () => {
-    const handleClearAll = spy();
-    const $el = mount(
-      mockItem({
-        allowClearAll: true,
-        handleClearAll,
-      })
-    );
-
-    const $clearAll = $el.find('.ReactTags__clearAll');
-    $clearAll.simulate('mousedown');
-    expect(handleClearAll.callCount).to.equal(1);
+      const clearAllBtn = tags.getByText('Clear all');
+      fireEvent.click(clearAllBtn);
+      expect(onClearAllStub.calledOnce).to.be.true;
+    });
   });
 });
