@@ -905,7 +905,7 @@ describe('Test ReactTags', () => {
   });
 
   describe('When ClearAll is true', () => {
-    it('should show a clear tags span if "allowClearTags" is enabled', () => {
+    it('should render a clear all button', () => {
       const tags = render(
         mockItem({
           clearAll: true,
