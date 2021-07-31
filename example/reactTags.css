@@ -14,7 +14,6 @@
   position: relative;
 }
 
-/* Styles for the clear tags span */
 .ReactTags__clearAll {
 	cursor: pointer;
 	padding: 10px;
