@@ -4,8 +4,6 @@
 [![NPM Version](https://img.shields.io/npm/v/react-tag-input.svg?style=flat-square)](https://www.npmjs.com/package/react-tag-input)
 [![npm downloads](https://img.shields.io/npm/dm/react-tag-input.svg?style=flat-square)](https://www.npmjs.com/package/react-tag-input)
 [![Build Status](https://travis-ci.com/react-tags/react-tags.svg?branch=master)](https://travis-ci.com/react-tags/react-tags)[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-<a href="https://codeclimate.com/github/react-tags/react-tags/maintainability"><img src="https://api.codeclimate.com/v1/badges/b9edb2810b02bb845d20/maintainability" /></a>
-<a href="https://codeclimate.com/github/react-tags/react-tags/test_coverage"><img src="https://api.codeclimate.com/v1/badges/b9edb2810b02bb845d20/test_coverage" /></a>
 
 React-tags is a simple tagging component ready to drop in your projects. The component is inspired by GMail's *To* field in the compose window.
 
