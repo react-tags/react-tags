@@ -39,7 +39,7 @@ class ReactTags extends Component {
     ]),
     handleDelete: PropTypes.func,
     handleAddition: PropTypes.func,
-    handleUpdateTag: PropTypes.func,
+    onTagUpdate: PropTypes.func,
     handleDrag: PropTypes.func,
     handleFilterSuggestions: PropTypes.func,
     handleTagClick: PropTypes.func,
@@ -89,7 +89,7 @@ class ReactTags extends Component {
     allowDragDrop: true,
     tags: [],
     inputProps: {},
-    handleUpdateTag: noop,
+    onTagUpdate: noop,
     editable: false,
   };
 
@@ -381,10 +381,9 @@ class ReactTags extends Component {
     }
 
     // call method to add
-    if (currentEditIndex !== -1 && this.props.handleUpdateTag)
-      this.props.handleUpdateTag(currentEditIndex, tag);
-    else
-      this.props.handleAddition(tag);
+    if (currentEditIndex !== -1 && this.props.onTagUpdate)
+      this.props.onTagUpdate(currentEditIndex, tag);
+    else this.props.handleAddition(tag);
 
     // reset the state
     this.setState({
@@ -420,13 +419,8 @@ class ReactTags extends Component {
   }
 
   getTagItems = () => {
-    const {
-      tags,
-      labelField,
-      removeComponent,
-      readOnly,
-      allowDragDrop,
-    } = this.props;
+    const { tags, labelField, removeComponent, readOnly, allowDragDrop } =
+      this.props;
     const classNames = { ...DEFAULT_CLASSNAMES, ...this.props.classNames };
 
     const { currentEditIndex, query } = this.state;
@@ -450,21 +444,22 @@ class ReactTags extends Component {
             />
           </div>
         );
-      } else return (
-        <Tag
-          key={index}
-          index={index}
-          tag={tag}
-          labelField={labelField}
-          onDelete={this.handleDelete.bind(this, index)}
-          moveTag={moveTag}
-          removeComponent={removeComponent}
-          onTagClicked={this.handleTagClick.bind(this, index, tag)}
-          readOnly={readOnly}
-          classNames={classNames}
-          allowDragDrop={allowDragDrop}
-        />
-      );
+      } else
+        return (
+          <Tag
+            key={index}
+            index={index}
+            tag={tag}
+            labelField={labelField}
+            onDelete={this.handleDelete.bind(this, index)}
+            moveTag={moveTag}
+            removeComponent={removeComponent}
+            onTagClicked={this.handleTagClick.bind(this, index, tag)}
+            readOnly={readOnly}
+            classNames={classNames}
+            allowDragDrop={allowDragDrop}
+          />
+        );
     });
   };
 

@@ -17,7 +17,7 @@ Object {
   "handleAddition": [Function],
   "handleDelete": [Function],
   "handleDrag": [Function],
-  "handleUpdateTag": [Function],
+  "onTagUpdate": [Function],
   "inline": true,
   "inputFieldPosition": "inline",
   "inputProps": Object {},

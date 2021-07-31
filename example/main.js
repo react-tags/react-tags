@@ -238,11 +238,11 @@ const App = () => {
     setTags(tags.filter((tag, index) => index !== i));
   };
 
-  const handleUpdateTag = (i, newTag) => {
+  const onTagUpdate = (i, newTag) => {
     const updatedTags = tags.slice();
     updatedTags.splice(i, 1, newTag);
-    setTags(updatedTags)
-  }
+    setTags(updatedTags);
+  };
 
   const handleAddition = (tag) => {
     setTags([...tags, tag]);
@@ -273,9 +273,10 @@ const App = () => {
           handleAddition={handleAddition}
           handleDrag={handleDrag}
           handleTagClick={handleTagClick}
-          handleUpdateTag={handleUpdateTag}
+          onTagUpdate={onTagUpdate}
           inputFieldPosition="bottom"
           autocomplete
+          editable
         />
       </div>
     </div>
