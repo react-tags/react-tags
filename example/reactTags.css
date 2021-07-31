@@ -15,12 +15,12 @@
 }
 
 .ReactTags__clearAll {
-	cursor: pointer;
-	padding: 10px;
-	margin: 10px;
-	background: #f88d8d;
-	color: #fff;
-	border: none;
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px;
+  background: #f88d8d;
+  color: #fff;
+  border: none;
 }
 
 /* Styles for the input */
@@ -34,7 +34,7 @@
   margin: 0;
   font-size: 12px;
   border: 1px solid #eee;
-	min-width: 150px;
+  min-width: 150px;
 }
 
 .ReactTags__editInput {
