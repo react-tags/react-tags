@@ -18,9 +18,11 @@ jobs:
       - name: Run Tests
         run: |
           yarn test
+          cat ${{ github.workspace }}/coverage/lcov.info
+
       - uses: actions/checkout@master
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
           api-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          force-coverage-parser: lcov
+          coverage-reports: coverage/lcov.info
