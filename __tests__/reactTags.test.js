@@ -903,4 +903,29 @@ describe('Test ReactTags', () => {
       ).to.be.true;
     });
   });
+
+  describe('When ClearAll is true', () => {
+    it('should render a clear all button', () => {
+      const tags = render(
+        mockItem({
+          clearAll: true,
+        })
+      );
+      jestExpect(tags.container).toMatchSnapshot();
+    });
+
+    it('should trigger "onClearAll" callback if present when clear all button is clicked', () => {
+      const onClearAllStub = sandbox.stub();
+      const tags = render(
+        mockItem({
+          clearAll: true,
+          onClearAll: onClearAllStub,
+        })
+      );
+
+      const clearAllBtn = tags.getByText('Clear all');
+      fireEvent.click(clearAllBtn);
+      expect(onClearAllStub.calledOnce).to.be.true;
+    });
+  });
 });

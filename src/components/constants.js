@@ -24,6 +24,7 @@ export const DEFAULT_CLASSNAMES = {
   activeSuggestion: 'ReactTags__activeSuggestion',
   editTagInput: 'ReactTags__editTagInput',
   editTagInputField: 'ReactTags__editTagInputField',
+  clearAll: 'ReactTags__clearAll',
 };
 
 export const INPUT_FIELD_POSITIONS = {

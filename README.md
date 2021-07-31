@@ -11,6 +11,8 @@ React-tags is a simple tagging component ready to drop in your projects. The com
 - Autocomplete based on a suggestion list
 - Keyboard friendly and mouse support
 - Reorder tags using drag and drop
+- Edit tag support
+- Optional clear all button
 
 ## Why
 Started by [Prakhar Srivastav](https://github.com/prakhar1989) and later maintained by [Aakansha Doshi](https://github.com/ad1992).
@@ -178,6 +180,8 @@ Option | Type | Default | Description
 | [`allowAdditionFromPaste`](#allowAdditionFromPaste) | `boolean` | `true` | Implies whether to allow paste action when adding tags. Here is a [demo](https://www.jinno.io/app/6/allowAdditionFromPaste?source=react-tag-input).|
 | [`editable`](#editable) | `boolean` | `false`| Implies whether the tags should be editable. |
 | [`onTagUpdate`](#onTagUpdate) | `Function` | | This callback if present is triggered when tag is edited.|
+|[`clearAll`](#clearAll) | `boolean` | `false` | Implies whether 'clear all' button should be shown.
+|[`onClearAll`](#onClearAll) | `Function` |  | This callback if present is triggered when clear all button is clicked.
 
 ### tags 
 An array of tags that are displayed as pre-selected. Each tag should have an `id` property, property for the label, which is specified by the [`labelField`](#labelFieldOption) and class for label, which is specified by `className`.
@@ -539,6 +543,12 @@ onTagUpdate(editIndex, tag) => void;
 ```
 This callback is if present is triggered when tag is updated. The edit index and the tag are passed in the callback. You can update the [`tags`](#tags) prop in this callback.
 
+#### clearAll
+This props implies whether 'clear all' button should be shown. Defaults to `false`.
+
+#### onClearAll
+This callback is if present is triggered when "clear all" button is clicked. You can set the [`tags`](#tags) prop to empty in this callback.
+
 ## Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
 
@@ -552,8 +562,9 @@ This callback is if present is triggered when tag is updated. The edit index and
 - `ReactTags__activeSuggestion`
 - `ReactTags__editTagInput`
 - `ReactTags__editTagInputField`
+- `ReactTags__clearAll`
 
-An example can be found in `/example/reactTags.css`.
+An example can be found in [`/example/reactTags.css`](https://github.com/react-tags/react-tags/blob/master/example/reactTags.css).
 
 If you need to set your own class names on the component, you may pass in
 a `classNames` prop.
@@ -570,7 +581,8 @@ a `classNames` prop.
       suggestions: 'suggestionsClass',
       activeSuggestion: 'activeSuggestionClass',
       editTagInput: 'editTagInputClass',
-      editTagInputField: 'editTagInputField'
+      editTagInputField: 'editTagInputField',
+      clearAll: 'clearAllClass',
     }}
     ...>
 ```

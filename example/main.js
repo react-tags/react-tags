@@ -1,5 +1,7 @@
 /*eslint-disable */
 
+const { React, ReactDOM, ReactTags } = window;
+
 // List of countries in the world
 const COUNTRIES = [
   'Afghanistan',
@@ -261,6 +263,11 @@ const App = () => {
   const handleTagClick = (index) => {
     console.log('The tag at index ' + index + ' was clicked');
   };
+
+  const onClearAll = () => {
+    setTags([]);
+  };
+
   return (
     <div className="app">
       <h1> React Tags Example </h1>
@@ -277,6 +284,8 @@ const App = () => {
           inputFieldPosition="bottom"
           autocomplete
           editable
+          clearAll
+          onClearAll={onClearAll}
         />
       </div>
     </div>

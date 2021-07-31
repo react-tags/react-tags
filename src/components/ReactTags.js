@@ -4,6 +4,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import isEqual from 'lodash/isEqual';
 import noop from 'lodash/noop';
 import uniq from 'lodash/uniq';
+import ClearAllTags from './ClearAllTags';
 import Suggestions from './Suggestions';
 import PropTypes from 'prop-types';
 import ClassNames from 'classnames';
@@ -69,6 +70,8 @@ class ReactTags extends Component {
     renderSuggestion: PropTypes.func,
     inputProps: PropTypes.object,
     editable: PropTypes.bool,
+    clearAll: PropTypes.bool,
+    onClearAll: PropTypes.func,
   };
 
   static defaultProps = {
@@ -91,6 +94,8 @@ class ReactTags extends Component {
     inputProps: {},
     onTagUpdate: noop,
     editable: false,
+    clearAll: false,
+    handleClearAll: noop,
   };
 
   constructor(props) {
@@ -399,6 +404,12 @@ class ReactTags extends Component {
     this.addTag(this.state.suggestions[i]);
   }
 
+  clearAll = () => {
+    if (this.props.onClearAll) {
+      this.props.onClearAll();
+    }
+  };
+
   handleSuggestionHover(i) {
     this.setState({
       selectedIndex: i,
@@ -480,6 +491,8 @@ class ReactTags extends Component {
       inputFieldPosition,
       inputValue,
       inputProps,
+      clearAll,
+      tags,
     } = this.props;
 
     const position = !inline
@@ -523,6 +536,9 @@ class ReactTags extends Component {
           classNames={classNames}
           renderSuggestion={this.props.renderSuggestion}
         />
+        {clearAll && tags.length > 0 && (
+          <ClearAllTags classNames={classNames} onClick={this.clearAll} />
+        )}
       </div>
     ) : null;
 
