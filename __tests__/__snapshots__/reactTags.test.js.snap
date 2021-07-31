@@ -126,6 +126,7 @@ Object {
   "allowUnique": true,
   "autocomplete": false,
   "autofocus": true,
+  "clearAll": false,
   "delimiters": Array [
     10,
     13,
@@ -133,6 +134,7 @@ Object {
   ],
   "editable": false,
   "handleAddition": [Function],
+  "handleClearAll": [Function],
   "handleDelete": [Function],
   "handleDrag": [Function],
   "inline": true,
