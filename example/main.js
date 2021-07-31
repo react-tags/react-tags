@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/*eslint-disable */
 
 const {
   React,
@@ -7,7 +7,7 @@ const {
 } = window;
 
 // List of countries in the world
-const Countries = [
+const COUNTRIES = [
   'Afghanistan',
   'Albania',
   'Algeria',
@@ -193,7 +193,7 @@ const Countries = [
   'Tajikistan',
   'Tanzania',
   'Thailand',
-  'Timor L\'Este',
+  "Timor L'Este",
   'Togo',
   'Tonga',
   'Trinidad & Tobago',
@@ -216,7 +216,7 @@ const Countries = [
   'Zimbabwe',
 ];
 
-const suggestions = Countries.map((country) => {
+const suggestions = COUNTRIES.map((country) => {
   return {
     id: country,
     text: country,
@@ -225,88 +225,76 @@ const suggestions = Countries.map((country) => {
 
 const KeyCodes = {
   comma: 188,
-  enter: 13,
+  enter: [10, 13],
 };
 
-const delimiters = [KeyCodes.comma, KeyCodes.enter];
+const delimiters = [...KeyCodes.enter, KeyCodes.comma];
 
-/*
- * If your app already uses react-dnd, then having multiple
- * backend will raise an integrity violation exception. In such cases
- * use the WithOutContext version of the component.
- * var Tags = ReactTags.WithOutContext;
- * The example below uses the `WithContext` since this the sole component
- * using the react-dnd component.
-*/
 const Tags = ReactTags.WithContext;
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+const App = () => {
+  const [tags, setTags] = React.useState([
+    { id: 'Thailand', text: 'Thailand' },
+    { id: 'India', text: 'India' },
+    { id: 'Vietnam', text: 'Vietnam' },
+    { id: 'Turkey', text: 'Turkey' },
+  ]);
 
-    this.state = {
-      tags: [
-        { id: 'Thailand', text: 'Thailand' },
-        { id: 'India', text: 'India' },
-      ],
-    };
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleAddition = this.handleAddition.bind(this);
-    this.handleDrag = this.handleDrag.bind(this);
-    this.handleTagClick = this.handleTagClick.bind(this);
-    this.handleClearAll = this.handleClearAll.bind(this);
-  }
+  const handleDelete = (i) => {
+    setTags(tags.filter((tag, index) => index !== i));
+  };
 
-  handleDelete(i) {
-    const { tags } = this.state;
-    this.setState({
-      tags: tags.filter((tag, index) => index !== i),
-    });
-  }
+  const onTagUpdate = (i, newTag) => {
+    const updatedTags = tags.slice();
+    updatedTags.splice(i, 1, newTag);
+    setTags(updatedTags);
+  };
 
-  handleAddition(tag) {
-    this.setState((state) => ({ tags: [...state.tags, tag] }));
-  }
+  const handleAddition = (tag) => {
+    setTags([...tags, tag]);
+  };
 
-  handleDrag(tag, currPos, newPos) {
-    const tags = [...this.state.tags];
+  const handleDrag = (tag, currPos, newPos) => {
     const newTags = tags.slice();
 
     newTags.splice(currPos, 1);
     newTags.splice(newPos, 0, tag);
 
     // re-render
-    this.setState({ tags: newTags });
-  }
+    setTags(newTags);
+  };
 
-  handleTagClick(index) {
+  const handleTagClick = (index) => {
     console.log('The tag at index ' + index + ' was clicked');
+  };
+
+  const handleClearAll = () => {
+    setTags([]);
   }
 
-  handleClearAll() {
-    this.setState({
-      tags: [],
-    });
-  }
-
-  render() {
-    const { tags } = this.state;
-    return (
+  return (
+    <div className="app">
+      <h1> React Tags Example </h1>
       <div>
         <Tags
           tags={tags}
           suggestions={suggestions}
           delimiters={delimiters}
-          handleDelete={this.handleDelete}
-          handleAddition={this.handleAddition}
-          handleDrag={this.handleDrag}
-          handleTagClick={this.handleTagClick}
+          handleDelete={handleDelete}
+          handleAddition={handleAddition}
+          handleDrag={handleDrag}
+          handleTagClick={handleTagClick}
+          onTagUpdate={onTagUpdate}
+          inputFieldPosition="bottom"
+          autocomplete
+          editable
           allowClearAll
-          handleClearAll={this.handleClearAll}
+          handleClearAll={handleClearAll}
+
         />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 ReactDOM.render(<App />, document.getElementById('app'));

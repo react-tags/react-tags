@@ -1,52 +1,88 @@
-import React, { Component } from 'react';
-import { DragSource, DropTarget } from 'react-dnd';
+import React, { useRef } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
 import PropTypes from 'prop-types';
-import flow from 'lodash/flow';
 import ClassNames from 'classnames';
-import {
-  tagSource,
-  tagTarget,
-  dragSource,
-  dropCollect,
-} from './DragAndDropHelper';
-import { canDrag } from './utils';
+import { canDrag, canDrop } from './utils';
 
 import RemoveComponent from './RemoveComponent';
 
 const ItemTypes = { TAG: 'tag' };
 
-class Tag extends Component {
-  render() {
-    const { props } = this;
-    const label = props.tag[props.labelField];
-    const {
-      connectDragSource,
-      isDragging,
-      connectDropTarget,
-      readOnly,
-      tag,
-      classNames,
-    } = props;
-    const { className = '' } = tag;
-    const tagComponent = ( <span
+const Tag = (props) => {
+  const tagRef = useRef(null);
+  const { readOnly, tag, classNames, index } = props;
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: ItemTypes.TAG,
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+    item: props,
+    canDrag: () => canDrag(props),
+  }));
+
+  const [, drop] = useDrop(() => ({
+    accept: ItemTypes.TAG,
+    drop: (item, monitor) => {
+      const dragIndex = item.index;
+      const hoverIndex = index;
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+
+      // Remove this until drag preview is integrated
+      // const hoverBoundingRect = document
+      //   .getElementsByClassName('tag-wrapper')
+      //   [hoverIndex].getBoundingClientRect();
+      //
+      // const hoverMiddleX =
+      //   (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
+      // const clientOffset = monitor.getClientOffset();
+      // const hoverClientX = clientOffset.x - hoverBoundingRect.left;
+      // Only perform the move when the mouse has crossed half of the items width
+      /* istanbul ignore next */
+      // if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
+      //   return;
+      // }
+      // /* istanbul ignore next */
+      // if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
+      //   return;
+      // }
+      props.moveTag(dragIndex, hoverIndex);
+    },
+    canDrop: (item) => canDrop(item),
+  }));
+
+  drag(drop(tagRef));
+
+  const label = props.tag[props.labelField];
+  const { className = '' } = tag;
+  /* istanbul ignore next */
+  const opacity = isDragging ? 0 : 1;
+  const tagComponent = (
+    <span
+      ref={tagRef}
       className={ClassNames('tag-wrapper', classNames.tag, className)}
-      style={{opacity: isDragging ? 0 : 1, 'cursor': canDrag(props) ? 'move' : 'auto'}}
+      style={{
+        opacity,
+        cursor: canDrag(props) ? 'move' : 'auto',
+      }}
       onClick={props.onTagClicked}
-      onKeyDown={props.onTagClicked}
       onTouchStart={props.onTagClicked}>
       {label}
       <RemoveComponent
         tag={props.tag}
         className={classNames.remove}
         removeComponent={props.removeComponent}
-        onClick={props.onDelete}
+        onRemove={props.onDelete}
         readOnly={readOnly}
+        index={index}
+        onKeyDown={onkeydown}
       />
     </span>
-    );
-    return connectDragSource(connectDropTarget(tagComponent));
-  }
-}
+  );
+  return tagComponent;
+};
 
 Tag.propTypes = {
   labelField: PropTypes.string,
@@ -54,15 +90,14 @@ Tag.propTypes = {
   tag: PropTypes.shape({
     id: PropTypes.string.isRequired,
     className: PropTypes.string,
+    key: PropTypes.string,
   }),
   moveTag: PropTypes.func,
   removeComponent: PropTypes.func,
   onTagClicked: PropTypes.func,
   classNames: PropTypes.object,
   readOnly: PropTypes.bool,
-  connectDragSource: PropTypes.func.isRequired,
-  isDragging: PropTypes.bool.isRequired,
-  connectDropTarget: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 Tag.defaultProps = {
@@ -70,7 +105,4 @@ Tag.defaultProps = {
   readOnly: false,
 };
 
-export default flow(
-  DragSource(ItemTypes.TAG, tagSource, dragSource),
-  DropTarget(ItemTypes.TAG, tagTarget, dropCollect)
-)(Tag);
+export default Tag;

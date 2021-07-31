@@ -1,0 +1,12 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: sunday
+      time: '10:00'
+    reviewers:
+      - ad1992
+    assignees:
+      - ad1992

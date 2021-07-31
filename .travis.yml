@@ -1,30 +1,14 @@
-env:
-  global:
-    - CC_TEST_REPORTER_ID: 3b5683f29c74490e169b7d8a9432db09bd7976c31a5f3be263ba19fd80578e2c
 language: node_js
 node_js:
-  - "9"
-  - "8"
-  - "7"
-  - "6"
+  - "14"
 before_install:
-- npm install -g npm
-- npm install -g greenkeeper-lockfile
-install: npm install
-before_script:
-  - greenkeeper-lockfile-update
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+- npm install -g yarn
+install: yarn
 
 script:
-  - npm run test
-  - npm run build
-
-after_script:
-  - greenkeeper-lockfile-upload
-  - ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $TRAVIS_TEST_RESULT
+  - yarn test
+  - yarn build
 
 after_success:
-  - npm run semantic-release
+  - yarn semantic-release
 

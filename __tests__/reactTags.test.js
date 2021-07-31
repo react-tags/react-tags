@@ -1,31 +1,44 @@
 import React from 'react';
 import { expect } from 'chai';
 import { mount, shallow } from 'enzyme';
-import { spy, stub } from 'sinon';
-import noop from 'lodash/noop';
-
-import { WithContext as ReactTags } from '../src/components/ReactTags';
+import { spy, stub, createSandbox } from 'sinon';
 
 import {
-  KEYS,
-  DEFAULT_PLACEHOLDER,
-  DEFAULT_LABEL_FIELD,
-  INPUT_FIELD_POSITIONS,
-} from '../src/components/constants';
+  WithContext as ReactTags,
+  WithOutContext as PureReactTags,
+} from '../src/components/ReactTags';
+
+import { INPUT_FIELD_POSITIONS, KEYS } from '../src/components/constants';
+import { fireEvent, render } from '@testing-library/react';
 
 /* eslint-disable no-console */
 
-const defaults = {
-  tags: [{ id: 'Apple', text: 'Apple' }],
-  suggestions: [
-    { id: 'Banana', text: 'Banana' },
-    { id: 'Apple', text: 'Apple' },
-    { id: 'Apricot', text: 'Apricot' },
-    { id: 'Pear', text: 'Pear' },
-    { id: 'Peach', text: 'Peach' },
-  ],
-};
+let defaults;
+const sandbox = createSandbox();
+let handleDragStub;
 
+beforeAll(() => {
+  handleDragStub = sandbox.stub();
+  defaults = {
+    tags: [{ id: 'Apple', text: 'Apple' }],
+    suggestions: [
+      { id: 'Banana', text: 'Banana' },
+      { id: 'Apple', text: 'Apple' },
+      { id: 'Apricot', text: 'Apricot' },
+      { id: 'Pear', text: 'Pear' },
+      { id: 'Peach', text: 'Peach' },
+    ],
+    handleDrag: handleDragStub,
+  };
+});
+
+beforeEach(() => {
+  sandbox.resetHistory();
+});
+
+afterAll(() => {
+  sandbox.restore();
+});
 const DOWN_ARROW_KEY_CODE = 40;
 const ENTER_ARROW_KEY_CODE = 13;
 
@@ -35,31 +48,10 @@ function mockItem(overrides) {
 }
 
 describe('Test ReactTags', () => {
-  test('should render with expected props', function() {
+  test('should render with expected props', function () {
     const $el = shallow(mockItem());
-    const expectedProps = {
-      placeholder: DEFAULT_PLACEHOLDER,
-      suggestions: [],
-      delimiters: [KEYS.ENTER, KEYS.TAB],
-      autofocus: true,
-      labelField: DEFAULT_LABEL_FIELD,
-      inline: true,
-      inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
-      handleDelete: noop,
-      handleAddition: noop,
-      allowDeleteFromEmptyInput: true,
-      allowAdditionFromPaste: true,
-      resetInputOnDelete: true,
-      autocomplete: false,
-      readOnly: false,
-      allowDragDrop: true,
-      ...defaults,
-      allowUnique: true,
-      allowClearAll: false,
-      handleClearAll: noop,
-    };
     expect($el).to.have.length(1);
-    expect($el.props().children.props).to.deep.equal(expectedProps);
+    jestExpect($el.props().children.props).toMatchSnapshot();
   });
 
   test('should update the class when the prop classNames changes', () => {
@@ -215,6 +207,37 @@ describe('Test ReactTags', () => {
       expect(tags).to.deep.have.same.members(expected);
     });
 
+    test('should split the clipboard when delimited with new lines', () => {
+      const Keys = {
+        ENTER: [10, 13],
+      };
+
+      const tags = [];
+      const $el = mount(
+        mockItem({
+          delimiters: [...Keys.ENTER],
+          handleAddition(tag) {
+            tags.push(tag);
+          },
+          tags,
+        })
+      );
+
+      const $input = $el.find('.ReactTags__tagInputField');
+
+      $input.simulate('paste', {
+        clipboardData: {
+          getData: () => 'Banana\nApple\rApricot\r\n\r\nOrange',
+        },
+      });
+
+      const expected = ['Banana', 'Apple', 'Apricot', 'Orange'].map(
+        (value) => ({ id: value, text: value })
+      );
+
+      expect(tags).to.deep.have.same.members(expected);
+    });
+
     test('should not allow duplicate tags', () => {
       const Keys = {
         TAB: 9,
@@ -290,12 +313,13 @@ describe('Test ReactTags', () => {
         },
       })
     );
-
-    expect($el.instance().props.tags).to.have.deep.members(defaults.tags);
+    expect($el.find(PureReactTags).instance().props.tags).to.have.deep.members(
+      defaults.tags
+    );
     const $input = $el.find('.ReactTags__tagInputField');
     $input.simulate('change', { target: { value: 'Apple' } });
 
-    $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+    $input.simulate('keyDown', { keyCode: KEYS.ENTER[1] });
     expect(actual).to.have.length(0);
   });
 
@@ -310,7 +334,9 @@ describe('Test ReactTags', () => {
       })
     );
 
-    expect($el.instance().props.tags).to.have.members(defaults.tags);
+    expect($el.find(PureReactTags).instance().props.tags).to.have.members(
+      defaults.tags
+    );
 
     const $input = $el.find('.ReactTags__tagInputField');
     $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
@@ -324,7 +350,7 @@ describe('Test ReactTags', () => {
       throw error;
     });
 
-    const $el = mount(mockItem({ readOnly: true, resetInputOnDelete: false }));
+    const $el = mount(mockItem({ readOnly: true }));
     const $tag = $el.find('.ReactTags__tag');
     $tag.simulate('click');
   });
@@ -348,15 +374,9 @@ describe('Test ReactTags', () => {
       })
     );
     //remove Apple
-    $el
-      .find('.ReactTags__remove')
-      .at(0)
-      .simulate('click');
+    $el.find('.ReactTags__remove').at(0).simulate('click');
     //remove NewYork
-    $el
-      .find('.ReactTags__remove')
-      .at(1)
-      .simulate('click');
+    $el.find('.ReactTags__remove').at(1).simulate('click');
     $el.setProps({ tags: modifiedTags });
     const $input = $el.find('.ReactTags__tagInputField');
     $input.simulate('change', { target: { value: 'Hello' } });
@@ -387,7 +407,9 @@ describe('Test ReactTags', () => {
           tags: modifiedTags,
         })
       );
-      expect($el.instance().props.tags).to.have.members(modifiedTags);
+      expect($el.find(PureReactTags).instance().props.tags).to.have.members(
+        modifiedTags
+      );
     });
 
     test('allow adding tag which is not in the list', () => {
@@ -420,10 +442,33 @@ describe('Test ReactTags', () => {
       expect(actual).to.have.length(0);
     });
   });
+
   describe('autocomplete/suggestions filtering', () => {
+    test('updates suggestions state if the suggestions prop changes', () => {
+      const $el = mount(mockItem());
+      const ReactTagsInstance = $el.find(PureReactTags).instance();
+      const $input = $el.find('.ReactTags__tagInputField');
+
+      $input.simulate('change', { target: { value: 'ap' } });
+      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+        { id: 'Apricot', text: 'Apricot' },
+      ]);
+
+      $el.setProps({
+        suggestions: [
+          { id: 'Papaya', text: 'Papaya' },
+          { id: 'Paprika', text: 'Paprika' },
+        ],
+      });
+      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+        { id: 'Papaya', text: 'Papaya' },
+        { id: 'Paprika', text: 'Paprika' },
+      ]);
+    });
+
     test('updates suggestions state as expected based on default filter logic', () => {
       const $el = mount(mockItem());
-      const ReactTagsInstance = $el.instance().getDecoratedComponentInstance();
+      const ReactTagsInstance = $el.find(PureReactTags).instance();
       const $input = $el.find('.ReactTags__tagInputField');
 
       expect(ReactTagsInstance.state.suggestions).to.have.members(
@@ -441,7 +486,6 @@ describe('Test ReactTags', () => {
 
       $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Apple', text: 'Apple' },
         { id: 'Apricot', text: 'Apricot' },
       ]);
     });
@@ -458,7 +502,7 @@ describe('Test ReactTags', () => {
           },
         })
       );
-      const ReactTagsInstance = $el.instance().getDecoratedComponentInstance();
+      const ReactTagsInstance = $el.find(PureReactTags).instance();
       const $input = $el.find('.ReactTags__tagInputField');
 
       expect(ReactTagsInstance.state.suggestions).to.have.members(
@@ -473,7 +517,6 @@ describe('Test ReactTags', () => {
 
       $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Apple', text: 'Apple' },
         { id: 'Apricot', text: 'Apricot' },
       ]);
     });
@@ -491,7 +534,7 @@ describe('Test ReactTags', () => {
           },
         })
       );
-      const ReactTagsInstance = $el.instance().getDecoratedComponentInstance();
+      const ReactTagsInstance = $el.find(PureReactTags).instance();
       const $input = $el.find('.ReactTags__tagInputField');
 
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members(
@@ -605,109 +648,260 @@ describe('Test ReactTags', () => {
       ]);
       $el.unmount();
     });
+
+    test('should show suggestions for the tags which are already added when "allowUnique" is false', () => {
+      const actual = [];
+      const $el = mount(
+        mockItem({
+          autocomplete: true,
+          handleAddition(tag) {
+            actual.push(tag);
+          },
+          allowUnique: false,
+        })
+      );
+
+      const ReactTagsInstance = $el.find(PureReactTags).instance();
+
+      const $input = $el.find('.ReactTags__tagInputField');
+      $input.simulate('change', { target: { value: 'App' } });
+
+      $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+        { id: 'Apple', text: 'Apple' },
+      ]);
+      expect(actual).to.have.deep.members([{ id: 'Apple', text: 'Apple' }]);
+    });
   });
-});
 
-test('should render default tags with custom label field', () => {
-  const labelField = 'name';
-  const mapper = (data) => ({ id: data.id, name: data.text });
-  const tags = defaults.tags.map(mapper);
-  const suggestions = defaults.suggestions.map(mapper);
+  test('should render default tags with custom label field', () => {
+    const labelField = 'name';
+    const mapper = (data) => ({ id: data.id, name: data.text });
+    const tags = defaults.tags.map(mapper);
+    const suggestions = defaults.suggestions.map(mapper);
 
-  const expectedText = tags[0][labelField];
+    const expectedText = tags[0][labelField];
 
-  const props = {
-    labelField,
-    tags,
-    suggestions,
-  };
+    const props = {
+      labelField,
+      tags,
+      suggestions,
+    };
 
-  const $el = mount(mockItem(props));
-  expect($el.text().slice(0, -1)).to.equal(expectedText);
-  $el.unmount();
-});
+    const $el = mount(mockItem(props));
+    expect($el.text().slice(0, -1)).to.equal(expectedText);
+    $el.unmount();
+  });
 
-test('should allow duplicate tags when allowUnique is false', () => {
-  const actual = [];
-  const $el = mount(
-    mockItem({
-      handleAddition(tag) {
-        actual.push(tag);
+  test('should allow duplicate tags when allowUnique is false', () => {
+    const actual = [];
+    const $el = mount(
+      mockItem({
+        handleAddition(tag) {
+          actual.push(tag);
+        },
+        allowUnique: false,
+      })
+    );
+
+    expect($el.find(PureReactTags).instance().props.tags).to.have.deep.members(
+      defaults.tags
+    );
+    const $input = $el.find('.ReactTags__tagInputField');
+    $input.simulate('change', { target: { value: 'Apple' } });
+    $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+    expect(actual).to.have.deep.members([
+      {
+        id: 'Apple',
+        text: 'Apple',
       },
-      allowUnique: false,
-    })
-  );
-
-  expect($el.instance().props.tags).to.have.deep.members(defaults.tags);
-  const $input = $el.find('.ReactTags__tagInputField');
-  $input.simulate('change', { target: { value: 'Apple' } });
-  $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
-  expect(actual).to.have.deep.members([
-    {
-      id: 'Apple',
-      text: 'Apple',
-    },
-  ]);
-});
-
-describe('Test inputFieldPosition', () => {
-  test('should display input field and tags inline when "inputFieldPosition" is inline', () => {
-    const $el = mount(
-      mockItem({
-        inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
-      })
-    );
-
-    const $tagContainer = $el.find('.ReactTags__selected');
-    const childLength = $tagContainer.children().length;
-    expect(
-      $tagContainer.children().get(childLength - 1).props.className
-    ).to.equal('ReactTags__tagInput');
+    ]);
   });
 
-  test('should display input field above tags when "inputFieldPosition" is top', () => {
-    const $el = mount(
-      mockItem({
-        inputFieldPosition: INPUT_FIELD_POSITIONS.TOP,
-      })
-    );
+  describe('Test inputFieldPosition', () => {
+    test('should display input field and tags inline when "inputFieldPosition" is inline', () => {
+      const $el = mount(
+        mockItem({
+          inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
+        })
+      );
 
-    const $tagContainer = $el.find('.ReactTags__tags');
-    expect($tagContainer.children().get(0).props.className).to.equal(
-      'ReactTags__tagInput'
-    );
+      const $tagContainer = $el.find('.ReactTags__selected');
+      const childLength = $tagContainer.children().length;
+      expect(
+        $tagContainer.children().get(childLength - 1).props.className
+      ).to.equal('ReactTags__tagInput');
+    });
+
+    test('should display input field above tags when "inputFieldPosition" is top', () => {
+      const $el = mount(
+        mockItem({
+          inputFieldPosition: INPUT_FIELD_POSITIONS.TOP,
+        })
+      );
+
+      const $tagContainer = $el.find('.ReactTags__tags');
+      expect($tagContainer.children().get(1).props.className).to.equal(
+        'ReactTags__tagInput'
+      );
+    });
+
+    test('should display input field below tags when "inputFieldPosition" is bottom', () => {
+      const $el = mount(
+        mockItem({
+          inputFieldPosition: INPUT_FIELD_POSITIONS.BOTTOM,
+        })
+      );
+
+      const $tagContainer = $el.find('.ReactTags__tags');
+      expect($tagContainer.children().get(2).props.className).to.equal(
+        'ReactTags__tagInput'
+      );
+    });
+
+    test('should show console warning when "inline" is false', () => {
+      const consoleWarnStub = stub(console, 'warn');
+
+      mount(
+        mockItem({
+          inline: false,
+        })
+      );
+
+      expect(consoleWarnStub.calledOnce).to.be.true;
+      expect(
+        consoleWarnStub.calledWithExactly(
+          '[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.'
+        )
+      ).to.be.true;
+    });
   });
 
-  test('should display input field below tags when "inputFieldPosition" is bottom', () => {
+  test('should pass input props to the input element', () => {
     const $el = mount(
       mockItem({
-        inputFieldPosition: INPUT_FIELD_POSITIONS.BOTTOM,
+        inputProps: {
+          disabled: true,
+        },
       })
     );
-
-    const $tagContainer = $el.find('.ReactTags__tags');
-    expect($tagContainer.children().get(1).props.className).to.equal(
-      'ReactTags__tagInput'
-    );
+    expect($el.find('[data-automation="input"]').props().disabled).to.be.true;
   });
 
-  test('should show console warning when "inline" is false', () => {
-    const consoleWarnStub = stub(console, 'warn');
+  describe('Test drag and drop', () => {
+    test('should be draggable', () => {
+      const root = render(
+        mockItem({
+          tags: [
+            ...defaults.tags,
+            { id: 'Litchi', text: 'Litchi' },
+            { id: 'Mango', text: 'Mango' },
+          ],
+        })
+      );
+      const src = root.getByText('Apple');
+      const dest = root.getByText('Mango');
+      fireEvent.dragStart(src);
+      const styles = getComputedStyle(src);
+      expect(styles.cursor).to.equal('move');
+      fireEvent.dragEnter(dest);
+      fireEvent.drop(dest);
+      fireEvent.dragLeave(dest);
+      fireEvent.dragEnd(dest);
 
-    mount(
-      mockItem({
-        inline: false,
-      })
-    );
+      const dragTag = defaults.tags[0];
+      const dragIndex = 0;
+      const hoverIndex = 2;
+      expect(handleDragStub.calledWithExactly(dragTag, dragIndex, hoverIndex))
+        .to.be.true;
+    });
 
-    expect(consoleWarnStub.calledOnce).to.be.true;
-    expect(
-      consoleWarnStub.calledWithExactly(
-        '[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.'
-      )
-    ).to.be.true;
+    test('should not be draggable when drag and drop index is same', () => {
+      const root = render(mockItem());
+      const src = root.getByText('Apple');
+      fireEvent.dragStart(src);
+      fireEvent.dragEnter(src);
+      fireEvent.drop(src);
+      fireEvent.dragLeave(src);
+      fireEvent.dragEnd(src);
 
-    consoleWarnStub.restore();
+      expect(handleDragStub.called).to.be.false;
+    });
+
+    [
+      { overrideProps: { readOnly: true }, title: 'readOnly is true' },
+      {
+        overrideProps: { allowDragDrop: false },
+        title: 'allowDragDrop is false',
+      },
+    ].forEach((data) => {
+      const { title, overrideProps } = data;
+      test(`should not be draggable when ${title}`, () => {
+        const root = render(
+          mockItem({
+            ...overrideProps,
+            tags: [
+              ...defaults.tags,
+              { id: 'Litchi', text: 'Litchi' },
+              { id: 'Mango', text: 'Mango' },
+            ],
+          })
+        );
+        const src = root.getByText('Apple');
+        const dest = root.getByText('Mango');
+        fireEvent.dragStart(src);
+        fireEvent.dragEnter(dest);
+        fireEvent.dragLeave(dest);
+        fireEvent.dragEnd(dest);
+        expect(handleDragStub.called).to.be.false;
+        const styles = getComputedStyle(src);
+        expect(styles.cursor).to.equal('auto');
+      });
+    });
+  });
+
+  describe('When editable', () => {
+    it('should update the tag to input and focus the tag when clicked', () => {
+      const tags = render(
+        mockItem({
+          editable: true,
+          tags: [
+            ...defaults.tags,
+            { id: 'Litchi', text: 'Litchi' },
+            { id: 'Mango', text: 'Mango' },
+          ],
+        })
+      );
+      fireEvent.click(tags.getByText('Litchi'));
+      expect(document.activeElement).to.equal(tags.queryByTestId('tag-edit'));
+      jestExpect(tags.container).toMatchSnapshot();
+    });
+
+    it('should trigger "onTagUpdate" if present when tag is edited', () => {
+      const onTagUpdateStub = sandbox.stub();
+      const tags = render(
+        mockItem({
+          editable: true,
+          tags: [
+            ...defaults.tags,
+            { id: 'Litchi', text: 'Litchi' },
+            { id: 'Mango', text: 'Mango' },
+          ],
+          onTagUpdate: onTagUpdateStub,
+        })
+      );
+      fireEvent.click(tags.getByText('Litchi'));
+      const input = tags.queryByTestId('tag-edit');
+      fireEvent.change(input, {
+        target: { value: 'banana' },
+      });
+      fireEvent.keyDown(input, {
+        keyCode: KEYS.ENTER[1],
+      });
+      expect(
+        onTagUpdateStub.calledWithExactly(1, { id: 'banana', text: 'banana' })
+      ).to.be.true;
+    });
   });
 
   test('should not show a clear tags span as default', () => {
