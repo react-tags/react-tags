@@ -564,7 +564,7 @@ This callback is if present is triggered when "clear all" button is clicked. You
 - `ReactTags__editTagInputField`
 - `ReactTags__clearAll`
 
-An example can be found in `/example/reactTags.css`.
+An example can be found in [`/example/reactTags.css`](https://github.com/react-tags/react-tags/blob/master/example/reactTags.css).
 
 If you need to set your own class names on the component, you may pass in
 a `classNames` prop.
