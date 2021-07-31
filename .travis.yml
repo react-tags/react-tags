@@ -4,14 +4,11 @@ node_js:
 before_install:
 - npm install -g yarn
 install: yarn
-before_script:
-  - bash <(curl -Ls https://coverage.codacy.com/get.sh) download
 
 script:
   - yarn test
   - yarn build
 
 after_success:
-  - bash <(curl -Ls https://coverage.codacy.com/get.sh)
   - yarn semantic-release
 
