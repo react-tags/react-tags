@@ -1,23 +1,13 @@
-env:
-  global:
-    - CC_TEST_REPORTER_ID: 3b5683f29c74490e169b7d8a9432db09bd7976c31a5f3be263ba19fd80578e2c
 language: node_js
 node_js:
   - "14"
 before_install:
 - npm install -g yarn
 install: yarn
-before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
 
 script:
   - yarn test
   - yarn build
-
-after_script:
-  - ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $TRAVIS_TEST_RESULT
 
 after_success:
   - yarn semantic-release
