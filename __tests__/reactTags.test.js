@@ -872,7 +872,6 @@ describe('Test ReactTags', () => {
         })
       );
       fireEvent.click(tags.getByText('Litchi'));
-      console.log(tags.container.innerHTML);
       jestExpect(tags.container).toMatchSnapshot();
     });
 
