@@ -426,40 +426,40 @@ class ReactTags extends Component {
     const { currentEditIndex, query } = this.state;
     const moveTag = allowDragDrop ? this.moveTag : null;
     return tags.map((tag, index) => {
-      if (currentEditIndex === index) {
-        return (
-          <div className={classNames.editTagInput}>
-            <input
-              ref={(input) => {
-                this.tagInput = input;
-              }}
-              key={index}
-              onFocus={this.handleFocus}
-              value={query}
-              onChange={this.handleChange}
-              onKeyDown={this.handleKeyDown}
-              onBlur={this.handleBlur}
-              className={classNames.editTagInputField}
-              onPaste={this.handlePaste}
+      return (
+        <React.Fragment key={index}>
+          {currentEditIndex === index ? (
+            <div className={classNames.editTagInput}>
+              <input
+                ref={(input) => {
+                  this.tagInput = input;
+                }}
+                onFocus={this.handleFocus}
+                value={query}
+                onChange={this.handleChange}
+                onKeyDown={this.handleKeyDown}
+                onBlur={this.handleBlur}
+                className={classNames.editTagInputField}
+                onPaste={this.handlePaste}
+                data-testid="tag-edit"
+              />
+            </div>
+          ) : (
+            <Tag
+              index={index}
+              tag={tag}
+              labelField={labelField}
+              onDelete={this.handleDelete.bind(this, index)}
+              moveTag={moveTag}
+              removeComponent={removeComponent}
+              onTagClicked={this.handleTagClick.bind(this, index, tag)}
+              readOnly={readOnly}
+              classNames={classNames}
+              allowDragDrop={allowDragDrop}
             />
-          </div>
-        );
-      } else
-        return (
-          <Tag
-            key={index}
-            index={index}
-            tag={tag}
-            labelField={labelField}
-            onDelete={this.handleDelete.bind(this, index)}
-            moveTag={moveTag}
-            removeComponent={removeComponent}
-            onTagClicked={this.handleTagClick.bind(this, index, tag)}
-            readOnly={readOnly}
-            classNames={classNames}
-            allowDragDrop={allowDragDrop}
-          />
-        );
+          )}
+        </React.Fragment>
+      );
     });
   };
 

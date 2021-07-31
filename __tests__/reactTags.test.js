@@ -858,4 +858,47 @@ describe('Test ReactTags', () => {
       });
     });
   });
+
+  describe('When editable', () => {
+    it('should update the tag to input when tag is clicked', () => {
+      const tags = render(
+        mockItem({
+          editable: true,
+          tags: [
+            ...defaults.tags,
+            { id: 'Litchi', text: 'Litchi' },
+            { id: 'Mango', text: 'Mango' },
+          ],
+        })
+      );
+      fireEvent.click(tags.getByText('Litchi'));
+      console.log(tags.container.innerHTML);
+      jestExpect(tags.container).toMatchSnapshot();
+    });
+
+    it('should trigger "onTagUpdate" if present when tag is edited', () => {
+      const onTagUpdateStub = sandbox.stub();
+      const tags = render(
+        mockItem({
+          editable: true,
+          tags: [
+            ...defaults.tags,
+            { id: 'Litchi', text: 'Litchi' },
+            { id: 'Mango', text: 'Mango' },
+          ],
+          onTagUpdate: onTagUpdateStub,
+        })
+      );
+      fireEvent.click(tags.getByText('Litchi'));
+      fireEvent.change(tags.queryByTestId('tag-edit'), {
+        target: { value: 'banana' },
+      });
+      fireEvent.keyDown(tags.queryByTestId('tag-edit'), {
+        keyCode: KEYS.ENTER[1],
+      });
+      expect(
+        onTagUpdateStub.calledWithExactly(1, { id: 'banana', text: 'banana' })
+      ).to.be.true;
+    });
+  });
 });
