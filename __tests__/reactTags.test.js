@@ -16,6 +16,7 @@ import { fireEvent, render } from '@testing-library/react';
 let defaults;
 const sandbox = createSandbox();
 let handleDragStub;
+
 beforeAll(() => {
   handleDragStub = sandbox.stub();
   defaults = {
@@ -856,6 +857,50 @@ describe('Test ReactTags', () => {
         const styles = getComputedStyle(src);
         expect(styles.cursor).to.equal('auto');
       });
+    });
+  });
+
+  describe('When editable', () => {
+    it('should update the tag to input and focus the tag when clicked', () => {
+      const tags = render(
+        mockItem({
+          editable: true,
+          tags: [
+            ...defaults.tags,
+            { id: 'Litchi', text: 'Litchi' },
+            { id: 'Mango', text: 'Mango' },
+          ],
+        })
+      );
+      fireEvent.click(tags.getByText('Litchi'));
+      expect(document.activeElement).to.equal(tags.queryByTestId('tag-edit'));
+      jestExpect(tags.container).toMatchSnapshot();
+    });
+
+    it('should trigger "onTagUpdate" if present when tag is edited', () => {
+      const onTagUpdateStub = sandbox.stub();
+      const tags = render(
+        mockItem({
+          editable: true,
+          tags: [
+            ...defaults.tags,
+            { id: 'Litchi', text: 'Litchi' },
+            { id: 'Mango', text: 'Mango' },
+          ],
+          onTagUpdate: onTagUpdateStub,
+        })
+      );
+      fireEvent.click(tags.getByText('Litchi'));
+      const input = tags.queryByTestId('tag-edit');
+      fireEvent.change(input, {
+        target: { value: 'banana' },
+      });
+      fireEvent.keyDown(input, {
+        keyCode: KEYS.ENTER[1],
+      });
+      expect(
+        onTagUpdateStub.calledWithExactly(1, { id: 'banana', text: 'banana' })
+      ).to.be.true;
     });
   });
 });

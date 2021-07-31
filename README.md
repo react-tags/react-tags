@@ -175,7 +175,9 @@ Option | Type | Default | Description
 |[`allowDragDrop`](#allowDragDrop) | `Boolean` | `true` | Implies whether tags should have drag-n-drop features enabled. Here is a [demo](https://www.jinno.io/app/6/allowDragDrop?source=react-tag-input).
 |[`renderSuggestion`](#renderSuggestion) | `Function` | `undefined` | Render prop for rendering your own suggestions.
 | [`inputProps`](#inputProps) | Object |`{}` | The extra attributes which are passed to the input field. 
-| [`allowAdditionFromPaste`](#allowAdditionFromPaste) | `boolean` | `true` | Implies whether to allow paste action when adding tags. Here is a [demo](https://www.jinno.io/app/6/allowAdditionFromPaste?source=react-tag-input).
+| [`allowAdditionFromPaste`](#allowAdditionFromPaste) | `boolean` | `true` | Implies whether to allow paste action when adding tags. Here is a [demo](https://www.jinno.io/app/6/allowAdditionFromPaste?source=react-tag-input).|
+| [`editable`](#editable) | `boolean` | `false`| Implies whether the tags should be editable. |
+| [`onTagUpdate`](#onTagUpdate) | `Function` | | This callback if present is triggered when tag is edited.|
 
 ### tags 
 An array of tags that are displayed as pre-selected. Each tag should have an `id` property, property for the label, which is specified by the [`labelField`](#labelFieldOption) and class for label, which is specified by `className`.
@@ -526,6 +528,17 @@ This prop implies whether to allow paste action for adding tags. Defaults to `tr
 
 Here is a [demo](https://www.jinno.io/app/6/allowAdditionFromPaste?source=react-tag-input).
 
+### editable
+
+This prop implies whether the tags should be editable. Defaults to `false`.
+
+### onTagUpdate
+
+```js
+onTagUpdate(editIndex, tag) => void;
+```
+This callback is if present is triggered when tag is updated. The edit index and the tag are passed in the callback. You can update the [`tags`](#tags) prop in this callback.
+
 ## Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
 
@@ -537,6 +550,8 @@ Here is a [demo](https://www.jinno.io/app/6/allowAdditionFromPaste?source=react-
 - `ReactTags__selected ReactTags__remove`
 - `ReactTags__suggestions`
 - `ReactTags__activeSuggestion`
+- `ReactTags__editTagInput`
+- `ReactTags__editTagInputField`
 
 An example can be found in `/example/reactTags.css`.
 
@@ -553,7 +568,9 @@ a `classNames` prop.
       tag: 'tagClass',
       remove: 'removeClass',
       suggestions: 'suggestionsClass',
-      activeSuggestion: 'activeSuggestionClass'
+      activeSuggestion: 'activeSuggestionClass',
+      editTagInput: 'editTagInputClass',
+      editTagInputField: 'editTagInputField'
     }}
     ...>
 ```
