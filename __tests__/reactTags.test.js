@@ -16,6 +16,7 @@ import { fireEvent, render } from '@testing-library/react';
 let defaults;
 const sandbox = createSandbox();
 let handleDragStub;
+
 beforeAll(() => {
   handleDragStub = sandbox.stub();
   defaults = {
@@ -860,7 +861,7 @@ describe('Test ReactTags', () => {
   });
 
   describe('When editable', () => {
-    it('should update the tag to input when tag is clicked', () => {
+    it('should update the tag to input and focus the tag when clicked', () => {
       const tags = render(
         mockItem({
           editable: true,
@@ -872,6 +873,7 @@ describe('Test ReactTags', () => {
         })
       );
       fireEvent.click(tags.getByText('Litchi'));
+      expect(document.activeElement).to.equal(tags.queryByTestId('tag-edit'));
       jestExpect(tags.container).toMatchSnapshot();
     });
 
@@ -889,10 +891,11 @@ describe('Test ReactTags', () => {
         })
       );
       fireEvent.click(tags.getByText('Litchi'));
-      fireEvent.change(tags.queryByTestId('tag-edit'), {
+      const input = tags.queryByTestId('tag-edit');
+      fireEvent.change(input, {
         target: { value: 'banana' },
       });
-      fireEvent.keyDown(tags.queryByTestId('tag-edit'), {
+      fireEvent.keyDown(input, {
         keyCode: KEYS.ENTER[1],
       });
       expect(
