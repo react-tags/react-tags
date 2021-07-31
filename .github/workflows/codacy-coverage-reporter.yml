@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     name: codacy-coverage-reporter
     steps:
+      - uses: actions/checkout@master
       - uses: actions/checkout@v2
       - name: Setup Node.js 14.x
         uses: actions/setup-node@v2
@@ -19,8 +20,6 @@ jobs:
         run: |
           yarn test
           cat ${{ github.workspace }}/coverage/lcov.info
-
-      - uses: actions/checkout@master
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
