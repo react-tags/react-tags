@@ -1,18 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-class ClearAllTags extends Component {
-  static propTypes = {
-    classNames: PropTypes.object,
-    handleClick: PropTypes.func,
-  };
+const ClearAllTags = (props) => {
+  return (
+    <button className={props.classNames.clearAll} onClick={props.onClick}>
+      Clear all
+    </button>
+  );
+};
 
-  render() {
-    const { props } = this;
-    return (
-      <span className={this.props.classNames.clearAll} onMouseDown={props.handleClick}>clear tags</span>
-    );
-  }
-}
+ClearAllTags.propTypes = {
+  classNames: PropTypes.object,
+  onClick: PropTypes.func,
+};
 
 export default ClearAllTags;

@@ -70,10 +70,8 @@ class ReactTags extends Component {
     renderSuggestion: PropTypes.func,
     inputProps: PropTypes.object,
     editable: PropTypes.bool,
-    allowClearAll: PropTypes.bool,
-    handleClearAll: PropTypes.func,
-
-
+    clearAll: PropTypes.bool,
+    onClearAll: PropTypes.func,
   };
 
   static defaultProps = {
@@ -96,7 +94,7 @@ class ReactTags extends Component {
     inputProps: {},
     onTagUpdate: noop,
     editable: false,
-    allowClearAll: false,
+    clearAll: false,
     handleClearAll: noop,
   };
 
@@ -406,11 +404,11 @@ class ReactTags extends Component {
     this.addTag(this.state.suggestions[i]);
   }
 
-  handleClearAllClick() {
-    if (this.props.handleClearAll) {
-      this.props.handleClearAll();
+  clearAll = () => {
+    if (this.props.onClearAll) {
+      this.props.onClearAll();
     }
-  }
+  };
 
   handleSuggestionHover(i) {
     this.setState({
@@ -493,9 +491,8 @@ class ReactTags extends Component {
       inputFieldPosition,
       inputValue,
       inputProps,
-      allowClearAll,
+      clearAll,
       tags,
-
     } = this.props;
 
     const position = !inline
@@ -539,6 +536,9 @@ class ReactTags extends Component {
           classNames={classNames}
           renderSuggestion={this.props.renderSuggestion}
         />
+        {clearAll && tags.length > 0 && (
+          <ClearAllTags classNames={classNames} onClick={this.clearAll} />
+        )}
       </div>
     ) : null;
 
@@ -561,9 +561,6 @@ class ReactTags extends Component {
           }}>
           {this.state.ariaLiveStatus}
         </p>
-        {allowClearAll && tags.length > 0 && (
-          <ClearAllTags classNames={this.state.classNames} handleClick={this.handleClearAllClick} />
-        )}
         {position === INPUT_FIELD_POSITIONS.TOP && tagInput}
         <div className={classNames.selected}>
           {tagItems}

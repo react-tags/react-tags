@@ -1,10 +1,6 @@
 /*eslint-disable */
 
-const {
-  React,
-  ReactDOM,
-  ReactTags,
-} = window;
+const { React, ReactDOM, ReactTags } = window;
 
 // List of countries in the world
 const COUNTRIES = [
@@ -268,9 +264,9 @@ const App = () => {
     console.log('The tag at index ' + index + ' was clicked');
   };
 
-  const handleClearAll = () => {
+  const onClearAll = () => {
     setTags([]);
-  }
+  };
 
   return (
     <div className="app">
@@ -288,9 +284,8 @@ const App = () => {
           inputFieldPosition="bottom"
           autocomplete
           editable
-          allowClearAll
-          handleClearAll={handleClearAll}
-
+          clearAll
+          onClearAll={onClearAll}
         />
       </div>
     </div>
