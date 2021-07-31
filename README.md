@@ -550,6 +550,8 @@ This callback is if present is triggered when tag is updated. The edit index and
 - `ReactTags__selected ReactTags__remove`
 - `ReactTags__suggestions`
 - `ReactTags__activeSuggestion`
+- `ReactTags__editTagInput`
+- `ReactTags__editTagInputField`
 
 An example can be found in `/example/reactTags.css`.
 
@@ -566,7 +568,9 @@ a `classNames` prop.
       tag: 'tagClass',
       remove: 'removeClass',
       suggestions: 'suggestionsClass',
-      activeSuggestion: 'activeSuggestionClass'
+      activeSuggestion: 'activeSuggestionClass',
+      editTagInput: 'editTagInputClass',
+      editTagInputField: 'editTagInputField'
     }}
     ...>
 ```
