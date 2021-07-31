@@ -214,7 +214,6 @@ class ReactTags extends Component {
 
   handleTagClick(i, tag, e) {
     const { editable, handleTagClick, labelField } = this.props;
-    // const currentTagText=tags[i].text;
     if (editable) {
       this.setState({ currentEditIndex: i, query: tag[labelField] }, () => {
         this.tagInput.focus();
