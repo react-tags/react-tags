@@ -536,6 +536,8 @@ Here is a [demo](https://www.jinno.io/app/6/allowAdditionFromPaste?source=react-
 
 This prop implies whether the tags should be editable. Defaults to `false`.
 
+Here is a [demo](https://www.jinno.io/app/6/editable?source=react-tag-input).
+
 ### onTagUpdate
 
 ```js
