@@ -7,8 +7,6 @@ const config = {
   entry: {
     ReactTags: path.join(__dirname, 'src/components/ReactTags.js'),
   },
-  // Render source-map file for final build
-  devtool: 'source-map',
   // output config
   output: {
     path: path.resolve(__dirname, 'dist'), // Path of output file
@@ -23,12 +21,6 @@ const config = {
     'react-dnd-html5-backend': 'ReactDnDHTML5Backend',
   },
   plugins: [
-    // Define production build to allow React to strip out unnecessary checks
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
-    }),
     // Allows error warnings but does not stop compiling.
     new webpack.NoEmitOnErrorsPlugin(),
     //new BundleAnalyzerPlugin(),
@@ -39,13 +31,15 @@ const config = {
         test: /\.js$/, // All .js files
         use: [
           {
-            // react-hot is like browser sync and babel loads jsx and es6-7
             loader: 'babel-loader',
           },
         ],
         exclude: /node_modules/,
       },
     ],
+  },
+  optimization: {
+    minimize: true,
   },
 };
 
