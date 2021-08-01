@@ -572,12 +572,11 @@ class ReactTags extends Component {
   }
 }
 
-module.exports = {
-  WithContext: ({ ...props }) => (
-    <DndProvider backend={HTML5Backend}>
-      <ReactTags {...props} />
-    </DndProvider>
-  ),
-  WithOutContext: ReactTags,
-  KEYS: KEYS,
-};
+const WithContext = ({ ...props }) => (
+  <DndProvider backend={HTML5Backend}>
+    <ReactTags {...props} />
+  </DndProvider>
+);
+export { WithContext };
+export { ReactTags as WithOutContext };
+export { KEYS };

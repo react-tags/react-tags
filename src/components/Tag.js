@@ -30,24 +30,6 @@ const Tag = (props) => {
         return;
       }
 
-      // Remove this until drag preview is integrated
-      // const hoverBoundingRect = document
-      //   .getElementsByClassName('tag-wrapper')
-      //   [hoverIndex].getBoundingClientRect();
-      //
-      // const hoverMiddleX =
-      //   (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
-      // const clientOffset = monitor.getClientOffset();
-      // const hoverClientX = clientOffset.x - hoverBoundingRect.left;
-      // Only perform the move when the mouse has crossed half of the items width
-      /* istanbul ignore next */
-      // if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
-      //   return;
-      // }
-      // /* istanbul ignore next */
-      // if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
-      //   return;
-      // }
       props.moveTag(dragIndex, hoverIndex);
     },
     canDrop: (item) => canDrop(item),
