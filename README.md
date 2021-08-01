@@ -178,9 +178,9 @@ Option | Type | Default | Description
 |[`renderSuggestion`](#renderSuggestion) | `Function` | `undefined` | Render prop for rendering your own suggestions.
 | [`inputProps`](#inputProps) | Object |`{}` | The extra attributes which are passed to the input field. 
 | [`allowAdditionFromPaste`](#allowAdditionFromPaste) | `boolean` | `true` | Implies whether to allow paste action when adding tags. Here is a [demo](https://www.jinno.io/app/6/allowAdditionFromPaste?source=react-tag-input).|
-| [`editable`](#editable) | `boolean` | `false`| Implies whether the tags should be editable. |
+| [`editable`](#editable) | `boolean` | `false`| Implies whether the tags should be editable. Here is a [demo](https://www.jinno.io/app/6/editable?source=react-tag-input).|
 | [`onTagUpdate`](#onTagUpdate) | `Function` | | This callback if present is triggered when tag is edited.|
-|[`clearAll`](#clearAll) | `boolean` | `false` | Implies whether 'clear all' button should be shown.
+|[`clearAll`](#clearAll) | `boolean` | `false` | Implies whether 'clear all' button should be shown. Here is a [demo](https://www.jinno.io/app/6/clearAll?source=react-tag-input).
 |[`onClearAll`](#onClearAll) | `Function` |  | This callback if present is triggered when clear all button is clicked.
 
 ### tags 
