@@ -178,9 +178,9 @@ Option | Type | Default | Description
 |[`renderSuggestion`](#renderSuggestion) | `Function` | `undefined` | Render prop for rendering your own suggestions.
 | [`inputProps`](#inputProps) | Object |`{}` | The extra attributes which are passed to the input field. 
 | [`allowAdditionFromPaste`](#allowAdditionFromPaste) | `boolean` | `true` | Implies whether to allow paste action when adding tags. Here is a [demo](https://www.jinno.io/app/6/allowAdditionFromPaste?source=react-tag-input).|
-| [`editable`](#editable) | `boolean` | `false`| Implies whether the tags should be editable. |
+| [`editable`](#editable) | `boolean` | `false`| Implies whether the tags should be editable. Here is a [demo](https://www.jinno.io/app/6/editable?source=react-tag-input).|
 | [`onTagUpdate`](#onTagUpdate) | `Function` | | This callback if present is triggered when tag is edited.|
-|[`clearAll`](#clearAll) | `boolean` | `false` | Implies whether 'clear all' button should be shown.
+|[`clearAll`](#clearAll) | `boolean` | `false` | Implies whether 'clear all' button should be shown. Here is a [demo](https://www.jinno.io/app/6/clearAll?source=react-tag-input).
 |[`onClearAll`](#onClearAll) | `Function` |  | This callback if present is triggered when clear all button is clicked.
 
 ### tags 
@@ -536,6 +536,8 @@ Here is a [demo](https://www.jinno.io/app/6/allowAdditionFromPaste?source=react-
 
 This prop implies whether the tags should be editable. Defaults to `false`.
 
+Here is a [demo](https://www.jinno.io/app/6/editable?source=react-tag-input).
+
 ### onTagUpdate
 
 ```js
@@ -544,7 +546,10 @@ onTagUpdate(editIndex, tag) => void;
 This callback is if present is triggered when tag is updated. The edit index and the tag are passed in the callback. You can update the [`tags`](#tags) prop in this callback.
 
 #### clearAll
+
 This props implies whether 'clear all' button should be shown. Defaults to `false`.
+
+Here is a [demo](https://www.jinno.io/app/6/clearAll?source=react-tag-input).
 
 #### onClearAll
 This callback is if present is triggered when "clear all" button is clicked. You can set the [`tags`](#tags) prop to empty in this callback.
