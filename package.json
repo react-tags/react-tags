@@ -59,7 +59,7 @@
     "babel-register": "^6.26.0",
     "chai": "^4.3.4",
     "commitizen": "^4.2.4",
-    "css-loader": "^5.2.6",
+    "css-loader": "^6.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "enzyme": "^3.11.0",
     "enzyme-to-json": "^3.6.2",
