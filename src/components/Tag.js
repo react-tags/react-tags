@@ -59,7 +59,6 @@ const Tag = (props) => {
         onRemove={props.onDelete}
         readOnly={readOnly}
         index={index}
-        onKeyDown={onkeydown}
       />
     </span>
   );
