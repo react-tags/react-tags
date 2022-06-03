@@ -1,0 +1,10 @@
+/node_modules
+npm-debug.log
+.idea
+.vscode
+coverage
+dist-modules
+lib
+/old_code
+yarn-error.log
+.eslintcache

@@ -1,0 +1,1 @@
+Typescript version of React tags package. WIP
