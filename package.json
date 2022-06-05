@@ -25,7 +25,10 @@
     "lint:ts": "eslint 'src/**/*.{js,jsx,ts,tsx}' --max-warnings 0 --cache",
     "lint:fix": "npm-run-all 'lint:ts --fix'"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@types/lodash": "^4.14.182",
+    "lodash": "^4.17.21"
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
