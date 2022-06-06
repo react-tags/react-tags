@@ -4,7 +4,9 @@ import { ReactTagsProps, Tag } from 'types';
 
 export const ReactTags = ({
   autofocus,
+  handleInputChange,
   inputPosition = INPUT_POSITION.LEFT,
+  inputProps,
   placeholder = DEFAULT_PLACEHOLDER,
   readOnly,
 }: ReactTagsProps) => {
@@ -24,11 +26,22 @@ export const ReactTags = ({
 
   const tagItems = tags.map((tag) => <span key={tag.value}>{tag.label}</span>);
 
+  const _handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (handleInputChange) {
+      /**
+       * ? Should i pass value or event object? Or Both?
+       */
+      handleInputChange(e.currentTarget.value);
+    }
+  };
+
   const tagInput = !readOnly && (
     <input
       ref={tagInputRef}
       placeholder={placeholder}
       aria-label={placeholder}
+      {...inputProps}
+      onChange={_handleInputChange}
       data-testid="tag-input"
     />
   );
