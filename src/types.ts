@@ -1,11 +1,13 @@
 import { INPUT_POSITION } from 'const';
 
 export interface Tag {
-  value: string;
   label: string;
+  value: string;
 }
 
 export interface ReactTagsProps {
-  placeholder?: string;
+  autofocus?: boolean;
   inputPosition?: INPUT_POSITION;
+  placeholder?: string;
+  readOnly?: boolean;
 }

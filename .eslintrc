@@ -13,7 +13,9 @@
     "plugin:prettier/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended"
   ],
   "plugins": [
     "@typescript-eslint",
@@ -21,7 +23,9 @@
     "react",
     "react-hooks",
     "prettier",
-    "import"
+    "import",
+    "testing-library",
+    "jest-dom"
   ],
   "parserOptions": {
     "ecmaFeatures": {
