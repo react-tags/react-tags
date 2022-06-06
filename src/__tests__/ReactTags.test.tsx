@@ -24,15 +24,37 @@ describe('ReactTags', () => {
     expect(screen.getByTestId('tag-input')).toHaveFocus();
   });
 
-  it('should call handleInputChange with current input value if function is passed', async () => {
-    const handleInputChange = jest.fn();
+  it('should call onInputChange with current input value if function is passed', async () => {
+    const onInputChange = jest.fn();
 
-    render(<ReactTags handleInputChange={handleInputChange} />);
+    render(<ReactTags onInputChange={onInputChange} />);
 
     await user.type(screen.getByTestId('tag-input'), 'tags');
 
-    expect(handleInputChange).toHaveBeenCalledTimes(4);
-    expect(handleInputChange).toHaveBeenLastCalledWith('tags');
+    expect(onInputChange).toHaveBeenCalledTimes(4);
+  });
+
+  it('should call onInputFocus with current input value if function is passed', async () => {
+    const onInputFocus = jest.fn();
+
+    render(<ReactTags onInputFocus={onInputFocus} />);
+
+    await user.type(screen.getByTestId('tag-input'), 'tags');
+
+    expect(onInputFocus).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call onInputBlur with current input value if function is passed', async () => {
+    const onInputBlur = jest.fn();
+
+    render(<ReactTags onInputBlur={onInputBlur} />);
+
+    const tagInput = screen.getByTestId('tag-input');
+
+    tagInput.focus();
+    tagInput.blur();
+
+    expect(onInputBlur).toHaveBeenCalledTimes(1);
   });
 
   it('it should overwrite default placeholder with the one passed inside inputProps', () => {

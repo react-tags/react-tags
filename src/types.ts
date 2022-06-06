@@ -1,5 +1,5 @@
 import { INPUT_POSITION } from 'const';
-import { InputHTMLAttributes } from 'react';
+import React, { InputHTMLAttributes } from 'react';
 
 export interface Tag {
   label: string;
@@ -8,7 +8,9 @@ export interface Tag {
 
 export interface ReactTagsProps {
   autofocus?: boolean;
-  handleInputChange?: (value: string) => void;
+  onInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onInputFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onInputBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   inputPosition?: INPUT_POSITION;
   inputProps?: InputHTMLAttributes<HTMLInputElement>;
   placeholder?: string;
