@@ -57,9 +57,48 @@ describe('ReactTags', () => {
     expect(onInputBlur).toHaveBeenCalledTimes(1);
   });
 
-  it('it should overwrite default placeholder with the one passed inside inputProps', () => {
+  it('should overwrite default placeholder with the one passed inside inputProps', () => {
     render(<ReactTags inputProps={{ placeholder: 'Custom text' }} />);
 
     expect(screen.getByPlaceholderText('Custom text')).toBeInTheDocument();
+  });
+
+  it('should render default tags list if defaultTags provided', () => {
+    render(<ReactTags defaultTags={[{ value: 'poland', label: 'Poland' }]} />);
+
+    expect(screen.getByText('Poland')).toBeInTheDocument();
+  });
+
+  it('should render "Clear all" button with custom label, clear all tags on click and call onClearAll method', async () => {
+    const onClearAll = jest.fn();
+
+    render(
+      <ReactTags
+        defaultTags={[{ value: 'poland', label: 'Poland' }]}
+        allowClear
+        clearText="Remove tags"
+        onClearAll={onClearAll}
+      />
+    );
+
+    const clearAllButton = screen.getByTestId('clear-all');
+
+    expect(clearAllButton).toBeInTheDocument();
+    expect(screen.getByText('Remove tags')).toBeInTheDocument();
+    await user.click(clearAllButton);
+    expect(onClearAll).toBeCalledTimes(1);
+    expect(screen.queryByText('Poland')).not.toBeInTheDocument();
+  });
+
+  it('should add a new tag on Enter key down and call onTagAdd method', async () => {
+    const onTagAdd = jest.fn();
+
+    render(<ReactTags onTagAdd={onTagAdd} />);
+
+    await user.type(screen.getByTestId('tag-input'), 'Germany{enter}');
+
+    expect(onTagAdd).toBeCalledTimes(1);
+    expect(onTagAdd).toBeCalledWith({ value: 'Germany', label: 'Germany' });
+    expect(screen.getByText('Germany')).toBeInTheDocument();
   });
 });

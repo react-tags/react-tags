@@ -1,23 +1,37 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { DEFAULT_PLACEHOLDER, INPUT_POSITION } from 'const';
+import {
+  KEYS,
+  DEFAULT_CLEAR_TEXT,
+  DEFAULT_PLACEHOLDER,
+  INPUT_POSITION,
+} from 'const';
 import { ReactTagsProps, Tag } from 'types';
 
 export const ReactTags = ({
+  allowClear,
   autofocus,
+  clearText = DEFAULT_CLEAR_TEXT,
+  defaultTags = [],
+  delimiters = [KEYS.ENTER],
+  onClearAll,
   onInputChange,
   onInputFocus,
   onInputBlur,
+  onTagAdd,
   inputPosition = INPUT_POSITION.LEFT,
   inputProps,
   placeholder = DEFAULT_PLACEHOLDER,
   readOnly,
 }: ReactTagsProps) => {
-  const [tags] = useState<Tag[]>([
-    { value: 'poland', label: 'Poland' },
-    { value: 'germany', label: 'Germany' },
-  ]);
+  const [tags, setTags] = useState<Tag[]>(defaultTags);
 
   const tagInputRef = useRef<HTMLInputElement>(null);
+
+  const _resetInput = () => {
+    if (tagInputRef.current) {
+      tagInputRef.current.value = '';
+    }
+  };
 
   useEffect(() => {
     if (tagInputRef.current && autofocus) {
@@ -46,17 +60,52 @@ export const ReactTags = ({
     }
   };
 
+  const _handleClearAll = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (onClearAll) {
+      onClearAll(e);
+    }
+
+    setTags([]);
+  };
+
+  const _addTag = (tag: Tag) => {
+    setTags((prevState) => [...prevState, tag]);
+
+    if (onTagAdd) {
+      onTagAdd(tag);
+    }
+
+    _resetInput();
+  };
+
+  const _handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+
+    if (delimiters.includes(e.code) && !e.shiftKey && value.length) {
+      const tag = { value, label: value };
+      _addTag(tag);
+    }
+  };
+
   const tagInput = !readOnly && (
-    <input
-      ref={tagInputRef}
-      placeholder={placeholder}
-      aria-label={placeholder}
-      {...inputProps}
-      onChange={_handleInputChange}
-      onFocus={_handleInputFocus}
-      onBlur={_handleInputBlur}
-      data-testid="tag-input"
-    />
+    <>
+      <input
+        ref={tagInputRef}
+        placeholder={placeholder}
+        aria-label={placeholder}
+        {...inputProps}
+        onChange={_handleInputChange}
+        onFocus={_handleInputFocus}
+        onBlur={_handleInputBlur}
+        onKeyDown={_handleKeyDown}
+        data-testid="tag-input"
+      />
+      {allowClear && (
+        <button type="button" onClick={_handleClearAll} data-testid="clear-all">
+          {clearText}
+        </button>
+      )}
+    </>
   );
 
   return (

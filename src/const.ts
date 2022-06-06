@@ -1,12 +1,11 @@
 export enum KEYS {
-  ENTER = 13,
-  CTRL_ENTER = 10,
-  TAB = 9,
-  BACKSPACE = 8,
-  UP_ARROW = 38,
-  DOWN_ARROW = 40,
-  ESCAPE = 27,
-  SPACE = 32,
+  ENTER = 'Enter',
+  TAB = 'Tab',
+  BACKSPACE = 'Backspace',
+  ARROW_UP = 'ArrowUp',
+  ARROW_DOWN = 'ArrowDown',
+  ESCAPE = 'Escape',
+  SPACE = 'Space',
 }
 
 export enum INPUT_POSITION {
@@ -17,3 +16,5 @@ export enum INPUT_POSITION {
 }
 
 export const DEFAULT_PLACEHOLDER = 'Press enter to add new tag';
+
+export const DEFAULT_CLEAR_TEXT = 'Clear all';
