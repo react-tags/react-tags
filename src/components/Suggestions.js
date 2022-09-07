@@ -57,7 +57,7 @@ class Suggestions extends Component {
       prevProps.selectedIndex !== selectedIndex
     ) {
       const activeSuggestion = this.suggestionsContainer.querySelector(
-        classNames.activeSuggestion
+        `.${classNames.activeSuggestion}`
       );
 
       if (activeSuggestion) {
