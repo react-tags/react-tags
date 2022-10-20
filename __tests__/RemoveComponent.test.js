@@ -55,7 +55,7 @@ describe('Test <RemoveComponent/>', () => {
       },
     };
     const wrapper = shallow(<RemoveComponent { ...props } />);
-    expect(wrapper.find('button').length).toBe(0);
+    expect(wrapper.find('button')).toHaveLength(0);
   });
 
   it('should run onRemove when backspace is pressed', () => {
