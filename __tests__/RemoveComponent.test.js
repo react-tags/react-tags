@@ -20,10 +20,12 @@ describe('Test <RemoveComponent/>', () => {
   afterAll(() => {
     onRemoveStub.restore();
   });
+
   function mockItem(override) {
     const props = Object.assign({}, minProps, override);
     return <RemoveComponent { ...props } />;
   }
+
 
   it('should render with base structure', () => {
     const wrapper = shallow(<RemoveComponent {...minProps} />);
@@ -42,20 +44,6 @@ describe('Test <RemoveComponent/>', () => {
     };
     const wrapper = shallow(<RemoveComponent { ...props } />);
     expect(wrapper.html()).toBe('<span></span>');
-  });
-
-  it('should return Component when removeComponent is passed to RemoveComponent', () => {
-    const props = {
-      onRemove: stub(),
-      index: 0,
-      removeComponent: stub(),
-      tag: {
-        id: 'Tags',
-        key: 'Tags',
-      },
-    };
-    const wrapper = shallow(<RemoveComponent { ...props } />);
-    expect(wrapper.find('button')).toHaveLength(0);
   });
 
   it('should run onRemove when backspace is pressed', () => {
