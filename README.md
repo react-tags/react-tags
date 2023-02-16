@@ -27,12 +27,6 @@ Because I was looking for an excuse to build a standalone component and publish 
 
 Check it out [here](https://stackblitz.com/edit/react-tag-input-1nelrc)
 
-## Support
-If you like this library, you can support to help it improve:)
-
-<a href="https://www.buymeacoffee.com/aakansha" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" height=40></a>
-
-
 
 ## Installation
 You can use npm
@@ -565,6 +559,11 @@ a `classNames` prop.
     }}
     ...>
 ```
+
+## Support
+If you like this library, you can support to help it improve:)
+
+[![Github-sponsors](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/ad1992)
 
 
 ## Dev
