@@ -1,0 +1,34 @@
+{
+  "name": "react-tag-input",
+  "version": "0.0.0-semantically-released",
+  "description": "React tags is a fantastically simple tagging component for your React projects",
+  "main": "",
+  "files": [],
+  "funding": [
+    {
+      "type": "individual",
+      "url": "https://www.buymeacoffee.com/aakansha"
+    },
+    {
+      "type": "individual",
+      "url": "https://www.buymeacoffee.com/mrdannael"
+    }
+  ],
+  "sideEffects": false,
+  "scripts": {},
+  "keywords": [
+    "react",
+    "drag-drop",
+    "tags",
+    "tag input",
+    "react-component",
+    "autosuggest",
+    "editable"
+  ],
+  "author": "Prakhar Srivastav",
+  "license": "MIT",
+  "repository": "https://github.com/react-tags/react-tags",
+  "peerDependencies": {},
+  "dependencies": {},
+  "devDependencies": {}
+}
