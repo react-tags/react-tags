@@ -2,7 +2,9 @@
   "name": "react-tag-input",
   "version": "0.0.0-semantically-released",
   "description": "React tags is a fantastically simple tagging component for your React projects",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "import": "./dist/react-tag-input.es.js",
@@ -31,6 +33,10 @@
     "preview": "vite preview",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
+    "test": "vitest run",
+    "test:ui": "vitest --ui",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage",
     "prepare": "husky install"
   },
   "keywords": [
@@ -49,14 +55,22 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/lodash": "^4.14.192",
     "@types/node": "^18.15.11",
-    "@types/react": "^18.0.28",
+    "@types/react": "^18.0.32",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "@vitejs/plugin-react": "^3.1.0",
+    "@vitest/coverage-c8": "^0.29.8",
+    "@vitest/ui": "^0.29.8",
     "eslint": "^8.37.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
@@ -67,12 +81,16 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "husky": "^8.0.3",
+    "jsdom": "^21.1.1",
     "lint-staged": "^13.2.0",
     "prettier": "^2.8.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "typescript": "^5.0.3",
     "vite": "^4.2.0",
     "vite-plugin-dts": "^2.1.0",
-    "vite-tsconfig-paths": "^4.0.7"
+    "vite-tsconfig-paths": "^4.0.7",
+    "vitest": "^0.29.8"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [

@@ -41,5 +41,8 @@ module.exports = {
     quotes: ["error", "double"],
     semi: ["error", "always"],
     "linebreak-style": ["error", "unix"],
+    "import/prefer-default-export": "off",
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
   }
 };
