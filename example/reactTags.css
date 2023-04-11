@@ -56,7 +56,7 @@
   margin: 0 5px;
   border-radius: 2px;
 }
-.ReactTags__selected a.ReactTags__remove {
+.ReactTags__selected button.ReactTags__remove {
   color: #aaa;
   margin-left: 5px;
   cursor: pointer;
