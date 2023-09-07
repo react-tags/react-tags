@@ -1,5 +1,9 @@
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 import { ReactTags } from "./index";
 
-render(<ReactTags placeholder="place" />, document.getElementById("root"));
+const container = document.getElementById("root");
+const root = createRoot(container || document.body);
+
+root.render(<ReactTags placeholder="place" />);
+
 
