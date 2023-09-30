@@ -508,6 +508,7 @@ class ReactTags extends Component {
           }}
           className={classNames.tagInputField}
           type="text"
+          name="tag-input"
           placeholder={placeholder}
           aria-label={placeholder}
           onFocus={this.handleFocus}
