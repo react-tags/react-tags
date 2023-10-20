@@ -23,8 +23,9 @@ describe('Test <RemoveComponent/>', () => {
 
   function mockItem(override) {
     const props = Object.assign({}, minProps, override);
-    return <RemoveComponent {...props} />;
+    return <RemoveComponent { ...props } />;
   }
+
 
   it('should render with base structure', () => {
     const wrapper = shallow(<RemoveComponent {...minProps} />);
@@ -41,15 +42,13 @@ describe('Test <RemoveComponent/>', () => {
         key: 'Tags',
       },
     };
-    const wrapper = shallow(<RemoveComponent {...props} />);
+    const wrapper = shallow(<RemoveComponent { ...props } />);
     expect(wrapper.html()).toBe('<span></span>');
   });
 
   it('should run onRemove when backspace is pressed', () => {
     const $el = mount(mockItem());
-    $el
-      .find('button')
-      .simulate('keyDown', { keyCode: 8, which: 8, key: 'Backspace' });
+    $el.find('button').simulate('keyDown', { keyCode: 8, which: 8, key: 'Backspace'});
     expect(onRemoveStub.calledOnce).toBeTruthy();
   });
 });
