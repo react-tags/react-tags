@@ -97,7 +97,7 @@ class Suggestions extends Component {
     const { props } = this;
 
     const suggestions = props.suggestions.map(
-      function(item, i) {
+      function (item, i) {
         return (
           <li
             key={i}
