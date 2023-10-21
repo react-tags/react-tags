@@ -228,7 +228,6 @@ const KeyCodes = {
 const delimiters = [...KeyCodes.enter, KeyCodes.comma];
 
 const Tags = ReactTags.WithContext;
-console.log(ReactTags);
 const App = () => {
   const [tags, setTags] = React.useState([
     { id: 'Thailand', text: 'Thailand' },
