@@ -6,20 +6,26 @@ const config = {
   // Entry points to the project
   entry: {
     ReactTags: path.join(__dirname, 'src/components/ReactTags.js'),
+    bundle: './example/main.js',
   },
   // Server Configuration options
   devServer: {
-    contentBase: './', // Relative directory for base of server
+    static: {
+      directory: path.join(__dirname, './example/public'),
+    },
     port: 8090, // Port Number
-    host: 'localhost', // Change to '0.0.0.0' for external facing server
+    host: 'localhost',
+    hot: true,
+    compress: true,
   },
   devtool: 'cheap-module-source-map',
   output: {
-    path: path.resolve(__dirname, 'dist'), // Path of output file
+    path: path.resolve(__dirname, 'example/public'), // Path of output file
     filename: '[name].min.js',
     libraryTarget: 'umd',
     library: 'ReactTags',
   },
+
   externals: {
     react: 'React',
     'react-dom': 'ReactDOM',
@@ -37,15 +43,21 @@ const config = {
         test: /\.js$/, // All .js files
         use: [
           {
-            // react-hot is like browser sync and babel loads jsx and es6-7
             loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+            },
           },
         ],
         exclude: /node_modules/,
       },
       {
         test: /\.(sa|sc|c)ss$/,
+        exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
+        // Since the project is side effects free, for some reason webpack drops the imported scss files if side effects not set to true for sass loaders
+        // https://webpack.js.org/guides/tree-shaking/#mark-the-file-as-side-effect-free
+        sideEffects: true,
       },
     ],
   },
