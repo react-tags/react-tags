@@ -71,7 +71,7 @@ describe('Test ReactTags', () => {
     expect($el.find('.changed').length).to.equal(1);
   });
 
-  test('focus on input by default', async () => {
+  test('focus on input by default', () => {
     const $el = mount(mockItem(), { attachTo: document.body });
     expect(document.activeElement.tagName).to.equal('INPUT');
     expect(document.activeElement.className).to.equal(
