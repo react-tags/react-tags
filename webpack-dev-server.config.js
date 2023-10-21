@@ -20,7 +20,7 @@ const config = {
   },
   devtool: 'cheap-module-source-map',
   output: {
-    path: path.resolve(__dirname, 'dist'), // Path of output file
+    path: path.resolve(__dirname, 'example/public'), // Path of output file
     filename: '[name].min.js',
     libraryTarget: 'umd',
     library: 'ReactTags',

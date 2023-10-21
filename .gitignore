@@ -5,3 +5,6 @@ npm-debug.log
 coverage
 dist-modules
 dist
+example/public/bundle.*
+example/public/ReactTags.*
+example/.DS_Store
