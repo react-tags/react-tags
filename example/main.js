@@ -1,6 +1,7 @@
 /*eslint-disable */
 
 const { React, ReactDOM, ReactTags } = window;
+import GitHubCorner from './GithubCorner';
 
 // List of countries in the world
 const COUNTRIES = [
@@ -227,7 +228,7 @@ const KeyCodes = {
 const delimiters = [...KeyCodes.enter, KeyCodes.comma];
 
 const Tags = ReactTags.WithContext;
-
+console.log(ReactTags);
 const App = () => {
   const [tags, setTags] = React.useState([
     { id: 'Thailand', text: 'Thailand' },
@@ -270,6 +271,8 @@ const App = () => {
 
   return (
     <div className="app">
+      <GitHubCorner />
+
       <h1> React Tags Example </h1>
       <div>
         <Tags
