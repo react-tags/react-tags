@@ -1,13 +1,11 @@
 name: codacy-coverage-reporter
 on:
-  push:
-    branches:
-      - master
   pull_request_target:
-
 jobs:
   codacy-coverage-reporter:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     name: codacy-coverage-reporter
     steps:
       - uses: actions/checkout@master
