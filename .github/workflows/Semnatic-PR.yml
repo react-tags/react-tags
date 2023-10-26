@@ -1,5 +1,5 @@
 name: Lint PR
-'on':
+on:
   pull_request_target:
     types:
       - opened
