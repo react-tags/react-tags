@@ -320,7 +320,7 @@ The inline attributes decides whether the input fields and selected tags will be
     ...>
 ```
 
-![img](../../docs/inline-true.png)
+![img](../inline-true.png)
 
 ```js
 <ReactTags
@@ -328,7 +328,7 @@ The inline attributes decides whether the input fields and selected tags will be
     ...>
 ```
 
-![img](../../docs/inline-false.png)
+![img](../inline-false.png)
 
 _This attribute is deprecated and will be removed in v7.x.x, see [inputFieldPosition](#inputFieldPosition)._
 
@@ -342,7 +342,7 @@ The inputFieldPosition attribute decides the positioning of the input field rela
     ...>
 ```
 
-![img](../../docs/input-field-position-inline.png)
+![img](../input-field-position-inline.png)
 
 ```js
 <ReactTags
@@ -350,7 +350,7 @@ The inputFieldPosition attribute decides the positioning of the input field rela
     ...>
 ```
 
-![img](../../docs/input-field-position-top.png)
+![img](../input-field-position-top.png)
 
 ```js
 <ReactTags
@@ -358,7 +358,7 @@ The inputFieldPosition attribute decides the positioning of the input field rela
     ...>
 ```
 
-![img](../../docs/input-field-position-bottom.png)
+![img](../input-field-position-bottom.png)
 
 
 ## allowUnique
