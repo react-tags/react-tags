@@ -108,7 +108,7 @@ Provide an alternative `label` property for the tags.
 
 This is useful if your data uses the `text` property for something else.
 
-### handleAddition
+## handleAddition
 
 Function called when the user wants to add a tag (either a click, a tab press or carriage return)
 
@@ -118,7 +118,7 @@ function(tag) {
 }
 ```
 
-### handleDelete
+## handleDelete
 
 Function called when the user wants to delete a tag
 
@@ -128,7 +128,7 @@ function(i) {
 }
 ```
 
-### handleDrag
+## handleDrag
 
 If you want tags to be draggable, you need to provide this function.
 Function called when the user drags a tag.
@@ -139,7 +139,7 @@ function(tag, currPos, newPos) {
 }
 ```
 
-### handleFilterSuggestions
+## handleFilterSuggestions
 
 To assert control over the suggestions filter, you may contribute a function that is executed whenever a filtered set
 of suggestions is expected. By default, the text input value will be matched against each suggestion, and [those that
@@ -165,7 +165,7 @@ either refactor the above filter based on the capabilities of your supported bro
 `String.prototype.includes`][includes-polyfill].
 
 
-### handleTagClick
+## handleTagClick
 
 Function called when the user wants to know which tag was clicked
 
@@ -175,7 +175,7 @@ function(i) {
 }
 ```
 
-### autofocus
+## autofocus
 
 Optional boolean param to control whether the text-input should be autofocused on mount.
 
@@ -185,7 +185,7 @@ Optional boolean param to control whether the text-input should be autofocused o
     ...>
 ```
 
-### allowDeleteFromEmptyInput
+## allowDeleteFromEmptyInput
 
 Optional boolean param to control whether tags should be deleted when the 'Delete' key is pressed in an empty Input Box.
 
@@ -194,7 +194,7 @@ Optional boolean param to control whether tags should be deleted when the 'Delet
     allowDeleteFromEmptyInput={false}
     ...>
 ```
-### handleInputChange
+## handleInputChange
 
 Optional event handler for input onChange
 
@@ -204,7 +204,7 @@ Optional event handler for input onChange
     ...>
 ```
 
-### handleInputFocus
+## handleInputFocus
 
 Optional event handler for input onFocus
 
@@ -215,7 +215,7 @@ Optional event handler for input onFocus
 ```
 
 
-### handleInputBlur
+## handleInputBlur
 
 Optional event handler for input onBlur
 
@@ -225,11 +225,11 @@ Optional event handler for input onBlur
     ...>
 ```
 
-### minQueryLength
+## minQueryLength
 
 Minimum number of characters needed for suggestions to appear. Defaults to `2`.
 
-### removeComponent
+## removeComponent
 
 If you'd like to supply your own tag delete/remove element, create a React component and pass it as a property to ReactTags using the `removeComponent` option. By default, a simple anchor link with an "x" text node as its only child is rendered, but if you'd like to, say, replace this with a `<button>` element that uses an image instead of text, your markup may look something like this:
 
@@ -266,7 +266,7 @@ The below props will be passed to the `removeComponent`. You will need to forwar
 | `index` | number | the `index` of the tag to be deleted.
 
 
-### autocomplete
+## autocomplete
 
 Useful for enhancing data entry workflows for your users by ensuring the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed (such as the enter key). This option has three possible values:
 
@@ -276,11 +276,11 @@ Useful for enhancing data entry workflows for your users by ensuring the first m
 
 This option has no effect if there are no [`suggestions`](#suggestionsOption).
 
-### readOnly
+## readOnly
 
 Renders the component in read-only mode without the input box and `removeComponent`. This also disables the drag-n-drop feature.
 
-### name
+## name
 
 The name attribute added to the input.
 
@@ -290,7 +290,7 @@ The name attribute added to the input.
     ...>
 ```
 
-### id
+## id
 
 The id attribute added to the input.
 
@@ -300,7 +300,7 @@ The id attribute added to the input.
     ...>
 ```
 
-### maxLength
+## maxLength
 
 The maxLength attribute added to the input. Specifies the maximum number of characters allowed in the input field.
 
@@ -310,7 +310,7 @@ The maxLength attribute added to the input. Specifies the maximum number of char
     ...>
 ```
 
-### inline
+## inline
 
 The inline attributes decides whether the input fields and selected tags will be rendered in-line.
 
@@ -332,7 +332,7 @@ The inline attributes decides whether the input fields and selected tags will be
 
 _This attribute is deprecated and will be removed in v7.x.x, see [inputFieldPosition](#inputFieldPosition)._
 
-### inputFieldPosition
+## inputFieldPosition
 
 The inputFieldPosition attribute decides the positioning of the input field relative to the tags. Can be one of `inline`, `top` or `bottom`.
 
@@ -361,16 +361,16 @@ The inputFieldPosition attribute decides the positioning of the input field rela
 ![img](../../docs/input-field-position-bottom.png)
 
 
-### allowUnique
+## allowUnique
 
 This prop controls whether tags should be unique.
 
-### allowDragDrop
+## allowDragDrop
 
 This prop controls whether tags should have the drag-n-drop feature enabled.
 
 
-### renderSuggestion
+## renderSuggestion
 
 This props allows to provide your own suggestion renderer and override the default one. It receives the suggestion and the query string as parameters. For example:
 
@@ -380,7 +380,7 @@ This props allows to provide your own suggestion renderer and override the defau
     ...>
 ```
 
-### inputProps
+## inputProps
 
 When you want to pass additional attributes to the input element (for example autocomplete, disabled etc) you can use this prop. 
 
@@ -393,16 +393,16 @@ When you want to pass additional attributes to the input element (for example au
 />
 ```
 
-### allowAdditionFromPaste
+## allowAdditionFromPaste
 
 This prop implies whether to allow paste action for adding tags. Defaults to `true`.
 
 
-### editable
+## editable
 
 This prop implies whether the tags should be editable. Defaults to `false`.
 
-### onTagUpdate
+## onTagUpdate
 
 ```js
 onTagUpdate(editIndex, tag) => void;
@@ -410,10 +410,10 @@ onTagUpdate(editIndex, tag) => void;
 
 This callback is if present is triggered when tag is updated. The edit index and the tag are passed in the callback. You can update the [`tags`](#tags) prop in this callback.
 
-#### clearAll
+### clearAll
 
 This props implies whether 'clear all' button should be shown. Defaults to `false`.
 
-#### onClearAll
+### onClearAll
 
 This callback is if present is triggered when "clear all" button is clicked. You can set the [`tags`](#tags) prop to empty in this callback.
