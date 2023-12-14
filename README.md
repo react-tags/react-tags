@@ -13,6 +13,7 @@ React-tags is a simple tagging component ready to drop in your projects. The com
 - Reorder tags using drag and drop
 - Edit tag support
 - Optional clear all button
+- Async suggestion list option
 
 ## Why
 Started by [Prakhar Srivastav](https://github.com/prakhar1989) and later maintained by [Aakansha Doshi](https://github.com/ad1992).
@@ -21,6 +22,7 @@ In Prakhar's words here is why he started it👇🏻
 
 Because I was looking for an excuse to build a standalone component and publish it in the wild? To be honest, I needed a tagging component that provided the above features for my [React-Surveyman](http://github.com/prakhar1989/react-surveyman) project. Since I was unable to find one which met my requirements (and the fact that I generally enjoy re-inventing the wheel) this is what I came up with.
 
+Extended by [Laszlo Sliz](https://github.com/slizlaszlo) with the async suggestion list option.
 
 ## Demo
 ![img](demo.gif)
