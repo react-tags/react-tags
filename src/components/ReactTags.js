@@ -60,6 +60,7 @@ class ReactTags extends Component {
     id: PropTypes.string,
     maxLength: PropTypes.number,
     inputValue: PropTypes.string,
+    maxTags: PropTypes.number,
     tags: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
@@ -493,6 +494,7 @@ class ReactTags extends Component {
       inputProps,
       clearAll,
       tags,
+      maxTags,
     } = this.props;
 
     const position = !inline
@@ -501,27 +503,29 @@ class ReactTags extends Component {
 
     const tagInput = !this.props.readOnly ? (
       <div className={classNames.tagInput}>
-        <input
-          {...inputProps}
-          ref={(input) => {
-            this.textInput = input;
-          }}
-          className={classNames.tagInputField}
-          type="text"
-          placeholder={placeholder}
-          aria-label={placeholder}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onChange={this.handleChange}
-          onKeyDown={this.handleKeyDown}
-          onPaste={this.handlePaste}
-          name={inputName}
-          id={inputId}
-          maxLength={maxLength}
-          value={inputValue}
-          data-automation="input"
-          data-testid="input"
-        />
+        {(!maxTags || (maxTags && tags.length < maxTags)) && (
+          <input
+            {...inputProps}
+            ref={(input) => {
+              this.textInput = input;
+            }}
+            className={classNames.tagInputField}
+            type="text"
+            placeholder={placeholder}
+            aria-label={placeholder}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
+            onChange={this.handleChange}
+            onKeyDown={this.handleKeyDown}
+            onPaste={this.handlePaste}
+            name={inputName}
+            id={inputId}
+            maxLength={maxLength}
+            value={inputValue}
+            data-automation="input"
+            data-testid="input"
+          />
+        )}
 
         <Suggestions
           query={query}
