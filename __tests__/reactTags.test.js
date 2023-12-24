@@ -934,4 +934,22 @@ describe('Test ReactTags', () => {
       expect(onClearAllStub.calledOnce).to.be.true;
     });
   });
+
+  describe('When maxTags is defined', () => {
+    it('should render input when maxTags is nor defined', () => {
+      const RenderResult = render(mockItem());
+      expect(RenderResult.queryByTestId('input')).to.not.be.null;
+    });
+
+    it('should render input when tags are added less than maxTags value', () => {
+      const RenderResult = render(mockItem({ maxTags: 2 }));
+      expect(RenderResult.queryByTestId('input')).to.not.be.null;
+    });
+
+    it('should not render input when tags are added upto maxTags value', () => {
+      const RenderResult = render(mockItem({ maxTags: 1 }));
+      console.log('aa', RenderResult.queryByTestId('input'));
+      expect(RenderResult.queryByTestId('input')).to.be.null;
+    });
+  });
 });
