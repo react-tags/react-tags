@@ -503,7 +503,7 @@ class ReactTags extends Component {
 
     const tagInput = !this.props.readOnly ? (
       <div className={classNames.tagInput}>
-        {(!maxTags || (maxTags && tags.length < maxTags)) && (
+        {maxTags && tags.length >= maxTags ? null : (
           <input
             {...inputProps}
             ref={(input) => {
