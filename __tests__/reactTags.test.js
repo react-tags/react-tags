@@ -936,7 +936,7 @@ describe('Test ReactTags', () => {
   });
 
   describe('When maxTags is defined', () => {
-    it('should render input when maxTags is nor defined', () => {
+    it('should render input when maxTags is not defined', () => {
       const RenderResult = render(mockItem());
       expect(RenderResult.queryByTestId('input')).to.not.be.null;
     });
@@ -948,7 +948,6 @@ describe('Test ReactTags', () => {
 
     it('should not render input when tags are added upto maxTags value', () => {
       const RenderResult = render(mockItem({ maxTags: 1 }));
-      console.log('aa', RenderResult.queryByTestId('input'));
       expect(RenderResult.queryByTestId('input')).to.be.null;
     });
   });
