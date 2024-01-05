@@ -501,32 +501,31 @@ class ReactTags extends Component {
       ? INPUT_FIELD_POSITIONS.BOTTOM
       : inputFieldPosition;
 
-    const inputDisabled = maxTags && tags.length >= maxTags;
-
     const tagInput = !this.props.readOnly ? (
       <div className={classNames.tagInput}>
-        <input
-          {...inputProps}
-          ref={(input) => {
-            this.textInput = input;
-          }}
-          disabled={inputDisabled}
-          className={classNames.tagInputField}
-          type="text"
-          placeholder={placeholder}
-          aria-label={placeholder}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onChange={this.handleChange}
-          onKeyDown={this.handleKeyDown}
-          onPaste={this.handlePaste}
-          name={inputName}
-          id={inputId}
-          maxLength={maxLength}
-          value={inputValue}
-          data-automation="input"
-          data-testid="input"
-        />
+        {maxTags && tags.length >= maxTags ? null : (
+          <input
+            {...inputProps}
+            ref={(input) => {
+              this.textInput = input;
+            }}
+            className={classNames.tagInputField}
+            type="text"
+            placeholder={placeholder}
+            aria-label={placeholder}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
+            onChange={this.handleChange}
+            onKeyDown={this.handleKeyDown}
+            onPaste={this.handlePaste}
+            name={inputName}
+            id={inputId}
+            maxLength={maxLength}
+            value={inputValue}
+            data-automation="input"
+            data-testid="input"
+          />
+        )}
 
         <Suggestions
           query={query}
@@ -544,7 +543,6 @@ class ReactTags extends Component {
         {clearAll && tags.length > 0 && (
           <ClearAllTags classNames={classNames} onClick={this.clearAll} />
         )}
-        {inputDisabled && <div data-testid="max-tag-message" style={{ color: '#f88d8d' }}>tag limit reached</div>}
       </div>
     ) : null;
 
