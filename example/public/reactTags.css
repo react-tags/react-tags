@@ -36,6 +36,9 @@
   border: 1px solid #eee;
   min-width: 150px;
 }
+.ReactTags__tagInput input.ReactTags__tagInputField:disabled {
+  background-color: #e9ecef;
+}
 
 .ReactTags__editInput {
   border-radius: 1px;
