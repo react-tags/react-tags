@@ -935,20 +935,28 @@ describe('Test ReactTags', () => {
     });
   });
 
-  describe('When maxTags is defined', () => {
-    it('should render input when maxTags is not defined', () => {
-      const RenderResult = render(mockItem());
-      expect(RenderResult.queryByTestId('input')).to.not.be.null;
-    });
-
-    it('should render input when tags are added less than maxTags value', () => {
-      const RenderResult = render(mockItem({ maxTags: 2 }));
-      expect(RenderResult.queryByTestId('input')).to.not.be.null;
-    });
-
-    it('should not render input when tags are added upto maxTags value', () => {
-      const RenderResult = render(mockItem({ maxTags: 1 }));
-      expect(RenderResult.queryByTestId('input')).to.be.null;
+  describe('when maxTags is defined', () => {
+    it('should disable adding tags when tag limit reached', () => {
+      const tags = [{ id: 'A', text: 'A' }];
+      const $el = render(
+        mockItem({
+          tags,
+          handleAddition(tag) {
+            tags.push(tag);
+          },
+          maxTags: 1,
+        })
+      );
+      const input = $el.getByTestId('input');
+      fireEvent.change(input, {
+        target: { value: 'B' },
+      });
+      fireEvent.keyDown(input, {
+        keyCode: ENTER_ARROW_KEY_CODE,
+      });
+      expect(tags).to.have.length(1);
+      expect($el.getByTestId('tag-limit-message').textContent).to.exist;
+      expect($el.getByTestId('tag-limit-message').textContent).to.equal('tag limit reached');
     });
   });
 });
