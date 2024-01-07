@@ -119,6 +119,7 @@ class ReactTags extends Component {
       selectionMode: false,
       ariaLiveStatus: '',
       currentEditIndex: -1,
+      tagLimitMessage: '',
     };
     this.reactTagsRef = createRef();
     this.handleFocus = this.handleFocus.bind(this);
@@ -189,6 +190,7 @@ class ReactTags extends Component {
     if (currentTags.length === 0) {
       return;
     }
+    this.setState({tagLimitMessage: ''});
     let ariaLiveStatus = `Tag at index ${index} with value ${currentTags[index].id} deleted.`;
     this.props.handleDelete(index, event);
     const allTags =
@@ -337,9 +339,23 @@ class ReactTags extends Component {
     }
   }
 
+  tagLimitReached() {
+    const { tags, maxTags } = this.props;
+    return maxTags !== null && tags.length >= maxTags;
+  }
+
   handlePaste(e) {
     if (!this.props.allowAdditionFromPaste) {
       return;
+    }
+
+    if(this.tagLimitReached()) {
+      this.setState({tagLimitMessage: 'tag limit reached'});
+      this.resetAndFocusInput();
+      return;
+    }
+    else {
+      this.setState({tagLimitMessage: ''});
     }
 
     e.preventDefault();
@@ -368,6 +384,18 @@ class ReactTags extends Component {
     if (!tag.id || !tag[labelField]) {
       return;
     }
+
+    if (currentEditIndex === -1) {
+      if(this.tagLimitReached()) {
+        this.setState({tagLimitMessage: 'tag limit reached'});
+        this.resetAndFocusInput();
+        return;
+      }
+      else {
+        this.setState({tagLimitMessage: ''});
+      }
+    }
+
     const existingKeys = tags.map((tag) => tag.id.toLowerCase());
 
     // Return if tag has been already added
@@ -409,6 +437,7 @@ class ReactTags extends Component {
     if (this.props.onClearAll) {
       this.props.onClearAll();
     }
+    this.setState({tagLimitMessage: ''});
   };
 
   handleSuggestionHover(i) {
@@ -481,7 +510,8 @@ class ReactTags extends Component {
     // get the suggestions for the given query
     const query = this.state.query.trim(),
       selectedIndex = this.state.selectedIndex,
-      suggestions = this.state.suggestions;
+      suggestions = this.state.suggestions,
+      tagLimitMessage = this.state.tagLimitMessage;
 
     const {
       placeholder,
@@ -494,7 +524,6 @@ class ReactTags extends Component {
       inputProps,
       clearAll,
       tags,
-      maxTags,
     } = this.props;
 
     const position = !inline
@@ -503,29 +532,27 @@ class ReactTags extends Component {
 
     const tagInput = !this.props.readOnly ? (
       <div className={classNames.tagInput}>
-        {maxTags && tags.length >= maxTags ? null : (
-          <input
-            {...inputProps}
-            ref={(input) => {
-              this.textInput = input;
-            }}
-            className={classNames.tagInputField}
-            type="text"
-            placeholder={placeholder}
-            aria-label={placeholder}
-            onFocus={this.handleFocus}
-            onBlur={this.handleBlur}
-            onChange={this.handleChange}
-            onKeyDown={this.handleKeyDown}
-            onPaste={this.handlePaste}
-            name={inputName}
-            id={inputId}
-            maxLength={maxLength}
-            value={inputValue}
-            data-automation="input"
-            data-testid="input"
-          />
-        )}
+        <input
+          {...inputProps}
+          ref={(input) => {
+            this.textInput = input;
+          }}
+          className={classNames.tagInputField}
+          type="text"
+          placeholder={placeholder}
+          aria-label={placeholder}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
+          onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown}
+          onPaste={this.handlePaste}
+          name={inputName}
+          id={inputId}
+          maxLength={maxLength}
+          value={inputValue}
+          data-automation="input"
+          data-testid="input"
+        />
 
         <Suggestions
           query={query}
@@ -542,6 +569,9 @@ class ReactTags extends Component {
         />
         {clearAll && tags.length > 0 && (
           <ClearAllTags classNames={classNames} onClick={this.clearAll} />
+        )}
+        {tagLimitMessage && (
+          <div data-testid="tag-limit-message" style={{color: '#f88d8d'}}>{tagLimitMessage}</div>
         )}
       </div>
     ) : null;
