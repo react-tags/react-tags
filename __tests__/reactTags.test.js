@@ -935,7 +935,7 @@ describe('Test ReactTags', () => {
     });
   });
 
-  describe('when maxTags is defined', () => {
+  describe('When maxTags is defined', () => {
     it('should disable adding tags when tag limit reached', () => {
       const tags = [{ id: 'A', text: 'A' }];
       const $el = render(
@@ -955,8 +955,9 @@ describe('Test ReactTags', () => {
         keyCode: ENTER_ARROW_KEY_CODE,
       });
       expect(tags).to.have.length(1);
-      expect($el.getByTestId('tag-limit-message').textContent).to.exist;
-      expect($el.getByTestId('tag-limit-message').textContent).to.equal('tag limit reached');
+      expect($el.getByTestId('error').textContent).to.equal(
+        'Tag limit reached!'
+      );
     });
   });
 });
