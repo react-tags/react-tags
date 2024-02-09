@@ -934,4 +934,30 @@ describe('Test ReactTags', () => {
       expect(onClearAllStub.calledOnce).to.be.true;
     });
   });
+
+  describe('When maxTags is defined', () => {
+    it('should disable adding tags when tag limit reached', () => {
+      const tags = [{ id: 'A', text: 'A' }];
+      const $el = render(
+        mockItem({
+          tags,
+          handleAddition(tag) {
+            tags.push(tag);
+          },
+          maxTags: 1,
+        })
+      );
+      const input = $el.getByTestId('input');
+      fireEvent.change(input, {
+        target: { value: 'B' },
+      });
+      fireEvent.keyDown(input, {
+        keyCode: ENTER_ARROW_KEY_CODE,
+      });
+      expect(tags).to.have.length(1);
+      expect($el.getByTestId('error').textContent).to.equal(
+        'Tag limit reached!'
+      );
+    });
+  });
 });
