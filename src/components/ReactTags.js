@@ -390,9 +390,8 @@ class ReactTags extends Component {
         this.setState({ error: ERRORS.TAG_LIMIT });
         this.resetAndFocusInput();
         return;
-      } else {
-        this.setState({ error: '' });
       }
+      this.setState({ error: '' });
     }
 
     const existingKeys = tags.map((tag) => tag.id.toLowerCase());
