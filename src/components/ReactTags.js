@@ -342,7 +342,7 @@ class ReactTags extends Component {
 
   tagLimitReached() {
     const { tags, maxTags } = this.props;
-    return maxTags !== null && tags.length >= maxTags;
+    return maxTags && tags.length >= maxTags;
   }
 
   handlePaste(e) {
@@ -354,9 +354,9 @@ class ReactTags extends Component {
       this.setState({ error: ERRORS.TAG_LIMIT });
       this.resetAndFocusInput();
       return;
-    } else {
-      this.setState({ error: '' });
     }
+
+    this.setState({ error: '' });
 
     e.preventDefault();
 
