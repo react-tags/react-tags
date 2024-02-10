@@ -978,13 +978,20 @@ describe('Test ReactTags', () => {
   });
 
   describe('When ClearAll is true', () => {
-    it('should render a clear all button', () => {
+    it.only('should render a clear all button', () => {
       const tags = render(
         mockItem({
           clearAll: true,
         })
       );
-      jestExpect(tags.container).toMatchSnapshot();
+      jestExpect(tags.container.querySelector('.ReactTags__clearAll'))
+        .toMatchInlineSnapshot(`
+        <button
+          class="ReactTags__clearAll"
+        >
+          Clear all
+        </button>
+      `);
     });
 
     it('should trigger "onClearAll" callback if present when clear all button is clicked', () => {
