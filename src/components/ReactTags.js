@@ -372,7 +372,7 @@ class ReactTags extends Component {
 
     // Used to determine how the pasted content is split.
     const delimiterRegExp = buildRegExpFromDelimiters(this.props.delimiters);
-    const tags = pastedText.split(delimiterRegExp);
+    const tags = pastedText.split(delimiterRegExp).map((tag) => tag.trim());
 
     // Only add unique tags
     uniq(tags).forEach((tag) =>
