@@ -235,7 +235,7 @@ class ReactTags extends Component {
 
   handleChange(e) {
     if (this.props.handleInputChange) {
-      this.props.handleInputChange(e.target.value);
+      this.props.handleInputChange(e.target.value, e);
     }
 
     const query = e.target.value.trim();
@@ -259,7 +259,7 @@ class ReactTags extends Component {
   handleFocus(event) {
     const value = event.target.value;
     if (this.props.handleInputFocus) {
-      this.props.handleInputFocus(value);
+      this.props.handleInputFocus(value, event);
     }
     this.setState({ isFocused: true });
   }
@@ -267,7 +267,7 @@ class ReactTags extends Component {
   handleBlur(event) {
     const value = event.target.value;
     if (this.props.handleInputBlur) {
-      this.props.handleInputBlur(value);
+      this.props.handleInputBlur(value, event);
       if (this.textInput) {
         this.textInput.value = '';
       }

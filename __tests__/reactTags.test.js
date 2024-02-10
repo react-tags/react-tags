@@ -130,8 +130,10 @@ describe('Test ReactTags', () => {
     const $el = mount(mockItem({ inputValue: 'Example' }));
 
     $el.setProps({ handleInputFocus });
-    $el.find('.ReactTags__tagInputField').simulate('focus');
+    $el.find('.ReactTags__tagInputField').simulate('focus', { isMock: true });
     expect(handleInputFocus.callCount).to.equal(1);
+    expect(handleInputFocus.args[0].length).to.equal(2);
+    expect(handleInputFocus.args[0][1].isMock).to.equal(true);
     expect(handleInputFocus.calledWith('Example')).to.be.true;
   });
 
@@ -141,8 +143,10 @@ describe('Test ReactTags', () => {
 
     // Will also be invoked for when the input has a value.
     $el.setProps({ handleInputBlur });
-    $el.find('.ReactTags__tagInputField').simulate('blur');
+    $el.find('.ReactTags__tagInputField').simulate('blur', { isMock: true });
     expect(handleInputBlur.callCount).to.equal(1);
+    expect(handleInputBlur.args[0].length).to.equal(2);
+    expect(handleInputBlur.args[0][1].isMock).to.equal(true);
     expect(handleInputBlur.calledWith('Example')).to.be.true;
     expect($el.find('.ReactTags__tagInputField').get(0).value).to.be.undefined;
   });
