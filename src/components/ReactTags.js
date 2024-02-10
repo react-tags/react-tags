@@ -150,7 +150,9 @@ class ReactTags extends Component {
   filteredSuggestions = (query) => {
     let { suggestions } = this.props;
     if (this.props.allowUnique) {
-      const existingTags = this.props.tags.map((tag) => tag.id.toLowerCase());
+      const existingTags = this.props.tags.map((tag) =>
+        tag.id.trim().toLowerCase()
+      );
       suggestions = suggestions.filter(
         (suggestion) => !existingTags.includes(suggestion.id.toLowerCase())
       );
@@ -301,9 +303,9 @@ class ReactTags extends Component {
       const selectedQuery =
         selectionMode && selectedIndex !== -1
           ? suggestions[selectedIndex]
-          : { id: query, [this.props.labelField]: query };
+          : { id: query.trim(), [this.props.labelField]: query.trim() };
 
-      if (selectedQuery !== '') {
+      if (Object.keys(selectedQuery)) {
         this.addTag(selectedQuery);
       }
     }
@@ -374,7 +376,7 @@ class ReactTags extends Component {
 
     // Only add unique tags
     uniq(tags).forEach((tag) =>
-      this.addTag({ id: tag, [this.props.labelField]: tag })
+      this.addTag({ id: tag.trim(), [this.props.labelField]: tag.trim() })
     );
   }
 
@@ -397,7 +399,7 @@ class ReactTags extends Component {
     const existingKeys = tags.map((tag) => tag.id.toLowerCase());
 
     // Return if tag has been already added
-    if (allowUnique && existingKeys.indexOf(tag.id.toLowerCase()) >= 0) {
+    if (allowUnique && existingKeys.indexOf(tag.id.trim().toLowerCase()) >= 0) {
       return;
     }
     if (this.props.autocomplete) {
