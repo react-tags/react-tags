@@ -17,6 +17,12 @@ let defaults;
 const sandbox = createSandbox();
 let handleDragStub;
 
+const Keys = {
+  TAB: 9,
+  SPACE: 32,
+  COMMA: 188,
+};
+
 beforeAll(() => {
   handleDragStub = sandbox.stub();
   defaults = {
@@ -247,12 +253,6 @@ describe('Test ReactTags', () => {
     });
 
     test('should not allow duplicate tags', () => {
-      const Keys = {
-        TAB: 9,
-        SPACE: 32,
-        COMMA: 188,
-      };
-
       const tags = [...defaults.tags];
       const $el = mount(
         mockItem({
@@ -309,6 +309,31 @@ describe('Test ReactTags', () => {
         text: value,
       }));
       expect(tags).to.deep.equal(expected);
+    });
+
+    test('should trim the tags', () => {
+      const tags = [...defaults.tags];
+      const $el = mount(
+        mockItem({
+          delimiters: [Keys.COMMA],
+          handleAddition(tag) {
+            tags.push(tag);
+          },
+        })
+      );
+
+      const $input = $el.find('.ReactTags__tagInputField');
+
+      $input.simulate('paste', {
+        clipboardData: {
+          getData: () => ' Orange,Orange , Orange ',
+        },
+      });
+      expect(tags.length).to.equal(2);
+      expect(tags).to.deep.have.same.members([
+        { id: 'Apple', text: 'Apple' },
+        { id: 'Orange', text: 'Orange' },
+      ]);
     });
   });
 
@@ -796,6 +821,44 @@ describe('Test ReactTags', () => {
     expect($el.find('[data-automation="input"]').props().disabled).to.be.true;
   });
 
+  test('should trim the tags before adding', () => {
+    const tags = [...defaults.tags];
+    const $el = mount(
+      mockItem({
+        handleAddition(tag) {
+          tags.push(tag);
+        },
+      })
+    );
+    expect(tags).to.length(1);
+
+    const $input = $el.find('.ReactTags__tagInputField');
+
+    $input.simulate('change', { target: { value: ' Orange' } });
+    $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+    $el.setProps({ tags });
+
+    $input.simulate('change', { target: { value: 'Orange ' } });
+    $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+    $el.setProps({ tags });
+
+    $input.simulate('change', { target: { value: ' Orange ' } });
+    $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
+    $el.setProps({ tags });
+
+    expect(tags).to.length(2);
+    expect(tags).to.have.deep.members([
+      {
+        id: 'Apple',
+        text: 'Apple',
+      },
+      {
+        id: 'Orange',
+        text: 'Orange',
+      },
+    ]);
+  });
+
   describe('Test drag and drop', () => {
     test('should be draggable', () => {
       const root = render(
@@ -944,7 +1007,6 @@ describe('Test ReactTags', () => {
       const tags = [{ id: 'A', text: 'A' }];
       const $el = render(
         mockItem({
-          tags,
           handleAddition(tag) {
             tags.push(tag);
           },
