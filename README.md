@@ -176,6 +176,7 @@ Option | Type | Default | Description
 | [`onTagUpdate`](#onTagUpdate) | `Function` | | This callback if present is triggered when tag is edited.|
 |[`clearAll`](#clearAll) | `boolean` | `false` | Implies whether 'clear all' button should be shown.
 |[`onClearAll`](#onClearAll) | `Function` |  | This callback if present is triggered when clear all button is clicked.
+| [`maxTags`](#maxTags) | `number` | | The maximum count of tags to be added
 
 ### tags 
 An array of tags that are displayed as pre-selected. Each tag should have an `id` property, property for the label, which is specified by the [`labelField`](#labelFieldOption) and class for label, which is specified by `className`.
@@ -318,11 +319,19 @@ Optional boolean param to control whether tags should be deleted when the 'Delet
 ### handleInputChange
 Optional event handler for input onChange
 
+**Signature**
+
+```js
+(value, event) => void
+```
+The value denotes the target input value to be added and the event is the original event for `onChange`.
+
 ```js
 <ReactTags
     handleInputChange={this.handleInputChange}
     ...>
 ```
+
 
 ### handleInputFocus
 Optional event handler for input onFocus
@@ -333,9 +342,22 @@ Optional event handler for input onFocus
     ...>
 ```
 
+**Signature**
+
+```js
+(value, event) => void
+```
+The value denotes the target input value to be added and the event is the original event for `onFocus`.
 
 ### handleInputBlur
 Optional event handler for input onBlur
+
+**Signature**
+
+```js
+(value, event) => void
+```
+The value denotes the target input value to be added and the event is the original event for `onBlur`.
 
 ```js
 <ReactTags
@@ -521,6 +543,9 @@ This props implies whether 'clear all' button should be shown. Defaults to `fals
 
 #### onClearAll
 This callback is if present is triggered when "clear all" button is clicked. You can set the [`tags`](#tags) prop to empty in this callback.
+
+#### maxTags
+This prop specifies the maximum count of tags to be added. Incase the tags exceed, error will show up to convey the maximum tag limit has reached.
 
 ## Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
