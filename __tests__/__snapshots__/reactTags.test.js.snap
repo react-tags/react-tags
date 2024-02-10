@@ -44,7 +44,6 @@ exports[`Test ReactTags When ClearAll is true should render a clear all button 1
         >
           Clear all
         </button>
-        
       </div>
     </div>
   </div>
