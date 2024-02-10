@@ -978,7 +978,7 @@ describe('Test ReactTags', () => {
   });
 
   describe('When ClearAll is true', () => {
-    it.only('should render a clear all button', () => {
+    it('should render a clear all button', () => {
       const tags = render(
         mockItem({
           clearAll: true,
