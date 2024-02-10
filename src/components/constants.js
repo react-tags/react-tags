@@ -32,3 +32,7 @@ export const INPUT_FIELD_POSITIONS = {
   TOP: 'top',
   BOTTOM: 'bottom',
 };
+
+export const ERRORS = {
+  TAG_LIMIT: 'Tag limit reached!',
+};

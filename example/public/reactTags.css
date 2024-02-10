@@ -93,3 +93,16 @@
   background: none;
   color: white;
 }
+
+.ReactTags__error {
+  color: #e03131;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    padding: 0 5px;
+  }
+}

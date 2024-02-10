@@ -119,7 +119,7 @@ exports[`Test ReactTags When editable should update the tag to input and focus t
 `;
 
 exports[`Test ReactTags should render with expected props 1`] = `
-Object {
+{
   "allowAdditionFromPaste": true,
   "allowDeleteFromEmptyInput": true,
   "allowDragDrop": true,
@@ -127,7 +127,7 @@ Object {
   "autocomplete": false,
   "autofocus": true,
   "clearAll": false,
-  "delimiters": Array [
+  "delimiters": [
     10,
     13,
     9,
@@ -139,35 +139,35 @@ Object {
   "handleDrag": [Function],
   "inline": true,
   "inputFieldPosition": "inline",
-  "inputProps": Object {},
+  "inputProps": {},
   "labelField": "text",
   "onTagUpdate": [Function],
   "placeholder": "Press enter to add new tag",
   "readOnly": false,
-  "suggestions": Array [
-    Object {
+  "suggestions": [
+    {
       "id": "Banana",
       "text": "Banana",
     },
-    Object {
+    {
       "id": "Apple",
       "text": "Apple",
     },
-    Object {
+    {
       "id": "Apricot",
       "text": "Apricot",
     },
-    Object {
+    {
       "id": "Pear",
       "text": "Pear",
     },
-    Object {
+    {
       "id": "Peach",
       "text": "Peach",
     },
   ],
-  "tags": Array [
-    Object {
+  "tags": [
+    {
       "id": "Apple",
       "text": "Apple",
     },
