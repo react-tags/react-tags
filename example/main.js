@@ -288,7 +288,7 @@ const App = () => {
           editable
           clearAll
           onClearAll={onClearAll}
-          maxTags={4}
+          maxTags={7}
         />
       </div>
     </div>
