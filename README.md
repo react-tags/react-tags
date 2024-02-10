@@ -176,7 +176,7 @@ Option | Type | Default | Description
 | [`onTagUpdate`](#onTagUpdate) | `Function` | | This callback if present is triggered when tag is edited.|
 |[`clearAll`](#clearAll) | `boolean` | `false` | Implies whether 'clear all' button should be shown.
 |[`onClearAll`](#onClearAll) | `Function` |  | This callback if present is triggered when clear all button is clicked.
-| [`maxTags](#maxTags) | `number` | | The maximum count of tags to be added
+| [`maxTags`](#maxTags) | `number` | | The maximum count of tags to be added
 
 ### tags 
 An array of tags that are displayed as pre-selected. Each tag should have an `id` property, property for the label, which is specified by the [`labelField`](#labelFieldOption) and class for label, which is specified by `className`.
