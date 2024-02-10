@@ -1014,6 +1014,7 @@ describe('Test ReactTags', () => {
       const tags = [{ id: 'A', text: 'A' }];
       const $el = render(
         mockItem({
+          tags,
           handleAddition(tag) {
             tags.push(tag);
           },
