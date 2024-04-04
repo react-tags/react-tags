@@ -7,8 +7,8 @@ import uniq from 'lodash/uniq';
 import ClearAllTags from './ClearAllTags';
 import Suggestions from './Suggestions';
 import ClassNames from 'classnames';
-import {SingleTag} from './Tag';
-import type {Tag } from './Tag';  
+import { SingleTag } from './Tag';
+import type { Tag } from './Tag';
 
 import { buildRegExpFromDelimiters } from './utils';
 
@@ -31,7 +31,12 @@ interface ReactTagsProps {
   readonly: boolean;
   inline: boolean;
   inputFieldPosition: string;
-  handleDelete: (i: number, event: React.MouseEvent<HTMLSpanElement> | React.KeyboardEvent<HTMLSpanElement>) => void;
+  handleDelete: (
+    i: number,
+    event:
+      | React.MouseEvent<HTMLSpanElement>
+      | React.KeyboardEvent<HTMLSpanElement>
+  ) => void;
   handleAddition: (tag: { id: string }) => void;
   onTagUpdate: (i: number, tag: { id: string }) => void;
   handleDrag: (tag: { id: string }, currPos: number, newPos: number) => void;
@@ -39,11 +44,17 @@ interface ReactTagsProps {
     query: string,
     suggestions: Array<Tag>
   ) => Array<Tag>;
-  handleTagClick: (i: number, e: React.MouseEvent<HTMLSpanElement> | React.TouchEvent<HTMLSpanElement>) => void;
+  handleTagClick: (
+    i: number,
+    e: React.MouseEvent<HTMLSpanElement> | React.TouchEvent<HTMLSpanElement>
+  ) => void;
   allowDeleteFromEmptyInput: boolean;
   allowAdditionFromPaste: boolean;
   allowDragDrop: boolean;
-  handleInputChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleInputChange: (
+    value: string,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void;
   handleInputFocus: (
     value: string,
     e: React.FocusEvent<HTMLInputElement>
@@ -58,16 +69,16 @@ interface ReactTagsProps {
   autocomplete: boolean | number;
   readOnly: boolean;
   classNames: {
-    root: string,
-    rootFocused: string,
-    selected: string,
-    selectedTag: string,
-    selectedTagName: string,
-    search: string,
-    searchInput: string,
-    suggestions: string,
-    suggestionActive: string,
-    suggestionDisabled: string,
+    root: string;
+    rootFocused: string;
+    selected: string;
+    selectedTag: string;
+    selectedTagName: string;
+    search: string;
+    searchInput: string;
+    suggestions: string;
+    suggestionActive: string;
+    suggestionDisabled: string;
   };
   name: string;
   id: string;
@@ -120,9 +131,8 @@ class ReactTags extends Component<ReactTagsProps, ReactTagsState> {
   };
 
   private textInput: HTMLInputElement | null = null;
-  private tagInput?: HTMLInputElement;
-  private reactTagsRef = React.createRef<HTMLDivElement>();
-
+  private tagInput: HTMLInputElement | null = null;
+  private reactTagsRef: React.RefObject<HTMLDivElement> | null = null;
 
   constructor(props: ReactTagsProps) {
     super(props);
@@ -206,13 +216,18 @@ class ReactTags extends Component<ReactTagsProps, ReactTagsState> {
     }
   };
 
-  handleDelete(index: number, event: React.MouseEvent<HTMLSpanElement> | React.KeyboardEvent<HTMLSpanElement>) {
+  handleDelete(
+    index: number,
+    event:
+      | React.MouseEvent<HTMLSpanElement>
+      | React.KeyboardEvent<HTMLSpanElement>
+  ) {
     event.preventDefault();
     event.stopPropagation();
     const currentTags = this.props.tags.slice();
     // Early exit from the function if the array
     // is already empty
-    if (currentTags.length === 0 || !this.reactTagsRef.current) {
+    if (currentTags.length === 0 || !this.reactTagsRef?.current) {
       return;
     }
     this.setState({ error: '' });
@@ -223,7 +238,7 @@ class ReactTags extends Component<ReactTagsProps, ReactTagsState> {
 
     let nextElementToFocus: HTMLButtonElement | HTMLInputElement | null;
     let nextIndex: number;
-    let nextTag: { id: string, [key: string]: string };
+    let nextTag: { id: string; [key: string]: string };
 
     if (index === 0 && currentTags.length > 1) {
       nextElementToFocus = allTags[0];
@@ -325,7 +340,10 @@ class ReactTags extends Component<ReactTagsProps, ReactTagsState> {
     // When one of the terminating keys is pressed, add current query to the tags.
     // If no text is typed in so far, ignore the action - so we don't end up with a terminating
     // character typed in.
-    if (this.props.delimiters.indexOf(event.keyCode) !== -1 && !event.shiftKey) {
+    if (
+      this.props.delimiters.indexOf(event.keyCode) !== -1 &&
+      !event.shiftKey
+    ) {
       if (event.keyCode !== KEYS.TAB || query !== '') {
         event.preventDefault();
       }
@@ -333,7 +351,11 @@ class ReactTags extends Component<ReactTagsProps, ReactTagsState> {
       const selectedQuery =
         selectionMode && selectedIndex !== -1
           ? suggestions[selectedIndex]
-          : { id: query.trim(), [this.props.labelField]: query.trim(), className: '' };
+          : {
+              id: query.trim(),
+              [this.props.labelField]: query.trim(),
+              className: '',
+            };
 
       if (Object.keys(selectedQuery)) {
         this.addTag(selectedQuery);
@@ -406,11 +428,15 @@ class ReactTags extends Component<ReactTagsProps, ReactTagsState> {
 
     // Only add unique tags
     uniq(tags).forEach((tag) =>
-      this.addTag({ id: tag.trim(), [this.props.labelField]: tag.trim(), className: '' })
+      this.addTag({
+        id: tag.trim(),
+        [this.props.labelField]: tag.trim(),
+        className: '',
+      })
     );
   }
 
-  addTag = (tag: Tag ) => {
+  addTag = (tag: Tag) => {
     const { tags, labelField, allowUnique } = this.props;
     const { currentEditIndex } = this.state;
     if (!tag.id || !tag[labelField]) {
@@ -519,10 +545,18 @@ class ReactTags extends Component<ReactTagsProps, ReactTagsState> {
               index={index}
               tag={tag}
               labelField={labelField}
-              onDelete={(event: React.MouseEvent<HTMLSpanElement> | React.KeyboardEvent<HTMLSpanElement>) => this.handleDelete(index, event)}
+              onDelete={(
+                event:
+                  | React.MouseEvent<HTMLSpanElement>
+                  | React.KeyboardEvent<HTMLSpanElement>
+              ) => this.handleDelete(index, event)}
               moveTag={moveTag}
               removeComponent={removeComponent}
-              onTagClicked={(event: React.MouseEvent<HTMLSpanElement> | React.TouchEvent<HTMLSpanElement>) => this.handleTagClick(index, tag, event)}
+              onTagClicked={(
+                event:
+                  | React.MouseEvent<HTMLSpanElement>
+                  | React.TouchEvent<HTMLSpanElement>
+              ) => this.handleTagClick(index, tag, event)}
               readOnly={readOnly}
               classNames={classNames}
               allowDragDrop={allowDragDrop}
