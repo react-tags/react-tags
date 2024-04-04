@@ -6,7 +6,6 @@
     "jsx": "react-jsx",                       
     "moduleResolution": "node",
     "outDir": "dist",
-    "rootDir": "src",
     "strictNullChecks": true,
     "noImplicitAny": true,
     "declaration": true,
@@ -16,6 +15,6 @@
     "strict": true,                                     
     "skipLibCheck": true,
   },
-  "exclude": ["node_modules", "**/__tests__/*", "__mocks__/*"]
+  "exclude": ["node_modules", "**/__tests__/*", "__mocks__/*",  "dev-docs"]
 
 }

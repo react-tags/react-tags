@@ -7,27 +7,37 @@ import RemoveComponent from './RemoveComponent';
 
 const ItemTypes = { TAG: 'tag' };
 
-type TagProps = {
-  labelField: string,
-  onDelete: (tag: { id: string, [key: string]: string }) => void,
-  tag: { id: string, className: string, [key: string]: string },
-  moveTag: (dragIndex: number, hoverIndex: number) => void,
-  removeComponent: React.ComponentType<any>,
+export interface Tag {
+  id: string;
+  className: string;
+  [key: string]: string;
+}
+
+interface TagProps {
+  labelField: string;
+  onDelete: (
+    event:
+      | React.MouseEvent<HTMLSpanElement>
+      | React.KeyboardEvent<HTMLSpanElement>
+  ) => void;
+  tag: Tag;
+  moveTag?: (dragIndex: number, hoverIndex: number) => void;
+  removeComponent: React.ComponentType<any>;
   onTagClicked: (
     event: React.MouseEvent<HTMLSpanElement> | React.TouchEvent<HTMLSpanElement>
-  ) => void,
+  ) => void;
   classNames: {
     tag: string,
     remove: string,
-  },
-  readOnly: boolean,
-  index: number,
-  allowDragDrop: boolean,
-};
+  };
+  readOnly: boolean;
+  index: number;
+  allowDragDrop: boolean;
+}
 
-const Tag = (props: TagProps) => {
+const SingleTag = (props: TagProps) => {
   const tagRef = useRef(null);
-  const { readOnly, tag, classNames, index } = props;
+  const { readOnly, tag, classNames, index, moveTag, allowDragDrop } = props;
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.TAG,
@@ -35,7 +45,7 @@ const Tag = (props: TagProps) => {
       isDragging: !!monitor.isDragging(),
     }),
     item: props,
-    canDrag: () => canDrag(props),
+    canDrag: () => canDrag({ moveTag, readOnly, allowDragDrop }),
   }));
 
   const [, drop] = useDrop(() => ({
@@ -47,7 +57,7 @@ const Tag = (props: TagProps) => {
         return;
       }
 
-      props.moveTag(dragIndex, hoverIndex);
+      props?.moveTag?.(dragIndex, hoverIndex);
     },
     canDrop: (item) => canDrop(item),
   }));
@@ -64,7 +74,7 @@ const Tag = (props: TagProps) => {
       className={ClassNames('tag-wrapper', classNames.tag, className)}
       style={{
         opacity,
-        cursor: canDrag(props) ? 'move' : 'auto',
+        cursor: canDrag({ moveTag, readOnly, allowDragDrop }) ? 'move' : 'auto',
       }}
       onClick={props.onTagClicked}
       onTouchStart={props.onTagClicked}>
@@ -81,4 +91,4 @@ const Tag = (props: TagProps) => {
   );
 };
 
-export default Tag;
+export { SingleTag };

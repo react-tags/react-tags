@@ -5,7 +5,7 @@ const config = {
   mode: 'development',
   // Entry points to the project
   entry: {
-    ReactTags: path.join(__dirname, 'src/components/ReactTags.js'),
+    ReactTags: path.join(__dirname, 'src/components/ReactTags.tsx'),
     bundle: './example/main.js',
   },
   // Server Configuration options
@@ -39,16 +39,9 @@ const config = {
   ],
   module: {
     rules: [
+      { test: /\.(ts|tsx|js)$/, use: 'ts-loader', exclude: /node_modules/ },
       {
         test: /\.js$/, // All .js files
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-            },
-          },
-        ],
         exclude: /node_modules/,
       },
       {
@@ -60,6 +53,9 @@ const config = {
         sideEffects: true,
       },
     ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
   },
 };
 

@@ -1,25 +1,18 @@
 import React from 'react';
 import { KEYS } from './constants';
+import { Tag } from './Tag';
 
 const crossStr = String.fromCharCode(215);
 const RemoveComponent = (props: {
   className: string,
   onRemove: (
-    tag:
-      | {
-          id: string,
-          [key: string]: string,
-        }
+    event:
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLButtonElement>
   ) => void,
   readOnly: boolean,
   removeComponent: React.ComponentType<any>,
-  tag: {
-    id: string,
-    className: string,
-    [key: string]: string,
-  },
+  tag: Tag,
   index: number,
 }) => {
   const { readOnly, removeComponent, onRemove, className, tag, index } = props;

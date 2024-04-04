@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import  { Component, ReactNode } from 'react';
 import isEqual from 'lodash/isEqual';
 import escape from 'lodash/escape';
+import { Tag } from './Tag';
 
 const maybeScrollSuggestionIntoView = (
   suggestionEl: HTMLElement,
@@ -32,14 +33,14 @@ interface SuggestionsProps {
     activeSuggestion: string,
   };
   shouldRenderSuggestions?: (query: string) => boolean;
-  renderSuggestion?: (item: any, query: string) => void;
+  renderSuggestion?: (item: Tag, query: string) => ReactNode;
   minQueryLength?: number;
 }
 
 class Suggestions extends Component<SuggestionsProps> {
   
 
-  private suggestionsContainer: HTMLDivElement;
+  private suggestionsContainer: HTMLDivElement | null = null;
 
 
   shouldComponentUpdate(nextProps: SuggestionsProps) {
@@ -93,29 +94,29 @@ class Suggestions extends Component<SuggestionsProps> {
     return query.length >= minQueryLength && isFocused;
   };
 
-  renderSuggestion = (item: { [key: string]: string }, query: string) => {
+  renderSuggestion = (tag: Tag, query: string): ReactNode => {
     const { renderSuggestion } = this.props;
     if (typeof renderSuggestion === 'function') {
-      return renderSuggestion(item, query);
+      return renderSuggestion(tag, query);
     }
-    return <span dangerouslySetInnerHTML={this.markIt(item, query)} />;
+    return <span dangerouslySetInnerHTML={this.markIt(tag, query)} />;
   };
 
   render() {
     const { props } = this;
 
     const suggestions = props.suggestions.map(
-      (item: { [key: string]: string }, i: number) => {
+      (tag: Tag, index: number) => {
         return (
           <li
-            key={i}
-            onMouseDown={props.handleClick.bind(null, i)}
-            onTouchStart={props.handleClick.bind(null, i)}
-            onMouseOver={props.handleHover.bind(null, i)}
+            key={index}
+            onMouseDown={props.handleClick.bind(null, index)}
+            onTouchStart={props.handleClick.bind(null, index)}
+            onMouseOver={props.handleHover.bind(null, index)}
             className={
-              i === props.selectedIndex ? props.classNames.activeSuggestion : ''
+              index === props.selectedIndex ? props.classNames.activeSuggestion : ''
             }>
-            {this.renderSuggestion(item, props.query)}
+            {this.renderSuggestion(tag, props.query)}
           </li>
         );
       }
