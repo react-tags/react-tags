@@ -29,8 +29,8 @@ interface ReactTagsProps {
   delimiters: Array<number>;
   autofocus: boolean;
   readonly: boolean;
-  inline: boolean;
-  inputFieldPosition: string;
+  inline: boolean; // TODO: Remove in v7.x.x
+  inputFieldPosition: keyof typeof INPUT_FIELD_POSITIONS;
   handleDelete: (
     i: number,
     event:
@@ -202,7 +202,7 @@ class ReactTags extends Component<ReactTagsProps, ReactTagsState> {
     return exactSuggestions.concat(partialSuggestions);
   };
 
-  getQueryIndex = (query: string, item: { [key: string]: string }) => {
+  getQueryIndex = (query: string, item: Tag) => {
     return item[this.props.labelField]
       .toLowerCase()
       .indexOf(query.toLowerCase());
@@ -238,7 +238,7 @@ class ReactTags extends Component<ReactTagsProps, ReactTagsState> {
 
     let nextElementToFocus: HTMLButtonElement | HTMLInputElement | null;
     let nextIndex: number;
-    let nextTag: { id: string; [key: string]: string };
+    let nextTag: Tag;
 
     if (index === 0 && currentTags.length > 1) {
       nextElementToFocus = allTags[0];
