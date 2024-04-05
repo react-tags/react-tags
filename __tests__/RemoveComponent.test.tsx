@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
