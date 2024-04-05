@@ -7,7 +7,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { mount } from 'enzyme';
 import sinon from 'sinon';
 import noop from 'lodash/noop';
-import Tag from '../src/components/Tag';
+import { SingleTag } from '../src/components/Tag';
 import RemoveComponent from '../src/components/RemoveComponent';
 
 function mockItem(overrides) {
@@ -29,7 +29,7 @@ function mockItem(overrides) {
   );
   return (
     <DndProvider backend={HTML5Backend}>
-      <Tag {...props} />
+      <SingleTag {...props} />
     </DndProvider>
   );
 }

@@ -3,18 +3,17 @@ import { KEYS } from './constants';
 import { Tag } from './Tag';
 
 const crossStr = String.fromCharCode(215);
-const RemoveComponent = (props: {
-  className: string,
-  onRemove: (
-    event:
-      | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
-  ) => void,
-  readOnly: boolean,
-  removeComponent: React.ComponentType<any>,
-  tag: Tag,
-  index: number,
-}) => {
+
+export interface RemoveComponentProps {
+  onRemove: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  readOnly: boolean;
+  removeComponent?: React.ComponentType<any>;
+  className?: string;
+  tag: Tag;
+  index: number;
+}
+
+const RemoveComponent = (props: RemoveComponentProps) => {
   const { readOnly, removeComponent, onRemove, className, tag, index } = props;
 
   const onKeydown = (event: React.KeyboardEvent<HTMLButtonElement>) => {

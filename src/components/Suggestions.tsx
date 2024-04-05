@@ -1,4 +1,4 @@
-import  { Component, ReactNode } from 'react';
+import { Component, ReactNode } from 'react';
 import isEqual from 'lodash/isEqual';
 import escape from 'lodash/escape';
 import { Tag } from './Tag';
@@ -29,8 +29,8 @@ interface SuggestionsProps {
   handleClick: (i: number) => void;
   handleHover: (i: number) => void;
   classNames: {
-    suggestions: string,
-    activeSuggestion: string,
+    suggestions: string;
+    activeSuggestion: string;
   };
   shouldRenderSuggestions?: (query: string) => boolean;
   renderSuggestion?: (item: Tag, query: string) => ReactNode;
@@ -38,16 +38,17 @@ interface SuggestionsProps {
 }
 
 class Suggestions extends Component<SuggestionsProps> {
-  
+  static defaultProps = {
+    minQueryLength: 2,
+  };
 
   private suggestionsContainer: HTMLDivElement | null = null;
-
 
   shouldComponentUpdate(nextProps: SuggestionsProps) {
     const { props } = this;
     const shouldRenderSuggestions =
       props.shouldRenderSuggestions || this.shouldRenderSuggestions;
-    return (  
+    return (
       props.isFocused !== nextProps.isFocused ||
       !isEqual(props.suggestions, nextProps.suggestions) ||
       shouldRenderSuggestions(nextProps.query) ||
@@ -89,7 +90,6 @@ class Suggestions extends Component<SuggestionsProps> {
   };
 
   shouldRenderSuggestions = (query: string) => {
-   
     const { minQueryLength = 2, isFocused } = this.props;
     return query.length >= minQueryLength && isFocused;
   };
@@ -105,22 +105,22 @@ class Suggestions extends Component<SuggestionsProps> {
   render() {
     const { props } = this;
 
-    const suggestions = props.suggestions.map(
-      (tag: Tag, index: number) => {
-        return (
-          <li
-            key={index}
-            onMouseDown={props.handleClick.bind(null, index)}
-            onTouchStart={props.handleClick.bind(null, index)}
-            onMouseOver={props.handleHover.bind(null, index)}
-            className={
-              index === props.selectedIndex ? props.classNames.activeSuggestion : ''
-            }>
-            {this.renderSuggestion(tag, props.query)}
-          </li>
-        );
-      }
-    );
+    const suggestions = props.suggestions.map((tag: Tag, index: number) => {
+      return (
+        <li
+          key={index}
+          onMouseDown={props.handleClick.bind(null, index)}
+          onTouchStart={props.handleClick.bind(null, index)}
+          onMouseOver={props.handleHover.bind(null, index)}
+          className={
+            index === props.selectedIndex
+              ? props.classNames.activeSuggestion
+              : ''
+          }>
+          {this.renderSuggestion(tag, props.query)}
+        </li>
+      );
+    });
 
     // use the override, if provided
     const shouldRenderSuggestions =

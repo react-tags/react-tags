@@ -19,7 +19,11 @@ const KeyCodes = {
  * @param {array<char>} delimiters Array of characters to build a regex for
  * @param {array<string>} expected resulting split of the input
  */
-function testRegex(input, delimiters, expected) {
+function testRegex(
+  input: string,
+  delimiters: Array<number>,
+  expected: Array<string>
+) {
   const regex = buildRegExpFromDelimiters(delimiters);
   const result = input.split(regex);
   expect(result).to.deep.equal(expected);

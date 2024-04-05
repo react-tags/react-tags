@@ -27,8 +27,8 @@ interface TagProps {
     event: React.MouseEvent<HTMLSpanElement> | React.TouchEvent<HTMLSpanElement>
   ) => void;
   classNames: {
-    tag: string,
-    remove: string,
+    tag: string;
+    remove: string;
   };
   readOnly: boolean;
   index: number;
@@ -90,5 +90,10 @@ const SingleTag = (props: TagProps) => {
     </span>
   );
 };
-
+  
+SingleTag.defaultProps = {
+  labelField: 'text',
+  readOnly: false,
+  allowDragDrop: true,
+};
 export { SingleTag };
