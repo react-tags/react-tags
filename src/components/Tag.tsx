@@ -90,7 +90,7 @@ const SingleTag = (props: TagProps) => {
     </span>
   );
 };
-  
+
 SingleTag.defaultProps = {
   labelField: 'text',
   readOnly: false,

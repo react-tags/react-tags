@@ -25,7 +25,7 @@ export function buildRegExpFromDelimiters(delimiters: Array<number>): RegExp {
  * The three different properties which controls this function are moveTag, readOnly and allowDragDrop.
  */
 export function canDrag(params: {
-  moveTag: (dragIndex: number, hoverIndex: number) => void;
+  moveTag?: (dragIndex: number, hoverIndex: number) => void;
   readOnly: boolean;
   allowDragDrop: boolean;
 }): boolean {

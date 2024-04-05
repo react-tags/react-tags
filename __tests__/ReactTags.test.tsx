@@ -10,7 +10,6 @@ import {
 
 import { INPUT_FIELD_POSITIONS, KEYS } from '../src/components/constants';
 import { fireEvent, render } from '@testing-library/react';
-import classNames from 'classnames';
 
 /* eslint-disable no-console */
 

@@ -5,7 +5,11 @@ import { Tag } from './Tag';
 const crossStr = String.fromCharCode(215);
 
 export interface RemoveComponentProps {
-  onRemove: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onRemove: (
+    event:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>
+  ) => void;
   readOnly: boolean;
   removeComponent?: React.ComponentType<any>;
   className?: string;
