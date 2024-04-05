@@ -1,12 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { KEYS } from './constants';
+import { Tag } from './Tag';
 
 const crossStr = String.fromCharCode(215);
-const RemoveComponent = (props) => {
+
+export interface RemoveComponentProps {
+  onRemove: (
+    event:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>
+  ) => void;
+  readOnly: boolean;
+  removeComponent?: React.ComponentType<any>;
+  className?: string;
+  tag: Tag;
+  index: number;
+}
+
+const RemoveComponent = (props: RemoveComponentProps) => {
   const { readOnly, removeComponent, onRemove, className, tag, index } = props;
 
-  const onKeydown = (event) => {
+  const onKeydown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
     if (KEYS.ENTER.includes(event.keyCode) || event.keyCode === KEYS.SPACE) {
       event.preventDefault();
       event.stopPropagation();
@@ -46,19 +60,6 @@ const RemoveComponent = (props) => {
       {crossStr}
     </button>
   );
-};
-
-RemoveComponent.propTypes = {
-  className: PropTypes.string,
-  onRemove: PropTypes.func.isRequired,
-  readOnly: PropTypes.bool,
-  removeComponent: PropTypes.func,
-  tag: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    className: PropTypes.string,
-    key: PropTypes.string,
-  }),
-  index: PropTypes.number.isRequired,
 };
 
 export default RemoveComponent;

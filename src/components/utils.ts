@@ -6,7 +6,7 @@ import escapeRegExp from 'lodash/escapeRegExp';
  * @param {Array<char>} delimiters Array of characters to turn into a regex
  * @returns {RegExp} Regular expression
  */
-export function buildRegExpFromDelimiters(delimiters) {
+export function buildRegExpFromDelimiters(delimiters: Array<number>): RegExp {
   const delimiterChars = delimiters
     .map((delimiter) => {
       // See: http://stackoverflow.com/a/34711175/1463681
@@ -24,7 +24,11 @@ export function buildRegExpFromDelimiters(delimiters) {
  * @returns {boolean} true/false
  * The three different properties which controls this function are moveTag, readOnly and allowDragDrop.
  */
-export function canDrag(params) {
+export function canDrag(params: {
+  moveTag?: (dragIndex: number, hoverIndex: number) => void;
+  readOnly: boolean;
+  allowDragDrop: boolean;
+}): boolean {
   const { moveTag, readOnly, allowDragDrop } = params;
   return moveTag !== undefined && !readOnly && allowDragDrop;
 }
@@ -35,7 +39,10 @@ export function canDrag(params) {
  * @returns {boolean} true/false
  * The two different properties which controls this function are readOnly and allowDragDrop.
  */
-export function canDrop(params) {
+export function canDrop(params: {
+  readOnly: boolean;
+  allowDragDrop: boolean;
+}): boolean {
   const { readOnly, allowDragDrop } = params;
   return !readOnly && allowDragDrop;
 }

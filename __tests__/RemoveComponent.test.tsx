@@ -2,7 +2,9 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
 
-import RemoveComponent from '../src/components/RemoveComponent';
+import RemoveComponent, {
+  RemoveComponentProps,
+} from '../src/components/RemoveComponent';
 
 describe('Test <RemoveComponent/>', () => {
   let minProps, onRemoveStub;
@@ -18,7 +20,7 @@ describe('Test <RemoveComponent/>', () => {
     };
   });
 
-  function mockItem(override) {
+  function mockItem(override: RemoveComponentProps) {
     const props = Object.assign({}, minProps, override);
     return <RemoveComponent {...props} />;
   }

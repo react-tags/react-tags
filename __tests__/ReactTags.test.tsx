@@ -26,13 +26,13 @@ const Keys = {
 beforeAll(() => {
   handleDragStub = sandbox.stub();
   defaults = {
-    tags: [{ id: 'Apple', text: 'Apple' }],
+    tags: [{ className: '', id: 'Apple', text: 'Apple' }],
     suggestions: [
-      { id: 'Banana', text: 'Banana' },
-      { id: 'Apple', text: 'Apple' },
-      { id: 'Apricot', text: 'Apricot' },
-      { id: 'Pear', text: 'Pear' },
-      { id: 'Peach', text: 'Peach' },
+      { className: '', id: 'Banana', text: 'Banana' },
+      { className: '', id: 'Apple', text: 'Apple' },
+      { className: '', id: 'Apricot', text: 'Apricot' },
+      { className: '', id: 'Pear', text: 'Pear' },
+      { className: '', id: 'Peach', text: 'Peach' },
     ],
     handleDrag: handleDragStub,
   };
@@ -218,7 +218,47 @@ describe('Test ReactTags', () => {
         'Kiwi',
       ].map((value) => ({ id: value, text: value }));
 
-      expect(tags).to.deep.have.same.members(expected);
+      jestExpect(tags).toMatchInlineSnapshot(`
+        [
+          {
+            "className": "",
+            "id": "Banana",
+            "text": "Banana",
+          },
+          {
+            "className": "",
+            "id": "Apple",
+            "text": "Apple",
+          },
+          {
+            "className": "",
+            "id": "Apricot
+        Orange",
+            "text": "Apricot
+        Orange",
+          },
+          {
+            "className": "",
+            "id": "Blueberry",
+            "text": "Blueberry",
+          },
+          {
+            "className": "",
+            "id": "Pear",
+            "text": "Pear",
+          },
+          {
+            "className": "",
+            "id": "Peach",
+            "text": "Peach",
+          },
+          {
+            "className": "",
+            "id": "Kiwi",
+            "text": "Kiwi",
+          },
+        ]
+      `);
     });
 
     test('should split the clipboard when delimited with new lines', () => {
@@ -249,7 +289,30 @@ describe('Test ReactTags', () => {
         (value) => ({ id: value, text: value })
       );
 
-      expect(tags).to.deep.have.same.members(expected);
+      jestExpect(tags).toMatchInlineSnapshot(`
+        [
+          {
+            "className": "",
+            "id": "Banana",
+            "text": "Banana",
+          },
+          {
+            "className": "",
+            "id": "Apple",
+            "text": "Apple",
+          },
+          {
+            "className": "",
+            "id": "Apricot",
+            "text": "Apricot",
+          },
+          {
+            "className": "",
+            "id": "Orange",
+            "text": "Orange",
+          },
+        ]
+      `);
     });
 
     test('should not allow duplicate tags', () => {
@@ -274,6 +337,7 @@ describe('Test ReactTags', () => {
 
       // Note that 'Apple' and 'Banana' are only included once in the expected list
       const expected = ['Apple', 'Banana'].map((value) => ({
+        className: '',
         id: value,
         text: value,
       }));
@@ -304,11 +368,16 @@ describe('Test ReactTags', () => {
       });
 
       const clipboardText = inputValue.substr(0, maxLength);
-      const expected = [clipboardText].map((value) => ({
-        id: value,
-        text: value,
-      }));
-      expect(tags).to.deep.equal(expected);
+
+      jestExpect(tags).toMatchInlineSnapshot(`
+        [
+          {
+            "className": "",
+            "id": "Thimb",
+            "text": "Thimb",
+          },
+        ]
+      `);
     });
 
     test('should trim the tags', () => {
@@ -329,11 +398,20 @@ describe('Test ReactTags', () => {
           getData: () => ' Orange,Orange , Orange ',
         },
       });
-      expect(tags.length).to.equal(2);
-      expect(tags).to.deep.have.same.members([
-        { id: 'Apple', text: 'Apple' },
-        { id: 'Orange', text: 'Orange' },
-      ]);
+      jestExpect(tags).toMatchInlineSnapshot(`
+        [
+          {
+            "className": "",
+            "id": "Apple",
+            "text": "Apple",
+          },
+          {
+            "className": "",
+            "id": "Orange",
+            "text": "Orange",
+          },
+        ]
+      `);
     });
   });
 
@@ -395,8 +473,8 @@ describe('Test ReactTags', () => {
 
     let modifiedTags = [
       ...defaults.tags,
-      { id: 'NewYork', text: 'NewYork' },
-      { id: 'Austria', text: 'Austria' },
+      { className: '', id: 'NewYork', text: 'NewYork' },
+      { className: '', id: 'Austria', text: 'Austria' },
     ];
     const $el = mount(
       mockItem({
@@ -424,8 +502,16 @@ describe('Test ReactTags', () => {
       actual = [];
       modifiedTags = [
         ...defaults.tags,
-        { id: '1', text: <span style={{ color: 'red' }}> NewYork</span> },
-        { id: '2', text: <span style={{ color: 'blue' }}> Austria</span> },
+        {
+          className: '',
+          id: '1',
+          text: <span style={{ color: 'red' }}> NewYork</span>,
+        },
+        {
+          className: '',
+          id: '2',
+          text: <span style={{ color: 'blue' }}> Austria</span>,
+        },
       ];
       handleAddition = ({ id, text }) => {
         actual.push({
@@ -484,18 +570,18 @@ describe('Test ReactTags', () => {
 
       $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Apricot', text: 'Apricot' },
+        { className: '', id: 'Apricot', text: 'Apricot' },
       ]);
 
       $el.setProps({
         suggestions: [
-          { id: 'Papaya', text: 'Papaya' },
-          { id: 'Paprika', text: 'Paprika' },
+          { className: '', id: 'Papaya', text: 'Papaya' },
+          { className: '', id: 'Paprika', text: 'Paprika' },
         ],
       });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Papaya', text: 'Papaya' },
-        { id: 'Paprika', text: 'Paprika' },
+        { className: '', id: 'Papaya', text: 'Papaya' },
+        { className: '', id: 'Paprika', text: 'Paprika' },
       ]);
     });
 
@@ -513,13 +599,13 @@ describe('Test ReactTags', () => {
 
       $input.simulate('change', { target: { value: 'ea' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Pear', text: 'Pear' },
-        { id: 'Peach', text: 'Peach' },
+        { className: '', id: 'Pear', text: 'Pear' },
+        { className: '', id: 'Peach', text: 'Peach' },
       ]);
 
       $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Apricot', text: 'Apricot' },
+        { className: '', id: 'Apricot', text: 'Apricot' },
       ]);
     });
 
@@ -544,13 +630,13 @@ describe('Test ReactTags', () => {
 
       $input.simulate('change', { target: { value: 'Ea' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Pear', text: 'Pear' },
-        { id: 'Peach', text: 'Peach' },
+        { className: '', id: 'Pear', text: 'Pear' },
+        { className: '', id: 'Peach', text: 'Peach' },
       ]);
 
       $input.simulate('change', { target: { value: 'ap' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Apricot', text: 'Apricot' },
+        { className: '', id: 'Apricot', text: 'Apricot' },
       ]);
     });
 
@@ -579,13 +665,13 @@ describe('Test ReactTags', () => {
       $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
       $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Pear', text: 'Pear' },
-        { id: 'Peach', text: 'Peach' },
+        { className: '', id: 'Pear', text: 'Pear' },
+        { className: '', id: 'Peach', text: 'Peach' },
       ]);
       expect(ReactTagsInstance.state.selectedIndex).to.equal(1);
       $input.simulate('change', { target: { value: 'Each' } });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Peach', text: 'Peach' },
+        { className: '', id: 'Peach', text: 'Peach' },
       ]);
       expect(ReactTagsInstance.state.selectedIndex).to.equal(0);
     });
@@ -607,7 +693,9 @@ describe('Test ReactTags', () => {
       $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
       $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
       $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
-      expect(actual).to.have.deep.members([{ id: 'Apricot', text: 'Apricot' }]);
+      expect(actual).to.have.deep.members([
+        { className: '', id: 'Apricot', text: 'Apricot' },
+      ]);
 
       $el.unmount();
     });
@@ -627,7 +715,9 @@ describe('Test ReactTags', () => {
       $input.simulate('change', { target: { value: 'Or' } });
       $input.simulate('focus');
       $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
-      expect(actual).to.have.deep.members([{ id: 'Or', text: 'Or' }]);
+      expect(actual).to.have.deep.members([
+        { className: '', id: 'Or', text: 'Or' },
+      ]);
     });
     test('should add tag with custom label field and default suggestion filter', () => {
       const labelField = 'name';
@@ -651,7 +741,9 @@ describe('Test ReactTags', () => {
       $input.simulate('change', { target: { value: 'Or' } });
       $input.simulate('focus');
       $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
-      expect(actual).to.have.deep.members([{ id: 'Or', name: 'Or' }]);
+      expect(actual).to.have.deep.members([
+        { className: '', id: 'Or', name: 'Or' },
+      ]);
     });
     test('should select the correct suggestion using the keyboard when label is custom', () => {
       const labelField = 'name';
@@ -701,9 +793,11 @@ describe('Test ReactTags', () => {
 
       $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
       expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
-        { id: 'Apple', text: 'Apple' },
+        { className: '', id: 'Apple', text: 'Apple' },
       ]);
-      expect(actual).to.have.deep.members([{ id: 'Apple', text: 'Apple' }]);
+      expect(actual).to.have.deep.members([
+        { className: '', id: 'Apple', text: 'Apple' },
+      ]);
     });
   });
 
@@ -745,6 +839,7 @@ describe('Test ReactTags', () => {
     $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
     expect(actual).to.have.deep.members([
       {
+        className: '',
         id: 'Apple',
         text: 'Apple',
       },
@@ -848,14 +943,8 @@ describe('Test ReactTags', () => {
 
     expect(tags).to.length(2);
     expect(tags).to.have.deep.members([
-      {
-        id: 'Apple',
-        text: 'Apple',
-      },
-      {
-        id: 'Orange',
-        text: 'Orange',
-      },
+      { className: '', id: 'Apple', text: 'Apple' },
+      { className: '', id: 'Orange', text: 'Orange' },
     ]);
   });
 
