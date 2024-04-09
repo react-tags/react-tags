@@ -10,6 +10,7 @@ import {
 
 import { INPUT_FIELD_POSITIONS, KEYS } from '../src/components/constants';
 import { fireEvent, render } from '@testing-library/react';
+import Suggestions from '../src/components/Suggestions';
 
 /* eslint-disable no-console */
 
@@ -48,19 +49,19 @@ afterAll(() => {
 const DOWN_ARROW_KEY_CODE = 40;
 const ENTER_ARROW_KEY_CODE = 13;
 
-function mockItem(overrides) {
+function mockItem(overrides?: any) {
   const props = Object.assign({}, defaults, overrides);
   return <ReactTags {...props} />;
 }
 
 describe('Test ReactTags', () => {
-  test('should render with expected props', function () {
+  it('should render with expected props', function () {
     const $el = shallow(mockItem());
     expect($el).to.have.length(1);
     jestExpect($el.props().children.props).toMatchSnapshot();
   });
 
-  test('should update the class when the prop classNames changes', () => {
+  it('should update the class when the prop classNames changes', () => {
     let $el = mount(
       mockItem({
         classNames: {
@@ -77,7 +78,7 @@ describe('Test ReactTags', () => {
     expect($el.find('.changed').length).to.equal(1);
   });
 
-  test('focus on input by default', () => {
+  it('focus on input by default', () => {
     const $el = mount(mockItem(), { attachTo: document.body });
     expect(document.activeElement.tagName).to.equal('INPUT');
     expect(document.activeElement.className).to.equal(
@@ -86,7 +87,7 @@ describe('Test ReactTags', () => {
     $el.unmount();
   });
 
-  test('should not focus on input if autofocus is false', () => {
+  it('should not focus on input if autofocus is false', () => {
     const $el = mount(
       mockItem({ autofocus: false }, { attachTo: document.body })
     );
@@ -94,7 +95,7 @@ describe('Test ReactTags', () => {
     $el.unmount();
   });
 
-  test('should not focus on input if readOnly is true', () => {
+  it('should not focus on input if readOnly is true', () => {
     const $el = mount(
       mockItem({ autofocus: false }, { attachTo: document.body })
     );
@@ -102,7 +103,7 @@ describe('Test ReactTags', () => {
     $el.unmount();
   });
 
-  test('shows the classnames of children properly', () => {
+  it('shows the classnames of children properly', () => {
     const $el = mount(mockItem());
     expect($el.find('.ReactTags__tags').length).to.equal(1);
     expect($el.find('.ReactTags__selected').length).to.equal(1);
@@ -110,12 +111,12 @@ describe('Test ReactTags', () => {
     expect($el.find('.ReactTags__tagInputField').length).to.equal(1);
   });
 
-  test('renders preselected tags properly', () => {
+  it('renders preselected tags properly', () => {
     const $el = mount(mockItem());
     expect($el.text()).to.have.string('Apple');
   });
 
-  test('invokes the onBlur event', () => {
+  it('invokes the onBlur event', () => {
     const handleInputBlur = spy();
     const $el = mount(mockItem());
 
@@ -131,7 +132,7 @@ describe('Test ReactTags', () => {
     expect($el.find('.ReactTags__tagInputField').get(0).value).to.be.undefined;
   });
 
-  test('invokes the onFocus event', () => {
+  it('invokes the onFocus event', () => {
     const handleInputFocus = spy();
     const $el = mount(mockItem({ inputValue: 'Example' }));
 
@@ -143,7 +144,7 @@ describe('Test ReactTags', () => {
     expect(handleInputFocus.calledWith('Example')).to.be.true;
   });
 
-  test('invokes the onBlur event when input has value', () => {
+  it('invokes the onBlur event when input has value', () => {
     const handleInputBlur = spy();
     const $el = mount(mockItem({ inputValue: 'Example' }));
 
@@ -158,7 +159,7 @@ describe('Test ReactTags', () => {
   });
 
   describe('tests handlePaste', () => {
-    test('should not add new tag when allowAdditionFromPaste is false', () => {
+    it('should not add new tag when allowAdditionFromPaste is false', () => {
       const actual = [];
       const $el = mount(
         mockItem({
@@ -181,7 +182,7 @@ describe('Test ReactTags', () => {
       expect(actual).to.not.have.members(['Banana']);
     });
 
-    test('should split the clipboard on delimiters', () => {
+    it('should split the clipboard on delimiters', () => {
       const Keys = {
         TAB: 9,
         SPACE: 32,
@@ -261,7 +262,7 @@ describe('Test ReactTags', () => {
       `);
     });
 
-    test('should split the clipboard when delimited with new lines', () => {
+    it('should split the clipboard when delimited with new lines', () => {
       const Keys = {
         ENTER: [10, 13],
       };
@@ -315,7 +316,7 @@ describe('Test ReactTags', () => {
       `);
     });
 
-    test('should not allow duplicate tags', () => {
+    it('should not allow duplicate tags', () => {
       const tags = [...defaults.tags];
       const $el = mount(
         mockItem({
@@ -345,7 +346,7 @@ describe('Test ReactTags', () => {
       expect(tags).to.deep.have.same.members(expected);
     });
 
-    test('should allow pasting text only up to maxLength characters', () => {
+    it('should allow pasting text only up to maxLength characters', () => {
       const tags = [];
       const maxLength = 5;
       const inputValue = 'Thimbleberry';
@@ -380,7 +381,7 @@ describe('Test ReactTags', () => {
       `);
     });
 
-    test('should trim the tags', () => {
+    it('should trim the tags', () => {
       const tags = [...defaults.tags];
       const $el = mount(
         mockItem({
@@ -415,7 +416,7 @@ describe('Test ReactTags', () => {
     });
   });
 
-  test('should not allow duplicate tags', () => {
+  it('should not allow duplicate tags', () => {
     const actual = [];
     const $el = mount(
       mockItem({
@@ -424,7 +425,7 @@ describe('Test ReactTags', () => {
         },
       })
     );
-    expect($el.find(PureReactTags).instance().props.tags).to.have.deep.members(
+    expect($el.find(PureReactTags).props().tags).to.have.deep.members(
       defaults.tags
     );
     const $input = $el.find('.ReactTags__tagInputField');
@@ -434,7 +435,7 @@ describe('Test ReactTags', () => {
     expect(actual).to.have.length(0);
   });
 
-  test('should not add empty tag when down arrow is clicked followed by enter key', () => {
+  it('should not add empty tag when down arrow is clicked followed by enter key', () => {
     const actual = [];
     const $el = mount(
       mockItem({
@@ -445,9 +446,7 @@ describe('Test ReactTags', () => {
       })
     );
 
-    expect($el.find(PureReactTags).instance().props.tags).to.have.members(
-      defaults.tags
-    );
+    expect($el.find(PureReactTags).props().tags).to.have.members(defaults.tags);
 
     const $input = $el.find('.ReactTags__tagInputField');
     $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
@@ -456,7 +455,7 @@ describe('Test ReactTags', () => {
   });
 
   // this test will fail if console.error occurs
-  test('should not set any property of this.textInput when readOnly', () => {
+  it('should not set any property of this.textInput when readOnly', () => {
     console.error = jest.fn((error) => {
       throw error;
     });
@@ -466,7 +465,7 @@ describe('Test ReactTags', () => {
     $tag.simulate('click');
   });
 
-  test('should fail the test if two tags have same key, issue #110', () => {
+  it('should fail the test if two tags have same key, issue #110', () => {
     console.warn = jest.fn(() => {
       throw 'Error';
     });
@@ -520,18 +519,18 @@ describe('Test ReactTags', () => {
         });
       };
     });
-    test('should render tags correctly', () => {
+    it('should render tags correctly', () => {
       const $el = mount(
         mockItem({
           tags: modifiedTags,
         })
       );
-      expect($el.find(PureReactTags).instance().props.tags).to.have.members(
+      expect($el.find(PureReactTags).props().tags).to.have.members(
         modifiedTags
       );
     });
 
-    test('allow adding tag which is not in the list', () => {
+    it('allow adding tag which is not in the list', () => {
       const $el = mount(
         mockItem({
           tags: modifiedTags,
@@ -546,7 +545,7 @@ describe('Test ReactTags', () => {
       expect(React.isValidElement(actual[0].text)).to.be.true;
     });
 
-    test('should not allow duplicate tags', () => {
+    it('should not allow duplicate tags', () => {
       const actual = [];
       const $el = mount(
         mockItem({
@@ -563,53 +562,74 @@ describe('Test ReactTags', () => {
   });
 
   describe('autocomplete/suggestions filtering', () => {
-    test('updates suggestions state if the suggestions prop changes', () => {
+    it('updates suggestions state if the suggestions prop changes', () => {
       const $el = mount(mockItem());
-      const ReactTagsInstance = $el.find(PureReactTags).instance();
+
       const $input = $el.find('.ReactTags__tagInputField');
 
       $input.simulate('change', { target: { value: 'ap' } });
-      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+      $input.simulate('focus');
+
+      expect($el.find(Suggestions).props().suggestions).to.have.deep.members([
         { className: '', id: 'Apricot', text: 'Apricot' },
       ]);
-
       $el.setProps({
         suggestions: [
           { className: '', id: 'Papaya', text: 'Papaya' },
           { className: '', id: 'Paprika', text: 'Paprika' },
         ],
       });
-      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+      $el.update();
+      expect($el.find(Suggestions).props().suggestions).to.have.deep.members([
         { className: '', id: 'Papaya', text: 'Papaya' },
         { className: '', id: 'Paprika', text: 'Paprika' },
       ]);
     });
 
-    test('updates suggestions state as expected based on default filter logic', () => {
+    it('updates suggestions state as expected based on default filter logic', () => {
       const $el = mount(mockItem());
-      const ReactTagsInstance = $el.find(PureReactTags).instance();
+
+      // Apple is removed since its in default tags prop
+      expect($el.find(Suggestions).props().suggestions).to.have.deep.members([
+        {
+          className: '',
+          id: 'Banana',
+          text: 'Banana',
+        },
+        {
+          className: '',
+          id: 'Apricot',
+          text: 'Apricot',
+        },
+        {
+          className: '',
+          id: 'Pear',
+          text: 'Pear',
+        },
+        {
+          className: '',
+          id: 'Peach',
+          text: 'Peach',
+        },
+      ]);
+
       const $input = $el.find('.ReactTags__tagInputField');
-
-      expect(ReactTagsInstance.state.suggestions).to.have.members(
-        defaults.suggestions
-      );
-
       $input.simulate('change', { target: { value: 'or' } });
-      expect(ReactTagsInstance.state.suggestions).to.have.members([]);
+      expect($el.find(Suggestions).props().suggestions).to.have.members([]);
 
       $input.simulate('change', { target: { value: 'ea' } });
-      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+      expect($el.find(Suggestions).props().suggestions).to.have.deep.members([
         { className: '', id: 'Pear', text: 'Pear' },
         { className: '', id: 'Peach', text: 'Peach' },
       ]);
 
       $input.simulate('change', { target: { value: 'ap' } });
-      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+      expect($el.find(Suggestions).props().suggestions).to.have.deep.members([
         { className: '', id: 'Apricot', text: 'Apricot' },
       ]);
     });
 
-    test('updates suggestions state as expected based on custom filter logic', () => {
+    it('updates suggestions state as expected based on custom filter logic', () => {
       const $el = mount(
         mockItem({
           handleFilterSuggestions: (query, suggestions) => {
@@ -621,26 +641,44 @@ describe('Test ReactTags', () => {
           },
         })
       );
-      const ReactTagsInstance = $el.find(PureReactTags).instance();
       const $input = $el.find('.ReactTags__tagInputField');
-
-      expect(ReactTagsInstance.state.suggestions).to.have.members(
-        defaults.suggestions
-      );
+      // Apple is removed since its in default tags prop
+      expect($el.find(Suggestions).props().suggestions).to.have.deep.members([
+        {
+          className: '',
+          id: 'Banana',
+          text: 'Banana',
+        },
+        {
+          className: '',
+          id: 'Apricot',
+          text: 'Apricot',
+        },
+        {
+          className: '',
+          id: 'Pear',
+          text: 'Pear',
+        },
+        {
+          className: '',
+          id: 'Peach',
+          text: 'Peach',
+        },
+      ]);
 
       $input.simulate('change', { target: { value: 'Ea' } });
-      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+      expect($el.find(Suggestions).props().suggestions).to.have.deep.members([
         { className: '', id: 'Pear', text: 'Pear' },
         { className: '', id: 'Peach', text: 'Peach' },
       ]);
 
       $input.simulate('change', { target: { value: 'ap' } });
-      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+      expect($el.find(Suggestions).props().suggestions).to.have.deep.members([
         { className: '', id: 'Apricot', text: 'Apricot' },
       ]);
     });
 
-    test('updates selectedIndex state as expected based on changing suggestions', () => {
+    it('updates selectedIndex state as expected based on changing suggestions', () => {
       const $el = mount(
         mockItem({
           autocomplete: true,
@@ -653,30 +691,24 @@ describe('Test ReactTags', () => {
           },
         })
       );
-      const ReactTagsInstance = $el.find(PureReactTags).instance();
       const $input = $el.find('.ReactTags__tagInputField');
 
-      expect(ReactTagsInstance.state.suggestions).to.have.deep.members(
-        defaults.suggestions
-      );
-
       $input.simulate('change', { target: { value: 'Ea' } });
-      $input.simulate('focus');
       $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
       $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
-      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+      expect($el.find(Suggestions).props().suggestions).to.have.deep.members([
         { className: '', id: 'Pear', text: 'Pear' },
         { className: '', id: 'Peach', text: 'Peach' },
       ]);
-      expect(ReactTagsInstance.state.selectedIndex).to.equal(1);
+      expect($el.find(Suggestions).props().selectedIndex).to.equal(1);
       $input.simulate('change', { target: { value: 'Each' } });
-      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+      expect($el.find(Suggestions).props().suggestions).to.have.deep.members([
         { className: '', id: 'Peach', text: 'Peach' },
       ]);
-      expect(ReactTagsInstance.state.selectedIndex).to.equal(0);
+      expect($el.find(Suggestions).props().selectedIndex).to.equal(0);
     });
 
-    test('selects the correct suggestion using the keyboard when minQueryLength is set to 0', () => {
+    it('selects the correct suggestion using the keyboard when minQueryLength is set to 0', () => {
       let actual = [];
       const $el = mount(
         mockItem({
@@ -691,7 +723,6 @@ describe('Test ReactTags', () => {
 
       $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
       $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
-      $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
       $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
       expect(actual).to.have.deep.members([
         { className: '', id: 'Apricot', text: 'Apricot' },
@@ -700,7 +731,7 @@ describe('Test ReactTags', () => {
       $el.unmount();
     });
 
-    test('handles addition when using default suggestions filter', () => {
+    it('handles addition when using default suggestions filter', () => {
       let actual = [];
       const $el = mount(
         mockItem({
@@ -719,7 +750,8 @@ describe('Test ReactTags', () => {
         { className: '', id: 'Or', text: 'Or' },
       ]);
     });
-    test('should add tag with custom label field and default suggestion filter', () => {
+
+    it('should add tag with custom label field and default suggestion filter', () => {
       const labelField = 'name';
       const mapper = (data) => ({ id: data.id, name: data.text });
       const tags = defaults.tags.map(mapper);
@@ -739,13 +771,17 @@ describe('Test ReactTags', () => {
       );
       const $input = $el.find('.ReactTags__tagInputField');
       $input.simulate('change', { target: { value: 'Or' } });
+      expect($el.find(Suggestions).props().suggestions).to.have.deep.members(
+        []
+      );
       $input.simulate('focus');
       $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
       expect(actual).to.have.deep.members([
         { className: '', id: 'Or', name: 'Or' },
       ]);
     });
-    test('should select the correct suggestion using the keyboard when label is custom', () => {
+
+    it('should select the correct suggestion using the keyboard when label is custom', () => {
       const labelField = 'name';
       const mapper = (data) => ({ id: data.id, name: data.text });
       let actual = [];
@@ -765,6 +801,10 @@ describe('Test ReactTags', () => {
       const $input = $el.find('.ReactTags__tagInputField');
 
       $input.simulate('change', { target: { value: 'Ap' } });
+      expect($el.find(Suggestions).props().suggestions).to.have.deep.members([
+        { id: 'Apple', name: 'Apple' },
+        { id: 'Apricot', name: 'Apricot' },
+      ]);
       $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
       $input.simulate('keyDown', { keyCode: DOWN_ARROW_KEY_CODE });
       $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
@@ -774,7 +814,7 @@ describe('Test ReactTags', () => {
       $el.unmount();
     });
 
-    test('should show suggestions for the tags which are already added when "allowUnique" is false', () => {
+    it('should show suggestions for the tags which are already added when "allowUnique" is false', () => {
       const actual = [];
       const $el = mount(
         mockItem({
@@ -786,22 +826,28 @@ describe('Test ReactTags', () => {
         })
       );
 
-      const ReactTagsInstance = $el.find(PureReactTags).instance();
+      expect($el.find(Suggestions).props().suggestions).to.have.deep.members([
+        { className: '', id: 'Banana', text: 'Banana' },
+        { className: '', id: 'Apple', text: 'Apple' },
+        { className: '', id: 'Apricot', text: 'Apricot' },
+        { className: '', id: 'Pear', text: 'Pear' },
+        { className: '', id: 'Peach', text: 'Peach' },
+      ]);
 
       const $input = $el.find('.ReactTags__tagInputField');
       $input.simulate('change', { target: { value: 'App' } });
 
-      $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
-      expect(ReactTagsInstance.state.suggestions).to.have.deep.members([
+      expect($el.find(Suggestions).props().suggestions).to.have.deep.members([
         { className: '', id: 'Apple', text: 'Apple' },
       ]);
+      $input.simulate('keyDown', { keyCode: ENTER_ARROW_KEY_CODE });
       expect(actual).to.have.deep.members([
         { className: '', id: 'Apple', text: 'Apple' },
       ]);
     });
   });
 
-  test('should render default tags with custom label field', () => {
+  it('should render default tags with custom label field', () => {
     const labelField = 'name';
     const mapper = (data) => ({ id: data.id, name: data.text });
     const tags = defaults.tags.map(mapper);
@@ -820,7 +866,7 @@ describe('Test ReactTags', () => {
     $el.unmount();
   });
 
-  test('should allow duplicate tags when allowUnique is false', () => {
+  it('should allow duplicate tags when allowUnique is false', () => {
     const actual = [];
     const $el = mount(
       mockItem({
@@ -831,7 +877,7 @@ describe('Test ReactTags', () => {
       })
     );
 
-    expect($el.find(PureReactTags).instance().props.tags).to.have.deep.members(
+    expect($el.find(PureReactTags).props().tags).to.have.deep.members(
       defaults.tags
     );
     const $input = $el.find('.ReactTags__tagInputField');
@@ -847,7 +893,7 @@ describe('Test ReactTags', () => {
   });
 
   describe('Test inputFieldPosition', () => {
-    test('should display input field and tags inline when "inputFieldPosition" is inline', () => {
+    it('should display input field and tags inline when "inputFieldPosition" is inline', () => {
       const $el = mount(
         mockItem({
           inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
@@ -861,7 +907,7 @@ describe('Test ReactTags', () => {
       ).to.equal('ReactTags__tagInput');
     });
 
-    test('should display input field above tags when "inputFieldPosition" is top', () => {
+    it('should display input field above tags when "inputFieldPosition" is top', () => {
       const $el = mount(
         mockItem({
           inputFieldPosition: INPUT_FIELD_POSITIONS.TOP,
@@ -874,7 +920,7 @@ describe('Test ReactTags', () => {
       );
     });
 
-    test('should display input field below tags when "inputFieldPosition" is bottom', () => {
+    it('should display input field below tags when "inputFieldPosition" is bottom', () => {
       const $el = mount(
         mockItem({
           inputFieldPosition: INPUT_FIELD_POSITIONS.BOTTOM,
@@ -887,7 +933,7 @@ describe('Test ReactTags', () => {
       );
     });
 
-    test('should show console warning when "inline" is false', () => {
+    it('should show console warning when "inline" is false', () => {
       const consoleWarnStub = stub(console, 'warn');
 
       mount(
@@ -905,7 +951,7 @@ describe('Test ReactTags', () => {
     });
   });
 
-  test('should pass input props to the input element', () => {
+  it('should pass input props to the input element', () => {
     const $el = mount(
       mockItem({
         inputProps: {
@@ -916,7 +962,7 @@ describe('Test ReactTags', () => {
     expect($el.find('[data-automation="input"]').props().disabled).to.be.true;
   });
 
-  test('should trim the tags before adding', () => {
+  it('should trim the tags before adding', () => {
     const tags = [...defaults.tags];
     const $el = mount(
       mockItem({
@@ -949,7 +995,7 @@ describe('Test ReactTags', () => {
   });
 
   describe('Test drag and drop', () => {
-    test('should be draggable', () => {
+    it('should be draggable', () => {
       const root = render(
         mockItem({
           tags: [
@@ -976,7 +1022,7 @@ describe('Test ReactTags', () => {
         .to.be.true;
     });
 
-    test('should not be draggable when drag and drop index is same', () => {
+    it('should not be draggable when drag and drop index is same', () => {
       const root = render(mockItem());
       const src = root.getByText('Apple');
       fireEvent.dragStart(src);
@@ -996,7 +1042,7 @@ describe('Test ReactTags', () => {
       },
     ].forEach((data) => {
       const { title, overrideProps } = data;
-      test(`should not be draggable when ${title}`, () => {
+      it(`should not be draggable when ${title}`, () => {
         const root = render(
           mockItem({
             ...overrideProps,
