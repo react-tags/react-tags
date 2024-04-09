@@ -9,8 +9,14 @@
   ],
   "funding": {
     "type": "individual",
-    "url": "https://www.buymeacoffee.com/aakansha"
+    "url": "https://github.com/sponsors/ad1992"
   },
+  "maintainers": [
+    {
+      "name": "Aakansha Doshi",
+      "email": "aakansha1216@gmail.com"
+    }
+  ],
   "sideEffects": false,
   "scripts": {
     "test": "jest --notify --coverage",
