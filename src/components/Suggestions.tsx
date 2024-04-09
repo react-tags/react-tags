@@ -1,7 +1,7 @@
 import { Component, ReactNode } from 'react';
 import isEqual from 'lodash/isEqual';
 import escape from 'lodash/escape';
-import { Tag } from './Tag';
+import { Tag } from './SingleTag';
 
 const maybeScrollSuggestionIntoView = (
   suggestionEl: HTMLElement,
@@ -91,6 +91,7 @@ class Suggestions extends Component<SuggestionsProps> {
 
   shouldRenderSuggestions = (query: string) => {
     const { minQueryLength = 2, isFocused } = this.props;
+    console.log(minQueryLength, isFocused, 'shouldRenderSuggestions');
     return query.length >= minQueryLength && isFocused;
   };
 
@@ -104,7 +105,7 @@ class Suggestions extends Component<SuggestionsProps> {
 
   render() {
     const { props } = this;
-
+    console.log('props.suggestions', props.suggestions);
     const suggestions = props.suggestions.map((tag: Tag, index: number) => {
       return (
         <li
@@ -121,10 +122,16 @@ class Suggestions extends Component<SuggestionsProps> {
         </li>
       );
     });
-
     // use the override, if provided
     const shouldRenderSuggestions =
       props.shouldRenderSuggestions || this.shouldRenderSuggestions;
+    console.log(
+      'SHOULD RENDER SUGGESTION',
+      suggestions.length,
+      props.query,
+      shouldRenderSuggestions(props.query)
+    );
+
     if (suggestions.length === 0 || !shouldRenderSuggestions(props.query)) {
       return null;
     }

@@ -39,7 +39,7 @@ module.exports = {
 
   // An object that configures minimum threshold enforcement for coverage results
   coverageThreshold: {
-    './src/components/Tag.tsx': {
+    './src/components/SingleTag.tsx': {
       branches: 100,
       functions: 100,
       lines: 100,

@@ -7,7 +7,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { mount } from 'enzyme';
 import sinon from 'sinon';
 import noop from 'lodash/noop';
-import { SingleTag } from '../src/components/Tag';
+import { SingleTag } from '../src/components/SingleTag';
 import RemoveComponent from '../src/components/RemoveComponent';
 
 function mockItem(overrides) {
