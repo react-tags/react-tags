@@ -1,6 +1,7 @@
 /*eslint-disable */
 
 const { React, ReactDOM, ReactTags } = window;
+import { StrictMode } from 'react';
 import GitHubCorner from './GithubCorner';
 
 // List of countries in the world
@@ -295,4 +296,9 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+  document.getElementById('app')
+);

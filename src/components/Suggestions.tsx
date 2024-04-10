@@ -92,7 +92,7 @@ const SuggestionsComp = (props: SuggestionsProps) => {
   const suggestionsContainerRef = createRef<HTMLDivElement>();
   const {
     labelField,
-    minQueryLength = 2,
+    minQueryLength,
     isFocused,
     classNames,
     selectedIndex,
@@ -154,7 +154,7 @@ const SuggestionsComp = (props: SuggestionsProps) => {
     suggestions.length === 0 ||
     !shouldRenderSuggestions(
       query,
-      minQueryLength,
+      minQueryLength || 2,
       isFocused,
       props.shouldRenderSuggestions
     )
@@ -169,11 +169,7 @@ const SuggestionsComp = (props: SuggestionsProps) => {
   );
 };
 
-SuggestionsComp.defaultProps = {
-  minQueryLength: 2,
-};
-
-const arePropsEqual = (
+export const arePropsEqual = (
   prevProps: SuggestionsProps,
   nextProps: SuggestionsProps
 ) => {
@@ -202,4 +198,9 @@ const arePropsEqual = (
 };
 
 const Suggestions = memo(SuggestionsComp, arePropsEqual);
+
+SuggestionsComp.defaultProps = {
+  minQueryLength: 2,
+};
+
 export default Suggestions;
