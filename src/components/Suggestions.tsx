@@ -1,7 +1,7 @@
 import { Component, ReactNode } from 'react';
 import isEqual from 'lodash/isEqual';
 import escape from 'lodash/escape';
-import { Tag } from './Tag';
+import { Tag } from './SingleTag';
 
 const maybeScrollSuggestionIntoView = (
   suggestionEl: HTMLElement,
@@ -104,7 +104,6 @@ class Suggestions extends Component<SuggestionsProps> {
 
   render() {
     const { props } = this;
-
     const suggestions = props.suggestions.map((tag: Tag, index: number) => {
       return (
         <li
@@ -121,10 +120,10 @@ class Suggestions extends Component<SuggestionsProps> {
         </li>
       );
     });
-
     // use the override, if provided
     const shouldRenderSuggestions =
       props.shouldRenderSuggestions || this.shouldRenderSuggestions;
+
     if (suggestions.length === 0 || !shouldRenderSuggestions(props.query)) {
       return null;
     }

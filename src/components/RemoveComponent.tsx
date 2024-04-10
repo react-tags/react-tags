@@ -1,6 +1,6 @@
 import React from 'react';
 import { KEYS } from './constants';
-import { Tag } from './Tag';
+import { Tag } from './SingleTag';
 
 const crossStr = String.fromCharCode(215);
 
