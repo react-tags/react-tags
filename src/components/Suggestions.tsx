@@ -199,8 +199,4 @@ export const arePropsEqual = (
 
 const Suggestions = memo(SuggestionsComp, arePropsEqual);
 
-SuggestionsComp.defaultProps = {
-  minQueryLength: 2,
-};
-
 export default Suggestions;
