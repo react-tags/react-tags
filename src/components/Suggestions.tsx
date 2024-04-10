@@ -1,4 +1,4 @@
-import { Component, ReactNode } from 'react';
+import { ReactNode, createRef, memo, useEffect } from 'react';
 import isEqual from 'lodash/isEqual';
 import escape from 'lodash/escape';
 import { Tag } from './SingleTag';
@@ -11,7 +11,6 @@ const maybeScrollSuggestionIntoView = (
   const suggestionHeight = suggestionEl.offsetHeight;
   const relativeSuggestionTop =
     suggestionEl.offsetTop - suggestionsContainer.scrollTop;
-
   if (relativeSuggestionTop + suggestionHeight >= containerHeight) {
     suggestionsContainer.scrollTop +=
       relativeSuggestionTop - containerHeight + suggestionHeight;
@@ -20,67 +19,106 @@ const maybeScrollSuggestionIntoView = (
   }
 };
 
+const shouldRenderSuggestions = (
+  query: string,
+  minQueryLength: number,
+  isFocused: boolean,
+  shouldRenderSuggestionsCb?: (query: string) => boolean
+) => {
+  if (typeof shouldRenderSuggestionsCb === 'function') {
+    return shouldRenderSuggestionsCb(query);
+  }
+  return query.length >= minQueryLength && isFocused;
+};
+
 interface SuggestionsProps {
+  /**
+   * The current query string.
+   */
   query: string;
+  /**
+   * The array of suggestions to display.
+   */
   suggestions: Array<any>; // eslint-disable-line
+  /**
+   * The field to use for the label of each suggestion.
+   */
   labelField: string;
+  /**
+   * The index of the currently selected suggestion.
+   */
   selectedIndex: number;
+  /**
+   * Whether the input field is currently focused.
+   */
   isFocused: boolean;
-  handleClick: (i: number) => void;
-  handleHover: (i: number) => void;
+  /**
+   * Handler for click events on suggestions.
+   * @param {number} index - The index of the clicked suggestion.
+   */
+  handleClick: (index: number) => void;
+  /**
+   * Handler for hover events on suggestions.
+   * @param {number} index - The index of the hovered suggestion.
+   */
+  handleHover: (index: number) => void;
+  /**
+   * CSS class names to apply to the suggestions container and active suggestion.
+   */
   classNames: {
     suggestions: string;
     activeSuggestion: string;
   };
+  /**
+   * Optional function to determine whether to render suggestions.
+   * @param {string} query - The current query string.
+   * @returns {boolean} - Whether to render suggestions.
+   */
   shouldRenderSuggestions?: (query: string) => boolean;
-  renderSuggestion?: (item: Tag, query: string) => ReactNode;
+  /**
+   * Optional function to render a custom suggestion.
+   * @param {Tag} item - The suggestion to render.
+   * @param {string} query - The current query string.
+   * @returns {ReactNode} - The rendered suggestion.
+   */
+  renderSuggestion?: (tag: Tag, query: string) => ReactNode;
+  /**
+   * The minimum length of the query string required to render suggestions.
+   */
   minQueryLength?: number;
 }
 
-class Suggestions extends Component<SuggestionsProps> {
-  static defaultProps = {
-    minQueryLength: 2,
-  };
+const SuggestionsComp = (props: SuggestionsProps) => {
+  const suggestionsContainerRef = createRef<HTMLDivElement>();
+  const {
+    labelField,
+    minQueryLength,
+    isFocused,
+    classNames,
+    selectedIndex,
+    query,
+  } = props;
 
-  private suggestionsContainer: HTMLDivElement | null = null;
-
-  shouldComponentUpdate(nextProps: SuggestionsProps) {
-    const { props } = this;
-    const shouldRenderSuggestions =
-      props.shouldRenderSuggestions || this.shouldRenderSuggestions;
-    return (
-      props.isFocused !== nextProps.isFocused ||
-      !isEqual(props.suggestions, nextProps.suggestions) ||
-      shouldRenderSuggestions(nextProps.query) ||
-      shouldRenderSuggestions(nextProps.query) !==
-        shouldRenderSuggestions(props.query)
-    );
-  }
-
-  componentDidUpdate(prevProps: SuggestionsProps) {
-    const { selectedIndex, classNames } = this.props;
-
-    if (
-      this.suggestionsContainer &&
-      prevProps.selectedIndex !== selectedIndex
-    ) {
-      const activeSuggestion = this.suggestionsContainer.querySelector(
-        `.${classNames.activeSuggestion}`
-      ) as HTMLElement;
-
-      if (activeSuggestion) {
-        maybeScrollSuggestionIntoView(
-          activeSuggestion,
-          this.suggestionsContainer
-        );
-      }
+  useEffect(() => {
+    if (!suggestionsContainerRef.current) {
+      return;
     }
-  }
+    const activeSuggestion = suggestionsContainerRef.current.querySelector(
+      `.${classNames.activeSuggestion}`
+    ) as HTMLElement;
 
-  markIt = (tag: { [key: string]: string }, query: string) => {
+    if (activeSuggestion) {
+      maybeScrollSuggestionIntoView(
+        activeSuggestion,
+        suggestionsContainerRef.current
+      );
+    }
+  }, [selectedIndex]);
+
+  const markIt = (tag: { [key: string]: string }, query: string) => {
     const escapedRegex = query.trim().replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
 
-    const { [this.props.labelField]: labelValue } = tag;
+    const { [labelField]: labelValue } = tag;
 
     return {
       __html: labelValue.replace(RegExp(escapedRegex, 'gi'), (x: string) => {
@@ -89,55 +127,76 @@ class Suggestions extends Component<SuggestionsProps> {
     };
   };
 
-  shouldRenderSuggestions = (query: string) => {
-    const { minQueryLength = 2, isFocused } = this.props;
-    return query.length >= minQueryLength && isFocused;
+  const renderSuggestion = (tag: Tag, query: string): ReactNode => {
+    if (typeof props.renderSuggestion === 'function') {
+      return props.renderSuggestion(tag, query);
+    }
+    return <span dangerouslySetInnerHTML={markIt(tag, query)} />;
   };
 
-  renderSuggestion = (tag: Tag, query: string): ReactNode => {
-    const { renderSuggestion } = this.props;
-    if (typeof renderSuggestion === 'function') {
-      return renderSuggestion(tag, query);
-    }
-    return <span dangerouslySetInnerHTML={this.markIt(tag, query)} />;
-  };
-
-  render() {
-    const { props } = this;
-    const suggestions = props.suggestions.map((tag: Tag, index: number) => {
-      return (
-        <li
-          key={index}
-          onMouseDown={props.handleClick.bind(null, index)}
-          onTouchStart={props.handleClick.bind(null, index)}
-          onMouseOver={props.handleHover.bind(null, index)}
-          className={
-            index === props.selectedIndex
-              ? props.classNames.activeSuggestion
-              : ''
-          }>
-          {this.renderSuggestion(tag, props.query)}
-        </li>
-      );
-    });
-    // use the override, if provided
-    const shouldRenderSuggestions =
-      props.shouldRenderSuggestions || this.shouldRenderSuggestions;
-
-    if (suggestions.length === 0 || !shouldRenderSuggestions(props.query)) {
-      return null;
-    }
-
+  const suggestions = props.suggestions.map((tag: Tag, index: number) => {
     return (
-      <div
-        ref={(elem) => {
-          this.suggestionsContainer = elem;
-        }}
-        className={this.props.classNames.suggestions}>
-        <ul> {suggestions} </ul>
-      </div>
+      <li
+        key={index}
+        onMouseDown={props.handleClick.bind(null, index)}
+        onTouchStart={props.handleClick.bind(null, index)}
+        onMouseOver={props.handleHover.bind(null, index)}
+        className={
+          index === props.selectedIndex ? props.classNames.activeSuggestion : ''
+        }>
+        {renderSuggestion(tag, props.query)}
+      </li>
     );
+  });
+
+  // use the override, if provided
+  if (
+    suggestions.length === 0 ||
+    !shouldRenderSuggestions(
+      query,
+      minQueryLength || 2,
+      isFocused,
+      props.shouldRenderSuggestions
+    )
+  ) {
+    return null;
   }
-}
+
+  return (
+    <div ref={suggestionsContainerRef} className={classNames.suggestions}>
+      <ul> {suggestions} </ul>
+    </div>
+  );
+};
+
+export const arePropsEqual = (
+  prevProps: SuggestionsProps,
+  nextProps: SuggestionsProps
+) => {
+  const { query, minQueryLength = 2, isFocused, suggestions } = nextProps;
+
+  if (
+    prevProps.isFocused === isFocused &&
+    isEqual(prevProps.suggestions, suggestions) &&
+    shouldRenderSuggestions(
+      query,
+      minQueryLength,
+      isFocused,
+      nextProps.shouldRenderSuggestions
+    ) ===
+      shouldRenderSuggestions(
+        prevProps.query,
+        prevProps.minQueryLength ?? 2,
+        prevProps.isFocused,
+        prevProps.shouldRenderSuggestions
+      ) &&
+    prevProps.selectedIndex === nextProps.selectedIndex
+  ) {
+    return true;
+  }
+  return false;
+};
+
+const Suggestions = memo(SuggestionsComp, arePropsEqual);
 
 export default Suggestions;
