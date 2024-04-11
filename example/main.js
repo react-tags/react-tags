@@ -290,6 +290,7 @@ const App = () => {
           clearAll
           onClearAll={onClearAll}
           maxTags={7}
+          //readOnly
         />
       </div>
     </div>

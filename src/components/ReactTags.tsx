@@ -54,7 +54,7 @@ interface ReactTagsProps {
   /**
    * Whether the input field should be read-only.
    */
-  readonly: boolean;
+  readOnly: boolean;
   /**
    * Whether the input field should be displayed inline.
    * TODO: Remove in v7.x.x
@@ -148,10 +148,6 @@ interface ReactTagsProps {
    * Whether to enable autocomplete when typing for suggestions
    */
   autocomplete: boolean | number;
-  /**
-   * Whether the input field is read-only.
-   */
-  readOnly: boolean;
   /**
    * CSS class names for the component.
    */
@@ -404,6 +400,9 @@ const ReactTags = (props: ReactTagsProps) => {
     tag: Tag,
     event: React.MouseEvent<HTMLSpanElement> | React.TouchEvent<HTMLSpanElement>
   ) => {
+    if (readOnly) {
+      return;
+    }
     if (editable) {
       setCurrentEditIndex(index);
       setQuery(tag[labelField]);
