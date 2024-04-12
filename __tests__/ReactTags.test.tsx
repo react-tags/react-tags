@@ -95,12 +95,73 @@ describe('Test ReactTags', () => {
     $el.unmount();
   });
 
-  it('should not focus on input if readOnly is true', () => {
-    const $el = mount(
-      mockItem({ autofocus: false }, { attachTo: document.body })
-    );
-    expect(document.activeElement.tagName).to.equal('BODY');
-    $el.unmount();
+  describe('When readOnly is true', () => {
+    it('should not render input', () => {
+      const wrapper = mount(mockItem({ readOnly: true }));
+
+      expect(wrapper.exists('.ReactTags__tagInputField')).to.equal(false);
+    });
+
+    it('should render tags without remove button', () => {
+      const wrapper = mount(
+        mockItem({
+          readOnly: true,
+          tags: [
+            { id: 'Mango', text: 'Mango' },
+            { id: 'Lichi', text: 'Litchi' },
+          ],
+        })
+      );
+      expect(wrapper.find('.ReactTags__tag').length).to.equal(2);
+      expect(wrapper.exists('.ReactTags__tag__remove')).to.equal(false);
+    });
+
+    it('should not edit tags', () => {
+      const container = render(
+        mockItem({
+          readOnly: true,
+          editable: true,
+          tags: [
+            { id: 'Mango', text: 'Mango' },
+            { id: 'Lichi', text: 'Litchi' },
+          ],
+        })
+      );
+      fireEvent.click(container.queryByText('Litchi')!);
+      expect(container.queryByTestId('tag-edit')).to.be.null;
+    });
+
+    it('should not be draggable', () => {
+      const container = render(
+        mockItem({
+          readOnly: true,
+          tags: [
+            ...defaults.tags,
+            { id: 'Litchi', text: 'Litchi' },
+            { id: 'Mango', text: 'Mango' },
+          ],
+        })
+      );
+
+      const src = container.getByText('Apple');
+      const dest = container.getByText('Mango');
+
+      let styles = getComputedStyle(src);
+      expect(styles.cursor).to.equal('auto');
+      expect(styles.opacity).to.equal('1');
+
+      fireEvent.dragStart(src);
+      styles = getComputedStyle(src);
+      // The cursor and opacity should not be updated when attempting to drag in readOnly mode
+      expect(styles.cursor).to.equal('auto');
+      expect(styles.opacity).to.equal('1');
+
+      fireEvent.dragEnter(dest);
+      fireEvent.dragLeave(dest);
+      fireEvent.dragEnd(dest);
+
+      expect(handleDragStub.called).to.be.false;
+    });
   });
 
   it('shows the classnames of children properly', () => {
