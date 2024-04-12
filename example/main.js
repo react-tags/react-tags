@@ -284,7 +284,7 @@ const App = () => {
           handleDrag={handleDrag}
           handleTagClick={handleTagClick}
           onTagUpdate={onTagUpdate}
-          inputFieldPosition="bottom"
+          inputFieldPosition="top"
           autocomplete
           editable
           clearAll

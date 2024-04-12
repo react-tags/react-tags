@@ -482,12 +482,13 @@ const ReactTags = (props: ReactTagsProps) => {
         addTag(selectedQuery);
       }
     }
-
-    // when backspace key is pressed and query is blank, delete tag
+    // If the backspace key is pressed and the query is empty, delete the last tag if
+    // allowDeleteFromEmptyInput is true or if the input field is inline
     if (
-      event.keyCode === KEYS.BACKSPACE &&
+      event.key === 'Backspace' &&
       query === '' &&
-      allowDeleteFromEmptyInput
+      (allowDeleteFromEmptyInput ||
+        inputFieldPosition === INPUT_FIELD_POSITIONS.INLINE)
     ) {
       handleDelete(tags.length - 1, event);
     }
@@ -774,7 +775,7 @@ ReactTags.defaultProps = {
   inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
   handleDelete: noop,
   handleAddition: noop,
-  allowDeleteFromEmptyInput: true,
+  allowDeleteFromEmptyInput: false,
   allowAdditionFromPaste: true,
   autocomplete: false,
   readOnly: false,
