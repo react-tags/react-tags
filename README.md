@@ -309,11 +309,15 @@ Optional boolean param to control whether the text-input should be autofocused o
 ```
 
 ### allowDeleteFromEmptyInput
-Optional boolean param to control whether tags should be deleted when the 'Delete' key is pressed in an empty Input Box.
+Optional boolean param to control whether tags should be deleted when the `Backspace` key is pressed in an empty Input Box. By default this prop is `false`. 
+
+However when input field position is `inline`, you will be able to delete the tags by pressing `Backspace` irrespective of the value of this prop.
+
+This prop will likely be removed in future versions.
 
 ```js
 <ReactTags
-    allowDeleteFromEmptyInput={false}
+    allowDeleteFromEmptyInput={true}
     ...>
 ```
 ### handleInputChange
