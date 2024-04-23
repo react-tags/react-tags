@@ -477,7 +477,6 @@ const ReactTags = (props: ReactTagsProps) => {
               [labelField]: query.trim(),
               className: '',
             };
-
       if (Object.keys(selectedQuery)) {
         addTag(selectedQuery);
       }
@@ -574,7 +573,9 @@ const ReactTags = (props: ReactTagsProps) => {
     }
     if (autocomplete) {
       const possibleMatches = filteredSuggestions(tag[labelField]);
-
+      console.warn(
+        '[Deprecation] The autocomplete prop will be removed in 7.x to simplify the integration and make it more intutive. If you have any concerns regarding this, please share your thoughts in https://github.com/react-tags/react-tags/issues/949'
+      );
       if (
         (autocomplete === 1 && possibleMatches.length === 1) ||
         (autocomplete === true && possibleMatches.length)
