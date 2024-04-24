@@ -631,6 +631,14 @@ describe('Test ReactTags', () => {
   });
 
   describe('autocomplete/suggestions filtering', () => {
+    let consoleWarnStub;
+    beforeAll(() => {
+      consoleWarnStub = stub(console, 'warn');
+    });
+    afterAll(() => {
+      consoleWarnStub.restore();
+    });
+
     it('updates suggestions state if the suggestions prop changes', () => {
       const $el = mount(mockItem());
 
@@ -1045,6 +1053,7 @@ describe('Test ReactTags', () => {
           '[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.'
         )
       ).to.be.true;
+      consoleWarnStub.restore();
     });
   });
 
