@@ -976,6 +976,34 @@ describe('Test ReactTags', () => {
       ).to.equal('ReactTags__tagInput');
     });
 
+    it('should delete the last tag when query is empty, input position is inline and backspace is pressed', () => {
+      const handleDeleteStub = sandbox.stub();
+      const wrapper = mount(
+        mockItem({
+          tags: [
+            {
+              id: 'Apple',
+              text: 'Apple',
+            },
+            {
+              id: 'Orange',
+              text: 'Orange',
+            },
+            {
+              id: 'Banana',
+              text: 'Banana',
+            },
+          ],
+          handleDelete: handleDeleteStub,
+          inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
+        })
+      );
+      expect(wrapper.find(PureReactTags).props().tags).to.have.length(3);
+      const input = wrapper.find('.ReactTags__tagInputField');
+      input.simulate('keyDown', { key: 'Backspace' });
+      expect(handleDeleteStub.calledWith(2)).to.be.true;
+    });
+
     it('should display input field above tags when "inputFieldPosition" is top', () => {
       const $el = mount(
         mockItem({

@@ -285,7 +285,6 @@ const App = () => {
           handleTagClick={handleTagClick}
           onTagUpdate={onTagUpdate}
           inputFieldPosition="bottom"
-          autocomplete
           editable
           clearAll
           onClearAll={onClearAll}

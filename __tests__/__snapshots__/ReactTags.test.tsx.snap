@@ -3,7 +3,7 @@
 exports[`Test ReactTags should render with expected props 1`] = `
 {
   "allowAdditionFromPaste": true,
-  "allowDeleteFromEmptyInput": true,
+  "allowDeleteFromEmptyInput": false,
   "allowDragDrop": true,
   "allowUnique": true,
   "autoFocus": true,
