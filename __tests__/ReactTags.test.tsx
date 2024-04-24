@@ -88,13 +88,17 @@ describe('Test ReactTags', () => {
   });
 
   it('should not focus on input if autofocus is false', () => {
-    const $el = mount(mockItem({ autofocus: false }));
+    const $el = mount(mockItem({ autofocus: false }), {
+      attachTo: document.body,
+    });
     expect(document.activeElement?.tagName).to.equal('BODY');
     $el.unmount();
   });
 
   it('should not focus on input if autoFocus is false', () => {
-    const $el = mount(mockItem({ autoFocus: false }));
+    const $el = mount(mockItem({ autoFocus: false }), {
+      attachTo: document.body,
+    });
     expect(document.activeElement?.tagName).to.equal('BODY');
     $el.unmount();
   });
