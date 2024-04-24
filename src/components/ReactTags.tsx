@@ -4,6 +4,7 @@ import React, {
   createRef,
   useRef,
   useState,
+  Fragment,
 } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -51,6 +52,10 @@ interface ReactTagsProps {
    * Whether the input field should automatically focus on mount.
    */
   autofocus: boolean;
+  /**
+   * Whether the input field should automatically focus on mount.
+   */
+  autoFocus: boolean;
   /**
    * Whether the input field should be read-only.
    */
@@ -251,6 +256,7 @@ interface ReactTagsState {
 const ReactTags = (props: ReactTagsProps) => {
   const {
     autofocus,
+    autoFocus,
     readOnly,
     labelField,
 
@@ -297,13 +303,18 @@ const ReactTags = (props: ReactTagsProps) => {
         '[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.'
       );
     }
-  }, []);
+  }, [inline]);
 
   useEffect(() => {
-    if (autofocus && !readOnly) {
+    if (autofocus === false) {
+      console.warn(
+        '[Deprecated] autofocus prop will be removed in 7.x so please migrate to autoFocus prop.'
+      );
+    }
+    if (autofocus && autoFocus && !readOnly) {
       resetAndFocusInput();
     }
-  }, [autofocus, readOnly]);
+  }, [autoFocus, autoFocus, readOnly]);
 
   useEffect(() => {
     updateSuggestions();
@@ -630,7 +641,7 @@ const ReactTags = (props: ReactTagsProps) => {
 
     return tags.map((tag, index) => {
       return (
-        <React.Fragment key={index}>
+        <Fragment key={index}>
           {currentEditIndex === index ? (
             <div className={allClassNames.editTagInput}>
               <input
@@ -669,7 +680,7 @@ const ReactTags = (props: ReactTagsProps) => {
               allowDragDrop={allowDragDrop}
             />
           )}
-        </React.Fragment>
+        </Fragment>
       );
     });
   };
@@ -772,6 +783,7 @@ ReactTags.defaultProps = {
   suggestions: [],
   delimiters: [...KEYS.ENTER, KEYS.TAB],
   autofocus: true,
+  autoFocus: true,
   inline: true, // TODO: Remove in v7.x.x
   inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
   handleDelete: noop,

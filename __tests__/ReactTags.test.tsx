@@ -80,18 +80,26 @@ describe('Test ReactTags', () => {
 
   it('focus on input by default', () => {
     const $el = mount(mockItem(), { attachTo: document.body });
-    expect(document.activeElement.tagName).to.equal('INPUT');
-    expect(document.activeElement.className).to.equal(
+    expect(document.activeElement?.tagName).to.equal('INPUT');
+    expect(document.activeElement?.className).to.equal(
       'ReactTags__tagInputField'
     );
     $el.unmount();
   });
 
   it('should not focus on input if autofocus is false', () => {
-    const $el = mount(
-      mockItem({ autofocus: false }, { attachTo: document.body })
-    );
-    expect(document.activeElement.tagName).to.equal('BODY');
+    const $el = mount(mockItem({ autofocus: false }), {
+      attachTo: document.body,
+    });
+    expect(document.activeElement?.tagName).to.equal('BODY');
+    $el.unmount();
+  });
+
+  it('should not focus on input if autoFocus is false', () => {
+    const $el = mount(mockItem({ autoFocus: false }), {
+      attachTo: document.body,
+    });
+    expect(document.activeElement?.tagName).to.equal('BODY');
     $el.unmount();
   });
 
@@ -623,6 +631,14 @@ describe('Test ReactTags', () => {
   });
 
   describe('autocomplete/suggestions filtering', () => {
+    let consoleWarnStub;
+    beforeAll(() => {
+      consoleWarnStub = stub(console, 'warn');
+    });
+    afterAll(() => {
+      consoleWarnStub.restore();
+    });
+
     it('updates suggestions state if the suggestions prop changes', () => {
       const $el = mount(mockItem());
 
@@ -1037,6 +1053,7 @@ describe('Test ReactTags', () => {
           '[Deprecation] The inline attribute is deprecated and will be removed in v7.x.x, please use inputFieldPosition instead.'
         )
       ).to.be.true;
+      consoleWarnStub.restore();
     });
   });
 
