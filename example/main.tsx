@@ -1,10 +1,12 @@
 /*eslint-disable */
-
-const { React, ReactDOM, ReactTags } = window;
+import React from 'react';
+import { render } from 'react-dom';
 import { StrictMode } from 'react';
 import GitHubCorner from './GithubCorner';
+import type { Tag } from '../src/components/SingleTag';
+import { WithContext as ReactTags } from '../src/index';
 
-// List of countries in the world
+//List of countries in the world
 const COUNTRIES = [
   'Afghanistan',
   'Albania',
@@ -218,6 +220,7 @@ const suggestions = COUNTRIES.map((country) => {
   return {
     id: country,
     text: country,
+    className: '',
   };
 });
 
@@ -228,30 +231,29 @@ const KeyCodes = {
 
 const delimiters = [...KeyCodes.enter, KeyCodes.comma];
 
-const Tags = ReactTags.WithContext;
 const App = () => {
-  const [tags, setTags] = React.useState([
-    { id: 'Thailand', text: 'Thailand' },
-    { id: 'India', text: 'India' },
-    { id: 'Vietnam', text: 'Vietnam' },
-    { id: 'Turkey', text: 'Turkey' },
+  const [tags, setTags] = React.useState<Array<Tag>>([
+    { id: 'Thailand', text: 'Thailand', className: '' },
+    { id: 'India', text: 'India', className: '' },
+    { id: 'Vietnam', text: 'Vietnam', className: '' },
+    { id: 'Turkey', text: 'Turkey', className: '' },
   ]);
 
-  const handleDelete = (i) => {
+  const handleDelete = (i: number) => {
     setTags(tags.filter((tag, index) => index !== i));
   };
 
-  const onTagUpdate = (i, newTag) => {
+  const onTagUpdate = (i: number, newTag: Tag) => {
     const updatedTags = tags.slice();
     updatedTags.splice(i, 1, newTag);
     setTags(updatedTags);
   };
 
-  const handleAddition = (tag) => {
+  const handleAddition = (tag: Tag) => {
     setTags([...tags, tag]);
   };
 
-  const handleDrag = (tag, currPos, newPos) => {
+  const handleDrag = (tag: Tag, currPos: number, newPos: number) => {
     const newTags = tags.slice();
 
     newTags.splice(currPos, 1);
@@ -261,7 +263,7 @@ const App = () => {
     setTags(newTags);
   };
 
-  const handleTagClick = (index) => {
+  const handleTagClick = (index: number) => {
     console.log('The tag at index ' + index + ' was clicked');
   };
 
@@ -275,7 +277,7 @@ const App = () => {
 
       <h1> React Tags Example </h1>
       <div>
-        <Tags
+        <ReactTags
           tags={tags}
           suggestions={suggestions}
           delimiters={delimiters}
@@ -295,7 +297,7 @@ const App = () => {
   );
 };
 
-ReactDOM.render(
+render(
   <StrictMode>
     <App />
   </StrictMode>,

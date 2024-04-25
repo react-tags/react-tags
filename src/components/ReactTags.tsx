@@ -1,14 +1,4 @@
-import React, {
-  useEffect,
-  ReactNode,
-  createRef,
-  useRef,
-  useState,
-  Fragment,
-} from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import noop from 'lodash/noop';
+import React, { useEffect, createRef, useRef, useState, Fragment } from 'react';
 import uniq from 'lodash/uniq';
 import ClearAllTags from './ClearAllTags';
 import Suggestions from './Suggestions';
@@ -21,237 +11,36 @@ import { buildRegExpFromDelimiters } from './utils';
 //Constants
 import {
   KEYS,
-  DEFAULT_PLACEHOLDER,
   DEFAULT_CLASSNAMES,
-  DEFAULT_LABEL_FIELD,
   INPUT_FIELD_POSITIONS,
   ERRORS,
 } from './constants';
+import type { ReactTagsWrapperProps } from '../';
 
 /**
  * Props for the ReactTags component.
  */
-interface ReactTagsProps {
-  /**
-   * Placeholder text for the input field.
-   */
-  placeholder: string;
-  /**
-   * Field name to use for the label of each tag.
-   */
-  labelField: string;
-  /**
-   * Array of suggestions to display in the dropdown.
-   */
-  suggestions: Array<Tag>;
-  /**
-   * Array of key codes that will trigger a tag addition.
-   */
-  delimiters: Array<number>;
-  /**
-   * Whether the input field should automatically focus on mount.
-   */
-  autofocus: boolean;
-  /**
-   * Whether the input field should automatically focus on mount.
-   */
-  autoFocus: boolean;
-  /**
-   * Whether the input field should be read-only.
-   */
-  readOnly: boolean;
-  /**
-   * Whether the input field should be displayed inline.
-   * TODO: Remove in v7.x.x
-   */
-  inline: boolean;
-  /**
-   * Position of the input field relative to the tags.
-   */
-  inputFieldPosition: keyof typeof INPUT_FIELD_POSITIONS;
-  /**
-   * Handler for tag deletion.
-   */
-  handleDelete: (
-    i: number,
-    event:
-      | React.MouseEvent<HTMLSpanElement>
-      | React.KeyboardEvent<HTMLSpanElement>
-  ) => void;
-  /**
-   * Handler for tag addition.
-   */
-  handleAddition: (tag: { id: string }) => void;
-  /**
-   * Handler for tag updates.
-   */
-  onTagUpdate: (i: number, tag: { id: string }) => void;
-  /**
-   * Handler for tag drag and drop.
-   */
-  handleDrag: (tag: { id: string }, currPos: number, newPos: number) => void;
-  /**
-   * Handler for filtering suggestions.
-   */
-  handleFilterSuggestions: (
-    query: string,
-    suggestions: Array<Tag>
-  ) => Array<Tag>;
-  /**
-   * Handler for tag click events.
-   */
-  handleTagClick?: (
-    i: number,
-    e: React.MouseEvent<HTMLSpanElement> | React.TouchEvent<HTMLSpanElement>
-  ) => void;
-  /**
-   * Whether to allow deletion from an empty input field.
-   */
-  allowDeleteFromEmptyInput: boolean;
-  /**
-   * Whether to allow addition from pasted text.
-   */
-  allowAdditionFromPaste: boolean;
-  /**
-   * Whether to allow drag and drop of tags.
-   */
-  allowDragDrop: boolean;
-  /**
-   * Handler for input field changes.
-   */
-  handleInputChange: (
-    value: string,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => void;
-  /**
-   * Handler for input field focus events.
-   */
-  handleInputFocus: (
-    value: string,
-    e: React.FocusEvent<HTMLInputElement>
-  ) => void;
-  /**
-   * Handler for input field blur events.
-   */
-  handleInputBlur: (
-    value: string,
-    event: React.FocusEvent<HTMLInputElement>
-  ) => void;
-  /**
-   * Minimum length of the query to trigger suggestions.
-   */
-  minQueryLength: number;
-  /**
-   * Function to determine whether to render suggestions.
-   */
-  shouldRenderSuggestions: (query: string) => boolean;
-  /**
-   * Component to be rendered for removing tags.
-   */
-  removeComponent: React.ComponentType<any>;
-  /**
-   * Whether to enable autocomplete when typing for suggestions
-   */
-  autocomplete: boolean | number;
-  /**
-   * CSS class names for the component.
-   */
-  classNames: {
-    root: string;
-    rootFocused: string;
-    selected: string;
-    selectedTag: string;
-    selectedTagName: string;
-    search: string;
-    searchInput: string;
-    suggestions: string;
-    suggestionActive: string;
-    suggestionDisabled: string;
-  };
-  /**
-   * Name attribute for the input field.
-   */
-  name: string;
-  /**
-   * ID attribute for the input field.
-   */
-  id: string;
-  /**
-   * Maximum length of the input field.
-   */
-  maxLength: number;
-  /**
-   * Value of the input field.
-   */
-  inputValue: string;
-  /**
-   * Maximum number of tags that can be added.
-   */
-  maxTags: number;
-  /**
-   * Array of tags to display.
-   */
-  tags: Array<Tag>;
-  /**
-   * Whether to allow unique tags only.
-   */
-  allowUnique: boolean;
-  /**
-   * Render function to render each suggestion item.
-   */
-  renderSuggestion: (item: Tag, query: string) => ReactNode;
-  /**
-   * Additional props to pass to the input field.
-   */
-  inputProps: { [key: string]: string };
-  /**
-   * Whether the tags are editable.
-   */
-  editable: boolean;
-  /**
-   * Whether to display a button to clear all the tags.
-   */
-  clearAll: boolean;
-  /**
-   * Handler for clearing all the tags.
-   */
-  onClearAll: () => void;
-}
 
-interface ReactTagsState {
-  /**
-   * Array of suggestions to display in the dropdown.
-   */
+type ReactTagsProps = ReactTagsWrapperProps & {
+  placeholder: string;
+  labelField: string;
   suggestions: Array<Tag>;
-  /**
-   * Query string to filter suggestions.
-   */
-  query: string;
-  /**
-   * Whether the input field is focused.
-   */
-  isFocused: boolean;
-  /**
-   * Index of the selected suggestion.
-   */
-  selectedIndex: number;
-  /**
-   * Whether the input field is in selection mode.
-   */
-  selectionMode: boolean;
-  /**
-   * ARIA live status message.
-   */
-  ariaLiveStatus: string;
-  /**
-   * Index of the tag currently being edited.
-   */
-  currentEditIndex: number;
-  /**
-   * Error message to display.
-   */
-  error: string;
-}
+  delimiters: Array<number>;
+  autofocus: boolean;
+  autoFocus: boolean;
+  inline: boolean;
+  inputFieldPosition: 'inline' | 'top' | 'bottom';
+  allowDeleteFromEmptyInput: boolean;
+  allowAdditionFromPaste: boolean;
+  autocomplete: boolean | number;
+  readOnly: boolean;
+  allowUnique: boolean;
+  allowDragDrop: boolean;
+  tags: Array<Tag>;
+  inputProps: { [key: string]: string };
+  editable: boolean;
+  clearAll: boolean;
+};
 
 const ReactTags = (props: ReactTagsProps) => {
   const {
@@ -259,11 +48,9 @@ const ReactTags = (props: ReactTagsProps) => {
     autoFocus,
     readOnly,
     labelField,
-
     allowDeleteFromEmptyInput,
     allowAdditionFromPaste,
     allowDragDrop,
-
     minQueryLength,
     shouldRenderSuggestions,
     removeComponent,
@@ -272,7 +59,6 @@ const ReactTags = (props: ReactTagsProps) => {
     maxTags,
     allowUnique,
     editable,
-
     placeholder,
     delimiters,
     tags,
@@ -376,7 +162,7 @@ const ReactTags = (props: ReactTagsProps) => {
       return;
     }
     setError('');
-    props.handleDelete(index, event);
+    props?.handleDelete?.(index, event);
     updateAriaLiveStatus(index, currentTags);
   };
 
@@ -599,7 +385,7 @@ const ReactTags = (props: ReactTagsProps) => {
     // call method to add
     if (currentEditIndex !== -1 && props.onTagUpdate)
       props.onTagUpdate(currentEditIndex, tag);
-    else props.handleAddition(tag);
+    else props?.handleAddition?.(tag);
 
     // reset the state
     setQuery('');
@@ -633,7 +419,7 @@ const ReactTags = (props: ReactTagsProps) => {
 
     // call handler with the index of the dragged tag
     // and the tag that is hovered
-    props.handleDrag(dragTag, dragIndex, hoverIndex);
+    props?.handleDrag?.(dragTag, dragIndex, hoverIndex);
   };
 
   const getTagItems = () => {
@@ -777,36 +563,4 @@ const ReactTags = (props: ReactTagsProps) => {
   );
 };
 
-ReactTags.defaultProps = {
-  placeholder: DEFAULT_PLACEHOLDER,
-  labelField: DEFAULT_LABEL_FIELD,
-  suggestions: [],
-  delimiters: [...KEYS.ENTER, KEYS.TAB],
-  autofocus: true,
-  autoFocus: true,
-  inline: true, // TODO: Remove in v7.x.x
-  inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
-  handleDelete: noop,
-  handleAddition: noop,
-  allowDeleteFromEmptyInput: false,
-  allowAdditionFromPaste: true,
-  autocomplete: false,
-  readOnly: false,
-  allowUnique: true,
-  allowDragDrop: true,
-  tags: [],
-  inputProps: {},
-  onTagUpdate: noop,
-  editable: false,
-  clearAll: false,
-  handleClearAll: noop,
-};
-const WithContext = ({ ...props }: ReactTagsProps) => (
-  // @ts-ignore
-  <DndProvider backend={HTML5Backend}>
-    <ReactTags {...props} />
-  </DndProvider>
-);
-export { WithContext };
-export { ReactTags as WithOutContext };
-export { KEYS };
+export default ReactTags;

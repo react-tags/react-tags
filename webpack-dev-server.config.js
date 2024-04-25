@@ -6,7 +6,7 @@ const config = {
   // Entry points to the project
   entry: {
     ReactTags: path.join(__dirname, 'src/components/ReactTags.tsx'),
-    bundle: './example/main.js',
+    bundle: './example/main.tsx',
   },
   // Server Configuration options
   devServer: {

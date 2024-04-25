@@ -22,7 +22,7 @@ interface TagProps {
   ) => void;
   tag: Tag;
   moveTag?: (dragIndex: number, hoverIndex: number) => void;
-  removeComponent: React.ComponentType<any>;
+  removeComponent?: React.ComponentType<any>;
   onTagClicked: (
     event: React.MouseEvent<HTMLSpanElement> | React.TouchEvent<HTMLSpanElement>
   ) => void;
