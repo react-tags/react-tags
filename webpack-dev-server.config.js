@@ -5,7 +5,6 @@ const config = {
   mode: 'development',
   // Entry points to the project
   entry: {
-    ReactTags: path.join(__dirname, 'src/components/ReactTags.tsx'),
     bundle: './example/main.tsx',
   },
   // Server Configuration options
@@ -23,14 +22,8 @@ const config = {
     path: path.resolve(__dirname, 'example/public'), // Path of output file
     filename: '[name].min.js',
     libraryTarget: 'umd',
-    library: 'ReactTags',
   },
 
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
-    'react-dnd': 'ReactDnD',
-  },
   plugins: [
     // Enables Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),

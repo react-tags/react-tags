@@ -1,6 +1,6 @@
 /*eslint-disable */
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
 import GitHubCorner from './GithubCorner';
 import type { Tag } from '../src/components/SingleTag';
@@ -296,10 +296,11 @@ const App = () => {
     </div>
   );
 };
+const domNode = document.getElementById('app')!;
+const root = createRoot(domNode);
 
-render(
+root.render(
   <StrictMode>
     <App />
-  </StrictMode>,
-  document.getElementById('app')
+  </StrictMode>
 );

@@ -6,7 +6,7 @@ import { spy, stub, createSandbox } from 'sinon';
 import {
   WithContext as ReactTags,
   WithOutContext as PureReactTags,
-} from '../src/components/ReactTags';
+} from '../src/index';
 
 import { INPUT_FIELD_POSITIONS, KEYS } from '../src/components/constants';
 import { fireEvent, render } from '@testing-library/react';
