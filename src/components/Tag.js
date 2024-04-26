@@ -63,7 +63,7 @@ const Tag = (props) => {
         index={index}
         useIcon={hasNotes}
       />:null}
-      {label}
+      <span>{label}</span>
       <RemoveComponent
         tag={props.tag}
         className={classNames.remove}

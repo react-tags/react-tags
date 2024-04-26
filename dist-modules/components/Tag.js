@@ -90,7 +90,7 @@ var Tag = function Tag(props) {
     readOnly: readOnly,
     index: index,
     useIcon: hasNotes
-  }) : null, label, /*#__PURE__*/_react["default"].createElement(_RemoveComponent["default"], {
+  }) : null, /*#__PURE__*/_react["default"].createElement("span", null, label), /*#__PURE__*/_react["default"].createElement(_RemoveComponent["default"], {
     tag: props.tag,
     className: classNames.remove,
     removeComponent: props.removeComponent,
