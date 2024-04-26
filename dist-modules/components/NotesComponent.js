@@ -50,7 +50,9 @@ var NotesComponent = function NotesComponent(props) {
     className: className,
     type: "button",
     "aria-label": ariaLabel
-  }, useIcon ? /*#__PURE__*/_react["default"].createElement(_sticky_note["default"], null) : crossStr);
+  }, useIcon ? /*#__PURE__*/_react["default"].createElement("img", {
+    src: _sticky_note["default"]
+  }) : crossStr);
 };
 NotesComponent.propTypes = {
   className: _propTypes["default"].string,

@@ -46,7 +46,7 @@ const NotesComponent = (props) => {
       className={className}
       type="button"
       aria-label={ariaLabel}>
-      {useIcon?<StickyNote />:crossStr}
+      {useIcon?<img src={StickyNote} />:crossStr}
     </button>
   );
 };

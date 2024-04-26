@@ -53,7 +53,11 @@ var RemoveComponent = function RemoveComponent(props) {
     className: className,
     type: "button",
     "aria-label": ariaLabel
-  }, useIcon ? isProtected ? /*#__PURE__*/_react["default"].createElement(_protected_close["default"], null) : /*#__PURE__*/_react["default"].createElement(_close["default"], null) : crossStr);
+  }, useIcon ? isProtected ? /*#__PURE__*/_react["default"].createElement("img", {
+    src: _protected_close["default"]
+  }) : /*#__PURE__*/_react["default"].createElement("img", {
+    src: _close["default"]
+  }) : crossStr);
 };
 RemoveComponent.propTypes = {
   className: _propTypes["default"].string,
