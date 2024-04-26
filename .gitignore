@@ -3,8 +3,8 @@ npm-debug.log
 .idea
 .vscode
 coverage
-dist-modules
-dist
+# dist-modules
+# dist
 example/public/bundle.*
 example/public/ReactTags.*
 example/.DS_Store
