@@ -84,8 +84,8 @@ var Tag = function Tag(props) {
     onTouchStart: props.onTagClicked
   }, hasNotes ? /*#__PURE__*/_react["default"].createElement(_NotesComponent["default"], {
     tag: props.tag,
-    className: classNames.remove,
-    notesComponent: props.removeComponent,
+    className: classNames.notes,
+    notesComponent: props.notesComponent,
     onClick: props.onNotesClicked,
     readOnly: readOnly,
     index: index,

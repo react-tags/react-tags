@@ -24,6 +24,7 @@ export const DEFAULT_CLASSNAMES = {
   selected: 'ReactTags__selected',
   tag: 'ReactTags__tag',
   remove: 'ReactTags__remove',
+  notes: 'ReactTags__notes',
   suggestions: 'ReactTags__suggestions',
   activeSuggestion: 'ReactTags__activeSuggestion',
   editTagInput: 'ReactTags__editTagInput',

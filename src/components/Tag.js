@@ -56,8 +56,8 @@ const Tag = (props) => {
       onTouchStart={props.onTagClicked}>
         {hasNotes?<NotesComponent
         tag={props.tag}
-        className={classNames.remove}
-        notesComponent={props.removeComponent}
+        className={classNames.notes}
+        notesComponent={props.notesComponent}
         onClick={props.onNotesClicked}
         readOnly={readOnly}
         index={index}
