@@ -5,6 +5,7 @@ import ClassNames from 'classnames';
 import { canDrag, canDrop } from './utils';
 
 import RemoveComponent from './RemoveComponent';
+import NotesComponent from './NotesComponent';
 
 const ItemTypes = { TAG: 'tag' };
 
@@ -41,6 +42,8 @@ const Tag = (props) => {
   const { className = '' } = tag;
   /* istanbul ignore next */
   const opacity = isDragging ? 0 : 1;
+  const hasNotes = props.tag[props.hasNotesField] == true;
+  const isProtected = props.tag[props.isProtectedField] == true;
   const tagComponent = (
     <span
       ref={tagRef}
@@ -51,6 +54,15 @@ const Tag = (props) => {
       }}
       onClick={props.onTagClicked}
       onTouchStart={props.onTagClicked}>
+        {hasNotes?<NotesComponent
+        tag={props.tag}
+        className={classNames.remove}
+        notesComponent={props.removeComponent}
+        onClick={props.onNotesClicked}
+        readOnly={readOnly}
+        index={index}
+        useIcon={hasNotes}
+      />:null}
       {label}
       <RemoveComponent
         tag={props.tag}
@@ -59,6 +71,8 @@ const Tag = (props) => {
         onRemove={props.onDelete}
         readOnly={readOnly}
         index={index}
+        useIcon={props.useRemoveIcon}
+        isProtected={isProtected}
       />
     </span>
   );
@@ -68,6 +82,8 @@ const Tag = (props) => {
 Tag.propTypes = {
   labelField: PropTypes.string,
   onDelete: PropTypes.func.isRequired,
+  hasNotesField: PropTypes.string,
+  isProtectedField: PropTypes.string,
   tag: PropTypes.shape({
     id: PropTypes.string.isRequired,
     className: PropTypes.string,
@@ -76,14 +92,19 @@ Tag.propTypes = {
   moveTag: PropTypes.func,
   removeComponent: PropTypes.func,
   onTagClicked: PropTypes.func,
+  onNotesClicked: PropTypes.func,
   classNames: PropTypes.object,
   readOnly: PropTypes.bool,
   index: PropTypes.number.isRequired,
+  useRemoveIcon: PropTypes.bool
 };
 
 Tag.defaultProps = {
   labelField: 'text',
   readOnly: false,
+  hasNotesField: 'hasNotes',
+  isProtectedField: 'isProtected',
+  useRemoveIcon: true
 };
 
 export default Tag;

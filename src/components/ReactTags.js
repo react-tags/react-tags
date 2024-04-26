@@ -18,6 +18,8 @@ import {
   DEFAULT_PLACEHOLDER,
   DEFAULT_CLASSNAMES,
   DEFAULT_LABEL_FIELD,
+  DEFAULT_HAS_NOTES_FIELD,
+  DEFAULT_IS_PROTECTED_FIELD,
   INPUT_FIELD_POSITIONS,
   ERRORS,
 } from './constants';
@@ -26,6 +28,8 @@ class ReactTags extends Component {
   static propTypes = {
     placeholder: PropTypes.string,
     labelField: PropTypes.string,
+    hasNotesField: PropTypes.string,
+    isProtectedField: PropTypes.string,
     suggestions: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
@@ -45,9 +49,12 @@ class ReactTags extends Component {
     handleDrag: PropTypes.func,
     handleFilterSuggestions: PropTypes.func,
     handleTagClick: PropTypes.func,
+    handleNotesClick: PropTypes.func,
     allowDeleteFromEmptyInput: PropTypes.bool,
     allowAdditionFromPaste: PropTypes.bool,
     allowDragDrop: PropTypes.bool,
+    hasNotesField: PropTypes.string,
+    isProtectedField: PropTypes.string,
     handleInputChange: PropTypes.func,
     handleInputFocus: PropTypes.func,
     handleInputBlur: PropTypes.func,
@@ -79,6 +86,8 @@ class ReactTags extends Component {
   static defaultProps = {
     placeholder: DEFAULT_PLACEHOLDER,
     labelField: DEFAULT_LABEL_FIELD,
+    hasNotesField: DEFAULT_HAS_NOTES_FIELD,
+    isProtectedField: DEFAULT_IS_PROTECTED_FIELD,
     suggestions: [],
     delimiters: [...KEYS.ENTER, KEYS.TAB],
     autofocus: true,
@@ -232,6 +241,19 @@ class ReactTags extends Component {
     }
     if (handleTagClick) {
       handleTagClick(i, e);
+    }
+  }
+
+  handleNotesClick(i, tag, e) {
+    const { editable, handleNotesClick, labelField } = this.props;
+    // if (editable) {
+    //   this.setState({ currentEditIndex: i, query: tag[labelField] }, () => {
+    //     this.tagInput.focus();
+    //   });
+    // }
+    console.warn('ON NOTES CLICK');
+    if (handleNotesClick) {
+      handleNotesClick(i, e);
     }
   }
 
@@ -459,7 +481,7 @@ class ReactTags extends Component {
   }
 
   getTagItems = () => {
-    const { tags, labelField, removeComponent, readOnly, allowDragDrop } =
+    const { tags, labelField, removeComponent, readOnly, allowDragDrop, hasNotesField, isProtectedField } =
       this.props;
     const classNames = { ...DEFAULT_CLASSNAMES, ...this.props.classNames };
 
@@ -496,6 +518,9 @@ class ReactTags extends Component {
               readOnly={readOnly}
               classNames={classNames}
               allowDragDrop={allowDragDrop}
+              hasNotesField={hasNotesField}
+              isProtectedField={isProtectedField}
+              onNotesClicked={this.handleNotesClick.bind(this, index, tag)}
             />
           )}
         </React.Fragment>

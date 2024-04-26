@@ -59,6 +59,11 @@ const config = {
         // https://webpack.js.org/guides/tree-shaking/#mark-the-file-as-side-effect-free
         sideEffects: true,
       },
+      {
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        use: ['@svgr/webpack'],
+      },
     ],
   },
 };

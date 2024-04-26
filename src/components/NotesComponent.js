@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { KEYS } from './constants';
-import CloseIcon from '../assets/close.svg';
-import LockIcon from '../assets/protected_close.svg';
+import StickyNote from '../assets/sticky_note.svg';
+
 
 const crossStr = String.fromCharCode(215);
-const RemoveComponent = (props) => {
-  const { readOnly, removeComponent, onRemove, className, tag, index, useIcon, isProtected } = props;
+const NotesComponent = (props) => {
+  const { readOnly, notesComponent, onClick, className, tag, index, useIcon } = props;
 
   const onKeydown = (event) => {
     if (KEYS.ENTER.includes(event.keyCode) || event.keyCode === KEYS.SPACE) {
@@ -15,7 +15,7 @@ const RemoveComponent = (props) => {
       return;
     }
     if (event.keyCode === KEYS.BACKSPACE) {
-      onRemove(event);
+      onClick(event);
     }
   };
 
@@ -24,47 +24,45 @@ const RemoveComponent = (props) => {
   }
 
   const ariaLabel = `Tag at index ${index} with value ${tag.id} focussed. Press backspace to remove`;
-  if (removeComponent) {
-    const Component = removeComponent;
+  if (notesComponent) {
+    const Component = notesComponent;
     return (
       <Component
-        onRemove={onRemove}
+        onClick={onClick}
         onKeyDown={onKeydown}
         className={className}
         aria-label={ariaLabel}
         tag={tag}
         index={index}
         useIcon={useIcon}
-        isProtected={isProtected}
       />
     );
   }
 
   return (
     <button
-      onClick={onRemove}
+      onClick={onClick}
       onKeyDown={onKeydown}
       className={className}
       type="button"
       aria-label={ariaLabel}>
-      {useIcon?(isProtected?<LockIcon/>:<CloseIcon/>):crossStr}
+      {useIcon?<StickyNote />:crossStr}
     </button>
   );
 };
 
-RemoveComponent.propTypes = {
+NotesComponent.propTypes = {
   className: PropTypes.string,
-  onRemove: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
-  removeComponent: PropTypes.func,
+  notesComponent: PropTypes.func,
   tag: PropTypes.shape({
     id: PropTypes.string.isRequired,
     className: PropTypes.string,
     key: PropTypes.string,
   }),
   index: PropTypes.number.isRequired,
-  useIcon: PropTypes.bool.isRequired,
-  isProtected: PropTypes.bool.isRequired
+  useIcon: PropTypes.bool.isRequired
 };
 
-export default RemoveComponent;
+export default NotesComponent;

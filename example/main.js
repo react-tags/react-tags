@@ -230,10 +230,10 @@ const delimiters = [...KeyCodes.enter, KeyCodes.comma];
 const Tags = ReactTags.WithContext;
 const App = () => {
   const [tags, setTags] = React.useState([
-    { id: 'Thailand', text: 'Thailand' },
-    { id: 'India', text: 'India' },
-    { id: 'Vietnam', text: 'Vietnam' },
-    { id: 'Turkey', text: 'Turkey' },
+    { id: 'Thailand', text: 'Thailand', hasNotes: true, isProtected: false },
+    { id: 'India', text: 'India', hasNotes: true, isProtected: false },
+    { id: 'Vietnam', text: 'Vietnam', hasNotes: true, isProtected: true},
+    { id: 'Turkey', text: 'Turkey', hasNotes: false, isProtected: true},
   ]);
 
   const handleDelete = (i) => {
@@ -263,6 +263,9 @@ const App = () => {
   const handleTagClick = (index) => {
     console.log('The tag at index ' + index + ' was clicked');
   };
+  const handleNotesClick = (index) => {
+    console.log('handleNotesClick The tag at index ' + index + ' was clicked');
+  };
 
   const onClearAll = () => {
     setTags([]);
@@ -282,6 +285,7 @@ const App = () => {
           handleAddition={handleAddition}
           handleDrag={handleDrag}
           handleTagClick={handleTagClick}
+          handleNotesClick={handleNotesClick}
           onTagUpdate={onTagUpdate}
           inputFieldPosition="bottom"
           autocomplete

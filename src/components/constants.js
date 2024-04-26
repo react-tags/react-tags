@@ -13,6 +13,10 @@ export const DEFAULT_PLACEHOLDER = 'Press enter to add new tag';
 
 export const DEFAULT_LABEL_FIELD = 'text';
 
+export const DEFAULT_HAS_NOTES_FIELD = 'hasNotes'
+
+export const DEFAULT_IS_PROTECTED_FIELD = 'isProteced'
+
 export const DEFAULT_CLASSNAMES = {
   tags: 'ReactTags__tags',
   tagInput: 'ReactTags__tagInput',

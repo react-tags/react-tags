@@ -36,6 +36,11 @@ const config = {
         ],
         exclude: /node_modules/,
       },
+      {
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        use: ['@svgr/webpack'],
+      },
     ],
   },
   optimization: {
