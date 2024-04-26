@@ -23,6 +23,7 @@ var _classnames = _interopRequireDefault(require("classnames"));
 var _Tag = _interopRequireDefault(require("./Tag"));
 var _utils = require("./utils");
 var _constants = require("./constants");
+var _defineProperty2;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != _typeof(e) && "function" != typeof e) return { "default": e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n["default"] = e, t && t.set(e, n), n; }
@@ -162,7 +163,9 @@ var ReactTags = exports.WithOutContext = /*#__PURE__*/function (_Component) {
         labelField = _this$props2.labelField,
         removeComponent = _this$props2.removeComponent,
         readOnly = _this$props2.readOnly,
-        allowDragDrop = _this$props2.allowDragDrop;
+        allowDragDrop = _this$props2.allowDragDrop,
+        hasNotesField = _this$props2.hasNotesField,
+        isProtectedField = _this$props2.isProtectedField;
       var classNames = _objectSpread(_objectSpread({}, _constants.DEFAULT_CLASSNAMES), _this.props.classNames);
       var _this$state2 = _this.state,
         currentEditIndex = _this$state2.currentEditIndex,
@@ -320,6 +323,7 @@ var ReactTags = exports.WithOutContext = /*#__PURE__*/function (_Component) {
       //     this.tagInput.focus();
       //   });
       // }
+      console.warn('ON NOTES CLICK');
       if (handleNotesClick) {
         handleNotesClick(i, e);
       }
@@ -586,7 +590,7 @@ var ReactTags = exports.WithOutContext = /*#__PURE__*/function (_Component) {
   }]);
   return ReactTags;
 }(_react.Component);
-_defineProperty(ReactTags, "propTypes", {
+_defineProperty(ReactTags, "propTypes", (_defineProperty2 = {
   placeholder: _propTypes["default"].string,
   labelField: _propTypes["default"].string,
   hasNotesField: _propTypes["default"].string,
@@ -608,32 +612,11 @@ _defineProperty(ReactTags, "propTypes", {
   handleNotesClick: _propTypes["default"].func,
   allowDeleteFromEmptyInput: _propTypes["default"].bool,
   allowAdditionFromPaste: _propTypes["default"].bool,
-  allowDragDrop: _propTypes["default"].bool,
-  handleInputChange: _propTypes["default"].func,
-  handleInputFocus: _propTypes["default"].func,
-  handleInputBlur: _propTypes["default"].func,
-  minQueryLength: _propTypes["default"].number,
-  shouldRenderSuggestions: _propTypes["default"].func,
-  removeComponent: _propTypes["default"].func,
-  autocomplete: _propTypes["default"].oneOfType([_propTypes["default"].bool, _propTypes["default"].number]),
-  readOnly: _propTypes["default"].bool,
-  classNames: _propTypes["default"].object,
-  name: _propTypes["default"].string,
-  id: _propTypes["default"].string,
-  maxLength: _propTypes["default"].number,
-  inputValue: _propTypes["default"].string,
-  maxTags: _propTypes["default"].number,
-  tags: _propTypes["default"].arrayOf(_propTypes["default"].shape({
-    id: _propTypes["default"].string.isRequired,
-    className: _propTypes["default"].string
-  })),
-  allowUnique: _propTypes["default"].bool,
-  renderSuggestion: _propTypes["default"].func,
-  inputProps: _propTypes["default"].object,
-  editable: _propTypes["default"].bool,
-  clearAll: _propTypes["default"].bool,
-  onClearAll: _propTypes["default"].func
-});
+  allowDragDrop: _propTypes["default"].bool
+}, _defineProperty(_defineProperty2, "hasNotesField", _propTypes["default"].string), _defineProperty(_defineProperty2, "isProtectedField", _propTypes["default"].string), _defineProperty(_defineProperty2, "handleInputChange", _propTypes["default"].func), _defineProperty(_defineProperty2, "handleInputFocus", _propTypes["default"].func), _defineProperty(_defineProperty2, "handleInputBlur", _propTypes["default"].func), _defineProperty(_defineProperty2, "minQueryLength", _propTypes["default"].number), _defineProperty(_defineProperty2, "shouldRenderSuggestions", _propTypes["default"].func), _defineProperty(_defineProperty2, "removeComponent", _propTypes["default"].func), _defineProperty(_defineProperty2, "autocomplete", _propTypes["default"].oneOfType([_propTypes["default"].bool, _propTypes["default"].number])), _defineProperty(_defineProperty2, "readOnly", _propTypes["default"].bool), _defineProperty(_defineProperty2, "classNames", _propTypes["default"].object), _defineProperty(_defineProperty2, "name", _propTypes["default"].string), _defineProperty(_defineProperty2, "id", _propTypes["default"].string), _defineProperty(_defineProperty2, "maxLength", _propTypes["default"].number), _defineProperty(_defineProperty2, "inputValue", _propTypes["default"].string), _defineProperty(_defineProperty2, "maxTags", _propTypes["default"].number), _defineProperty(_defineProperty2, "tags", _propTypes["default"].arrayOf(_propTypes["default"].shape({
+  id: _propTypes["default"].string.isRequired,
+  className: _propTypes["default"].string
+}))), _defineProperty(_defineProperty2, "allowUnique", _propTypes["default"].bool), _defineProperty(_defineProperty2, "renderSuggestion", _propTypes["default"].func), _defineProperty(_defineProperty2, "inputProps", _propTypes["default"].object), _defineProperty(_defineProperty2, "editable", _propTypes["default"].bool), _defineProperty(_defineProperty2, "clearAll", _propTypes["default"].bool), _defineProperty(_defineProperty2, "onClearAll", _propTypes["default"].func), _defineProperty2));
 _defineProperty(ReactTags, "defaultProps", {
   placeholder: _constants.DEFAULT_PLACEHOLDER,
   labelField: _constants.DEFAULT_LABEL_FIELD,
