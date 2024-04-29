@@ -1,4 +1,3 @@
-/*eslint-disable */
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
@@ -239,13 +238,13 @@ const App = () => {
     { id: 'Turkey', text: 'Turkey', className: '' },
   ]);
 
-  const handleDelete = (i: number) => {
-    setTags(tags.filter((tag, index) => index !== i));
+  const handleDelete = (index: number) => {
+    setTags(tags.filter((_, i) => i !== index));
   };
 
-  const onTagUpdate = (i: number, newTag: Tag) => {
-    const updatedTags = tags.slice();
-    updatedTags.splice(i, 1, newTag);
+  const onTagUpdate = (index: number, newTag: Tag) => {
+    const updatedTags = [...tags];
+    updatedTags.splice(index, 1, newTag);
     setTags(updatedTags);
   };
 

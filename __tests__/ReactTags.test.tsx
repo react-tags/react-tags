@@ -1235,7 +1235,7 @@ describe('Test ReactTags', () => {
       `);
     });
 
-    it('should trigger "onClearAll" callback if present when clear all button is clicked', () => {
+    it.only('should trigger "onClearAll" callback if present when clear all button is clicked', () => {
       const onClearAllStub = sandbox.stub();
       const tags = render(
         mockItem({

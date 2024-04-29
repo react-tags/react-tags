@@ -58,13 +58,13 @@
   background: #63bcfd;
   color: white;
   font-size: 14px;
-  display: inline-block;
   padding: 5px;
   margin: 0 5px;
   border-radius: 2px;
   display: flex;
   align-items: center;
 }
+
 .ReactTags__selected .ReactTags__remove {
   color: #aaa;
   cursor: pointer;
