@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tag shows the classnames of children properly 1`] = `
+<div>
+  <span
+    class="tag-wrapper tag action"
+    data-testid="tag"
+    draggable="true"
+    style="opacity: 1; cursor: move;"
+  >
+    FooBar
+    <button
+      aria-label="Tag at index 0 with value 1 focussed. Press backspace to remove"
+      class="remove"
+      data-testid="remove"
+      type="button"
+    >
+      ×
+    </button>
+  </span>
+</div>
+`;
