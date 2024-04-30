@@ -36,10 +36,10 @@
   "license": "MIT",
   "repository": "https://github.com/react-tags/react-tags",
   "peerDependencies": {
-    "react": "^17.0.2 || ^18.2.0",
+    "react": "^18.2.0",
     "react-dnd": "^14.0.2",
     "react-dnd-html5-backend": "^14.0.0",
-    "react-dom": "17.0.2 || ^18.2.0"
+    "react-dom": "^18.2.0"
   },
   "dependencies": {
     "classnames": "~2.3.1",
@@ -77,10 +77,10 @@
     "opn": "6.0.0",
     "prettier": "2.3.0",
     "raf": "3.4.1",
-    "react": "17.0.2",
+    "react": "18.3.1",
     "react-dnd": "14.0.2",
     "react-dnd-html5-backend": "14.0.0",
-    "react-dom": "17.0.2",
+    "react-dom": "18.3.1",
     "sass": "1.69.4",
     "sass-loader": "13.3.2",
     "semantic-release": "17.2.3",
