@@ -296,7 +296,6 @@ const ReactTags = (props: ReactTagsProps) => {
   const reactTagsRef = createRef<HTMLDivElement>();
   const textInput = useRef<HTMLInputElement | null>(null);
   const tagInput = useRef<HTMLInputElement | null>(null);
-
   useEffect(() => {
     if (!inline) {
       console.warn(
