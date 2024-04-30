@@ -13,7 +13,7 @@ export interface Tag {
   [key: string]: string;
 }
 
-interface TagProps {
+export interface TagProps {
   labelField: string;
   onDelete: (
     event:

@@ -1,11 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { expect } from 'chai';
-import { shallow, mount } from 'enzyme';
-import { spy, stub } from 'sinon';
+import { stub } from 'sinon';
 import Suggestions, { arePropsEqual } from '../src/components/Suggestions';
 import noop from 'lodash/noop';
 import { DEFAULT_LABEL_FIELD } from '../src/components/constants';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 const defaults = {
   query: 'ang',
@@ -29,75 +28,68 @@ const mockItem = (overrides?: any) => {
 };
 
 describe('Suggestions', () => {
-  it('should render with expected props', () => {
-    const $el = mount(mockItem());
+  it('should render with base structure', () => {
+    const { container } = render(mockItem());
 
-    expect($el.props()).deep.equal(defaults);
+    jestExpect(container).toMatchSnapshot();
   });
 
-  it('shows the classname properly', () => {
-    const $el = shallow(mockItem());
-    expect($el.find('.foo').length).to.equal(1);
+  it('should not render suggestion when query length is less than minQueryLength', () => {
+    const { container } = render(mockItem({ minQueryLength: 4, query: 'ap' }));
+    expect(container.querySelector('[data-testid="suggestions"]')).to.not.exist;
   });
 
-  it('renders all suggestions properly', () => {
-    const $el = shallow(mockItem());
-    expect($el.find('li').length).to.equal(4);
-  });
-
-  it('selects the correct suggestion', () => {
-    const $el = mount(mockItem());
-    expect($el.find('li.active').length).to.equal(1);
-    expect($el.find('li.active').text()).to.equal('Mango');
-  });
-
-  it('should not render suggestion with less than minQueryLength', () => {
-    const $el = shallow(
-      mockItem({
-        minQueryLength: 2,
-        query: 'q',
-      })
-    );
-    expect($el.find('.foo').length).to.equal(0);
-    expect($el.find('li').length).to.equal(0);
-  });
-
-  it('should be able to override suggestion render', () => {
-    const $el = shallow(
+  it('should be override suggestion renderer when shouldRenderSuggestions prop is provided', () => {
+    const { container } = render(
       mockItem({
         minQueryLength: 2,
         query: 'ignore_query',
         shouldRenderSuggestions: (q) => q !== 'ignore_query',
       })
     );
-    expect($el.find('.foo').length).to.equal(0);
-    expect($el.find('li').length).to.equal(0);
+    expect(container.querySelector('[data-testid="suggestions"]')).to.not.exist;
+    render(
+      mockItem({
+        minQueryLength: 2,
+        query: 'ang',
+        shouldRenderSuggestions: (q) => q !== 'ignore_query',
+      })
+    );
+    expect(screen.getByTestId('suggestions')).to.exist;
   });
 
   it('should escape html characters in query', () => {
     const suggestions = [{ id: 'script', text: '<script>alert()</script>' }];
-    const $el = shallow(
+    const { container } = render(
       mockItem({
         query: '<script>alert()</script>',
         suggestions,
       })
     );
-    expect($el.html()).to.equal(
-      '<div class="foo"><ul> ' +
-        '<li class=""><span><mark>&lt;script&gt;alert()&lt;/script&gt;</mark></span></li> ' +
-        '</ul></div>'
-    );
-  });
-
-  it('should mark highlighted suggestions correctly', () => {
-    const $el = shallow(mockItem());
-    expect($el.find('li.active').find('span').html()).to.equal(
-      '<span>M<mark>ang</mark>o</span>'
-    );
+    jestExpect(screen.getByTestId('suggestions')).toMatchInlineSnapshot(`
+      <div
+        class="foo"
+        data-testid="suggestions"
+      >
+        <ul>
+           
+          <li
+            class=""
+          >
+            <span>
+              <mark>
+                &lt;script&gt;alert()&lt;/script&gt;
+              </mark>
+            </span>
+          </li>
+           
+        </ul>
+      </div>
+    `);
   });
 
   it('should render custom suggestions when renderSuggestion prop is provided', () => {
-    const $el = shallow(
+    render(
       mockItem({
         renderSuggestion: ({ text }) => (
           <div className="bar">
@@ -108,13 +100,66 @@ describe('Suggestions', () => {
       })
     );
 
-    expect($el.find('.bar').length).to.equal(4);
+    jestExpect(screen.getByTestId('suggestions')).toMatchInlineSnapshot(`
+      <div
+        class="foo"
+        data-testid="suggestions"
+      >
+        <ul>
+           
+          <li
+            class=""
+          >
+            <div
+              class="bar"
+            >
+              <i />
+              Banana
+            </div>
+          </li>
+          <li
+            class="active"
+          >
+            <div
+              class="bar"
+            >
+              <i />
+              Mango
+            </div>
+          </li>
+          <li
+            class=""
+          >
+            <div
+              class="bar"
+            >
+              <i />
+              Pear
+            </div>
+          </li>
+          <li
+            class=""
+          >
+            <div
+              class="bar"
+            >
+              <i />
+              Apricot
+            </div>
+          </li>
+           
+        </ul>
+      </div>
+    `);
   });
 
   it('should trigger the click handler on touchStart', () => {
     const onTagClickedStub = stub();
-    const $el = mount(mockItem({ handleClick: onTagClickedStub }));
-    $el.find('li').first().simulate('touchStart');
+    render(mockItem({ handleClick: onTagClickedStub }));
+    const suggestion = screen
+      .getByTestId('suggestions')
+      .querySelector('li')?.firstChild;
+    fireEvent.touchStart(suggestion!);
     expect(onTagClickedStub.calledOnce).to.be.true;
   });
 
