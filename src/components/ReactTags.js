@@ -52,6 +52,8 @@ class ReactTags extends Component {
     handleNotesClick: PropTypes.func,
     handleWorkflowButtonClick: PropTypes.func,
     handleHistoryButtonClick: PropTypes.func,
+    workflowButtonText: PropTypes.string,
+    historyButtonText: PropTypes.string,
     allowDeleteFromEmptyInput: PropTypes.bool,
     allowAdditionFromPaste: PropTypes.bool,
     allowDragDrop: PropTypes.bool,
@@ -102,6 +104,8 @@ class ReactTags extends Component {
     handleNotesClick: noop,
     handleWorkflowButtonClick: noop,
     handleHistoryButtonClick: noop,
+    workflowButtonText: 'Workflow',
+    historyButtonText: 'History',
     allowDeleteFromEmptyInput: true,
     allowAdditionFromPaste: true,
     autocomplete: false,
@@ -635,11 +639,11 @@ class ReactTags extends Component {
     ) : null;
 
     const workflowButton = this.props.showWorkflowButton?(
-      <button className='workflow-button' onClick={this.handleWorkflowButtonClick.bind(this)}>Workflow</button>
+      <button className='workflow-button' onClick={this.handleWorkflowButtonClick.bind(this)}>{this.props.workflowButtonText}</button>
     ):null;
 
     const historyButton = this.props.showHistoryButton?(
-      <button className='workflow-button' onClick={this.handleHistoryButtonClick.bind(this)}>History</button>
+      <button className='workflow-button' onClick={this.handleHistoryButtonClick.bind(this)}>{this.props.historyButtonText}</button>
     ):null;
 
     return (
@@ -665,10 +669,10 @@ class ReactTags extends Component {
         <div className={classNames.selected}>
           {tagItems}
           {position === INPUT_FIELD_POSITIONS.INLINE && tagInput}
+          {workflowButton}
+          {historyButton}
         </div>
         {position === INPUT_FIELD_POSITIONS.BOTTOM && tagInput}
-        {workflowButton}
-        {historyButton}
       </div>
     );
   }

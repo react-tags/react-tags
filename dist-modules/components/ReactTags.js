@@ -586,11 +586,11 @@ var ReactTags = exports.WithOutContext = /*#__PURE__*/function (_Component) {
       var workflowButton = this.props.showWorkflowButton ? /*#__PURE__*/_react["default"].createElement("button", {
         className: "workflow-button",
         onClick: this.handleWorkflowButtonClick.bind(this)
-      }, "Workflow") : null;
+      }, this.props.workflowButtonText) : null;
       var historyButton = this.props.showHistoryButton ? /*#__PURE__*/_react["default"].createElement("button", {
         className: "workflow-button",
         onClick: this.handleHistoryButtonClick.bind(this)
-      }, "History") : null;
+      }, this.props.historyButtonText) : null;
       return /*#__PURE__*/_react["default"].createElement("div", {
         className: (0, _classnames["default"])(classNames.tags, 'react-tags-wrapper'),
         ref: this.reactTagsRef
@@ -609,7 +609,7 @@ var ReactTags = exports.WithOutContext = /*#__PURE__*/function (_Component) {
         }
       }, this.state.ariaLiveStatus), position === _constants.INPUT_FIELD_POSITIONS.TOP && tagInput, /*#__PURE__*/_react["default"].createElement("div", {
         className: classNames.selected
-      }, tagItems, position === _constants.INPUT_FIELD_POSITIONS.INLINE && tagInput), position === _constants.INPUT_FIELD_POSITIONS.BOTTOM && tagInput, workflowButton, historyButton);
+      }, tagItems, position === _constants.INPUT_FIELD_POSITIONS.INLINE && tagInput, workflowButton, historyButton), position === _constants.INPUT_FIELD_POSITIONS.BOTTOM && tagInput);
     }
   }]);
   return ReactTags;
@@ -636,6 +636,8 @@ _defineProperty(ReactTags, "propTypes", (_defineProperty2 = {
   handleNotesClick: _propTypes["default"].func,
   handleWorkflowButtonClick: _propTypes["default"].func,
   handleHistoryButtonClick: _propTypes["default"].func,
+  workflowButtonText: _propTypes["default"].string,
+  historyButtonText: _propTypes["default"].string,
   allowDeleteFromEmptyInput: _propTypes["default"].bool,
   allowAdditionFromPaste: _propTypes["default"].bool,
   allowDragDrop: _propTypes["default"].bool,
@@ -661,6 +663,8 @@ _defineProperty(ReactTags, "defaultProps", {
   handleNotesClick: _noop["default"],
   handleWorkflowButtonClick: _noop["default"],
   handleHistoryButtonClick: _noop["default"],
+  workflowButtonText: 'Workflow',
+  historyButtonText: 'History',
   allowDeleteFromEmptyInput: true,
   allowAdditionFromPaste: true,
   autocomplete: false,

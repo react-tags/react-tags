@@ -297,6 +297,7 @@ const App = () => {
           handleWorkflowButtonClick={handleWorkflowButtonClick}
           showHistoryButton={true}
           handleHistoryButtonClick={handleHistoryButtonClick}
+          workflowButtonText={'WORKFLOWS'}
           inputFieldPosition="bottom"
           autocomplete
           editable
