@@ -323,7 +323,7 @@ var ReactTags = exports.WithOutContext = /*#__PURE__*/function (_Component) {
       //     this.tagInput.focus();
       //   });
       // }
-      console.warn('ON NOTES CLICK');
+      // console.warn('ON NOTES CLICK');
       if (handleNotesClick) {
         handleNotesClick(i, e);
       }
@@ -496,6 +496,22 @@ var ReactTags = exports.WithOutContext = /*#__PURE__*/function (_Component) {
       this.props.handleDrag(dragTag, dragIndex, hoverIndex);
     }
   }, {
+    key: "handleWorkflowButtonClick",
+    value: function handleWorkflowButtonClick() {
+      var handleWorkflowButtonClick = this.props.handleWorkflowButtonClick;
+      if (handleWorkflowButtonClick) {
+        handleWorkflowButtonClick();
+      }
+    }
+  }, {
+    key: "handleHistoryButtonClick",
+    value: function handleHistoryButtonClick() {
+      var handleHistoryButtonClick = this.props.handleHistoryButtonClick;
+      if (handleHistoryButtonClick) {
+        handleHistoryButtonClick();
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this4 = this;
@@ -567,6 +583,14 @@ var ReactTags = exports.WithOutContext = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/_react["default"].createElement("path", {
         d: "M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"
       })), error)) : null;
+      var workflowButton = this.props.showWorkflowButton ? /*#__PURE__*/_react["default"].createElement("button", {
+        className: "workflow-button",
+        onClick: this.handleWorkflowButtonClick.bind(this)
+      }, "Workflow") : null;
+      var historyButton = this.props.showHistoryButton ? /*#__PURE__*/_react["default"].createElement("button", {
+        className: "workflow-button",
+        onClick: this.handleHistoryButtonClick.bind(this)
+      }, "History") : null;
       return /*#__PURE__*/_react["default"].createElement("div", {
         className: (0, _classnames["default"])(classNames.tags, 'react-tags-wrapper'),
         ref: this.reactTagsRef
@@ -585,7 +609,7 @@ var ReactTags = exports.WithOutContext = /*#__PURE__*/function (_Component) {
         }
       }, this.state.ariaLiveStatus), position === _constants.INPUT_FIELD_POSITIONS.TOP && tagInput, /*#__PURE__*/_react["default"].createElement("div", {
         className: classNames.selected
-      }, tagItems, position === _constants.INPUT_FIELD_POSITIONS.INLINE && tagInput), position === _constants.INPUT_FIELD_POSITIONS.BOTTOM && tagInput);
+      }, tagItems, position === _constants.INPUT_FIELD_POSITIONS.INLINE && tagInput), position === _constants.INPUT_FIELD_POSITIONS.BOTTOM && tagInput, workflowButton, historyButton);
     }
   }]);
   return ReactTags;
@@ -610,9 +634,13 @@ _defineProperty(ReactTags, "propTypes", (_defineProperty2 = {
   handleFilterSuggestions: _propTypes["default"].func,
   handleTagClick: _propTypes["default"].func,
   handleNotesClick: _propTypes["default"].func,
+  handleWorkflowButtonClick: _propTypes["default"].func,
+  handleHistoryButtonClick: _propTypes["default"].func,
   allowDeleteFromEmptyInput: _propTypes["default"].bool,
   allowAdditionFromPaste: _propTypes["default"].bool,
-  allowDragDrop: _propTypes["default"].bool
+  allowDragDrop: _propTypes["default"].bool,
+  showWorkflowButton: _propTypes["default"].bool,
+  showHistoryButton: _propTypes["default"].bool
 }, _defineProperty(_defineProperty2, "hasNotesField", _propTypes["default"].string), _defineProperty(_defineProperty2, "isProtectedField", _propTypes["default"].string), _defineProperty(_defineProperty2, "handleInputChange", _propTypes["default"].func), _defineProperty(_defineProperty2, "handleInputFocus", _propTypes["default"].func), _defineProperty(_defineProperty2, "handleInputBlur", _propTypes["default"].func), _defineProperty(_defineProperty2, "minQueryLength", _propTypes["default"].number), _defineProperty(_defineProperty2, "shouldRenderSuggestions", _propTypes["default"].func), _defineProperty(_defineProperty2, "removeComponent", _propTypes["default"].func), _defineProperty(_defineProperty2, "autocomplete", _propTypes["default"].oneOfType([_propTypes["default"].bool, _propTypes["default"].number])), _defineProperty(_defineProperty2, "readOnly", _propTypes["default"].bool), _defineProperty(_defineProperty2, "classNames", _propTypes["default"].object), _defineProperty(_defineProperty2, "name", _propTypes["default"].string), _defineProperty(_defineProperty2, "id", _propTypes["default"].string), _defineProperty(_defineProperty2, "maxLength", _propTypes["default"].number), _defineProperty(_defineProperty2, "inputValue", _propTypes["default"].string), _defineProperty(_defineProperty2, "maxTags", _propTypes["default"].number), _defineProperty(_defineProperty2, "tags", _propTypes["default"].arrayOf(_propTypes["default"].shape({
   id: _propTypes["default"].string.isRequired,
   className: _propTypes["default"].string
@@ -630,12 +658,17 @@ _defineProperty(ReactTags, "defaultProps", {
   inputFieldPosition: _constants.INPUT_FIELD_POSITIONS.INLINE,
   handleDelete: _noop["default"],
   handleAddition: _noop["default"],
+  handleNotesClick: _noop["default"],
+  handleWorkflowButtonClick: _noop["default"],
+  handleHistoryButtonClick: _noop["default"],
   allowDeleteFromEmptyInput: true,
   allowAdditionFromPaste: true,
   autocomplete: false,
   readOnly: false,
   allowUnique: true,
   allowDragDrop: true,
+  showWorkflowButton: false,
+  showHistoryButton: false,
   tags: [],
   inputProps: {},
   onTagUpdate: _noop["default"],

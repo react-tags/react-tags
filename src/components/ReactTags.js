@@ -50,9 +50,13 @@ class ReactTags extends Component {
     handleFilterSuggestions: PropTypes.func,
     handleTagClick: PropTypes.func,
     handleNotesClick: PropTypes.func,
+    handleWorkflowButtonClick: PropTypes.func,
+    handleHistoryButtonClick: PropTypes.func,
     allowDeleteFromEmptyInput: PropTypes.bool,
     allowAdditionFromPaste: PropTypes.bool,
     allowDragDrop: PropTypes.bool,
+    showWorkflowButton: PropTypes.bool,
+    showHistoryButton: PropTypes.bool,
     hasNotesField: PropTypes.string,
     isProtectedField: PropTypes.string,
     handleInputChange: PropTypes.func,
@@ -95,12 +99,17 @@ class ReactTags extends Component {
     inputFieldPosition: INPUT_FIELD_POSITIONS.INLINE,
     handleDelete: noop,
     handleAddition: noop,
+    handleNotesClick: noop,
+    handleWorkflowButtonClick: noop,
+    handleHistoryButtonClick: noop,
     allowDeleteFromEmptyInput: true,
     allowAdditionFromPaste: true,
     autocomplete: false,
     readOnly: false,
     allowUnique: true,
     allowDragDrop: true,
+    showWorkflowButton: false,
+    showHistoryButton: false,
     tags: [],
     inputProps: {},
     onTagUpdate: noop,
@@ -251,7 +260,7 @@ class ReactTags extends Component {
     //     this.tagInput.focus();
     //   });
     // }
-    console.warn('ON NOTES CLICK');
+    // console.warn('ON NOTES CLICK');
     if (handleNotesClick) {
       handleNotesClick(i, e);
     }
@@ -528,6 +537,20 @@ class ReactTags extends Component {
     });
   };
 
+  handleWorkflowButtonClick() {
+    const { handleWorkflowButtonClick } = this.props;
+    if (handleWorkflowButtonClick) {
+      handleWorkflowButtonClick();
+    }
+  }
+
+  handleHistoryButtonClick() {
+    const { handleHistoryButtonClick } = this.props;
+    if (handleHistoryButtonClick) {
+      handleHistoryButtonClick();
+    }
+  }
+
   render() {
     const tagItems = this.getTagItems();
     const classNames = { ...DEFAULT_CLASSNAMES, ...this.props.classNames };
@@ -611,6 +634,14 @@ class ReactTags extends Component {
       </div>
     ) : null;
 
+    const workflowButton = this.props.showWorkflowButton?(
+      <button className='workflow-button' onClick={this.handleWorkflowButtonClick.bind(this)}>Workflow</button>
+    ):null;
+
+    const historyButton = this.props.showHistoryButton?(
+      <button className='workflow-button' onClick={this.handleHistoryButtonClick.bind(this)}>History</button>
+    ):null;
+
     return (
       <div
         className={ClassNames(classNames.tags, 'react-tags-wrapper')}
@@ -636,6 +667,8 @@ class ReactTags extends Component {
           {position === INPUT_FIELD_POSITIONS.INLINE && tagInput}
         </div>
         {position === INPUT_FIELD_POSITIONS.BOTTOM && tagInput}
+        {workflowButton}
+        {historyButton}
       </div>
     );
   }

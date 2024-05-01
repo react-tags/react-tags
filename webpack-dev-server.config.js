@@ -60,9 +60,8 @@ const config = {
         sideEffects: true,
       },
       {
-        test: /\.svg$/i,
-        issuer: /\.[jt]sx?$/,
-        use: ['@svgr/webpack'],
+        test: /\.(png|jp(e*)g|svg|gif)$/,
+        type: "asset/resource",
       },
     ],
   },

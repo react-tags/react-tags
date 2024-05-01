@@ -266,6 +266,12 @@ const App = () => {
   const handleNotesClick = (index) => {
     console.log('handleNotesClick The tag at index ' + index + ' was clicked');
   };
+  const handleWorkflowButtonClick = () => {
+    alert('handleWorkflowButtonClick');
+  }
+  const handleHistoryButtonClick = () => {
+    alert('handleHistoryButtonClick');
+  }
 
   const onClearAll = () => {
     setTags([]);
@@ -287,6 +293,10 @@ const App = () => {
           handleTagClick={handleTagClick}
           handleNotesClick={handleNotesClick}
           onTagUpdate={onTagUpdate}
+          showWorkflowButton={true}
+          handleWorkflowButtonClick={handleWorkflowButtonClick}
+          showHistoryButton={true}
+          handleHistoryButtonClick={handleHistoryButtonClick}
           inputFieldPosition="bottom"
           autocomplete
           editable
