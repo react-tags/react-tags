@@ -2,7 +2,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { spy, stub, createSandbox } from 'sinon';
 
-import { WithContext as ReactTags } from '../src/components/ReactTags';
+import { WithContext as ReactTags } from '../src/index';
 
 import { KEYS } from '../src/components/constants';
 import { fireEvent, render, screen } from '@testing-library/react';
