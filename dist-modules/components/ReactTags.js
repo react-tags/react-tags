@@ -21,6 +21,8 @@ var _Suggestions = _interopRequireDefault(require("./Suggestions"));
 var _propTypes = _interopRequireDefault(require("prop-types"));
 var _classnames = _interopRequireDefault(require("classnames"));
 var _Tag = _interopRequireDefault(require("./Tag"));
+var _history = _interopRequireDefault(require("../assets/history.svg"));
+var _plus = _interopRequireDefault(require("../assets/plus.svg"));
 var _utils = require("./utils");
 var _constants = require("./constants");
 var _defineProperty2;
@@ -586,11 +588,15 @@ var ReactTags = exports.WithOutContext = /*#__PURE__*/function (_Component) {
       var workflowButton = this.props.showWorkflowButton ? /*#__PURE__*/_react["default"].createElement("button", {
         className: "workflow-button",
         onClick: this.handleWorkflowButtonClick.bind(this)
-      }, this.props.workflowButtonText) : null;
+      }, this.props.useWorkflowButtonIcon ? /*#__PURE__*/_react["default"].createElement("img", {
+        src: _plus["default"]
+      }) : this.props.workflowButtonText) : null;
       var historyButton = this.props.showHistoryButton ? /*#__PURE__*/_react["default"].createElement("button", {
         className: "workflow-button",
         onClick: this.handleHistoryButtonClick.bind(this)
-      }, this.props.historyButtonText) : null;
+      }, this.props.useHistoryButtonIcon ? /*#__PURE__*/_react["default"].createElement("img", {
+        src: _history["default"]
+      }) : this.props.historyButtonText) : null;
       return /*#__PURE__*/_react["default"].createElement("div", {
         className: (0, _classnames["default"])(classNames.tags, 'react-tags-wrapper'),
         ref: this.reactTagsRef
@@ -637,7 +643,9 @@ _defineProperty(ReactTags, "propTypes", (_defineProperty2 = {
   handleWorkflowButtonClick: _propTypes["default"].func,
   handleHistoryButtonClick: _propTypes["default"].func,
   workflowButtonText: _propTypes["default"].string,
+  useWorkflowButtonIcon: _propTypes["default"].bool,
   historyButtonText: _propTypes["default"].string,
+  useHistoryButtonIcon: _propTypes["default"].bool,
   allowDeleteFromEmptyInput: _propTypes["default"].bool,
   allowAdditionFromPaste: _propTypes["default"].bool,
   allowDragDrop: _propTypes["default"].bool,
@@ -664,7 +672,9 @@ _defineProperty(ReactTags, "defaultProps", {
   handleWorkflowButtonClick: _noop["default"],
   handleHistoryButtonClick: _noop["default"],
   workflowButtonText: 'Workflow',
+  useWorkflowButtonIcon: false,
   historyButtonText: 'History',
+  useHistoryButtonIcon: false,
   allowDeleteFromEmptyInput: true,
   allowAdditionFromPaste: true,
   autocomplete: false,

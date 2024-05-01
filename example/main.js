@@ -299,6 +299,7 @@ const App = () => {
           handleHistoryButtonClick={handleHistoryButtonClick}
           workflowButtonText={'WORKFLOWS'}
           inputFieldPosition="bottom"
+          useWorkflowButtonIcon={true}
           autocomplete
           editable
           clearAll

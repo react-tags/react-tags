@@ -9,6 +9,8 @@ import Suggestions from './Suggestions';
 import PropTypes from 'prop-types';
 import ClassNames from 'classnames';
 import Tag from './Tag';
+import HistoryIcon from '../assets/history.svg';
+import PlusIcon from '../assets/plus.svg';
 
 import { buildRegExpFromDelimiters } from './utils';
 
@@ -53,7 +55,9 @@ class ReactTags extends Component {
     handleWorkflowButtonClick: PropTypes.func,
     handleHistoryButtonClick: PropTypes.func,
     workflowButtonText: PropTypes.string,
+    useWorkflowButtonIcon: PropTypes.bool,
     historyButtonText: PropTypes.string,
+    useHistoryButtonIcon: PropTypes.bool,
     allowDeleteFromEmptyInput: PropTypes.bool,
     allowAdditionFromPaste: PropTypes.bool,
     allowDragDrop: PropTypes.bool,
@@ -105,7 +109,9 @@ class ReactTags extends Component {
     handleWorkflowButtonClick: noop,
     handleHistoryButtonClick: noop,
     workflowButtonText: 'Workflow',
+    useWorkflowButtonIcon: false,
     historyButtonText: 'History',
+    useHistoryButtonIcon: false,
     allowDeleteFromEmptyInput: true,
     allowAdditionFromPaste: true,
     autocomplete: false,
@@ -639,11 +645,11 @@ class ReactTags extends Component {
     ) : null;
 
     const workflowButton = this.props.showWorkflowButton?(
-      <button className='workflow-button' onClick={this.handleWorkflowButtonClick.bind(this)}>{this.props.workflowButtonText}</button>
+      <button className='workflow-button' onClick={this.handleWorkflowButtonClick.bind(this)}>{this.props.useWorkflowButtonIcon?<img src={PlusIcon}/>:this.props.workflowButtonText}</button>
     ):null;
 
     const historyButton = this.props.showHistoryButton?(
-      <button className='workflow-button' onClick={this.handleHistoryButtonClick.bind(this)}>{this.props.historyButtonText}</button>
+      <button className='workflow-button' onClick={this.handleHistoryButtonClick.bind(this)}>{this.props.useHistoryButtonIcon?<img src={HistoryIcon}/>:this.props.historyButtonText}</button>
     ):null;
 
     return (
