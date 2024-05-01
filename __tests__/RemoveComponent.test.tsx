@@ -1,10 +1,10 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
 
 import RemoveComponent, {
   RemoveComponentProps,
 } from '../src/components/RemoveComponent';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 describe('Test <RemoveComponent/>', () => {
   let minProps, onRemoveStub;
@@ -20,14 +20,14 @@ describe('Test <RemoveComponent/>', () => {
     };
   });
 
-  function mockItem(override: RemoveComponentProps) {
+  function mockItem(override?: RemoveComponentProps) {
     const props = Object.assign({}, minProps, override);
     return <RemoveComponent {...props} />;
   }
 
   it('should render with base structure', () => {
-    const wrapper = shallow(<RemoveComponent {...minProps} />);
-    jestExpect(wrapper).toMatchSnapshot();
+    const { container } = render(<RemoveComponent {...minProps} />);
+    jestExpect(container).toMatchSnapshot();
   });
 
   it('should return empty span tag when readOnly set to true', () => {
@@ -38,17 +38,37 @@ describe('Test <RemoveComponent/>', () => {
       tag: {
         id: 'Tags',
         key: 'Tags',
+        className: '',
       },
     };
-    const wrapper = shallow(<RemoveComponent {...props} />);
-    expect(wrapper.html()).toBe('<span></span>');
+    const { container } = render(<RemoveComponent {...props} />);
+    jestExpect(container).toMatchInlineSnapshot(`
+      <div>
+        <span />
+      </div>
+    `);
   });
 
   it('should run onRemove when backspace is pressed', () => {
-    const $el = mount(mockItem());
-    $el
-      .find('button')
-      .simulate('keyDown', { keyCode: 8, which: 8, key: 'Backspace' });
+    render(mockItem());
+    const removeComp = screen.getByTestId('remove');
+    fireEvent.click(removeComp);
     expect(onRemoveStub.calledOnce).toBeTruthy();
+  });
+
+  it('should render passed in remove component', () => {
+    const CustomRemoveComponent = () => <a className="remove">delete me</a>;
+    const { container } = render(
+      mockItem({ removeComponent: CustomRemoveComponent })
+    );
+    jestExpect(container).toMatchInlineSnapshot(`
+      <div>
+        <a
+          class="remove"
+        >
+          delete me
+        </a>
+      </div>
+    `);
   });
 });

@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Suggestions should render with base structure 1`] = `
+<div>
+  <div
+    class="foo"
+    data-testid="suggestions"
+  >
+    <ul>
+       
+      <li
+        class=""
+      >
+        <span>
+          Banana
+        </span>
+      </li>
+      <li
+        class="active"
+      >
+        <span>
+          M
+          <mark>
+            ang
+          </mark>
+          o
+        </span>
+      </li>
+      <li
+        class=""
+      >
+        <span>
+          Pear
+        </span>
+      </li>
+      <li
+        class=""
+      >
+        <span>
+          Apricot
+        </span>
+      </li>
+       
+    </ul>
+  </div>
+</div>
+`;

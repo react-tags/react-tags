@@ -13,7 +13,7 @@ export interface Tag {
   [key: string]: string;
 }
 
-interface TagProps {
+export interface TagProps {
   labelField: string;
   onDelete: (
     event:
@@ -76,6 +76,7 @@ const SingleTag = (props: TagProps) => {
         opacity,
         cursor: canDrag({ moveTag, readOnly, allowDragDrop }) ? 'move' : 'auto',
       }}
+      data-testid="tag"
       onClick={props.onTagClicked}
       onTouchStart={props.onTagClicked}>
       {label}

@@ -38,6 +38,7 @@ const RemoveComponent = (props: RemoveComponentProps) => {
     const Component = removeComponent;
     return (
       <Component
+        data-testid="remove"
         onRemove={onRemove}
         onKeyDown={onKeydown}
         className={className}
@@ -50,6 +51,7 @@ const RemoveComponent = (props: RemoveComponentProps) => {
 
   return (
     <button
+      data-testid="remove"
       onClick={onRemove}
       onKeyDown={onKeydown}
       className={className}

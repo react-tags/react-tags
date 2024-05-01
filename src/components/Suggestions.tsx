@@ -163,7 +163,10 @@ const SuggestionsComp = (props: SuggestionsProps) => {
   }
 
   return (
-    <div ref={suggestionsContainerRef} className={classNames.suggestions}>
+    <div
+      ref={suggestionsContainerRef}
+      className={classNames.suggestions}
+      data-testid="suggestions">
       <ul> {suggestions} </ul>
     </div>
   );
