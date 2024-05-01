@@ -9,9 +9,9 @@ exports[`Test <RemoveComponent/> should render with base structure 1`] = `
   >
     <svg
       fill="#fff"
-      height="14"
+      height="12"
       viewBox="0 0 512 512"
-      width="14"
+      width="12"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

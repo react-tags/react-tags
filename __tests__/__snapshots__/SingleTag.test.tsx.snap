@@ -8,7 +8,6 @@ exports[`Tag shows the classnames of children properly 1`] = `
     draggable="true"
     style="opacity: 1; cursor: move;"
   >
-    FooBar
     <button
       aria-label="Tag at index 0 with value 1 focussed. Press backspace to remove"
       class="remove"
@@ -17,9 +16,9 @@ exports[`Tag shows the classnames of children properly 1`] = `
     >
       <svg
         fill="#fff"
-        height="14"
+        height="12"
         viewBox="0 0 512 512"
-        width="14"
+        width="12"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path

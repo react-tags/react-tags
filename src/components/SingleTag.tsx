@@ -37,7 +37,15 @@ export interface TagProps {
 
 const SingleTag = (props: TagProps) => {
   const tagRef = useRef(null);
-  const { readOnly, tag, classNames, index, moveTag, allowDragDrop } = props;
+  const {
+    readOnly = false,
+    tag,
+    classNames,
+    index,
+    moveTag,
+    allowDragDrop = true,
+    labelField = 'text',
+  } = props;
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.TAG,
@@ -92,9 +100,4 @@ const SingleTag = (props: TagProps) => {
   );
 };
 
-SingleTag.defaultProps = {
-  labelField: 'text',
-  readOnly: false,
-  allowDragDrop: true,
-};
 export { SingleTag };
