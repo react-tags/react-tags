@@ -249,7 +249,9 @@ const App = () => {
   };
 
   const handleAddition = (tag: Tag) => {
-    setTags([...tags, tag]);
+    setTags((prevTags) => {
+      return [...prevTags, tag];
+    });
   };
 
   const handleDrag = (tag: Tag, currPos: number, newPos: number) => {
