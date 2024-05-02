@@ -6,7 +6,7 @@ import ClassNames from 'classnames';
 import { SingleTag } from './SingleTag';
 import type { Tag } from './SingleTag';
 
-import { buildRegExpFromDelimiters } from './utils';
+import { buildRegExpFromDelimiters, getKeyCodeFromSeparator } from './utils';
 
 //Constants
 import {
@@ -14,7 +14,6 @@ import {
   DEFAULT_CLASSNAMES,
   INPUT_FIELD_POSITIONS,
   ERRORS,
-  getKeyCodeFromSeparator,
 } from './constants';
 import type { ReactTagsWrapperProps } from '../';
 
@@ -350,16 +349,21 @@ const ReactTags = (props: ReactTagsProps) => {
     const maxTextLength = Math.min(maxLength, clipboardText.length);
     const pastedText = clipboardData.getData('text').substr(0, maxTextLength);
 
-    let keyCodes = delimiters;
+    let keycodes = delimiters;
     if (separators.length) {
-      keyCodes = [];
+      keycodes = [];
       separators.forEach((separator) => {
-        keyCodes.push(getKeyCodeFromSeparator(separator));
+        const keycode = getKeyCodeFromSeparator(separator);
+        if (Array.isArray(keycode)) {
+          keycodes = [...keycodes, ...keycode];
+        } else {
+          keycodes.push(keycode);
+        }
       });
     }
 
     // Used to determine how the pasted content is split.
-    const delimiterRegExp = buildRegExpFromDelimiters(keyCodes);
+    const delimiterRegExp = buildRegExpFromDelimiters(keycodes);
     const tags = pastedText.split(delimiterRegExp).map((tag) => tag.trim());
 
     // Only add unique tags

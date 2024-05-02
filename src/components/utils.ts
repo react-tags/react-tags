@@ -1,4 +1,5 @@
 import escapeRegExp from 'lodash/escapeRegExp';
+import { SEPARATORS } from './constants';
 
 /**
  * Convert an array of delimiter characters into a regular expression
@@ -16,6 +17,26 @@ export function buildRegExpFromDelimiters(delimiters: Array<number>): RegExp {
     .join('');
   const escapedDelimiterChars = escapeRegExp(delimiterChars);
   return new RegExp(`[${escapedDelimiterChars}]+`);
+}
+
+export function getKeyCodeFromSeparator(separator: string) {
+  switch (separator) {
+    case SEPARATORS.ENTER:
+      // 13 is for enter key and 10 is for carriage return, this might be present when pasting from excel
+      return [10, 13];
+    case SEPARATORS.TAB:
+      return 9;
+    case SEPARATORS.COMMA:
+      return 188;
+    case SEPARATORS.SPACE:
+      return 32;
+    case SEPARATORS.SEMICOLON:
+      return 186;
+    // Ideally this should never happen but just in case
+    // return 0 (Unidentified key)
+    default:
+      return 0;
+  }
 }
 
 /**
