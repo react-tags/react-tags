@@ -1,9 +1,11 @@
-/*eslint-disable */
-
-const { React, ReactDOM, ReactTags } = window;
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { StrictMode } from 'react';
 import GitHubCorner from './GithubCorner';
+import type { Tag } from '../src/components/SingleTag';
+import { WithContext as ReactTags } from '../src/index';
 
-// List of countries in the world
+//List of countries in the world
 const COUNTRIES = [
   'Afghanistan',
   'Albania',
@@ -217,6 +219,7 @@ const suggestions = COUNTRIES.map((country) => {
   return {
     id: country,
     text: country,
+    className: '',
   };
 });
 
@@ -227,30 +230,31 @@ const KeyCodes = {
 
 const delimiters = [...KeyCodes.enter, KeyCodes.comma];
 
-const Tags = ReactTags.WithContext;
 const App = () => {
-  const [tags, setTags] = React.useState([
-    { id: 'Thailand', text: 'Thailand' },
-    { id: 'India', text: 'India' },
-    { id: 'Vietnam', text: 'Vietnam' },
-    { id: 'Turkey', text: 'Turkey' },
+  const [tags, setTags] = React.useState<Array<Tag>>([
+    { id: 'Thailand', text: 'Thailand', className: '' },
+    { id: 'India', text: 'India', className: '' },
+    { id: 'Vietnam', text: 'Vietnam', className: '' },
+    { id: 'Turkey', text: 'Turkey', className: '' },
   ]);
 
-  const handleDelete = (i) => {
-    setTags(tags.filter((tag, index) => index !== i));
+  const handleDelete = (index: number) => {
+    setTags(tags.filter((_, i) => i !== index));
   };
 
-  const onTagUpdate = (i, newTag) => {
-    const updatedTags = tags.slice();
-    updatedTags.splice(i, 1, newTag);
+  const onTagUpdate = (index: number, newTag: Tag) => {
+    const updatedTags = [...tags];
+    updatedTags.splice(index, 1, newTag);
     setTags(updatedTags);
   };
 
-  const handleAddition = (tag) => {
-    setTags([...tags, tag]);
+  const handleAddition = (tag: Tag) => {
+    setTags((prevTags) => {
+      return [...prevTags, tag];
+    });
   };
 
-  const handleDrag = (tag, currPos, newPos) => {
+  const handleDrag = (tag: Tag, currPos: number, newPos: number) => {
     const newTags = tags.slice();
 
     newTags.splice(currPos, 1);
@@ -260,7 +264,7 @@ const App = () => {
     setTags(newTags);
   };
 
-  const handleTagClick = (index) => {
+  const handleTagClick = (index: number) => {
     console.log('The tag at index ' + index + ' was clicked');
   };
 
@@ -274,7 +278,7 @@ const App = () => {
 
       <h1> React Tags Example </h1>
       <div>
-        <Tags
+        <ReactTags
           tags={tags}
           suggestions={suggestions}
           delimiters={delimiters}
@@ -284,7 +288,6 @@ const App = () => {
           handleTagClick={handleTagClick}
           onTagUpdate={onTagUpdate}
           inputFieldPosition="bottom"
-          autocomplete
           editable
           clearAll
           onClearAll={onClearAll}
@@ -294,5 +297,11 @@ const App = () => {
     </div>
   );
 };
+const domNode = document.getElementById('app')!;
+const root = createRoot(domNode);
 
-ReactDOM.render(<App />, document.getElementById('app'));
+root.render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);

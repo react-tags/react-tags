@@ -154,6 +154,7 @@ Option | Type | Default | Description
 |[`handleFilterSuggestions`](#handleFilterSuggestions) | `Function` | `undefined` | Function called when filtering suggestions.
 |[`handleTagClick`](#handleTagClick) | `Function` | `undefined` | Function called when the user wants to know which tag was clicked.
 |[`autofocus`](#autofocus) | `Boolean` | `true` | Boolean value to control whether the text-input should be autofocused on mount.
+|[`autoFocus`](#autoFocus) | `Boolean` | `true` | Boolean value to control whether the text-input should be autofocused on mount.
 |[`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput) | `Boolean` | `true` | Boolean value to control whether tags should be deleted when the 'Delete' key is pressed in an empty Input Box.
 |[`handleInputChange`](#handleInputChange) | `Function` | `undefined` | Event handler for input onChange.
 |[`handleInputFocus`](#handleInputFocus) | `Function` | `undefined` | Event handler for input onFocus.
@@ -301,6 +302,7 @@ function(i) {
 
 ### autofocus
 Optional boolean param to control whether the text-input should be autofocused on mount.
+This prop is `deprecated` and will be removed in 7.x.x, please use `autoFocus` instead.
 
 ```jsx
 <ReactTags
@@ -308,12 +310,25 @@ Optional boolean param to control whether the text-input should be autofocused o
     ...>
 ```
 
+### autoFocus
+Optional boolean param to control whether the text-input should be autofocused on mount.
+
+```jsx
+<ReactTags
+    autoFocus={false}
+    ...>
+```
+
 ### allowDeleteFromEmptyInput
-Optional boolean param to control whether tags should be deleted when the 'Delete' key is pressed in an empty Input Box.
+Optional boolean param to control whether tags should be deleted when the `Backspace` key is pressed in an empty Input Box. By default this prop is `false`. 
+
+However when input field position is `inline`, you will be able to delete the tags by pressing `Backspace` irrespective of the value of this prop.
+
+This prop will likely be removed in future versions.
 
 ```js
 <ReactTags
-    allowDeleteFromEmptyInput={false}
+    allowDeleteFromEmptyInput={true}
     ...>
 ```
 ### handleInputChange

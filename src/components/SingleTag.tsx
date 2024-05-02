@@ -13,7 +13,7 @@ export interface Tag {
   [key: string]: string;
 }
 
-interface TagProps {
+export interface TagProps {
   labelField: string;
   onDelete: (
     event:
@@ -22,7 +22,7 @@ interface TagProps {
   ) => void;
   tag: Tag;
   moveTag?: (dragIndex: number, hoverIndex: number) => void;
-  removeComponent: React.ComponentType<any>;
+  removeComponent?: React.ComponentType<any>;
   onTagClicked: (
     event: React.MouseEvent<HTMLSpanElement> | React.TouchEvent<HTMLSpanElement>
   ) => void;
@@ -37,7 +37,15 @@ interface TagProps {
 
 const SingleTag = (props: TagProps) => {
   const tagRef = useRef(null);
-  const { readOnly, tag, classNames, index, moveTag, allowDragDrop } = props;
+  const {
+    readOnly = false,
+    tag,
+    classNames,
+    index,
+    moveTag,
+    allowDragDrop = true,
+    labelField = 'text',
+  } = props;
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.TAG,
@@ -76,6 +84,7 @@ const SingleTag = (props: TagProps) => {
         opacity,
         cursor: canDrag({ moveTag, readOnly, allowDragDrop }) ? 'move' : 'auto',
       }}
+      data-testid="tag"
       onClick={props.onTagClicked}
       onTouchStart={props.onTagClicked}>
       {label}
@@ -91,9 +100,4 @@ const SingleTag = (props: TagProps) => {
   );
 };
 
-SingleTag.defaultProps = {
-  labelField: 'text',
-  readOnly: false,
-  allowDragDrop: true,
-};
 export { SingleTag };

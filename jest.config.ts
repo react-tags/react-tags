@@ -39,8 +39,26 @@ module.exports = {
 
   // An object that configures minimum threshold enforcement for coverage results
   coverageThreshold: {
-    './src/components/Tag.tsx': {
+    './src/components/ClearAllTags.tsx': {
       branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100,
+    },
+    './src/components/Suggestions.tsx': {
+      branches: 90,
+      functions: 100,
+      lines: 95,
+      statements: 95,
+    },
+    './src/components/RemoveComponent.tsx': {
+      branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100,
+    },
+    './src/components/SingleTag.tsx': {
+      branches: 70,
       functions: 100,
       lines: 100,
       statements: 100,
@@ -135,7 +153,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/__tests__/setupTest.ts'],
 
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
-  snapshotSerializers: ['enzyme-to-json/serializer'],
+  snapshotSerializers: [],
 
   // The test environment that will be used for testing
   testEnvironment: 'jsdom',
