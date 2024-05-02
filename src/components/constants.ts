@@ -9,6 +9,33 @@ export const KEYS = {
   COMMA: 188,
 };
 
+export const SEPARATORS = {
+  ENTER: 'Enter',
+  TAB: 'Tab',
+  COMMA: ',',
+  SPACE: ' ',
+  SEMICOLON: ';',
+};
+
+export function getKeyCodeFromSeparator(separator: string) {
+  switch (separator) {
+    case SEPARATORS.ENTER:
+      return 13;
+    case SEPARATORS.TAB:
+      return 9;
+    case SEPARATORS.COMMA:
+      return 188;
+    case SEPARATORS.SPACE:
+      return 32;
+    case SEPARATORS.SEMICOLON:
+      return 186;
+    // Ideally this should never happen but just in case
+    // return 0 (Unidentified key)
+    default:
+      return 0;
+  }
+}
+
 export const DEFAULT_PLACEHOLDER = 'Press enter to add new tag';
 
 export const DEFAULT_LABEL_FIELD = 'text';

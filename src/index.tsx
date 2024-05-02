@@ -3,7 +3,11 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { Tag } from '../src/components/SingleTag';
-import { INPUT_FIELD_POSITIONS, KEYS } from '../src/components/constants';
+import {
+  INPUT_FIELD_POSITIONS,
+  KEYS,
+  SEPARATORS,
+} from '../src/components/constants';
 import ReactTags from './components/ReactTags';
 import {
   DEFAULT_LABEL_FIELD,
@@ -27,6 +31,11 @@ export interface ReactTagsWrapperProps {
    * Array of key codes that will trigger a tag addition.
    */
   delimiters?: Array<number>;
+  /**
+   * Array of characters that will trigger a tag addition.
+   * This should match the event.key property of the keydown event.
+   */
+  separators?: Array<string>;
   /**
    * Whether the input field should automatically focus on mount.
    */
@@ -202,7 +211,12 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
     placeholder = DEFAULT_PLACEHOLDER,
     labelField = DEFAULT_LABEL_FIELD,
     suggestions = [],
-    delimiters = [...KEYS.ENTER, KEYS.TAB],
+    // Set delimeters to empty array if separators is provided
+    delimiters = props.separators?.length ? [] : [...KEYS.ENTER, KEYS.TAB],
+    // Set separators to empty array if delimiters is provided
+    separators = props.delimiters?.length
+      ? []
+      : [SEPARATORS.ENTER, SEPARATORS.TAB],
     autofocus = true,
     autoFocus = true,
     inline = true, // TODO= Remove in v7.x.x
@@ -245,6 +259,7 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
       labelField={labelField}
       suggestions={suggestions}
       delimiters={delimiters}
+      separators={separators}
       autofocus={autofocus}
       autoFocus={autoFocus}
       inline={inline}

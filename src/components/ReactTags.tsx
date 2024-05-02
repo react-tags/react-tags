@@ -14,6 +14,7 @@ import {
   DEFAULT_CLASSNAMES,
   INPUT_FIELD_POSITIONS,
   ERRORS,
+  getKeyCodeFromSeparator,
 } from './constants';
 import type { ReactTagsWrapperProps } from '../';
 
@@ -26,6 +27,7 @@ type ReactTagsProps = ReactTagsWrapperProps & {
   labelField: string;
   suggestions: Array<Tag>;
   delimiters: Array<number>;
+  separators: Array<string>;
   autofocus: boolean;
   autoFocus: boolean;
   inline: boolean;
@@ -61,6 +63,7 @@ const ReactTags = (props: ReactTagsProps) => {
     editable,
     placeholder,
     delimiters,
+    separators,
     tags,
     inputFieldPosition,
     inputProps,
@@ -82,6 +85,15 @@ const ReactTags = (props: ReactTagsProps) => {
   const reactTagsRef = createRef<HTMLDivElement>();
   const textInput = useRef<HTMLInputElement | null>(null);
   const tagInput = useRef<HTMLInputElement | null>(null);
+  console.log('DELIMETERS', delimiters, 'SEPARATORS', separators);
+  useEffect(() => {
+    if (delimiters.length) {
+      console.warn(
+        '[Deprecation] The delimiters prop is deprecated and will be removed in v7.x.x, please use separators instead. Please share your thoughts in https://github.com/react-tags/react-tags/issues/960'
+      );
+    }
+  }, []);
+
   useEffect(() => {
     if (!inline) {
       console.warn(
@@ -248,7 +260,7 @@ const ReactTags = (props: ReactTagsProps) => {
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     // hide suggestions menu on escape
-    if (event.keyCode === KEYS.ESCAPE) {
+    if (event.key === 'Escape') {
       event.preventDefault();
       event.stopPropagation();
       setSelectedIndex(-1);
@@ -260,7 +272,11 @@ const ReactTags = (props: ReactTagsProps) => {
     // When one of the terminating keys is pressed, add current query to the tags.
     // If no text is typed in so far, ignore the action - so we don't end up with a terminating
     // character typed in.
-    if (delimiters.indexOf(event.keyCode) !== -1 && !event.shiftKey) {
+    if (
+      (separators.indexOf(event.key) !== -1 ||
+        delimiters.indexOf(event.keyCode) !== -1) &&
+      !event.shiftKey
+    ) {
       if (event.keyCode !== KEYS.TAB || query !== '') {
         event.preventDefault();
       }
@@ -334,8 +350,16 @@ const ReactTags = (props: ReactTagsProps) => {
     const maxTextLength = Math.min(maxLength, clipboardText.length);
     const pastedText = clipboardData.getData('text').substr(0, maxTextLength);
 
+    let keyCodes = delimiters;
+    if (separators.length) {
+      keyCodes = [];
+      separators.forEach((separator) => {
+        keyCodes.push(getKeyCodeFromSeparator(separator));
+      });
+    }
+
     // Used to determine how the pasted content is split.
-    const delimiterRegExp = buildRegExpFromDelimiters(delimiters);
+    const delimiterRegExp = buildRegExpFromDelimiters(keyCodes);
     const tags = pastedText.split(delimiterRegExp).map((tag) => tag.trim());
 
     // Only add unique tags
