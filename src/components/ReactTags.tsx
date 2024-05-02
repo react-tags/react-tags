@@ -85,7 +85,7 @@ const ReactTags = (props: ReactTagsProps) => {
   const reactTagsRef = createRef<HTMLDivElement>();
   const textInput = useRef<HTMLInputElement | null>(null);
   const tagInput = useRef<HTMLInputElement | null>(null);
-  console.log('DELIMETERS', delimiters, 'SEPARATORS', separators);
+
   useEffect(() => {
     if (delimiters.length) {
       console.warn(
