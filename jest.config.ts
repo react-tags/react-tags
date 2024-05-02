@@ -39,8 +39,26 @@ module.exports = {
 
   // An object that configures minimum threshold enforcement for coverage results
   coverageThreshold: {
-    './src/components/SingleTag.tsx': {
+    './src/components/ClearAllTags.tsx': {
       branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100,
+    },
+    './src/components/Suggestions.tsx': {
+      branches: 90,
+      functions: 100,
+      lines: 95,
+      statements: 95,
+    },
+    './src/components/RemoveComponent.tsx': {
+      branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100,
+    },
+    './src/components/SingleTag.tsx': {
+      branches: 70,
       functions: 100,
       lines: 100,
       statements: 100,

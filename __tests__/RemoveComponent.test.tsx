@@ -5,6 +5,7 @@ import RemoveComponent, {
   RemoveComponentProps,
 } from '../src/components/RemoveComponent';
 import { fireEvent, render, screen } from '@testing-library/react';
+import { KEYS } from '../src';
 
 describe('Test <RemoveComponent/>', () => {
   let minProps, onRemoveStub;
@@ -18,6 +19,10 @@ describe('Test <RemoveComponent/>', () => {
         key: 'Tags',
       },
     };
+  });
+
+  afterEach(() => {
+    onRemoveStub.resetHistory();
   });
 
   function mockItem(override?: RemoveComponentProps) {
@@ -49,11 +54,35 @@ describe('Test <RemoveComponent/>', () => {
     `);
   });
 
-  it('should run onRemove when backspace is pressed', () => {
+  it('should run onRemove when remove component is clicked', () => {
     render(mockItem());
     const removeComp = screen.getByTestId('remove');
     fireEvent.click(removeComp);
     expect(onRemoveStub.calledOnce).toBeTruthy();
+  });
+
+  it('should run onRemove when backspace is pressed', () => {
+    render(mockItem());
+    const removeComp = screen.getByTestId('remove');
+    fireEvent.keyDown(removeComp, {
+      keyCode: KEYS.BACKSPACE,
+    });
+    expect(onRemoveStub.calledOnce).toBeTruthy();
+  });
+
+  it('should not run onRemove when enter or space is pressed', () => {
+    render(mockItem());
+    const removeComp = screen.getByTestId('remove');
+    fireEvent.keyDown(removeComp, {
+      keyCode: KEYS.ENTER[0],
+    });
+    fireEvent.keyDown(removeComp, {
+      keyCode: KEYS.ENTER[2],
+    });
+    fireEvent.keyDown(removeComp, {
+      keyCode: KEYS.SPACE,
+    });
+    expect(onRemoveStub.called).toBeFalsy();
   });
 
   it('should render passed in remove component', () => {
