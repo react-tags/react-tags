@@ -61,7 +61,7 @@ import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
 import GitHubCorner from './GithubCorner';
 import type { Tag } from '../src/components/SingleTag';
-import { WithContext as ReactTags } from '../src/index';
+import { WithContext as ReactTags, SEPARATORS } from '../src/index';
 ;
 
 const suggestions = COUNTRIES.map((country) => {
@@ -77,7 +77,6 @@ const KeyCodes = {
   enter: [10, 13],
 };
 
-const delimiters = [...KeyCodes.enter, KeyCodes.comma];
 
 const App = () => {
   const [tags, setTags] = React.useState<Array<Tag>>([
@@ -130,7 +129,7 @@ const App = () => {
         <ReactTags
           tags={tags}
           suggestions={suggestions}
-          delimiters={delimiters}
+          separators={[SEPARATORS.ENTER, SEPARATORS.COMMA]}
           handleDelete={handleDelete}
           handleAddition={handleAddition}
           handleDrag={handleDrag}
@@ -173,7 +172,8 @@ Option | Type | Default | Description
 --- | --- | --- | ---
 |[`tags`](#tags) | `Array` | `[]` | An array of tags that are displayed as pre-selected.|
 |[`suggestions`](#suggestions) | `Array` | `[]` | An array of suggestions that are used as basis for showing suggestions.
-|[`delimiters`](#delimiters) | `Array` | `[ENTER, TAB]` | Specifies which characters should terminate tags input.
+|[`delimiters`](#delimiters) | `Array` | `[13, 9]` | Specifies which characters keycode should terminate tags input.
+|[`separators`](#separators) | `Array` | `["Enter", "Tab"]` | Specifies which characters should terminate tags input |
 |[`placeholder`](#placeholder) | `String` | `Add new tag` | The placeholder shown for the input.
 |[`labelField`](#labelField) | `String` | `text` | Provide an alternative `label` property for the tags.
 |[`handleAddition`](#handleAddition) | `Function` | `undefined` | Function called when the user wants to add a tag (required).
@@ -189,7 +189,7 @@ Option | Type | Default | Description
 |[`handleInputBlur`](#handleInputBlur) | `Function` | `undefined` | Event handler for input onBlur.
 |[`minQueryLength`](#minQueryLength) | `Number` | `2` | How many characters are needed for suggestions to appear.
 |[`removeComponent`](#removeComponent) | `Function` |  | Function to render custom remove component for the tags.
-|[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed.
+|[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [separator](#separator) key is pressed.
 |[`readOnly`](#readOnly) | `Boolean` | `false` | Read-only mode without the input box and `removeComponent` and drag-n-drop features disabled.
 |[`name`](#name) | `String` | `undefined` | The `name` attribute added to the input.
 |[`id`](#id) | `String` | `undefined` | The `id` attribute added to the input.
@@ -235,16 +235,34 @@ const suggestions = [
 ```
 
 ### delimiters
-Specifies which characters should terminate tags input. An array of character codes.
+This prop is deprecated and will be removed in 7.x.x. Please use [`separators`](#separators) instead.
+Specifies which characters should terminate tags input. An array of character codes. We export the constant `KEYS` for convenience. 
+
 
 ```js
-const Keys = {
-    TAB: 9,
-    SPACE: 32,
-    COMMA: 188,
-};
+import { WithContext as ReactTags, KEYS } from 'react-tag-input';
+
 <ReactTags
-    delimiters={[Keys.TAB, Keys.SPACE, Keys.COMMA]}
+    delimiters={[KEYS.TAB, KEYS.SPACE, KEYS.COMMA]}
+ />
+```
+
+### separators
+Specifies which characters should separate tags. An array of strings. We support the below separators :point_down:
+
+- `Enter`
+- `Tab`
+- `Space`
+- `Comma`
+- `Semicolon`
+
+And we export the constant `SEPERATORS` for convenience. 
+
+
+```js
+import { WithContext as ReactTags, SEPARATORS } from 'react-tag-input';
+<ReactTags
+    separators={[SEPARATORS.TAB, SEPARATORS.SPACE, SEPARATORS.COMMA]}
  />
 ```
 
@@ -447,11 +465,13 @@ The below props will be passed to the `removeComponent`. You will need to forwar
 
 
 ### autocomplete
-Useful for enhancing data entry workflows for your users by ensuring the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed (such as the enter key). This option has three possible values:
+This prop is deprecated and will be removed in 7.x.x to simplify the integration and make it more intutive. If you have any concerns regarding this, please share your thoughts in https://github.com/react-tags/react-tags/issues/949.
 
-- `true` - when delimeter key (such as enter) is pressed, first matching suggestion is used.
-- `1` - when delimeter key (such as enter) is pressed, matching suggestion is used only if there is a single matching suggestion
-- `false` (default) - tags are not autocompleted on enter/delimiter
+Useful for enhancing data entry workflows for your users by ensuring the first matching suggestion is automatically converted to a tag when a [separator](#separators) key is pressed (such as the enter key). This option has three possible values:
+
+- `true` - when separator key (such as enter) is pressed, first matching suggestion is used.
+- `1` - when separator key (such as enter) is pressed, matching suggestion is used only if there is a single matching suggestion
+- `false` (default) - tags are not autocompleted on enter/separator key press.
 
 This option has no effect if there are no [`suggestions`](#suggestionsOption).
 

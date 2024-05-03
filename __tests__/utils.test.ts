@@ -5,6 +5,7 @@ import {
   buildRegExpFromDelimiters,
   canDrag,
   canDrop,
+  getKeyCodeFromSeparator,
 } from '../src/components/utils';
 
 const KeyCodes = {
@@ -90,5 +91,37 @@ describe('Test canDrop', () => {
   test('should return true when all params are truthy for canDrop', () => {
     const result = canDrop(input);
     expect(result).to.equal(true);
+  });
+});
+
+describe('Test getKeyCodeFromSeparator', () => {
+  it('should return correct key code for enter', () => {
+    const result = getKeyCodeFromSeparator('Enter');
+    expect(result).to.equal([10, 13]);
+  });
+
+  it('should return correct key code for tab', () => {
+    const result = getKeyCodeFromSeparator('Tab');
+    expect(result).to.equal(9);
+  });
+
+  it('should return correct key code for comma', () => {
+    const result = getKeyCodeFromSeparator(',');
+    expect(result).to.equal(188);
+  });
+
+  it('should return correct key code for space', () => {
+    const result = getKeyCodeFromSeparator(' ');
+    expect(result).to.equal(32);
+  });
+
+  it('should return correct key code for semicolon', () => {
+    const result = getKeyCodeFromSeparator(';');
+    expect(result).to.equal(186);
+  });
+
+  it('should return 0 for unidentified key', () => {
+    const result = getKeyCodeFromSeparator('Unidentified');
+    expect(result).to.equal(0);
   });
 });

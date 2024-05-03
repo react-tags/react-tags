@@ -1,4 +1,3 @@
-import React from 'react';
 import './GithubCorner.scss';
 
 // https://github.com/tholman/github-corners

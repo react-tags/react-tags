@@ -4,7 +4,7 @@ import { spy, stub, createSandbox } from 'sinon';
 
 import { WithContext as ReactTags } from '../src/index';
 
-import { KEYS } from '../src/components/constants';
+import { KEYS, SEPARATORS } from '../src/components/constants';
 import { fireEvent, render, screen } from '@testing-library/react';
 import type { Tag } from '../src/components/SingleTag';
 
@@ -382,6 +382,126 @@ describe('Test ReactTags', () => {
       `);
     });
 
+    it('should split the clipboard on separators', () => {
+      const tags = [];
+      render(
+        mockItem({
+          separators: [SEPARATORS.TAB, SEPARATORS.SPACE, SEPARATORS.COMMA],
+          handleAddition(tag) {
+            tags.push(tag);
+          },
+          tags,
+        })
+      );
+
+      fireEvent.paste(screen.getByTestId('input'), {
+        clipboardData: {
+          getData: () =>
+            'Banana,Apple,Apricot\nOrange Blueberry,Pear,Peach\tKiwi',
+        },
+      });
+
+      const expected = [
+        'Banana',
+        'Apple',
+        'Apricot\nOrange',
+        'Blueberry',
+        'Pear',
+        'Peach',
+        'Kiwi',
+      ].map((value) => ({ id: value, text: value }));
+
+      jestExpect(tags).toMatchInlineSnapshot(`
+        [
+          {
+            "className": "",
+            "id": "Banana",
+            "text": "Banana",
+          },
+          {
+            "className": "",
+            "id": "Apple",
+            "text": "Apple",
+          },
+          {
+            "className": "",
+            "id": "Apricot
+        Orange",
+            "text": "Apricot
+        Orange",
+          },
+          {
+            "className": "",
+            "id": "Blueberry",
+            "text": "Blueberry",
+          },
+          {
+            "className": "",
+            "id": "Pear",
+            "text": "Pear",
+          },
+          {
+            "className": "",
+            "id": "Peach",
+            "text": "Peach",
+          },
+          {
+            "className": "",
+            "id": "Kiwi",
+            "text": "Kiwi",
+          },
+        ]
+      `);
+    });
+
+    it('should split the clipboard when separated with new lines', () => {
+      const tags = [];
+      render(
+        mockItem({
+          separators: [SEPARATORS.ENTER],
+          handleAddition(tag) {
+            tags.push(tag);
+          },
+          tags,
+        })
+      );
+
+      fireEvent.paste(screen.getByTestId('input'), {
+        clipboardData: {
+          getData: () => 'Banana\nApple\rApricot\r\n\r\nOrange',
+        },
+      });
+
+      const expected = ['Banana', 'Apple', 'Apricot', 'Orange'].map(
+        (value) => ({ id: value, text: value })
+      );
+
+      jestExpect(tags).toMatchInlineSnapshot(`
+        [
+          {
+            "className": "",
+            "id": "Banana",
+            "text": "Banana",
+          },
+          {
+            "className": "",
+            "id": "Apple",
+            "text": "Apple",
+          },
+          {
+            "className": "",
+            "id": "Apricot",
+            "text": "Apricot",
+          },
+          {
+            "className": "",
+            "id": "Orange",
+            "text": "Orange",
+          },
+        ]
+      `);
+    });
+
     it('should not allow duplicate tags', () => {
       const tags = [...defaults.tags];
       const wrapper = render(
@@ -445,7 +565,7 @@ describe('Test ReactTags', () => {
 
     it('should trim the tags', () => {
       const tags = [...defaults.tags];
-      const wrapper = render(
+      render(
         mockItem({
           delimiters: [Keys.COMMA],
           handleAddition(tag) {
