@@ -88,7 +88,7 @@ const ReactTags = (props: ReactTagsProps) => {
   useEffect(() => {
     if (delimiters.length) {
       console.warn(
-        '[Deprecation] The delimiters prop is deprecated and will be removed in v7.x.x, please use separators instead. Please share your thoughts in https://github.com/react-tags/react-tags/issues/960'
+        '[Deprecation] The delimiters prop is deprecated and will be removed in v7.x.x, please use separators instead. If you have any concerns regarding this, please share your thoughts in https://github.com/react-tags/react-tags/issues/960'
       );
     }
   }, []);
