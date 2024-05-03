@@ -97,7 +97,7 @@ describe('Test canDrop', () => {
 describe('Test getKeyCodeFromSeparator', () => {
   it('should return correct key code for enter', () => {
     const result = getKeyCodeFromSeparator('Enter');
-    expect(result).to.equal([10, 13]);
+    expect(result).to.deep.equal([10, 13]);
   });
 
   it('should return correct key code for tab', () => {

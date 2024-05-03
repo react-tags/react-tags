@@ -1,9 +1,6 @@
 name: codacy-coverage-reporter
 on:
-  push:
-    branches:
-      - master
-  pull_request_target:
+  pull_request:
 jobs:
   codacy-coverage-reporter:
     runs-on: ubuntu-latest
