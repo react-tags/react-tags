@@ -3,6 +3,7 @@
   "version": "0.0.0-semantically-released",
   "description": "React tags is a fantastically simple tagging component for your React projects",
   "main": "dist-modules/components/ReactTags.js",
+  "types": "dist/index.ts",
   "files": [
     "dist-modules",
     "dist"
@@ -27,7 +28,8 @@
     "build:example": "webpack --config webpack-dev-server.config.js",
     "precommit": "./set_up_hooks.sh",
     "semantic-release": "semantic-release",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "gen:types":"tsc -b src"
   },
   "keywords": [
     "react",

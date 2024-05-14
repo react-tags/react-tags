@@ -15,6 +15,5 @@
     "strict": true,                                     
     "skipLibCheck": true,
   },
-  "exclude": ["node_modules", "**/__tests__/*", "__mocks__/*",  "dev-docs"]
-
+  "exclude": ["node_modules", "**/__tests__/*", "__mocks__/*",  "dev-docs", "coverage"]
 }
