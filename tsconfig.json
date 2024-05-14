@@ -9,7 +9,6 @@
     "strictNullChecks": true,
     "noImplicitAny": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
     "target": "ESNext",                                  
     "module": "commonjs",                                
     "forceConsistentCasingInFileNames": true,            
