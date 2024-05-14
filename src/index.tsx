@@ -3,11 +3,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { Tag } from '../src/components/SingleTag';
-import {
-  INPUT_FIELD_POSITIONS,
-  KEYS,
-  SEPARATORS,
-} from '../src/components/constants';
+import { KEYS, SEPARATORS } from '../src/components/constants';
 import ReactTags from './components/ReactTags';
 import {
   DEFAULT_LABEL_FIELD,
