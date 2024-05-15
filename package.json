@@ -2,10 +2,19 @@
   "name": "react-tag-input",
   "version": "0.0.0-semantically-released",
   "description": "React tags is a fantastically simple tagging component for your React projects",
-  "main": "dist-modules/components/ReactTags.js",
+  "main": "dist/index.min.js",
+  "module": "dist/index.min.js",
   "types": "dist/index.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "default": "./dist/index.js",
+      "development": "./dist/index.js",
+      "production": "./dist/index.min.js",
+      "types": "./dist/index.ts"
+    }
+  },
   "files": [
-    "dist-modules",
     "dist"
   ],
   "funding": {
@@ -25,11 +34,12 @@
     "start": "webpack serve --config webpack-dev-server.config.js --progress ",
     "format": "prettier  --write src/**/*.js __tests__/**/*.js",
     "build": "rm -rf dist-modules &&  webpack --config webpack-production.config.js --progress --color && babel src --out-dir dist-modules --copy-files",
+    "build:esm":"rm -rf dist && node buildLib.cjs",
     "build:example": "webpack --config webpack-dev-server.config.js",
     "precommit": "./set_up_hooks.sh",
     "semantic-release": "semantic-release",
     "commit": "git-cz",
-    "gen:types":"tsc -b src"
+    "gen:types": "tsc -b src"
   },
   "keywords": [
     "react",
@@ -72,6 +82,7 @@
     "commitizen": "4.2.4",
     "css-loader": "5.2.6",
     "cz-conventional-changelog": "3.3.0",
+    "esbuild": "^0.21.2",
     "eslint": "7.3.1",
     "eslint-plugin-jest": "24.3.6",
     "eslint-plugin-jsx-a11y": "6.4.1",
