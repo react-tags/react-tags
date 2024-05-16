@@ -1,6 +1,6 @@
 {
   "name": "react-tag-input",
-  "version": "0.0.0-semantically-released",
+  "version": "6.9.0",
   "description": "React tags is a fantastically simple tagging component for your React projects",
   "main": "dist/index.min.js",
   "module": "dist/index.min.js",
@@ -34,12 +34,12 @@
     "start": "webpack serve --config webpack-dev-server.config.js --progress ",
     "format": "prettier  --write src/**/*.js __tests__/**/*.js",
     "build": "rm -rf dist-modules &&  webpack --config webpack-production.config.js --progress --color && babel src --out-dir dist-modules --copy-files",
-    "build:esm":"rm -rf dist && node buildLib.cjs",
+    "build:esm":"rm -rf dist && node buildLib.cjs && yarn gen:types",
     "build:example": "webpack --config webpack-dev-server.config.js",
     "precommit": "./set_up_hooks.sh",
     "semantic-release": "semantic-release",
     "commit": "git-cz",
-    "gen:types": "tsc -b src"
+    "gen:types": "tsc - src --emitDeclarationOnly"
   },
   "keywords": [
     "react",
