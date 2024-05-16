@@ -301,4 +301,4 @@ const WithContext = ({ ...props }: ReactTagsWrapperProps) => (
 );
 export { WithContext };
 export { ReactTagsWrapper as WithOutContext };
-export { KEYS };
+export { KEYS, SEPARATORS };
