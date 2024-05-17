@@ -39,7 +39,7 @@
     "precommit": "./set_up_hooks.sh",
     "semantic-release": "semantic-release",
     "commit": "git-cz",
-    "gen:types": "tsc - src --emitDeclarationOnly"
+    "gen:types": "tsc -b src --emitDeclarationOnly"
   },
   "keywords": [
     "react",

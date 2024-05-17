@@ -1,5 +1,5 @@
 import React, { useEffect, createRef, useRef, useState, Fragment } from 'react';
-import uniq from 'lodash/uniq';
+import { uniq } from 'lodash-es';
 import ClearAllTags from './ClearAllTags';
 import Suggestions from './Suggestions';
 import ClassNames from 'classnames';
