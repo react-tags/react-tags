@@ -1,6 +1,5 @@
 import { ReactNode, createRef, memo, useEffect } from 'react';
-import isEqual from 'lodash/isEqual';
-import escape from 'lodash/escape';
+import { isEqual, escape } from 'lodash-es';
 import { Tag } from './SingleTag';
 
 const maybeScrollSuggestionIntoView = (

@@ -34,12 +34,12 @@
     "start": "webpack serve --config webpack-dev-server.config.js --progress ",
     "format": "prettier  --write src/**/*.js __tests__/**/*.js",
     "build": "rm -rf dist-modules &&  webpack --config webpack-production.config.js --progress --color && babel src --out-dir dist-modules --copy-files",
-    "build:esm":"rm -rf dist && node buildLib.cjs && yarn gen:types",
+    "build:esm": "rm -rf dist && node buildLib.cjs && yarn gen:types",
     "build:example": "webpack --config webpack-dev-server.config.js",
     "precommit": "./set_up_hooks.sh",
     "semantic-release": "semantic-release",
     "commit": "git-cz",
-    "gen:types": "tsc - src --emitDeclarationOnly"
+    "gen:types": "tsc -b src --emitDeclarationOnly"
   },
   "keywords": [
     "react",
@@ -60,8 +60,9 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
+    "@types/lodash-es": "^4.17.12",
     "classnames": "~2.3.1",
-    "lodash": "~4.17.12"
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "@babel/cli": "7.23.0",
@@ -71,7 +72,6 @@
     "@testing-library/react": "12.0.0",
     "@types/chai": "^4.3.14",
     "@types/jest": "^29.5.12",
-    "@types/lodash": "^4.17.0",
     "@types/react": "^18.2.73",
     "@types/react-dom": "^18.3.0",
     "@types/sinon": "^17.0.3",

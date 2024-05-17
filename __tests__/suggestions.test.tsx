@@ -2,7 +2,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { stub } from 'sinon';
 import Suggestions, { arePropsEqual } from '../src/components/Suggestions';
-import noop from 'lodash/noop';
+import { noop } from 'lodash-es';
 import { DEFAULT_LABEL_FIELD } from '../src/components/constants';
 import { fireEvent, render, screen } from '@testing-library/react';
 

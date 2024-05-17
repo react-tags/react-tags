@@ -5,7 +5,7 @@ const config = {
   bundle: true,
   format: 'esm',
   metafile: true,
-  packages: 'external',
+  external: ['react', 'react-dom', 'react-dnd', 'react-dnd-html5-backend'],
 };
 
 const buildESM = async () => {

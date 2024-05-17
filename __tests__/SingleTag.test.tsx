@@ -4,7 +4,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import sinon from 'sinon';
-import noop from 'lodash/noop';
+import { noop } from 'lodash-es';
 import { SingleTag, TagProps } from '../src/components/SingleTag';
 import { fireEvent, render, screen } from '@testing-library/react';
 
