@@ -1,21 +1,23 @@
 {
   "name": "react-tag-input",
-  "version": "6.9.0",
+  "version": "6.10.0",
+  "type": "module",
   "description": "React tags is a fantastically simple tagging component for your React projects",
-  "main": "dist/index.min.js",
-  "module": "dist/index.min.js",
-  "types": "dist/index.ts",
+  "main": "./dist/index.min.js",
+  "module": "./dist/index.min.js",
+  "types": "./types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js",
       "default": "./dist/index.js",
       "development": "./dist/index.js",
       "production": "./dist/index.min.js",
-      "types": "./dist/index.ts"
+      "types": "./types/index.d.ts"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "funding": {
     "type": "individual",
@@ -39,7 +41,7 @@
     "precommit": "./set_up_hooks.sh",
     "semantic-release": "semantic-release",
     "commit": "git-cz",
-    "gen:types": "tsc -b src --emitDeclarationOnly"
+    "gen:types": "rm -rf types && tsc -b src --emitDeclarationOnly"
   },
   "keywords": [
     "react",
