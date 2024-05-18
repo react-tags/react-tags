@@ -1,21 +1,23 @@
 {
   "name": "react-tag-input",
   "version": "6.9.0",
+  "type": "module",
   "description": "React tags is a fantastically simple tagging component for your React projects",
-  "main": "dist/index.min.js",
-  "module": "dist/index.min.js",
-  "types": "dist/index.ts",
+  "main": "./dist/index.min.js",
+  "module": "./dist/index.min.js",
+  "types": "./types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js",
       "default": "./dist/index.js",
       "development": "./dist/index.js",
       "production": "./dist/index.min.js",
-      "types": "./dist/index.ts"
+      "types": "./types/index.d.ts"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "funding": {
     "type": "individual",
@@ -31,15 +33,15 @@
   "scripts": {
     "test": "jest --notify --coverage",
     "test:watch": "jest --watch --notify --coverage",
-    "start": "webpack serve --config webpack-dev-server.config.js --progress ",
+    "start": "webpack serve --config webpack-dev-server.config.cjs --progress ",
     "format": "prettier  --write src/**/*.js __tests__/**/*.js",
     "build": "rm -rf dist-modules &&  webpack --config webpack-production.config.js --progress --color && babel src --out-dir dist-modules --copy-files",
     "build:esm": "rm -rf dist && node buildLib.cjs && yarn gen:types",
-    "build:example": "webpack --config webpack-dev-server.config.js",
+    "build:example": "node buildExample.mjs",
     "precommit": "./set_up_hooks.sh",
     "semantic-release": "semantic-release",
     "commit": "git-cz",
-    "gen:types": "tsc -b src --emitDeclarationOnly"
+    "gen:types": "rm -rf types && tsc -b src --emitDeclarationOnly"
   },
   "keywords": [
     "react",
@@ -83,6 +85,7 @@
     "css-loader": "5.2.6",
     "cz-conventional-changelog": "3.3.0",
     "esbuild": "^0.21.2",
+    "esbuild-sass-plugin": "^3.3.0",
     "eslint": "7.3.1",
     "eslint-plugin-jest": "24.3.6",
     "eslint-plugin-jsx-a11y": "6.4.1",

@@ -5,7 +5,7 @@
     "esModuleInterop": true,
     "jsx": "react-jsx",                       
     "moduleResolution": "node",
-    "outDir": "dist",
+    "outDir": "types",
     "strictNullChecks": true,
     "noImplicitAny": true,
     "declaration": true,
