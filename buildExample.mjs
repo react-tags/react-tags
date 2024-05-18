@@ -5,7 +5,6 @@ const buildExample = async () => {
   await esbuild.build({
     entryPoints: ['example/main.tsx'],
     plugins: [sassPlugin()],
-
     bundle: true,
     sourcemap: true,
     outfile: 'example/public/bundle.min.js',
