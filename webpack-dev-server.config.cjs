@@ -32,7 +32,12 @@ const config = {
   ],
   module: {
     rules: [
-      { test: /\.(ts|tsx|js)$/, use: 'ts-loader', exclude: /node_modules/ },
+      {
+        test: /\.(ts|tsx|js)$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: { transpileOnly: true },
+      },
       {
         test: /\.js$/, // All .js files
         exclude: /node_modules/,
