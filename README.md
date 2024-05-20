@@ -647,9 +647,20 @@ a `classNames` prop.
     }}
     ...>
 ```
+## Preparing for Migration to v7.x.x
+
+Below are the list of `deprecated` props so please stop using it and migrate to the new props as these will be removed in `v7.x.x`.
+You will see a warning for the migration as well in the console.
+
+- `delimiters` - Please use [`separators`](#separators) instead, more info in [this issue](https://github.com/react-tags/react-tags/issues/960).
+- `inline` - Please use [`inputFieldPosition`](#inputFieldPosition) instead.
+- `autofocus` - Please use [`autoFocus`](#autoFocus) instead.
+
+Additionally the prop `autocomplete` is deprecated and will be removed in `v7.x.x`. If you have any concerns regarding this, please share your thoughts in [this issue](https://github.com/react-tags/react-tags/issues/949).
+
 
 ## Support
-If you like this library, you can support to help it improve:)
+If you like this library, please support it to contribute to its development :)
 
 [![Github-sponsors](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/ad1992)
 
