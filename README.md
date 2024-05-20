@@ -172,7 +172,7 @@ Option | Type | Default | Description
 --- | --- | --- | ---
 |[`tags`](#tags) | `Array` | `[]` | An array of tags that are displayed as pre-selected.|
 |[`suggestions`](#suggestions) | `Array` | `[]` | An array of suggestions that are used as basis for showing suggestions.
-|[`delimiters`](#delimiters) | `Array` | `[13, 9]` | Specifies which characters keycode should terminate tags input.
+|[`delimiters`](#delimiters) | `Array` | `[13, 9]` | Specifies which characters keycode should terminate tags input. `[Deprecated]`, use [`separators`](#separators) instead.
 |[`separators`](#separators) | `Array` | `["Enter", "Tab"]` | Specifies which characters should terminate tags input |
 |[`placeholder`](#placeholder) | `String` | `Add new tag` | The placeholder shown for the input.
 |[`labelField`](#labelField) | `String` | `text` | Provide an alternative `label` property for the tags.
@@ -181,7 +181,7 @@ Option | Type | Default | Description
 |[`handleDrag`](#handleDrag) | `Function` | `undefined` | Function called when the user drags a tag.
 |[`handleFilterSuggestions`](#handleFilterSuggestions) | `Function` | `undefined` | Function called when filtering suggestions.
 |[`handleTagClick`](#handleTagClick) | `Function` | `undefined` | Function called when the user wants to know which tag was clicked.
-|[`autofocus`](#autofocus) | `Boolean` | `true` | Boolean value to control whether the text-input should be autofocused on mount.
+|[`autofocus`](#autofocus) | `Boolean` | `true` | Boolean value to control whether the text-input should be autofocused on mount. `[Deprecated]`, use [`autoFocus`](#autoFocus) instead.
 |[`autoFocus`](#autoFocus) | `Boolean` | `true` | Boolean value to control whether the text-input should be autofocused on mount.
 |[`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput) | `Boolean` | `true` | Boolean value to control whether tags should be deleted when the 'Delete' key is pressed in an empty Input Box.
 |[`handleInputChange`](#handleInputChange) | `Function` | `undefined` | Event handler for input onChange.
@@ -189,12 +189,12 @@ Option | Type | Default | Description
 |[`handleInputBlur`](#handleInputBlur) | `Function` | `undefined` | Event handler for input onBlur.
 |[`minQueryLength`](#minQueryLength) | `Number` | `2` | How many characters are needed for suggestions to appear.
 |[`removeComponent`](#removeComponent) | `Function` |  | Function to render custom remove component for the tags.
-|[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [separator](#separator) key is pressed.
+|[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [separator](#separator) key is pressed.`[Deprecated]` and will be removed in v7.x.x, more info in [#949](https://github.com/react-tags/react-tags/issues/949)
 |[`readOnly`](#readOnly) | `Boolean` | `false` | Read-only mode without the input box and `removeComponent` and drag-n-drop features disabled.
 |[`name`](#name) | `String` | `undefined` | The `name` attribute added to the input.
 |[`id`](#id) | `String` | `undefined` | The `id` attribute added to the input.
 |[`maxLength`](#maxLength) | `Number` | `Infinity` | The `maxLength` attribute added to the input.
-|[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line.
+|[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line. `[Deprecated]`, use [`inputFieldPosition`](#inputFieldPosition) instead.
 |[`inputFieldPosition`](#inputFieldPosition) | `String` | `inline` | Specify position of input field relative to tags
 |[`allowUnique`](#allowUnique) | `Boolean` | `true` | Boolean value to control whether tags should be unqiue.
 |[`allowDragDrop`](#allowDragDrop) | `Boolean` | `true` | Implies whether tags should have drag-n-drop features enabled.
@@ -206,6 +206,90 @@ Option | Type | Default | Description
 |[`clearAll`](#clearAll) | `boolean` | `false` | Implies whether 'clear all' button should be shown.
 |[`onClearAll`](#onClearAll) | `Function` |  | This callback if present is triggered when clear all button is clicked.
 | [`maxTags`](#maxTags) | `number` | | The maximum count of tags to be added
+
+## Styling
+`<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
+
+- `ReactTags__tags`
+- `ReactTags__tagInput`
+- `ReactTags__tagInputField`
+- `ReactTags__selected`
+- `ReactTags__selected ReactTags__tag`
+- `ReactTags__selected ReactTags__remove`
+- `ReactTags__suggestions`
+- `ReactTags__activeSuggestion`
+- `ReactTags__editTagInput`
+- `ReactTags__editTagInputField`
+- `ReactTags__clearAll`
+
+An example can be found in [`/example/reactTags.css`](https://github.com/react-tags/react-tags/blob/master/example/reactTags.css).
+
+If you need to set your own class names on the component, you may pass in
+a `classNames` prop.
+
+```js
+  <ReactTags
+    classNames={{
+      tags: 'tagsClass',
+      tagInput: 'tagInputClass',
+      tagInputField: 'tagInputFieldClass',
+      selected: 'selectedClass',
+      tag: 'tagClass',
+      remove: 'removeClass',
+      suggestions: 'suggestionsClass',
+      activeSuggestion: 'activeSuggestionClass',
+      editTagInput: 'editTagInputClass',
+      editTagInputField: 'editTagInputField',
+      clearAll: 'clearAllClass',
+    }}
+    ...>
+```
+## Preparing for Migration to v7.x.x
+
+Below are the list of `deprecated` props so please stop using it and migrate to the new props as these will be removed in `v7.x.x`.
+You will see a warning for the migration as well in the console.
+
+- `delimiters` - Please use [`separators`](#separators) instead, more info in [this issue](https://github.com/react-tags/react-tags/issues/960).
+- `inline` - Please use [`inputFieldPosition`](#inputFieldPosition) instead.
+- `autofocus` - Please use [`autoFocus`](#autoFocus) instead.
+
+Additionally the prop `autocomplete` is deprecated and will be removed in `v7.x.x`. If you have any concerns regarding this, please share your thoughts in [this issue](https://github.com/react-tags/react-tags/issues/949).
+
+
+## Support
+If you like this library, please support it to contribute to its development :)
+
+[![Github-sponsors](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/ad1992)
+
+
+## Dev
+The component is written in ES6 and uses [Webpack](http://webpack.github.io/) as its build tool.
+
+## Set up instructions
+
+```
+git clone git@github.com:react-tags/react-tags.git
+cd react-tags
+npm install
+npm run precommit
+npm run start
+```
+open [http://localhost:8090/example](http://localhost:8090/example)
+
+
+## Contributing
+Got ideas on how to make this better? Open an issue!
+
+
+## Thanks
+The autocomplete dropdown is inspired by Lea Verou's [awesomeplete](https://github.com/LeaVerou/awesomplete) library. The Drag and drop functionality is provided by Dan Abramov's insanely useful [ReactDND](https://github.com/gaearon/react-dnd) library.
+
+Also thanks to the awesome contributors who've made the library far better!
+
+
+[default-suggestions-filter-logic]: https://github.com/react-tags/react-tags/blob/v4.0.1/lib/ReactTags.js#L83
+[includes-polyfill]: https://github.com/mathiasbynens/String.prototype.includes
+
 
 ### tags 
 An array of tags that are displayed as pre-selected. Each tag should have an `id` property, property for the label, which is specified by the [`labelField`](#labelFieldOption) and class for label, which is specified by `className`.
@@ -599,96 +683,14 @@ onTagUpdate(editIndex, tag) => void;
 ```
 This callback is if present is triggered when tag is updated. The edit index and the tag are passed in the callback. You can update the [`tags`](#tags) prop in this callback.
 
-#### clearAll
+### clearAll
 
 This props implies whether 'clear all' button should be shown. Defaults to `false`.
 
 
-#### onClearAll
+### onClearAll
 This callback is if present is triggered when "clear all" button is clicked. You can set the [`tags`](#tags) prop to empty in this callback.
 
-#### maxTags
+### maxTags
 This prop specifies the maximum count of tags to be added. Incase the tags exceed, error will show up to convey the maximum tag limit has reached.
 
-## Styling
-`<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
-
-- `ReactTags__tags`
-- `ReactTags__tagInput`
-- `ReactTags__tagInputField`
-- `ReactTags__selected`
-- `ReactTags__selected ReactTags__tag`
-- `ReactTags__selected ReactTags__remove`
-- `ReactTags__suggestions`
-- `ReactTags__activeSuggestion`
-- `ReactTags__editTagInput`
-- `ReactTags__editTagInputField`
-- `ReactTags__clearAll`
-
-An example can be found in [`/example/reactTags.css`](https://github.com/react-tags/react-tags/blob/master/example/reactTags.css).
-
-If you need to set your own class names on the component, you may pass in
-a `classNames` prop.
-
-```js
-  <ReactTags
-    classNames={{
-      tags: 'tagsClass',
-      tagInput: 'tagInputClass',
-      tagInputField: 'tagInputFieldClass',
-      selected: 'selectedClass',
-      tag: 'tagClass',
-      remove: 'removeClass',
-      suggestions: 'suggestionsClass',
-      activeSuggestion: 'activeSuggestionClass',
-      editTagInput: 'editTagInputClass',
-      editTagInputField: 'editTagInputField',
-      clearAll: 'clearAllClass',
-    }}
-    ...>
-```
-## Preparing for Migration to v7.x.x
-
-Below are the list of `deprecated` props so please stop using it and migrate to the new props as these will be removed in `v7.x.x`.
-You will see a warning for the migration as well in the console.
-
-- `delimiters` - Please use [`separators`](#separators) instead, more info in [this issue](https://github.com/react-tags/react-tags/issues/960).
-- `inline` - Please use [`inputFieldPosition`](#inputFieldPosition) instead.
-- `autofocus` - Please use [`autoFocus`](#autoFocus) instead.
-
-Additionally the prop `autocomplete` is deprecated and will be removed in `v7.x.x`. If you have any concerns regarding this, please share your thoughts in [this issue](https://github.com/react-tags/react-tags/issues/949).
-
-
-## Support
-If you like this library, please support it to contribute to its development :)
-
-[![Github-sponsors](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/ad1992)
-
-
-## Dev
-The component is written in ES6 and uses [Webpack](http://webpack.github.io/) as its build tool.
-
-## Set up instructions
-
-```
-git clone git@github.com:react-tags/react-tags.git
-cd react-tags
-npm install
-npm run precommit
-npm run start
-```
-open [http://localhost:8090/example](http://localhost:8090/example)
-
-
-## Contributing
-Got ideas on how to make this better? Open an issue!
-
-
-## Thanks
-The autocomplete dropdown is inspired by Lea Verou's [awesomeplete](https://github.com/LeaVerou/awesomplete) library. The Drag and drop functionality is provided by Dan Abramov's insanely useful [ReactDND](https://github.com/gaearon/react-dnd) library.
-
-Also thanks to the awesome contributors who've made the library far better!
-
-
-[default-suggestions-filter-logic]: https://github.com/react-tags/react-tags/blob/v4.0.1/lib/ReactTags.js#L83
-[includes-polyfill]: https://github.com/mathiasbynens/String.prototype.includes
