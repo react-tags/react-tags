@@ -1,0 +1,129 @@
+.app {
+  padding: 40px;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.container {
+  margin: auto;
+  width: 50%;
+}
+
+.ReactTags__tags {
+  position: relative;
+}
+
+.ReactTags__clearAll {
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px;
+  background: #f88d8d;
+  color: #fff;
+  border: none;
+}
+
+.ReactTags__tagInput {
+  border-radius: 2px;
+  display: inline-block;
+
+  input.ReactTags__tagInputField {
+    height: 32px;
+    margin: 0;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #eee;
+    min-width: 180px;
+
+    &:focus {
+      height: 32px;
+      margin: 0;
+      padding: 5px;
+      font-size: 14px;
+      border: 1px solid #eee;
+      min-width: 180px;
+    }
+  }
+}
+
+.ReactTags__editInput {
+  border-radius: 1px;
+}
+
+.ReactTags__editTagInput {
+  display: inline-flex;
+}
+
+.ReactTags__remove {
+  display: flex;
+}
+
+.ReactTags__selected {
+  display: flex;
+  justify-content: center;
+
+  span.ReactTags__tag {
+    border: 1px solid #ddd;
+    background: #63bcfd;
+    color: #fff;
+    font-size: 14px;
+    padding: 5px;
+    margin: 0 5px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.ReactTags__suggestions {
+  position: absolute;
+
+  ul {
+    list-style-type: none;
+    box-shadow: 0.05em 0.01em 0.5em rgba(0, 0, 0, 0.2);
+    background: white;
+    width: 200px;
+    padding: 5px 0;
+  }
+
+  li {
+    padding: 5px 10px;
+    margin: 0;
+    text-align: left;
+
+    mark {
+      text-decoration: underline;
+      background: none;
+    }
+
+    &.ReactTags__activeSuggestion {
+      background: #4dabf7;
+      color: #fff;
+      cursor: pointer;
+
+      span mark {
+        color: #fff
+      }
+    }
+  }
+}
+
+.ReactTags__remove {
+  border: none;
+  cursor: pointer;
+  background: none;
+  color: #fff;
+  padding: 5px;
+}
+
+.ReactTags__error {
+  color: #e03131;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    padding: 0 5px;
+  }
+}
