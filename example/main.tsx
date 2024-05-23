@@ -7,6 +7,8 @@ import { WithContext as ReactTags } from '../src/index';
 import COUNTRIES from './countries';
 import { SEPARATORS } from '../src/components/constants';
 
+import './reactTags.scss';
+
 const suggestions = COUNTRIES.map((country) => {
   return {
     id: country,
