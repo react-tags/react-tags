@@ -53,6 +53,10 @@
   display: inline-flex;
 }
 
+.ReactTags__remove {
+  display: flex;
+}
+
 .ReactTags__selected {
   display: flex;
   justify-content: center;
@@ -67,12 +71,6 @@
     border-radius: 2px;
     display: flex;
     align-items: center;
-  }
-
-  .ReactTags__remove {
-    color: #aaa;
-    cursor: pointer;
-    display: flex;
   }
 }
 
