@@ -27,7 +27,7 @@ Because I was looking for an excuse to build a standalone component and publish 
 ## Demo
 ![img](demo.gif)
 
-Check it out [here](https://stackblitz.com/edit/react-tag-input-1nelrc)
+Check it out [here](https://codesandbox.io/p/sandbox/react-tags-l65545)
 
 
 ## Installation
@@ -50,7 +50,6 @@ make sure you have installed the **peer dependencies** as well with :point_down:
  "react-dnd-html5-backend": "^14.0.0",
  "react-dom": "^18.2.0"
 ```
-It is, however, also available to be used separately (`dist/ReactTags.min.js`). If you prefer this method remember to include [ReactDND](https://github.com/gaearon/react-dnd) as a dependancy. Refer to the [example](https://stackblitz.com/edit/react-tag-input) to see how this works.
 
 ## Usage
     
