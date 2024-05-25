@@ -1,9 +1,4 @@
-/*eslint-disable */
-
-const { React, ReactDOM, ReactTags } = window;
-import GitHubCorner from './GithubCorner';
-
-// List of countries in the world
+//List of countries in the world
 const COUNTRIES = [
   'Afghanistan',
   'Albania',
@@ -213,85 +208,4 @@ const COUNTRIES = [
   'Zimbabwe',
 ];
 
-const suggestions = COUNTRIES.map((country) => {
-  return {
-    id: country,
-    text: country,
-  };
-});
-
-const KeyCodes = {
-  comma: 188,
-  enter: [10, 13],
-};
-
-const delimiters = [...KeyCodes.enter, KeyCodes.comma];
-
-const Tags = ReactTags.WithContext;
-const App = () => {
-  const [tags, setTags] = React.useState([
-    { id: 'Thailand', text: 'Thailand' },
-    { id: 'India', text: 'India' },
-    { id: 'Vietnam', text: 'Vietnam' },
-    { id: 'Turkey', text: 'Turkey' },
-  ]);
-
-  const handleDelete = (i) => {
-    setTags(tags.filter((tag, index) => index !== i));
-  };
-
-  const onTagUpdate = (i, newTag) => {
-    const updatedTags = tags.slice();
-    updatedTags.splice(i, 1, newTag);
-    setTags(updatedTags);
-  };
-
-  const handleAddition = (tag) => {
-    setTags([...tags, tag]);
-  };
-
-  const handleDrag = (tag, currPos, newPos) => {
-    const newTags = tags.slice();
-
-    newTags.splice(currPos, 1);
-    newTags.splice(newPos, 0, tag);
-
-    // re-render
-    setTags(newTags);
-  };
-
-  const handleTagClick = (index) => {
-    console.log('The tag at index ' + index + ' was clicked');
-  };
-
-  const onClearAll = () => {
-    setTags([]);
-  };
-
-  return (
-    <div className="app">
-      <GitHubCorner />
-
-      <h1> React Tags Example </h1>
-      <div>
-        <Tags
-          tags={tags}
-          suggestions={suggestions}
-          delimiters={delimiters}
-          handleDelete={handleDelete}
-          handleAddition={handleAddition}
-          handleDrag={handleDrag}
-          handleTagClick={handleTagClick}
-          onTagUpdate={onTagUpdate}
-          inputFieldPosition="bottom"
-          autocomplete
-          editable
-          clearAll
-          onClearAll={onClearAll}
-        />
-      </div>
-    </div>
-  );
-};
-
-ReactDOM.render(<App />, document.getElementById('app'));
+export default COUNTRIES;

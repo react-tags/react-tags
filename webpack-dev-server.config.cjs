@@ -5,8 +5,7 @@ const config = {
   mode: 'development',
   // Entry points to the project
   entry: {
-    ReactTags: path.join(__dirname, 'src/components/ReactTags.js'),
-    bundle: './example/main.js',
+    bundle: './example/main.tsx',
   },
   // Server Configuration options
   devServer: {
@@ -23,14 +22,8 @@ const config = {
     path: path.resolve(__dirname, 'example/public'), // Path of output file
     filename: '[name].min.js',
     libraryTarget: 'umd',
-    library: 'ReactTags',
   },
 
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
-    'react-dnd': 'ReactDnD',
-  },
   plugins: [
     // Enables Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),
@@ -40,15 +33,13 @@ const config = {
   module: {
     rules: [
       {
+        test: /\.(ts|tsx|js)$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: { transpileOnly: true },
+      },
+      {
         test: /\.js$/, // All .js files
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-            },
-          },
-        ],
         exclude: /node_modules/,
       },
       {
@@ -60,6 +51,9 @@ const config = {
         sideEffects: true,
       },
     ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
   },
 };
 

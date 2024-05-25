@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test ReactTags should render with expected props 1`] = `
+{
+  "allowAdditionFromPaste": true,
+  "allowDeleteFromEmptyInput": false,
+  "allowDragDrop": true,
+  "allowUnique": true,
+  "autoFocus": true,
+  "autocomplete": false,
+  "autofocus": true,
+  "clearAll": false,
+  "delimiters": [
+    10,
+    13,
+    9,
+  ],
+  "editable": false,
+  "handleAddition": [Function],
+  "handleClearAll": [Function],
+  "handleDelete": [Function],
+  "handleDrag": [Function],
+  "inline": true,
+  "inputFieldPosition": "inline",
+  "inputProps": {},
+  "labelField": "text",
+  "onTagUpdate": [Function],
+  "placeholder": "Press enter to add new tag",
+  "readOnly": false,
+  "suggestions": [
+    {
+      "className": "",
+      "id": "Banana",
+      "text": "Banana",
+    },
+    {
+      "className": "",
+      "id": "Apple",
+      "text": "Apple",
+    },
+    {
+      "className": "",
+      "id": "Apricot",
+      "text": "Apricot",
+    },
+    {
+      "className": "",
+      "id": "Pear",
+      "text": "Pear",
+    },
+    {
+      "className": "",
+      "id": "Peach",
+      "text": "Peach",
+    },
+  ],
+  "tags": [
+    {
+      "className": "",
+      "id": "Apple",
+      "text": "Apple",
+    },
+  ],
+}
+`;

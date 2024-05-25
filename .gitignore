@@ -1,3 +1,4 @@
+.DS_Store
 node_modules
 npm-debug.log
 .idea
@@ -5,6 +6,9 @@ npm-debug.log
 coverage
 dist-modules
 dist
+types
 example/public/bundle.*
 example/public/ReactTags.*
 example/.DS_Store
+meta-raw-dev.json
+meta-raw-prod.json
