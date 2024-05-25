@@ -28,6 +28,17 @@ Started by [Prakhar Srivastav](https://github.com/prakhar1989) and later maintai
 In Prakhar's words here is why he started it👇🏻
 Because I was looking for an excuse to build a standalone component and publish it in the wild? To be honest, I needed a tagging component that provided the above features for my [React-Surveyman](http://github.com/prakhar1989/react-surveyman) project. Since I was unable to find one which met my requirements (and the fact that I generally enjoy re-inventing the wheel) this is what I came up with.
 
+## Preparing for Migration to v7.x.x
+
+Below are the list of `deprecated` props so please stop using it and migrate to the new props as these will be removed in `v7.x.x`.
+You will see a warning for the migration as well in the console.
+
+- `delimiters` - Please use [`separators`](#separators) instead, more info in [this issue](https://github.com/react-tags/react-tags/issues/960).
+- `inline` - Please use [`inputFieldPosition`](#inputFieldPosition) instead.
+- `autofocus` - Please use [`autoFocus`](#autoFocus) instead.
+
+Additionally the prop `autocomplete` is deprecated and will be removed in `v7.x.x`. If you have any concerns regarding this, please share your thoughts in [this issue](https://github.com/react-tags/react-tags/issues/949).
+
 ## Support
 
 If you like this library, you can support to help it improve:)
