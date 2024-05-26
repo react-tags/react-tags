@@ -14,7 +14,7 @@ export interface Tag {
 }
 
 export interface TagProps {
-  labelField: string;
+  labelField?: string;
   onDelete: (
     event:
       | React.MouseEvent<HTMLSpanElement>
