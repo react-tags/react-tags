@@ -8,6 +8,7 @@ exports[`Tag shows the classnames of children properly 1`] = `
     draggable="true"
     style="opacity: 1; cursor: move;"
   >
+    FooBar
     <button
       aria-label="Tag at index 0 with value 1 focussed. Press backspace to remove"
       class="remove"
