@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
 import GitHubCorner from './GithubCorner';
 import type { Tag } from '../src/components/SingleTag';
-import { WithContext as ReactTags } from '../src/index';
+import { WithContext as ReactTags } from '../src';
 import COUNTRIES from './countries';
 import { SEPARATORS } from '../src/components/constants';
 

@@ -2,13 +2,13 @@ import { ReactNode } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-import { Tag } from '../src/components/SingleTag';
-import { KEYS, SEPARATORS } from '../src/components/constants';
+import { Tag } from './components/SingleTag';
+import { KEYS, SEPARATORS } from './components/constants';
 import ReactTags from './components/ReactTags';
 import {
   DEFAULT_LABEL_FIELD,
   DEFAULT_PLACEHOLDER,
-} from '../src/components/constants';
+} from './components/constants';
 
 export interface ReactTagsWrapperProps {
   /**
