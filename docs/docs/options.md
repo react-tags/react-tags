@@ -4,11 +4,14 @@ sidebar_position: 5
 
 # Options
 
+<a name="Options"></a>
+
 Option | Type | Default | Description
 --- | --- | --- | ---
 |[`tags`](#tags) | `Array` | `[]` | An array of tags that are displayed as pre-selected.|
 |[`suggestions`](#suggestions) | `Array` | `[]` | An array of suggestions that are used as basis for showing suggestions.
-|[`delimiters`](#delimiters) | `Array` | `[ENTER, TAB]` | Specifies which characters should terminate tags input.
+|[`delimiters`](#delimiters) | `Array` | `[13, 9]` | Specifies which characters keycode should terminate tags input. `[Deprecated]`, use [`separators`](#separators) instead.
+|[`separators`](#separators) | `Array` | `["Enter", "Tab"]` | Specifies which characters should terminate tags input |
 |[`placeholder`](#placeholder) | `String` | `Add new tag` | The placeholder shown for the input.
 |[`labelField`](#labelField) | `String` | `text` | Provide an alternative `label` property for the tags.
 |[`handleAddition`](#handleAddition) | `Function` | `undefined` | Function called when the user wants to add a tag (required).
@@ -16,19 +19,20 @@ Option | Type | Default | Description
 |[`handleDrag`](#handleDrag) | `Function` | `undefined` | Function called when the user drags a tag.
 |[`handleFilterSuggestions`](#handleFilterSuggestions) | `Function` | `undefined` | Function called when filtering suggestions.
 |[`handleTagClick`](#handleTagClick) | `Function` | `undefined` | Function called when the user wants to know which tag was clicked.
-|[`autofocus`](#autofocus) | `Boolean` | `true` | Boolean value to control whether the text-input should be autofocused on mount.
+|[`autofocus`](#autofocus) | `Boolean` | `true` | Boolean value to control whether the text-input should be autofocused on mount. `[Deprecated]`, use [`autoFocus`](#autoFocus) instead.
+|[`autoFocus`](#autoFocus) | `Boolean` | `true` | Boolean value to control whether the text-input should be autofocused on mount.
 |[`allowDeleteFromEmptyInput`](#allowDeleteFromEmptyInput) | `Boolean` | `true` | Boolean value to control whether tags should be deleted when the 'Delete' key is pressed in an empty Input Box.
 |[`handleInputChange`](#handleInputChange) | `Function` | `undefined` | Event handler for input onChange.
 |[`handleInputFocus`](#handleInputFocus) | `Function` | `undefined` | Event handler for input onFocus.
 |[`handleInputBlur`](#handleInputBlur) | `Function` | `undefined` | Event handler for input onBlur.
 |[`minQueryLength`](#minQueryLength) | `Number` | `2` | How many characters are needed for suggestions to appear.
 |[`removeComponent`](#removeComponent) | `Function` |  | Function to render custom remove component for the tags.
-|[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [delimiter](#delimiters) key is pressed.
+|[`autocomplete`](#autocomplete) | `Boolean`/`Number` | `false` | Ensure the first matching suggestion is automatically converted to a tag when a [separator](#separator) key is pressed.`[Deprecated]` and will be removed in v7.x.x, more info in [#949](https://github.com/react-tags/react-tags/issues/949)
 |[`readOnly`](#readOnly) | `Boolean` | `false` | Read-only mode without the input box and `removeComponent` and drag-n-drop features disabled.
 |[`name`](#name) | `String` | `undefined` | The `name` attribute added to the input.
 |[`id`](#id) | `String` | `undefined` | The `id` attribute added to the input.
 |[`maxLength`](#maxLength) | `Number` | `Infinity` | The `maxLength` attribute added to the input.
-|[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line.
+|[`inline`](#inline) | `Boolean` | `true` | Render input field and selected tags in-line. `[Deprecated]`, use [`inputFieldPosition`](#inputFieldPosition) instead.
 |[`inputFieldPosition`](#inputFieldPosition) | `String` | `inline` | Specify position of input field relative to tags
 |[`allowUnique`](#allowUnique) | `Boolean` | `true` | Boolean value to control whether tags should be unqiue.
 |[`allowDragDrop`](#allowDragDrop) | `Boolean` | `true` | Implies whether tags should have drag-n-drop features enabled.
@@ -39,6 +43,7 @@ Option | Type | Default | Description
 | [`onTagUpdate`](#onTagUpdate) | `Function` | | This callback if present is triggered when tag is edited.|
 |[`clearAll`](#clearAll) | `boolean` | `false` | Implies whether 'clear all' button should be shown.
 |[`onClearAll`](#onClearAll) | `Function` |  | This callback if present is triggered when clear all button is clicked.
+| [`maxTags`](#maxTags) | `number` | | The maximum count of tags to be added
 
 
 ### tags 
