@@ -14,7 +14,7 @@ export interface Tag {
 }
 
 export interface TagProps {
-  labelField: string;
+  labelField?: string;
   onDelete: (
     event:
       | React.MouseEvent<HTMLSpanElement>
@@ -33,6 +33,7 @@ export interface TagProps {
   readOnly: boolean;
   index: number;
   allowDragDrop: boolean;
+  tags: Tag[]
 }
 
 const SingleTag = (props: TagProps) => {
@@ -45,6 +46,7 @@ const SingleTag = (props: TagProps) => {
     moveTag,
     allowDragDrop = true,
     labelField = 'text',
+    tags
   } = props;
 
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -54,7 +56,7 @@ const SingleTag = (props: TagProps) => {
     }),
     item: props,
     canDrag: () => canDrag({ moveTag, readOnly, allowDragDrop }),
-  }));
+  }),[tags]);
 
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.TAG,
@@ -68,11 +70,11 @@ const SingleTag = (props: TagProps) => {
       props?.moveTag?.(dragIndex, hoverIndex);
     },
     canDrop: (item) => canDrop(item),
-  }));
+  }),[tags]);
 
   drag(drop(tagRef));
 
-  const label = props.tag[props.labelField];
+  const label = props.tag[labelField];
   const { className = '' } = tag;
   /* istanbul ignore next */
   const opacity = isDragging ? 0 : 1;

@@ -475,6 +475,7 @@ const ReactTags = (props: ReactTagsProps) => {
             <SingleTag
               index={index}
               tag={tag}
+              tags={tags}
               labelField={labelField}
               onDelete={(
                 event:
