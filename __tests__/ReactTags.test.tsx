@@ -649,7 +649,7 @@ describe('Test ReactTags', () => {
     expect(tags).to.have.length(0);
   });
 
-  describe('render tags correctly when html passed in  text attribute, fix #267', () => {
+  describe('render tags correctly when html passed in text attribute, fix #267', () => {
     let modifiedTags: Tag[] = [];
     let handleAddition;
     let actual: Tag[];
