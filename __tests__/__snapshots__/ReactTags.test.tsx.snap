@@ -1,5 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Test ReactTags classNames should pass classNames correctly to the DOM element 1`] = `
+<div>
+  <div
+    class="tags-class react-tags-wrapper"
+  >
+    <p
+      class="sr-only"
+      role="alert"
+      style="position: absolute; overflow: hidden; margin: -1px; padding: 0px; width: 1px; height: 1px; border: 0px;"
+    />
+    <div
+      class="selected-class"
+    >
+      <div
+        class="tagInput-class"
+      >
+        <input
+          aria-label="Press enter to add new tag"
+          class="tagInputField-class"
+          data-automation="input"
+          data-testid="input"
+          placeholder="Press enter to add new tag"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Test ReactTags should render with expected props 1`] = `
 {
   "allowAdditionFromPaste": true,

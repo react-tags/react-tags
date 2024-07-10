@@ -1357,4 +1357,25 @@ describe('Test ReactTags', () => {
       );
     });
   });
+
+  describe('classNames', () => {
+    it('should pass classNames correctly to the DOM element', () => {
+      const classNames = {
+        tags: 'tags-class',
+        tagInput: 'tagInput-class',
+        tagInputField: 'tagInputField-class',
+        selected: 'selected-class',
+        tag: 'tag-class',
+        remove: 'remove-class',
+        suggestions: 'suggestions-class',
+        activeSuggestion: 'activeSuggestion-class',
+        editTagInput: 'editTagInput-class',
+        editTagInputField: 'editTagInputField-class',
+        clearAll: 'clearAll-class',
+      };
+
+      const { container } = render(<ReactTags classNames={classNames} />);
+      jestExpect(container).toMatchSnapshot();
+    });
+  });
 });
