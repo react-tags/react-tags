@@ -268,14 +268,19 @@ The component is written in ES6 and uses [Webpack](http://webpack.github.io/) as
 
 ## Set up instructions
 
+Install yarn
+```
+npm install -g yarn
+```
+
 ```
 git clone git@github.com:react-tags/react-tags.git
 cd react-tags
-npm install
-npm run precommit
-npm run start
+yarn
+yarn precommit
+yarn start
 ```
-open [http://localhost:8090/example](http://localhost:8090/example)
+open [http://localhost:8090](http://localhost:8090)
 
 
 ## Contributing
