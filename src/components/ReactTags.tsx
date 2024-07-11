@@ -107,7 +107,8 @@ const ReactTags = (props: ReactTagsProps) => {
         '[Deprecated] autofocus prop will be removed in 7.x so please migrate to autoFocus prop.'
       );
     }
-    if ((autofocus || autoFocus) && !readOnly) {
+    
+    if ((autofocus || (autoFocus && autofocus !== false)) && !readOnly) {
       resetAndFocusInput();
     }
   }, [autoFocus, autoFocus, readOnly]);
@@ -504,7 +505,7 @@ const ReactTags = (props: ReactTagsProps) => {
 
   const { name: inputName, id: inputId } = props;
 
-  const position = !inline ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
+  const position = inline === false ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
 
   const tagsComponent = !readOnly ? (
     <div className={allClassNames.tagInput}>
