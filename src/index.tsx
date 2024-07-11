@@ -208,15 +208,15 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
     placeholder = DEFAULT_PLACEHOLDER,
     labelField = DEFAULT_LABEL_FIELD,
     suggestions = [],
-    // Set delimeters to empty array if separators is provided
-    delimiters = props.separators?.length ? [] : [...KEYS.ENTER, KEYS.TAB],
+    // Set delimeters to empty array if not provided
+    delimiters = [],
     // Set separators to empty array if delimiters is provided
     separators = props.delimiters?.length
       ? []
       : [SEPARATORS.ENTER, SEPARATORS.TAB],
-    autofocus = true,
+    autofocus,
     autoFocus = true,
-    inline = true, // TODO= Remove in v7.x.x
+    inline, // TODO= Remove in v7.x.x
     inputFieldPosition = 'inline',
     allowDeleteFromEmptyInput = false,
     allowAdditionFromPaste = true,

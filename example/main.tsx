@@ -72,7 +72,6 @@ const App = () => {
         <ReactTags
           tags={tags}
           suggestions={suggestions}
-          separators={[SEPARATORS.ENTER, SEPARATORS.COMMA]}
           handleDelete={handleDelete}
           handleAddition={handleAddition}
           handleDrag={handleDrag}
