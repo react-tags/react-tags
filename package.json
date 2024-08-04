@@ -64,6 +64,7 @@
   "dependencies": {
     "@types/lodash-es": "^4.17.12",
     "classnames": "~2.3.1",
+    "fuzzify": "^0.1.0",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {

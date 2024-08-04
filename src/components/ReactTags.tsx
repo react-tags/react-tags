@@ -1,4 +1,11 @@
-import React, { useEffect, createRef, useRef, useState, Fragment } from 'react';
+import React, {
+  useEffect,
+  createRef,
+  useRef,
+  useState,
+  Fragment,
+  useMemo,
+} from 'react';
 import { uniq } from 'lodash-es';
 import ClearAllTags from './ClearAllTags';
 import Suggestions from './Suggestions';
@@ -16,6 +23,7 @@ import {
   ERRORS,
 } from './constants';
 import type { ReactTagsWrapperProps } from '../';
+import Fuzzy from 'fuzzify';
 
 /**
  * Props for the ReactTags component.
@@ -30,6 +38,8 @@ type ReactTagsProps = ReactTagsWrapperProps & {
   autofocus?: boolean;
   autoFocus: boolean;
   inline?: boolean;
+  applyFuzzySearch?: boolean;
+  maximumFuzzyDistance?: number;
   inputFieldPosition: 'inline' | 'top' | 'bottom';
   allowDeleteFromEmptyInput: boolean;
   allowAdditionFromPaste: boolean;
@@ -70,6 +80,8 @@ const ReactTags = (props: ReactTagsProps) => {
     maxLength,
     inputValue,
     clearAll,
+    applyFuzzySearch = false,
+    maximumFuzzyDistance = 5,
   } = props;
 
   const [suggestions, setSuggestions] = useState(props.suggestions);
@@ -107,7 +119,7 @@ const ReactTags = (props: ReactTagsProps) => {
         '[Deprecated] autofocus prop will be removed in 7.x so please migrate to autoFocus prop.'
       );
     }
-    
+
     if ((autofocus || (autoFocus && autofocus !== false)) && !readOnly) {
       resetAndFocusInput();
     }
@@ -116,6 +128,13 @@ const ReactTags = (props: ReactTagsProps) => {
   useEffect(() => {
     updateSuggestions();
   }, [query, props.suggestions]);
+
+  const fuzzySuggestions = useMemo(() => {
+    const suggestionList = props.suggestions.map((suggestion) => {
+      return suggestion.id;
+    });
+    return new Fuzzy(suggestionList);
+  }, []);
 
   // Filter suggestions based on the query and existing tags
   const filteredSuggestions = (query: string) => {
@@ -131,6 +150,16 @@ const ReactTags = (props: ReactTagsProps) => {
     // If a custom filter function is provided, use it to filter the suggestions
     if (props.handleFilterSuggestions) {
       return props.handleFilterSuggestions(query, updatedSuggestions);
+    }
+    if (applyFuzzySearch) {
+      const newSuggestionsFuzzy = fuzzySuggestions.search(query);
+      const fuzzyDistance = maximumFuzzyDistance ?? 5;
+
+      return props.suggestions.filter((suggestion) =>
+        newSuggestionsFuzzy.find(
+          (sug) => sug.text === suggestion.id && sug.distance < fuzzyDistance
+        )
+      );
     }
 
     // Separate exact matches and partial matches and return them concatenated
@@ -505,7 +534,8 @@ const ReactTags = (props: ReactTagsProps) => {
 
   const { name: inputName, id: inputId } = props;
 
-  const position = inline === false ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
+  const position =
+    inline === false ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
 
   const tagsComponent = !readOnly ? (
     <div className={allClassNames.tagInput}>
