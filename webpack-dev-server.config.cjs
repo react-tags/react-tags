@@ -50,6 +50,12 @@ const config = {
         // https://webpack.js.org/guides/tree-shaking/#mark-the-file-as-side-effect-free
         sideEffects: true,
       },
+      {
+        test: /\.m?js/,
+        resolve: {
+          fullySpecified: false
+        }
+      }
     ],
   },
   resolve: {
