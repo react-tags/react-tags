@@ -153,7 +153,7 @@ const ReactTags = (props: ReactTagsProps) => {
     }
     if (applyFuzzySearch) {
       const newSuggestionsFuzzy = fuzzySuggestions.search(query);
-      const fuzzyDistance = maximumFuzzyDistance ?? 5;
+      const fuzzyDistance = maximumFuzzyDistance;
 
       return props.suggestions.filter((suggestion) =>
         newSuggestionsFuzzy.find(
