@@ -7,6 +7,9 @@ const config = {
   entry: {
     bundle: './example/main.tsx',
   },
+  resolve: {
+    extensions: ['.js', '.json', 'jsx', 'tsx', 'ts'],
+  },
   // Server Configuration options
   devServer: {
     static: {
