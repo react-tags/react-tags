@@ -32,7 +32,7 @@ const App = () => {
 
   // enable fuzzy search on suggestion
   const [fuzzySearch, setFuzzySearch] = useState(false);
-  const [fuzzyDistance, setFuzzyDistance] = useState(4);
+
   const handleDelete = (index: number) => {
     setTags(tags.filter((_, i) => i !== index));
   };
@@ -71,23 +71,13 @@ const App = () => {
     <div className="app">
       <GitHubCorner />
       <h1> React Tags Example </h1>
-      <div className="fuzzySearch_container">
-        <button
-          className="fuzzySearch_toggleCta"
-          onClick={() => setFuzzySearch(!fuzzySearch)}>
-          Fuzzy search on suggestions is {fuzzySearch ? 'on' : 'off'}
-        </button>
-        {fuzzySearch ? (
-          <label>
-            current fuzzy distance is: {fuzzyDistance}
-            <input
-              className="fuzzySearch_distanceInput"
-              placeholder="update fuzzy distance"
-              onChange={(e) => setFuzzyDistance(+e.target.value)}
-            />
-          </label>
-        ) : null}
-      </div>
+
+      <button
+        className="fuzzySearch_toggleCta"
+        onClick={() => setFuzzySearch(!fuzzySearch)}>
+        Fuzzy search on suggestions is {fuzzySearch ? 'on' : 'off'}
+      </button>
+
       <div>
         <ReactTags
           tags={tags}
@@ -99,8 +89,7 @@ const App = () => {
           handleTagClick={handleTagClick}
           onTagUpdate={onTagUpdate}
           inputFieldPosition="bottom"
-          maximumFuzzyDistance={fuzzyDistance}
-          applyFuzzySearch={fuzzySearch}
+          enableFuzzySearch={fuzzySearch}
           editable
           clearAll
           onClearAll={onClearAll}

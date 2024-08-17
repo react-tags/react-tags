@@ -204,7 +204,7 @@ export interface ReactTagsWrapperProps {
   /**
    * apply fuzzy search on suggestion
    */
-  applyFuzzySearch?: boolean;
+  enableFuzzySearch?: boolean;
   /**
    * maximum fuzzy distance to consider for suggestion
    */
@@ -257,13 +257,13 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
     maxTags,
     renderSuggestion,
     maximumFuzzyDistance,
-    applyFuzzySearch,
+    enableFuzzySearch,
   } = props;
 
   return (
     <ReactTags
       placeholder={placeholder}
-      applyFuzzySearch={applyFuzzySearch}
+      enableFuzzySearch={enableFuzzySearch}
       maximumFuzzyDistance={maximumFuzzyDistance}
       labelField={labelField}
       suggestions={suggestions}

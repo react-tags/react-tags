@@ -38,8 +38,7 @@ type ReactTagsProps = ReactTagsWrapperProps & {
   autofocus?: boolean;
   autoFocus: boolean;
   inline?: boolean;
-  applyFuzzySearch?: boolean;
-  maximumFuzzyDistance?: number;
+  enableFuzzySearch?: boolean;
   inputFieldPosition: 'inline' | 'top' | 'bottom';
   allowDeleteFromEmptyInput: boolean;
   allowAdditionFromPaste: boolean;
@@ -80,10 +79,9 @@ const ReactTags = (props: ReactTagsProps) => {
     maxLength,
     inputValue,
     clearAll,
-    applyFuzzySearch = false,
-    maximumFuzzyDistance = 5,
+    enableFuzzySearch = false,
   } = props;
-
+  const maximumFuzzyDistance = 5;
   const [suggestions, setSuggestions] = useState(props.suggestions);
   const [query, setQuery] = useState('');
   const [isFocused, setIsFocused] = useState(false);
@@ -134,7 +132,7 @@ const ReactTags = (props: ReactTagsProps) => {
       return suggestion.id;
     });
     return new Fuzzy(suggestionList);
-  }, []);
+  }, [props.suggestions]);
 
   // Filter suggestions based on the query and existing tags
   const filteredSuggestions = (query: string) => {
@@ -151,7 +149,7 @@ const ReactTags = (props: ReactTagsProps) => {
     if (props.handleFilterSuggestions) {
       return props.handleFilterSuggestions(query, updatedSuggestions);
     }
-    if (applyFuzzySearch) {
+    if (enableFuzzySearch) {
       const newSuggestionsFuzzy = fuzzySuggestions.search(query);
       const fuzzyDistance = maximumFuzzyDistance;
 

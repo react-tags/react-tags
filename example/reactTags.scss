@@ -128,12 +128,7 @@
   }
 }
 
-.fuzzySearch_container{
-  display: flex;
-  gap:150px;
-  margin-top: 50px;
-  margin-bottom: 50px;
-}
+
 
 .fuzzySearch_toggleCta {
   border: 1px solid #ddd;
@@ -151,8 +146,4 @@
   &:hover{
    transform: scale(1.04) translateY(-2px);
   }
-}
-
-.fuzzySearch_distanceInput{
-     margin-left: 10px;
 }
