@@ -5,8 +5,15 @@ import { spy, stub, createSandbox } from 'sinon';
 import { WithContext as ReactTags } from '../src/index';
 
 import { KEYS, SEPARATORS } from '../src/components/constants';
-import { fireEvent, render, screen } from '@testing-library/react';
+import {
+  fireEvent,
+  render,
+  screen,
+  expect as TestingLibraryExpect,
+} from '@testing-library/react';
 import type { Tag } from '../src/components/SingleTag';
+
+import COUNTRIES from '../example/countries';
 
 /* eslint-disable no-console */
 
@@ -1376,6 +1383,140 @@ describe('Test ReactTags', () => {
 
       const { container } = render(<ReactTags classNames={classNames} />);
       jestExpect(container).toMatchSnapshot();
+    });
+  });
+});
+
+describe('Fuzzy Search is enabled ', () => {
+  it('shouldRenderSuggestionsBasedOnFuzzyLogic', () => {
+    const suggestions = COUNTRIES.map((country) => {
+      return {
+        id: country,
+        text: country,
+        className: '',
+      };
+    });
+    const fuzzyResult = [
+      {
+        id: 'Albania',
+        text: 'Albania',
+        className: '',
+      },
+      {
+        id: 'Algeria',
+        text: 'Algeria',
+        className: '',
+      },
+      {
+        id: 'Armenia',
+        text: 'Armenia',
+        className: '',
+      },
+      {
+        id: 'Bolivia',
+        text: 'Bolivia',
+        className: '',
+      },
+      {
+        id: 'Gambia',
+        text: 'Gambia',
+        className: '',
+      },
+      {
+        id: 'Latvia',
+        text: 'Latvia',
+        className: '',
+      },
+      {
+        id: 'Liberia',
+        text: 'Liberia',
+        className: '',
+      },
+      {
+        id: 'Macedonia',
+        text: 'Macedonia',
+        className: '',
+      },
+      {
+        id: 'Malawi',
+        text: 'Malawi',
+        className: '',
+      },
+      {
+        id: 'Malaysia',
+        text: 'Malaysia',
+        className: '',
+      },
+      {
+        id: 'Mali',
+        text: 'Mali',
+        className: '',
+      },
+      {
+        id: 'Malta',
+        text: 'Malta',
+        className: '',
+      },
+      {
+        id: 'Moldova',
+        text: 'Moldova',
+        className: '',
+      },
+      {
+        id: 'Namibia',
+        text: 'Namibia',
+        className: '',
+      },
+      {
+        id: 'Nigeria',
+        text: 'Nigeria',
+        className: '',
+      },
+      {
+        id: 'Palestine',
+        text: 'Palestine',
+        className: '',
+      },
+      {
+        id: 'Russia',
+        text: 'Russia',
+        className: '',
+      },
+      {
+        id: 'Tunisia',
+        text: 'Tunisia',
+        className: '',
+      },
+      {
+        id: 'Zambia',
+        text: 'Zambia',
+        className: '',
+      },
+    ];
+
+    render(
+      <ReactTags
+        tags={[]}
+        suggestions={suggestions}
+        separators={[SEPARATORS.ENTER, SEPARATORS.COMMA]}
+        handleDelete={() => {}}
+        handleAddition={() => {}}
+        handleDrag={() => {}}
+        handleTagClick={() => {}}
+        onTagUpdate={() => {}}
+        inputFieldPosition="bottom"
+        enableFuzzySearch={true}
+        editable
+        clearAll
+        onClearAll={() => {}}
+        maxTags={7}
+        allowAdditionFromPaste
+      />
+    );
+    const queryInput = screen.getByTestId('input') as HTMLInputElement;
+    fireEvent.change(queryInput, { target: { value: 'malesia' } });
+    fuzzyResult.forEach((value) => {
+      expect(screen.getByText(value.text)).to.exist;
     });
   });
 });

@@ -46,6 +46,13 @@ const config = {
         exclude: /node_modules/,
       },
       {
+        test: /\.js$/, // All .js files
+        include: [path.resolve(path.dirname, 'node_modules/fuzzify')],
+        use: {
+          loader: 'babel-loader',
+        },
+      },
+      {
         test: /\.(sa|sc|c)ss$/,
         exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
@@ -56,9 +63,9 @@ const config = {
       {
         test: /\.m?js/,
         resolve: {
-          fullySpecified: false
-        }
-      }
+          fullySpecified: false,
+        },
+      },
     ],
   },
   resolve: {
