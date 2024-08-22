@@ -130,20 +130,6 @@
 
 
 
-.fuzzySearch_toggleCta {
-  border: 1px solid #ddd;
-  color: #63bcfd;
-  background-color: transparent;
-  font-size: 14px;
-  padding: 5px;
-  margin: 0 5px;
-  border-radius: 2px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.3s;
-
-  &:hover{
-   transform: scale(1.04) translateY(-2px);
-  }
+.fuzzySearch_toggler {
+  margin: 20px 5px; 
 }

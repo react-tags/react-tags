@@ -72,11 +72,15 @@ const App = () => {
       <GitHubCorner />
       <h1> React Tags Example </h1>
 
-      <button
-        className="fuzzySearch_toggleCta"
-        onClick={() => setFuzzySearch(!fuzzySearch)}>
-        Fuzzy search on suggestions is {fuzzySearch ? 'on' : 'off'}
-      </button>
+      <label>
+        Enable fuzzy search
+        <input
+          className="fuzzySearch_toggler"
+          type="checkbox"
+          id="fuzzySearchEnabler"
+          onChange={() => setFuzzySearch(!fuzzySearch)}
+        />
+      </label>
 
       <div>
         <ReactTags

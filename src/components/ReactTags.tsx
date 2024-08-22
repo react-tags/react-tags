@@ -81,7 +81,7 @@ const ReactTags = (props: ReactTagsProps) => {
     clearAll,
     enableFuzzySearch = false,
   } = props;
-  const maximumFuzzyDistance = 5;
+
   const [suggestions, setSuggestions] = useState(props.suggestions);
   const [query, setQuery] = useState('');
   const [isFocused, setIsFocused] = useState(false);
@@ -151,11 +151,10 @@ const ReactTags = (props: ReactTagsProps) => {
     }
     if (enableFuzzySearch) {
       const newSuggestionsFuzzy = fuzzySuggestions.search(query);
-      const fuzzyDistance = maximumFuzzyDistance;
 
       return props.suggestions.filter((suggestion) =>
         newSuggestionsFuzzy.find(
-          (sug) => sug.text === suggestion.id && sug.distance < fuzzyDistance
+          (sug) => sug.text === suggestion.id && sug.distance < 5
         )
       );
     }
