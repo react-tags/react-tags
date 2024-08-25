@@ -256,7 +256,6 @@ const ReactTags = (props: ReactTagsProps) => {
 
   const updateSuggestions = () => {
     const newSuggestions = filteredSuggestions(query);
-    console.log(newSuggestions);
     setSuggestions(newSuggestions);
     setSelectedIndex(
       selectedIndex >= newSuggestions.length
