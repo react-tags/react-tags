@@ -47,7 +47,7 @@ const config = {
       },
       {
         test: /\.js$/, // All .js files
-        include: [path.resolve(path.dirname, 'node_modules/fuzzify')],
+        include: [path.resolve(__dirname, 'node_modules/fuzzify')],
         use: {
           loader: 'babel-loader',
         },
