@@ -75,7 +75,7 @@ const App = () => {
       <label>
         Enable fuzzy search
         <input
-          className="fuzzySearch_toggler"
+          className="fuzzySearch_toggle"
           type="checkbox"
           id="fuzzySearchEnabler"
           onChange={() => setFuzzySearch(!fuzzySearch)}
