@@ -5,7 +5,7 @@ import GitHubCorner from './GithubCorner';
 import type { Tag } from '../src/components/SingleTag';
 import { WithContext as ReactTags } from '../src';
 import COUNTRIES from './countries';
-import { SEPARATORS } from '../src/components/constants';
+import { SEPARATORS } from '../src';
 
 import './reactTags.scss';
 
