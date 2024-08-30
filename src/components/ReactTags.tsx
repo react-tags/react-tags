@@ -125,7 +125,7 @@ const ReactTags = (props: ReactTagsProps) => {
 
   useEffect(() => {
     updateSuggestions();
-  }, [query, props.suggestions]);
+  }, [query, props.suggestions, props.enableFuzzySearch]);
 
   const fuzzySuggestions = useMemo(() => {
     const suggestionList = props.suggestions.map((suggestion) => {

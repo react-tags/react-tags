@@ -5,12 +5,7 @@ import { spy, stub, createSandbox } from 'sinon';
 import { WithContext as ReactTags } from '../src/index';
 
 import { KEYS, SEPARATORS } from '../src/components/constants';
-import {
-  fireEvent,
-  render,
-  screen,
-  expect as TestingLibraryExpect,
-} from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import type { Tag } from '../src/components/SingleTag';
 
 import COUNTRIES from '../example/countries';
@@ -1387,8 +1382,8 @@ describe('Test ReactTags', () => {
   });
 });
 
-describe('Fuzzy Search is enabled ', () => {
-  it('shouldRenderSuggestionsBasedOnFuzzyLogic', () => {
+describe('test suggestions on fuzzy Search enabled ', () => {
+  it('the suggestions should match the snapshot when query is males', async () => {
     const suggestions = COUNTRIES.map((country) => {
       return {
         id: country,
@@ -1396,105 +1391,8 @@ describe('Fuzzy Search is enabled ', () => {
         className: '',
       };
     });
-    const fuzzyResult = [
-      {
-        id: 'Albania',
-        text: 'Albania',
-        className: '',
-      },
-      {
-        id: 'Algeria',
-        text: 'Algeria',
-        className: '',
-      },
-      {
-        id: 'Armenia',
-        text: 'Armenia',
-        className: '',
-      },
-      {
-        id: 'Bolivia',
-        text: 'Bolivia',
-        className: '',
-      },
-      {
-        id: 'Gambia',
-        text: 'Gambia',
-        className: '',
-      },
-      {
-        id: 'Latvia',
-        text: 'Latvia',
-        className: '',
-      },
-      {
-        id: 'Liberia',
-        text: 'Liberia',
-        className: '',
-      },
-      {
-        id: 'Macedonia',
-        text: 'Macedonia',
-        className: '',
-      },
-      {
-        id: 'Malawi',
-        text: 'Malawi',
-        className: '',
-      },
-      {
-        id: 'Malaysia',
-        text: 'Malaysia',
-        className: '',
-      },
-      {
-        id: 'Mali',
-        text: 'Mali',
-        className: '',
-      },
-      {
-        id: 'Malta',
-        text: 'Malta',
-        className: '',
-      },
-      {
-        id: 'Moldova',
-        text: 'Moldova',
-        className: '',
-      },
-      {
-        id: 'Namibia',
-        text: 'Namibia',
-        className: '',
-      },
-      {
-        id: 'Nigeria',
-        text: 'Nigeria',
-        className: '',
-      },
-      {
-        id: 'Palestine',
-        text: 'Palestine',
-        className: '',
-      },
-      {
-        id: 'Russia',
-        text: 'Russia',
-        className: '',
-      },
-      {
-        id: 'Tunisia',
-        text: 'Tunisia',
-        className: '',
-      },
-      {
-        id: 'Zambia',
-        text: 'Zambia',
-        className: '',
-      },
-    ];
 
-    render(
+    const { container } = render(
       <ReactTags
         tags={[]}
         suggestions={suggestions}
@@ -1505,8 +1403,8 @@ describe('Fuzzy Search is enabled ', () => {
         handleTagClick={() => {}}
         onTagUpdate={() => {}}
         inputFieldPosition="bottom"
-        enableFuzzySearch={true}
         editable
+        enableFuzzySearch
         clearAll
         onClearAll={() => {}}
         maxTags={7}
@@ -1514,9 +1412,10 @@ describe('Fuzzy Search is enabled ', () => {
       />
     );
     const queryInput = screen.getByTestId('input') as HTMLInputElement;
-    fireEvent.change(queryInput, { target: { value: 'malesia' } });
-    fuzzyResult.forEach((value) => {
-      expect(screen.getByText(value.text)).to.exist;
-    });
+    fireEvent.change(queryInput, { target: { value: 'males' } });
+
+    jestExpect(container.innerHTML).toMatchInlineSnapshot(
+      `"<div class="ReactTags__tags react-tags-wrapper"><p role="alert" class="sr-only" style="position: absolute; overflow: hidden; margin: -1px; padding: 0px; width: 1px; height: 1px; border: 0px;"></p><div class="ReactTags__selected"></div><div class="ReactTags__tagInput"><input class="ReactTags__tagInputField" type="text" placeholder="Press enter to add new tag" aria-label="Press enter to add new tag" data-automation="input" data-testid="input" value=""><div class="ReactTags__suggestions" data-testid="suggestions"><ul> <li class=""><span>Laos</span></li><li class=""><span>Macau</span></li><li class=""><span>Malawi</span></li><li class=""><span>Malaysia</span></li><li class=""><span>Maldives</span></li><li class=""><span>Mali</span></li><li class=""><span>Malta</span></li> </ul></div></div></div>"`
+    );
   });
 });
