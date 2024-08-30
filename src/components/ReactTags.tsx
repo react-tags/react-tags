@@ -52,6 +52,8 @@ type ReactTagsProps = ReactTagsWrapperProps & {
   clearAll: boolean;
 };
 
+const maximumFuzzyDistance = 5;
+
 const ReactTags = (props: ReactTagsProps) => {
   const {
     autofocus,
@@ -132,7 +134,7 @@ const ReactTags = (props: ReactTagsProps) => {
       return suggestion.id;
     });
     return new Fuzzy(suggestionList);
-  }, [props.suggestions]);
+  }, [props.suggestions, props.enableFuzzySearch]);
 
   // Filter suggestions based on the query and existing tags
   const filteredSuggestions = (query: string) => {
@@ -154,7 +156,8 @@ const ReactTags = (props: ReactTagsProps) => {
 
       return props.suggestions.filter((suggestion) =>
         newSuggestionsFuzzy.find(
-          (sug) => sug.text === suggestion.id && sug.distance < 5
+          (sug) =>
+            sug.text === suggestion.id && sug.distance < maximumFuzzyDistance
         )
       );
     }
