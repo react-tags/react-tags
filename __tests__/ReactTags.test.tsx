@@ -1382,70 +1382,85 @@ describe('Test ReactTags', () => {
   });
 });
 
-describe('Fuzzy Search ', () => {
-  it('expect 2 different inline snapshot when fuzzy search is enabled and not enabled', async () => {
-    const suggestions = COUNTRIES.map((country) => {
-      return {
-        id: country,
-        text: country,
-        className: '',
-      };
-    });
+describe('Test Fuzzy Search', () => {
+  const suggestions = COUNTRIES.map((country) => {
+    return {
+      id: country,
+      text: country,
+      className: '',
+    };
+  });
 
-    const { rerender, container } = render(
-      <ReactTags
-        tags={[]}
-        suggestions={suggestions}
-        separators={[SEPARATORS.ENTER, SEPARATORS.COMMA]}
-        handleDelete={() => {}}
-        handleAddition={() => {}}
-        handleDrag={() => {}}
-        handleTagClick={() => {}}
-        onTagUpdate={() => {}}
-        inputFieldPosition="bottom"
-        editable
-        clearAll
-        onClearAll={() => {}}
-        maxTags={7}
-        allowAdditionFromPaste
-      />
+  it('should render the suggestions correctly when fuzzy search is not enabled', () => {
+    const { container } = render(<ReactTags suggestions={suggestions} />);
+    const queryInput = screen.getByTestId('input') as HTMLInputElement;
+    fireEvent.change(queryInput, { target: { value: 'Indones' } });
+
+    jestExpect(screen.getByTestId('suggestions')).toMatchInlineSnapshot(`
+      <div
+        class="ReactTags__suggestions"
+        data-testid="suggestions"
+      >
+        <ul>
+           
+          <li
+            class=""
+          >
+            <span>
+              <mark>
+                Indones
+              </mark>
+              ia
+            </span>
+          </li>
+           
+        </ul>
+      </div>
+    `);
+  });
+
+  it('should render suggestions correctly when fuzzy search is enabled', () => {
+    const { container } = render(
+      <ReactTags suggestions={suggestions} enableFuzzySearch={true} />
     );
     const queryInput = screen.getByTestId('input') as HTMLInputElement;
-    fireEvent.change(queryInput, { target: { value: 'males' } });
+    fireEvent.change(queryInput, { target: { value: 'Indones' } });
 
     // test snapshot without fuzzy search
-    jestExpect(container.innerHTML).toMatchInlineSnapshot(
-      `"<div class="ReactTags__tags react-tags-wrapper"><p role="alert" class="sr-only" style="position: absolute; overflow: hidden; margin: -1px; padding: 0px; width: 1px; height: 1px; border: 0px;"></p><div class="ReactTags__selected"></div><div class="ReactTags__tagInput"><input class="ReactTags__tagInputField" type="text" placeholder="Press enter to add new tag" aria-label="Press enter to add new tag" data-automation="input" data-testid="input" value=""></div></div>"`
-    );
-
-    rerender(
-      <ReactTags
-        tags={[]}
-        suggestions={suggestions}
-        separators={[SEPARATORS.ENTER, SEPARATORS.COMMA]}
-        handleDelete={() => {}}
-        handleAddition={() => {}}
-        handleDrag={() => {}}
-        handleTagClick={() => {}}
-        onTagUpdate={() => {}}
-        inputFieldPosition="bottom"
-        enableFuzzySearch={true}
-        editable
-        clearAll
-        onClearAll={() => {}}
-        maxTags={7}
-        allowAdditionFromPaste
-      />
-    );
-
-    const queryInputWithFuzzy = screen.getByTestId('input') as HTMLInputElement;
-    fireEvent.change(queryInputWithFuzzy, {
-      target: { value: 'males' },
-    });
-
-    // test after enabling fuzzy search
-    jestExpect(container.innerHTML).toMatchInlineSnapshot(
-      `"<div class="ReactTags__tags react-tags-wrapper"><p role="alert" class="sr-only" style="position: absolute; overflow: hidden; margin: -1px; padding: 0px; width: 1px; height: 1px; border: 0px;"></p><div class="ReactTags__selected"></div><div class="ReactTags__tagInput"><input class="ReactTags__tagInputField" type="text" placeholder="Press enter to add new tag" aria-label="Press enter to add new tag" data-automation="input" data-testid="input" value=""><div class="ReactTags__suggestions" data-testid="suggestions"><ul> <li class=""><span>Laos</span></li><li class=""><span>Macau</span></li><li class=""><span>Malawi</span></li><li class=""><span>Malaysia</span></li><li class=""><span>Maldives</span></li><li class=""><span>Mali</span></li><li class=""><span>Malta</span></li> </ul></div></div></div>"`
-    );
+    jestExpect(screen.getByTestId('suggestions')).toMatchInlineSnapshot(`
+      <div
+        class="ReactTags__suggestions"
+        data-testid="suggestions"
+      >
+        <ul>
+           
+          <li
+            class=""
+          >
+            <span>
+              Andorra
+            </span>
+          </li>
+          <li
+            class=""
+          >
+            <span>
+              India
+            </span>
+          </li>
+          <li
+            class=""
+          >
+            <span>
+              <mark>
+                Indones
+              </mark>
+              ia
+            </span>
+          </li>
+           
+        </ul>
+      </div>
+    `);
   });
 });
