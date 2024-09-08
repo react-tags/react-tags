@@ -130,11 +130,14 @@ const ReactTags = (props: ReactTagsProps) => {
   }, [query, props.suggestions, props.enableFuzzySearch]);
 
   const fuzzySuggestions = useMemo(() => {
-    const suggestionList = props.suggestions.map((suggestion) => {
+    if (!enableFuzzySearch) {
+      return;
+    }
+    const suggestionList = suggestions.map((suggestion) => {
       return suggestion.id;
     });
     return new Fuzzy(suggestionList);
-  }, [props.suggestions, props.enableFuzzySearch]);
+  }, [suggestions, props.enableFuzzySearch]);
 
   // Filter suggestions based on the query and existing tags
   const filteredSuggestions = (query: string) => {
@@ -147,11 +150,8 @@ const ReactTags = (props: ReactTagsProps) => {
         (suggestion) => !existingTags.includes(suggestion.id.toLowerCase())
       );
     }
-    // If a custom filter function is provided, use it to filter the suggestions
-    if (props.handleFilterSuggestions) {
-      return props.handleFilterSuggestions(query, updatedSuggestions);
-    }
-    if (enableFuzzySearch) {
+
+    if (enableFuzzySearch && fuzzySuggestions) {
       const newSuggestionsFuzzy = fuzzySuggestions.search(query);
 
       return props.suggestions.filter((suggestion) =>
@@ -160,6 +160,11 @@ const ReactTags = (props: ReactTagsProps) => {
             sug.text === suggestion.id && sug.distance < maximumFuzzyDistance
         )
       );
+    }
+
+    // If a custom filter function is provided, use it to filter the suggestions
+    if (props.handleFilterSuggestions) {
+      return props.handleFilterSuggestions(query, updatedSuggestions);
     }
 
     // Separate exact matches and partial matches and return them concatenated
