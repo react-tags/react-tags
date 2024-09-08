@@ -95,7 +95,6 @@ const App = () => {
           inputFieldPosition="bottom"
           enableFuzzySearch={fuzzySearch}
           editable
-          allowUnique
           clearAll
           onClearAll={onClearAll}
           maxTags={7}
