@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Children } from 'react';
 import { expect } from 'chai';
+
 import { spy, stub, createSandbox } from 'sinon';
 
 import { WithContext as ReactTags } from '../src/index';
@@ -7,6 +8,8 @@ import { WithContext as ReactTags } from '../src/index';
 import { KEYS, SEPARATORS } from '../src/components/constants';
 import { fireEvent, render, screen } from '@testing-library/react';
 import type { Tag } from '../src/components/SingleTag';
+
+
 
 /* eslint-disable no-console */
 
@@ -1379,3 +1382,25 @@ describe('Test ReactTags', () => {
     });
   });
 });
+
+describe('multi-byte character language tags', () => {
+
+  it('should correctly add multi-byte character language tags', () => {   
+   const tags = [];
+    render(
+      mockItem({
+         handleAddition(tag) {
+          tags.push(tag);
+        },
+        suggestions: [],
+      })
+    );
+    const input = screen.getByTestId('input') as HTMLInputElement;
+
+    fireEvent.change(input, { target: { value: '안녕하세요' } });
+    
+    fireEvent.keyDown(input, { keyCode: ENTER_ARROW_KEY_CODE });
+    expect(tags.length).eq(1)
+  })
+ 
+})
