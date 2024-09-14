@@ -256,7 +256,6 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
     inputValue,
     maxTags,
     renderSuggestion,
-    maximumFuzzyDistance,
     enableFuzzySearch,
   } = props;
 
