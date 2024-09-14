@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React from 'react';
 import { expect } from 'chai';
 
 import { spy, stub, createSandbox } from 'sinon';
