@@ -1,6 +1,6 @@
 name: codacy-coverage-reporter
 on:
-  pull_request:
+  pull_request_target:
 jobs:
   codacy-coverage-reporter:
     runs-on: ubuntu-latest
@@ -10,10 +10,10 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - uses: actions/checkout@v2
-      - name: Setup Node.js 18.x
+      - name: Setup Node.js 20.x
         uses: actions/setup-node@v2
         with:
-          node-version: 18.x
+          node-version: 20.x
       - name: Install dependencies
         run: |
           yarn --frozen-lockfile

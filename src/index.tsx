@@ -141,17 +141,17 @@ export interface ReactTagsWrapperProps {
    * CSS class names for the component.
    */
   classNames?: {
-    tags: string;
-    tagInput: string;
-    tagInputField: string;
-    selected: string;
-    tag: string;
-    remove: string;
-    suggestions: string;
-    activeSuggestion: string;
-    editTagInput: string;
-    editTagInputField: string;
-    clearAll: string;
+    tags?: string;
+    tagInput?: string;
+    tagInputField?: string;
+    selected?: string;
+    tag?: string;
+    remove?: string;
+    suggestions?: string;
+    activeSuggestion?: string;
+    editTagInput?: string;
+    editTagInputField?: string;
+    clearAll?: string;
   };
   /**
    * Name attribute for the input field.
