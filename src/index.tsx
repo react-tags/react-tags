@@ -263,7 +263,6 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
     <ReactTags
       placeholder={placeholder}
       enableFuzzySearch={enableFuzzySearch}
-      maximumFuzzyDistance={maximumFuzzyDistance}
       labelField={labelField}
       suggestions={suggestions}
       delimiters={delimiters}
