@@ -131,7 +131,7 @@ module.exports = {
   // resetModules: false,
 
   // A path to a custom resolver
-  // resolver: './customResolver.cjs',
+  // resolver: null,
 
   // Automatically restore mock state between every test
   // restoreMocks: false,

@@ -205,10 +205,6 @@ export interface ReactTagsWrapperProps {
    * apply fuzzy search on suggestion
    */
   enableFuzzySearch?: boolean;
-  /**
-   * maximum fuzzy distance to consider for suggestion
-   */
-  maximumFuzzyDistance?: number;
 }
 
 const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
