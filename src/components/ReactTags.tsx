@@ -133,11 +133,11 @@ const ReactTags = (props: ReactTagsProps) => {
     if (!enableFuzzySearch) {
       return;
     }
-    const suggestionList = suggestions.map((suggestion) => {
+    const suggestionList = props.suggestions.map((suggestion) => {
       return suggestion.id;
     });
     return new Fuzzy(suggestionList);
-  }, [suggestions, props.enableFuzzySearch]);
+  }, [props.suggestions, props.enableFuzzySearch]);
 
   // Filter suggestions based on the query and existing tags
   const filteredSuggestions = (query: string) => {
@@ -154,7 +154,7 @@ const ReactTags = (props: ReactTagsProps) => {
     if (enableFuzzySearch && fuzzySuggestions) {
       const newSuggestionsFuzzy = fuzzySuggestions.search(query);
 
-      return props.suggestions.filter((suggestion) =>
+      return updatedSuggestions.filter((suggestion) =>
         newSuggestionsFuzzy.find(
           (sug) =>
             sug.text === suggestion.id && sug.distance < maximumFuzzyDistance
