@@ -293,6 +293,11 @@ const ReactTags = (props: ReactTagsProps) => {
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+     const nativeEvent = event.nativeEvent as KeyboardEvent;
+
+    if (nativeEvent.isComposing) {
+      return;
+    }
     // hide suggestions menu on escape
     if (event.key === 'Escape') {
       event.preventDefault();
