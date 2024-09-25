@@ -1,4 +1,11 @@
-import React, { useEffect, createRef, useRef, useState, Fragment } from 'react';
+import React, {
+  useEffect,
+  createRef,
+  useRef,
+  useState,
+  Fragment,
+  useMemo,
+} from 'react';
 import { uniq } from 'lodash-es';
 import ClearAllTags from './ClearAllTags';
 import Suggestions from './Suggestions';
@@ -16,6 +23,7 @@ import {
   ERRORS,
 } from './constants';
 import type { ReactTagsWrapperProps } from '../';
+import Fuzzy from 'fuzzify';
 
 /**
  * Props for the ReactTags component.
@@ -30,6 +38,7 @@ type ReactTagsProps = ReactTagsWrapperProps & {
   autofocus?: boolean;
   autoFocus: boolean;
   inline?: boolean;
+  enableFuzzySearch?: boolean;
   inputFieldPosition: 'inline' | 'top' | 'bottom';
   allowDeleteFromEmptyInput: boolean;
   allowAdditionFromPaste: boolean;
@@ -42,6 +51,8 @@ type ReactTagsProps = ReactTagsWrapperProps & {
   editable: boolean;
   clearAll: boolean;
 };
+
+const maximumFuzzyDistance = 5;
 
 const ReactTags = (props: ReactTagsProps) => {
   const {
@@ -70,6 +81,7 @@ const ReactTags = (props: ReactTagsProps) => {
     maxLength,
     inputValue,
     clearAll,
+    enableFuzzySearch = false,
   } = props;
 
   const [suggestions, setSuggestions] = useState(props.suggestions);
@@ -107,7 +119,7 @@ const ReactTags = (props: ReactTagsProps) => {
         '[Deprecated] autofocus prop will be removed in 7.x so please migrate to autoFocus prop.'
       );
     }
-    
+
     if ((autofocus || (autoFocus && autofocus !== false)) && !readOnly) {
       resetAndFocusInput();
     }
@@ -115,7 +127,17 @@ const ReactTags = (props: ReactTagsProps) => {
 
   useEffect(() => {
     updateSuggestions();
-  }, [query, props.suggestions]);
+  }, [query, props.suggestions, props.enableFuzzySearch]);
+
+  const fuzzySuggestions = useMemo(() => {
+    if (!enableFuzzySearch) {
+      return;
+    }
+    const suggestionList = props.suggestions.map((suggestion) => {
+      return suggestion.id;
+    });
+    return new Fuzzy(suggestionList);
+  }, [props.suggestions, props.enableFuzzySearch]);
 
   // Filter suggestions based on the query and existing tags
   const filteredSuggestions = (query: string) => {
@@ -128,6 +150,18 @@ const ReactTags = (props: ReactTagsProps) => {
         (suggestion) => !existingTags.includes(suggestion.id.toLowerCase())
       );
     }
+
+    if (enableFuzzySearch && fuzzySuggestions) {
+      const newSuggestionsFuzzy = fuzzySuggestions.search(query);
+
+      return updatedSuggestions.filter((suggestion) =>
+        newSuggestionsFuzzy.find(
+          (sug) =>
+            sug.text === suggestion.id && sug.distance < maximumFuzzyDistance
+        )
+      );
+    }
+
     // If a custom filter function is provided, use it to filter the suggestions
     if (props.handleFilterSuggestions) {
       return props.handleFilterSuggestions(query, updatedSuggestions);
@@ -510,7 +544,8 @@ const ReactTags = (props: ReactTagsProps) => {
 
   const { name: inputName, id: inputId } = props;
 
-  const position = inline === false ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
+  const position =
+    inline === false ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
 
   const tagsComponent = !readOnly ? (
     <div className={allClassNames.tagInput}>

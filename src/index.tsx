@@ -141,17 +141,17 @@ export interface ReactTagsWrapperProps {
    * CSS class names for the component.
    */
   classNames?: {
-    tags?: string,
-    tagInput?: string,
-    tagInputField?: string,
-    selected?: string,
-    tag?: string,
-    remove?: string,
-    suggestions?: string,
-    activeSuggestion?: string,
-    editTagInput?: string,
-    editTagInputField?: string,
-    clearAll?: string,
+    tags?: string;
+    tagInput?: string;
+    tagInputField?: string;
+    selected?: string;
+    tag?: string;
+    remove?: string;
+    suggestions?: string;
+    activeSuggestion?: string;
+    editTagInput?: string;
+    editTagInputField?: string;
+    clearAll?: string;
   };
   /**
    * Name attribute for the input field.
@@ -201,6 +201,10 @@ export interface ReactTagsWrapperProps {
    * Handler for clearing all the tags.
    */
   onClearAll?: () => void;
+  /**
+   * apply fuzzy search on suggestion
+   */
+  enableFuzzySearch?: boolean;
 }
 
 const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
@@ -248,11 +252,13 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
     inputValue,
     maxTags,
     renderSuggestion,
+    enableFuzzySearch,
   } = props;
 
   return (
     <ReactTags
       placeholder={placeholder}
+      enableFuzzySearch={enableFuzzySearch}
       labelField={labelField}
       suggestions={suggestions}
       delimiters={delimiters}

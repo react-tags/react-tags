@@ -6,10 +6,10 @@ import { spy, stub, createSandbox } from 'sinon';
 import { WithContext as ReactTags } from '../src/index';
 
 import { KEYS, SEPARATORS } from '../src/components/constants';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import type { Tag } from '../src/components/SingleTag';
 
-
+import COUNTRIES from '../example/countries';
 
 /* eslint-disable no-console */
 
@@ -1383,13 +1383,95 @@ describe('Test ReactTags', () => {
   });
 });
 
-describe('multi-byte character language tags', () => {
+describe('Test Fuzzy Search', () => {
+  const suggestions = COUNTRIES.map((country) => {
+    return {
+      id: country,
+      text: country,
+      className: '',
+    };
+  });
 
-  it('should correctly add multi-byte character language tags', () => {   
-   const tags = [];
+  it('should render the suggestions correctly when fuzzy search is not enabled', () => {
+    const { container } = render(<ReactTags suggestions={suggestions} />);
+    const queryInput = screen.getByTestId('input') as HTMLInputElement;
+    fireEvent.change(queryInput, { target: { value: 'Indones' } });
+
+    jestExpect(screen.getByTestId('suggestions')).toMatchInlineSnapshot(`
+      <div
+        class="ReactTags__suggestions"
+        data-testid="suggestions"
+      >
+        <ul>
+           
+          <li
+            class=""
+          >
+            <span>
+              <mark>
+                Indones
+              </mark>
+              ia
+            </span>
+          </li>
+           
+        </ul>
+      </div>
+    `);
+  });
+
+  it('should render suggestions correctly when fuzzy search is enabled', () => {
+    const { container } = render(
+      <ReactTags suggestions={suggestions} enableFuzzySearch={true} />
+    );
+    const queryInput = screen.getByTestId('input') as HTMLInputElement;
+    fireEvent.change(queryInput, { target: { value: 'Indones' } });
+
+    // test snapshot without fuzzy search
+    jestExpect(screen.getByTestId('suggestions')).toMatchInlineSnapshot(`
+      <div
+        class="ReactTags__suggestions"
+        data-testid="suggestions"
+      >
+        <ul>
+           
+          <li
+            class=""
+          >
+            <span>
+              Andorra
+            </span>
+          </li>
+          <li
+            class=""
+          >
+            <span>
+              India
+            </span>
+          </li>
+          <li
+            class=""
+          >
+            <span>
+              <mark>
+                Indones
+              </mark>
+              ia
+            </span>
+          </li>
+           
+        </ul>
+      </div>
+    `);
+  });
+});
+
+describe('multi-byte character language tags', () => {
+  it('should correctly add multi-byte character language tags', () => {
+    const tags = [];
     render(
       mockItem({
-         handleAddition(tag) {
+        handleAddition(tag) {
           tags.push(tag);
         },
         suggestions: [],
@@ -1398,9 +1480,8 @@ describe('multi-byte character language tags', () => {
     const input = screen.getByTestId('input') as HTMLInputElement;
 
     fireEvent.change(input, { target: { value: '안녕하세요' } });
-    
+
     fireEvent.keyDown(input, { keyCode: ENTER_ARROW_KEY_CODE });
-    expect(tags.length).eq(1)
-  })
- 
-})
+    expect(tags.length).eq(1);
+  });
+});

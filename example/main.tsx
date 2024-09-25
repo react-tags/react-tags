@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
 import GitHubCorner from './GithubCorner';
@@ -29,6 +29,9 @@ const App = () => {
     { id: 'Vietnam', text: 'Vietnam', className: '' },
     { id: 'Turkey', text: 'Turkey', className: '' },
   ]);
+
+  // enable fuzzy search on suggestion
+  const [fuzzySearch, setFuzzySearch] = useState(false);
 
   const handleDelete = (index: number) => {
     setTags(tags.filter((_, i) => i !== index));
@@ -68,6 +71,17 @@ const App = () => {
     <div className="app">
       <GitHubCorner />
       <h1> React Tags Example </h1>
+
+      <label>
+        Enable fuzzy search
+        <input
+          className="fuzzySearch_toggle"
+          type="checkbox"
+          id="fuzzySearchEnabler"
+          onChange={() => setFuzzySearch(!fuzzySearch)}
+        />
+      </label>
+
       <div>
         <ReactTags
           tags={tags}
@@ -79,6 +93,7 @@ const App = () => {
           handleTagClick={handleTagClick}
           onTagUpdate={onTagUpdate}
           inputFieldPosition="bottom"
+          enableFuzzySearch={fuzzySearch}
           editable
           clearAll
           onClearAll={onClearAll}

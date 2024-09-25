@@ -103,7 +103,7 @@ module.exports = {
   // A map from regular expressions to module names that allow to stub out resources with a single module
   moduleNameMapper: {
     '\\.(sa|sc|c)ss$': '<rootDir>/__tests__/__mocks__/styleMock.js',
-    "^lodash-es$": "lodash"
+    '^lodash-es$': 'lodash',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -191,6 +191,7 @@ module.exports = {
 
   // A map from regular expressions to paths to transformers
   transform: {
+    '^.+\\.js': 'babel-jest',
     '^.+\\.tsx?$': [
       'ts-jest',
       {
@@ -200,7 +201,7 @@ module.exports = {
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  transformIgnorePatterns: ['/node_modules/'],
+  transformIgnorePatterns: ['/node_modules/(?!fuzzify)'],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,
