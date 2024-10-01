@@ -198,7 +198,7 @@ export interface ReactTagsWrapperProps {
    */
   clearAll?: boolean;
   /**
-   * accessibility la
+   * accessibility label for clear all button
    */
   accessibilityLabelForClearAll?: string;
   /**
