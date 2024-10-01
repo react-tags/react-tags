@@ -4,10 +4,11 @@ const ClearAllTags = (props: {
   classNames: {
     clearAll: string,
   },
+  accessibilityLabel: string,
   onClick: () => void,
 }) => {
   return (
-    <button className={props.classNames.clearAll} onClick={props.onClick}>
+    <button aria-label={props.accessibilityLabel} className={props.classNames.clearAll} onClick={props.onClick}>
       Clear all
     </button>
   );
