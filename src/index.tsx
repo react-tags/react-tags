@@ -198,6 +198,10 @@ export interface ReactTagsWrapperProps {
    */
   clearAll?: boolean;
   /**
+   * accessibility la
+   */
+  accessibilityLabelForClearAll?: string;
+  /**
    * Handler for clearing all the tags.
    */
   onClearAll?: () => void;
@@ -228,6 +232,7 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
     inputProps = {},
     editable = false,
     clearAll = false,
+    accessibilityLabelForClearAll="clear all selected tags",
     handleDelete,
     handleAddition,
     onTagUpdate,
@@ -271,6 +276,7 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
       inputProps={inputProps}
       editable={editable}
       clearAll={clearAll}
+      accessibilityLabelForClearAll={accessibilityLabelForClearAll}
       handleDelete={handleDelete}
       handleAddition={handleAddition}
       onTagUpdate={onTagUpdate}
