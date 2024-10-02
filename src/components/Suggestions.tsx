@@ -31,6 +31,10 @@ const shouldRenderSuggestions = (
 };
 
 interface SuggestionsProps {
+    /**
+   * Id of the label of the input field and the tags container.
+   */
+  labelledById: string;
   /**
    * The current query string.
    */
@@ -121,7 +125,7 @@ const SuggestionsComp = (props: SuggestionsProps) => {
 
     return {
       __html: labelValue.replace(RegExp(escapedRegex, 'gi'), (x: string) => {
-        return `<mark>${escape(x)}</mark>`;
+        return `<mark role="presentation">${escape(x)}</mark>`;
       }),
     };
   };
@@ -130,13 +134,15 @@ const SuggestionsComp = (props: SuggestionsProps) => {
     if (typeof props.renderSuggestion === 'function') {
       return props.renderSuggestion(tag, query);
     }
-    return <span dangerouslySetInnerHTML={markIt(tag, query)} />;
+    return <span aria-label={tag[labelField]}   dangerouslySetInnerHTML={markIt(tag, query)} />;
   };
 
   const suggestions = props.suggestions.map((tag: Tag, index: number) => {
     return (
       <li
-        key={index}
+        id={`${props.labelledById}-suggestion-${tag.id.replace(/\s+/g,'')}`}
+        key={index}     
+        role='option'           
         onMouseDown={props.handleClick.bind(null, index)}
         onTouchStart={props.handleClick.bind(null, index)}
         onMouseOver={props.handleHover.bind(null, index)}
@@ -166,7 +172,7 @@ const SuggestionsComp = (props: SuggestionsProps) => {
       ref={suggestionsContainerRef}
       className={classNames.suggestions}
       data-testid="suggestions">
-      <ul> {suggestions} </ul>
+      <ul id={`${props.labelledById}-suggestions`} role='listbox'> {suggestions} </ul>
     </div>
   );
 };
