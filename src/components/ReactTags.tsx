@@ -41,6 +41,7 @@ type ReactTagsProps = ReactTagsWrapperProps & {
   inputProps: { [key: string]: string };
   editable: boolean;
   clearAll: boolean;
+  labelledById: string;
 };
 
 const ReactTags = (props: ReactTagsProps) => {
@@ -70,6 +71,7 @@ const ReactTags = (props: ReactTagsProps) => {
     maxLength,
     inputValue,
     clearAll,
+    labelledById,
   } = props;
 
   const [suggestions, setSuggestions] = useState(props.suggestions);
@@ -512,6 +514,10 @@ const ReactTags = (props: ReactTagsProps) => {
 
   const position = inline === false ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
 
+  const activeOption = selectedIndex != -1 && query.trim().length >= (minQueryLength || 2) ? `${labelledById}-suggestion-${suggestions[selectedIndex].id.replace(/\s/g, '')}` : undefined
+  
+  const expanded = query.trim().length >= (minQueryLength || 2) && suggestions.length > 0
+
   const tagsComponent = !readOnly ? (
     <div className={allClassNames.tagInput}>
       <input
@@ -519,6 +525,13 @@ const ReactTags = (props: ReactTagsProps) => {
         ref={(input) => {
           textInput.current = input;
         }}
+        aria-expanded={expanded}
+        data-active-option={activeOption}
+        aria-haspopup='listbox'
+        aria-activedescendant={activeOption}
+        role='combobox'
+        aria-controls={`${labelledById}-suggestions`}
+        aria-autocomplete='list'
         className={allClassNames.tagInputField}
         type="text"
         placeholder={placeholder}
@@ -537,6 +550,7 @@ const ReactTags = (props: ReactTagsProps) => {
       />
 
       <Suggestions
+        labelledById={labelledById}
         query={query.trim()}
         suggestions={suggestions}
         labelField={labelField}
@@ -593,6 +607,16 @@ const ReactTags = (props: ReactTagsProps) => {
         {position === INPUT_FIELD_POSITIONS.INLINE && tagsComponent}
       </div>
       {position === INPUT_FIELD_POSITIONS.BOTTOM && tagsComponent}
+      <span role='alert' style={{
+          position: 'absolute',
+          overflow: 'hidden',
+          clip: 'rect(0 0 0 0)',
+          margin: '-1px',
+          padding: 0,
+          width: '1px',
+          height: '1px',
+          border: 0,
+        }} className="sr-only" aria-live="polite" aria-atomic="true" >{`${query.trim().length >= (minQueryLength || 2) && suggestions.length ? suggestions.length : 0} suggestions`} </span>
     </div>
   );
 };
