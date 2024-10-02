@@ -12,6 +12,10 @@ import {
 
 export interface ReactTagsWrapperProps {
   /**
+   * Id of the label of the input field and the tags container.
+   */
+  labelledById: string;
+  /**
    * Placeholder text for the input field.
    */
   placeholder?: string;
@@ -248,10 +252,12 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
     inputValue,
     maxTags,
     renderSuggestion,
+    labelledById,
   } = props;
 
   return (
     <ReactTags
+      labelledById={labelledById}
       placeholder={placeholder}
       labelField={labelField}
       suggestions={suggestions}
