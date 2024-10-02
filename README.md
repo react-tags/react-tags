@@ -1,5 +1,6 @@
 # React tags
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1bcfb4a05b57403ebb18dfcbb7f2de65)](https://app.codacy.com/gh/react-tags/react-tags?utm_source=github.com&utm_medium=referral&utm_content=react-tags/react-tags&utm_campaign=Badge_Grade_Settings)
 [![MIT](https://img.shields.io/npm/l/react-tag-input.svg?style=flat-square)](https://github.com/react-tags/react-tags/blob/master/LICENSE)
 [![NPM Version](https://img.shields.io/npm/v/react-tag-input.svg?style=flat-square)](https://www.npmjs.com/package/react-tag-input)
 [![npm downloads](https://img.shields.io/npm/dm/react-tag-input.svg?style=flat-square)](https://www.npmjs.com/package/react-tag-input)
