@@ -41,6 +41,7 @@ type ReactTagsProps = ReactTagsWrapperProps & {
   inputProps: { [key: string]: string };
   editable: boolean;
   clearAll: boolean;
+  labelledById: string;
 };
 
 const ReactTags = (props: ReactTagsProps) => {
@@ -70,6 +71,7 @@ const ReactTags = (props: ReactTagsProps) => {
     maxLength,
     inputValue,
     clearAll,
+    labelledById,
   } = props;
 
   const [suggestions, setSuggestions] = useState(props.suggestions);
@@ -469,6 +471,7 @@ const ReactTags = (props: ReactTagsProps) => {
                 }}
                 onFocus={handleFocus}
                 value={query}
+                aria-label={`Editing tag ${query} of ${labelledById}`}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 onBlur={handleBlur}
@@ -522,7 +525,7 @@ const ReactTags = (props: ReactTagsProps) => {
         className={allClassNames.tagInputField}
         type="text"
         placeholder={placeholder}
-        aria-label={placeholder}
+        aria-labelledby={labelledById}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onChange={handleChange}
