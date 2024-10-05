@@ -211,7 +211,7 @@ const ReactTags = (props: ReactTagsProps) => {
     if (readOnly) {
       return;
     }
-        if (editable) {
+    if (editable) {
       setCurrentEditIndex(index);
       setQuery(tag[labelField]);
       tagInput.current?.focus();
