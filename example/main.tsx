@@ -81,6 +81,7 @@ const App = () => {
           inputFieldPosition="bottom"
           editable
           clearAll
+          readOnly
           onClearAll={onClearAll}
           maxTags={7}
           allowAdditionFromPaste

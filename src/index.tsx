@@ -86,7 +86,7 @@ export interface ReactTagsWrapperProps {
    */
   handleTagClick?: (
     i: number,
-    e: React.MouseEvent<HTMLSpanElement> | React.TouchEvent<HTMLSpanElement>
+    e: React.MouseEvent<HTMLSpanElement> | React.TouchEvent<HTMLSpanElement> | React.KeyboardEvent<HTMLSpanElement>
   ) => void;
   /**
    * Whether to allow deletion from an empty input field.
