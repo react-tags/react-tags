@@ -4,7 +4,7 @@ const ClearAllTags = (props: {
   classNames: {
     clearAll: string,
   },
-  accessibilityLabel: string,
+  accessibilityLabel?: string,
   onClick: () => void,
 }) => {
   return (
