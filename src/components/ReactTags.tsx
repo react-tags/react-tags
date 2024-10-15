@@ -554,7 +554,7 @@ const ReactTags = (props: ReactTagsProps) => {
         renderSuggestion={props.renderSuggestion}
       />
       {clearAll && tags.length > 0 && (
-        <ClearAllTags accessibilityLabel={ariaAttrs?.clearAllLabel } classNames={allClassNames} onClick={handleClearAll} />
+        <ClearAllTags ariaLabel={ariaAttrs?.clearAllLabel } classNames={allClassNames} onClick={handleClearAll} />
       )}
       {error && (
         <div data-testid="error" className="ReactTags__error">
