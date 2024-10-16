@@ -235,7 +235,7 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
     inputProps = {},
     editable = false,
     clearAll = false,
-    ariaAttrs = { clearAllLabel: "clear all tags"},
+    ariaAttrs = { clearAllLabel: "clear all tags"}, 
     handleDelete,
     handleAddition,
     onTagUpdate,
