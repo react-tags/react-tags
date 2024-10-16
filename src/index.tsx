@@ -198,10 +198,10 @@ export interface ReactTagsWrapperProps {
    */
   clearAll?: boolean;
   /**
-   * object to hold accessibility attributes for below list
-   *  - label for clear all button
+   * An object containing custom aria attributes to improve acceessibility
    */
   ariaAttrs?: {
+  // label for clear all button
     clearAllLabel?: string
   };
   /**
