@@ -1362,7 +1362,7 @@ describe('Test ReactTags', () => {
             Clear all
           </button>
       `);
-      tags.debug();
+      
     });
 
     it('should trigger "onClearAll" callback if present when clear all button is clicked', () => {
