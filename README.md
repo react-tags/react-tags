@@ -207,6 +207,7 @@ Option | Type | Default | Description
 |[`clearAll`](#clearAll) | `boolean` | `false` | Implies whether 'clear all' button should be shown.
 |[`onClearAll`](#onClearAll) | `Function` |  | This callback if present is triggered when clear all button is clicked.
 | [`maxTags`](#maxTags) | `number` | | The maximum count of tags to be added
+| [`ariaAttrs`](#ariaAttrs) | Object |`{clearAllLabel: "clear all tags"}` | An object containing custom ARIA attributes to enhance screen reader support and improve accessibility
 
 ## Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
@@ -699,4 +700,14 @@ This callback is if present is triggered when "clear all" button is clicked. You
 
 ### maxTags
 This prop specifies the maximum count of tags to be added. Incase the tags exceed, error will show up to convey the maximum tag limit has reached.
+
+### ariaAttrs
+
+An object containing custom ARIA attributes to enhance screen reader support and improve accessibility. 
+It accepts the below attributes
+```js
+{
+  clearAllLabel?: string // Optional accessible label for a "clear all tags" button improving accessibility by providing a clear, descriptive action label.
+}
+
 

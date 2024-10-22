@@ -41,6 +41,9 @@ type ReactTagsProps = ReactTagsWrapperProps & {
   inputProps: { [key: string]: string };
   editable: boolean;
   clearAll: boolean;
+  ariaAttrs?: {
+    clearAllLabel?: string
+  }
 };
 
 const ReactTags = (props: ReactTagsProps) => {
@@ -70,6 +73,7 @@ const ReactTags = (props: ReactTagsProps) => {
     maxLength,
     inputValue,
     clearAll,
+    ariaAttrs,
   } = props;
 
   const [suggestions, setSuggestions] = useState(props.suggestions);
@@ -550,7 +554,7 @@ const ReactTags = (props: ReactTagsProps) => {
         renderSuggestion={props.renderSuggestion}
       />
       {clearAll && tags.length > 0 && (
-        <ClearAllTags classNames={allClassNames} onClick={handleClearAll} />
+        <ClearAllTags aria-label={ariaAttrs?.clearAllLabel } classNames={allClassNames} onClick={handleClearAll} />
       )}
       {error && (
         <div data-testid="error" className="ReactTags__error">
