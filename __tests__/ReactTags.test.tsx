@@ -1323,7 +1323,7 @@ describe('Test ReactTags', () => {
 
     })
 
-      it('should have  value for aria-label when label is provided', () => {
+      it('should have value for aria-label when label is provided', () => {
       const tags = render(
         mockItem({
           clearAll: true,
