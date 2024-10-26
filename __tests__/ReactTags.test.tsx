@@ -35,6 +35,9 @@ beforeAll(() => {
       { className: '', id: 'Peach', text: 'Peach' },
     ],
     handleDrag: handleDragStub,
+    ariaAttrs: {
+            labelledById:''
+          }
   };
 });
 
@@ -1308,6 +1311,9 @@ describe('Test ReactTags', () => {
       const tags = render(
         mockItem({
           clearAll: true,
+          ariaAttrs: {
+            labelledById:''
+          }
         })
       )
 

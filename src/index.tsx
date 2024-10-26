@@ -11,10 +11,7 @@ import {
 } from './components/constants';
 
 export interface ReactTagsWrapperProps {
-  /**
-   * Id of the label of the input field and the tags container.
-   */
-  labelledById: string;
+ 
   /**
    * Placeholder text for the input field.
    */
@@ -204,9 +201,14 @@ export interface ReactTagsWrapperProps {
   /**
    * An object containing custom aria attributes to improve acceessibility
    */
-  ariaAttrs?: {
+  ariaAttrs: {
   // label for clear all button
     clearAllLabel?: string
+     /**
+   * Id of the label of the input field and the tags container.
+   */
+  labelledById: string;
+
   };
   /**
    * Handler for clearing all the tags.
@@ -239,7 +241,7 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
     inputProps = {},
     editable = false,
     clearAll = false,
-    ariaAttrs = { clearAllLabel: "clear all tags"}, 
+  
     handleDelete,
     handleAddition,
     onTagUpdate,
@@ -259,13 +261,13 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
     maxLength,
     inputValue,
     maxTags,
-    renderSuggestion,
-    labelledById,
+    renderSuggestion,  
   } = props;
+
+  const  { clearAllLabel= "clear all tags", labelledById }  = props.ariaAttrs;
 
   return (
     <ReactTags
-      labelledById={labelledById}
       placeholder={placeholder}
       labelField={labelField}
       suggestions={suggestions}
@@ -285,7 +287,10 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
       inputProps={inputProps}
       editable={editable}
       clearAll={clearAll}
-      ariaAttrs={ariaAttrs}
+      ariaAttrs={{
+        clearAllLabel,
+        labelledById
+      }}
       handleDelete={handleDelete}
       handleAddition={handleAddition}
       onTagUpdate={onTagUpdate}

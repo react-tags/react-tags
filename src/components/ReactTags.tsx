@@ -43,8 +43,8 @@ type ReactTagsProps = ReactTagsWrapperProps & {
   clearAll: boolean;
   ariaAttrs?: {
     clearAllLabel?: string
-  }
-  labelledById: string;
+     labelledById: string;
+  } 
 };
 
 const ReactTags = (props: ReactTagsProps) => {
@@ -75,7 +75,7 @@ const ReactTags = (props: ReactTagsProps) => {
     inputValue,
     clearAll,
     ariaAttrs,
-    labelledById,
+
   } = props;
 
   const [suggestions, setSuggestions] = useState(props.suggestions);
@@ -475,7 +475,7 @@ const ReactTags = (props: ReactTagsProps) => {
                 }}
                 onFocus={handleFocus}
                 value={query}
-                aria-label={`Editing tag ${query} of ${labelledById}`}
+                aria-label={`Editing tag ${query} of ${ariaAttrs.labelledById}`}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 onBlur={handleBlur}
@@ -529,7 +529,7 @@ const ReactTags = (props: ReactTagsProps) => {
         className={allClassNames.tagInputField}
         type="text"
         placeholder={placeholder}
-        aria-labelledby={labelledById}
+        aria-labelledby={ariaAttrs?.labelledById}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onChange={handleChange}
