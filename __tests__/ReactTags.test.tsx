@@ -1310,10 +1310,7 @@ describe('Test ReactTags', () => {
     it('should have default value for aria-label when label is not provided', () => {
       const tags = render(
         mockItem({
-          clearAll: true,
-          ariaAttrs: {
-            labelledById:''
-          }
+          clearAll: true,         
         })
       )
 
@@ -1428,7 +1425,7 @@ describe('Test ReactTags', () => {
         clearAll: 'clearAll-class',
       };
 
-      const { container } = render(<ReactTags classNames={classNames} />);
+      const { container } = render(<ReactTags ariaAttrs={{ labelledById: "react-tags-example" }} classNames={classNames} />);
       jestExpect(container).toMatchSnapshot();
     });
   });
