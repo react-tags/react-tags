@@ -202,6 +202,13 @@ export interface ReactTagsWrapperProps {
    */
   clearAll?: boolean;
   /**
+   * An object containing custom aria attributes to improve acceessibility
+   */
+  ariaAttrs?: {
+  // label for clear all button
+    clearAllLabel?: string
+  };
+  /**
    * Handler for clearing all the tags.
    */
   onClearAll?: () => void;
@@ -232,6 +239,7 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
     inputProps = {},
     editable = false,
     clearAll = false,
+    ariaAttrs = { clearAllLabel: "clear all tags"}, 
     handleDelete,
     handleAddition,
     onTagUpdate,
@@ -277,6 +285,7 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
       inputProps={inputProps}
       editable={editable}
       clearAll={clearAll}
+      ariaAttrs={ariaAttrs}
       handleDelete={handleDelete}
       handleAddition={handleAddition}
       onTagUpdate={onTagUpdate}

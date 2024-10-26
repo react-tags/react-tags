@@ -1304,20 +1304,65 @@ describe('Test ReactTags', () => {
   });
 
   describe('When ClearAll is true', () => {
+    it('should have default value for aria-label when label is not provided', () => {
+      const tags = render(
+        mockItem({
+          clearAll: true,
+        })
+      )
+
+       jestExpect(tags.container.querySelector('.ReactTags__clearAll'))
+        .toMatchInlineSnapshot(`
+        <button
+          aria-label="clear all tags"
+          class="ReactTags__clearAll"
+        >
+          Clear all
+        </button>
+      `);
+
+    })
+
+      it('should have value for aria-label when label is provided', () => {
+      const tags = render(
+        mockItem({
+          clearAll: true,
+          ariaAttrs: {
+            clearAllLabel: 'Clear all selected tags'
+          }
+        })
+      )
+
+       jestExpect(tags.container.querySelector('.ReactTags__clearAll'))
+        .toMatchInlineSnapshot(`
+        <button
+          aria-label="Clear all selected tags"
+          class="ReactTags__clearAll"
+        >
+          Clear all
+        </button>
+      `);
+
+    })
+
     it('should render a clear all button', () => {
       const tags = render(
         mockItem({
           clearAll: true,
         })
       );
-      jestExpect(tags.container.querySelector('.ReactTags__clearAll'))
+      
+      
+      jestExpect(tags.container.querySelector('.ReactTags__clearAll'))      
         .toMatchInlineSnapshot(`
-        <button
-          class="ReactTags__clearAll"
-        >
-          Clear all
-        </button>
+          <button
+            aria-label="clear all tags"
+            class="ReactTags__clearAll"
+          >
+            Clear all
+          </button>
       `);
+      
     });
 
     it('should trigger "onClearAll" callback if present when clear all button is clicked', () => {
