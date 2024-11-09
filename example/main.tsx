@@ -70,7 +70,10 @@ const App = () => {
       <h1 id="react-tags-example"> React Tags Example </h1>
       <div>
         <ReactTags
-          ariaAttrs={{ labelledById: "react-tags-example" }}
+          clearAllBtnAriaAttrs={{ "aria-label": "clear all tags" }}
+          inputAriaAttrs={{
+            "aria-labelledby": "react-tags-example"
+          }}
           tags={tags}
           suggestions={suggestions}
           separators={[SEPARATORS.ENTER, SEPARATORS.COMMA]}

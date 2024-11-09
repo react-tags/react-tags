@@ -17,7 +17,7 @@ exports[`Test ReactTags classNames should pass classNames correctly to the DOM e
         class="tagInput-class"
       >
         <input
-          aria-labelledby="react-tags-example"
+          aria-label="tags"
           class="tagInputField-class"
           data-automation="input"
           data-testid="input"

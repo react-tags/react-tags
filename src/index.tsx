@@ -199,17 +199,29 @@ export interface ReactTagsWrapperProps {
    */
   clearAll?: boolean;
   /**
-   * An object containing custom aria attributes to improve acceessibility
+   * An object containing custom aria attributes to improve accessibility
+   * for clear all button
    */
-  ariaAttrs: {
+  clearAllBtnAriaAttrs?: {
   // label for clear all button
-    clearAllLabel?: string
-     /**
-   * Id of the label of the input field and the tags container.
-   */
-  labelledById: string;
+    'aria-label'?: string
+  
 
   };
+  /**
+   * accessibility related attributes for input tag and all the tags
+   */
+  inputAriaAttrs?: {
+  /**
+   * Id of the label of the input field and the tags container.
+   */
+    'aria-labelledby'?: string;
+    /**
+     * label string used to highlight screen reader user that 
+     * they are editing the tag that belong to certain heading
+     */
+     titleLabel?:string
+  }
   /**
    * Handler for clearing all the tags.
    */
@@ -220,6 +232,8 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
   const {
     placeholder = DEFAULT_PLACEHOLDER,
     labelField = DEFAULT_LABEL_FIELD,
+    clearAllBtnAriaAttrs,
+    inputAriaAttrs,
     suggestions = [],
     // Set delimeters to empty array if not provided
     delimiters = [],
@@ -240,8 +254,7 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
     tags = [],
     inputProps = {},
     editable = false,
-    clearAll = false,
-  
+    clearAll = false,  
     handleDelete,
     handleAddition,
     onTagUpdate,
@@ -264,7 +277,7 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
     renderSuggestion,  
   } = props;
 
-  const  { clearAllLabel= "clear all tags", labelledById }  = props.ariaAttrs;
+  
 
   return (
     <ReactTags
@@ -287,10 +300,10 @@ const ReactTagsWrapper = (props: ReactTagsWrapperProps) => {
       inputProps={inputProps}
       editable={editable}
       clearAll={clearAll}
-      ariaAttrs={{
-        clearAllLabel,
-        labelledById
+      clearAllBtnAriaAttrs={{
+       "aria-label": clearAllBtnAriaAttrs?.['aria-label']??"clear all tags" 
       }}
+      inputAriaAttrs={inputAriaAttrs}
       handleDelete={handleDelete}
       handleAddition={handleAddition}
       onTagUpdate={onTagUpdate}
