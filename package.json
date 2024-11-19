@@ -42,7 +42,7 @@
     "semantic-release": "semantic-release",
     "commit": "git-cz",
     "gen:types": "rm -rf types && tsc -b src --emitDeclarationOnly",
-    "postinstall": "build"
+    "postinstall": "yarn && yarn build"
   },
   "keywords": [
     "react",
