@@ -41,7 +41,8 @@
     "precommit": "./set_up_hooks.sh",
     "semantic-release": "semantic-release",
     "commit": "git-cz",
-    "gen:types": "rm -rf types && tsc -b src --emitDeclarationOnly"
+    "gen:types": "rm -rf types && tsc -b src --emitDeclarationOnly",
+    "postinstall": "build"
   },
   "keywords": [
     "react",
