@@ -35,7 +35,7 @@
     "test:watch": "jest --watch --notify --coverage",
     "start": "webpack serve --config webpack-dev-server.config.cjs --progress ",
     "format": "prettier  --write src/**/*.js __tests__/**/*.js",
-    "build": "rm -rf dist-modules &&  webpack --config webpack-production.config.js --progress --color && babel src --out-dir dist-modules --copy-files",
+    "build": "rm -rf dist-modules &&  webpack --config webpack-production.config.cjs --progress --color && babel src --out-dir dist-modules --copy-files",
     "build:esm": "rm -rf dist && node buildLib.cjs && yarn gen:types",
     "build:example": "node buildExample.mjs",
     "precommit": "./set_up_hooks.sh",
