@@ -67,9 +67,13 @@ const App = () => {
   return (
     <div className="app">
       <GitHubCorner />
-      <h1> React Tags Example </h1>
+      <h1 id="react-tags-example"> React Tags Example </h1>
       <div>
         <ReactTags
+          clearAllBtnAriaAttrs={{ "aria-label": "clear all tags" }}
+          inputAriaAttrs={{
+            "aria-labelledby": "react-tags-example"
+          }}
           tags={tags}
           suggestions={suggestions}
           separators={[SEPARATORS.ENTER, SEPARATORS.COMMA]}

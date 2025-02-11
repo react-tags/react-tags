@@ -35,6 +35,10 @@ beforeAll(() => {
       { className: '', id: 'Peach', text: 'Peach' },
     ],
     handleDrag: handleDragStub,
+    clearAllBtnAriaAttrs:{ "aria-label":"clear all tags" },
+    inputAriaAttrs:{
+      "aria-labelledby": "react-tags-example"
+    }
   };
 });
 
@@ -1307,7 +1311,7 @@ describe('Test ReactTags', () => {
     it('should have default value for aria-label when label is not provided', () => {
       const tags = render(
         mockItem({
-          clearAll: true,
+          clearAll: true,         
         })
       )
 
@@ -1327,8 +1331,8 @@ describe('Test ReactTags', () => {
       const tags = render(
         mockItem({
           clearAll: true,
-          ariaAttrs: {
-            clearAllLabel: 'Clear all selected tags'
+          clearAllBtnAriaAttrs: {
+            'aria-label': 'Clear all selected tags'
           }
         })
       )
@@ -1422,7 +1426,7 @@ describe('Test ReactTags', () => {
         clearAll: 'clearAll-class',
       };
 
-      const { container } = render(<ReactTags classNames={classNames} />);
+      const { container } = render(<ReactTags  classNames={classNames} />);
       jestExpect(container).toMatchSnapshot();
     });
   });

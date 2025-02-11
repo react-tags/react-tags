@@ -41,9 +41,9 @@ type ReactTagsProps = ReactTagsWrapperProps & {
   inputProps: { [key: string]: string };
   editable: boolean;
   clearAll: boolean;
-  ariaAttrs?: {
-    clearAllLabel?: string
-  }
+  clearAllBtnAriaAttrs?: {
+    'aria-label'?:string
+  } 
 };
 
 const ReactTags = (props: ReactTagsProps) => {
@@ -73,7 +73,8 @@ const ReactTags = (props: ReactTagsProps) => {
     maxLength,
     inputValue,
     clearAll,
-    ariaAttrs,
+    clearAllBtnAriaAttrs,
+    inputAriaAttrs
   } = props;
 
   const [suggestions, setSuggestions] = useState(props.suggestions);
@@ -473,6 +474,7 @@ const ReactTags = (props: ReactTagsProps) => {
                 }}
                 onFocus={handleFocus}
                 value={query}
+                aria-label={`Editing tag ${query}  ${inputAriaAttrs?.titleLabel?'of inputAriaAttrs?.titleLabel':''}`}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 onBlur={handleBlur}
@@ -525,8 +527,9 @@ const ReactTags = (props: ReactTagsProps) => {
         }}
         className={allClassNames.tagInputField}
         type="text"
+        aria-label={inputAriaAttrs?.['aria-labelledby'] ? undefined:'tags'}
         placeholder={placeholder}
-        aria-label={placeholder}
+        aria-labelledby={inputAriaAttrs?.['aria-labelledby']}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onChange={handleChange}
@@ -554,7 +557,7 @@ const ReactTags = (props: ReactTagsProps) => {
         renderSuggestion={props.renderSuggestion}
       />
       {clearAll && tags.length > 0 && (
-        <ClearAllTags aria-label={ariaAttrs?.clearAllLabel } classNames={allClassNames} onClick={handleClearAll} />
+        <ClearAllTags aria-label={clearAllBtnAriaAttrs?.['aria-label'] } classNames={allClassNames} onClick={handleClearAll} />
       )}
       {error && (
         <div data-testid="error" className="ReactTags__error">
