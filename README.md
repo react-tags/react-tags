@@ -224,7 +224,7 @@ Option | Type | Default | Description
 - `ReactTags__editTagInputField`
 - `ReactTags__clearAll`
 
-An example can be found in [`/example/reactTags.css`](https://github.com/react-tags/react-tags/blob/master/example/reactTags.css).
+An example can be found in [`/example/reactTags.scss`](https://github.com/react-tags/react-tags/blob/master/example/reactTags.scss).
 
 If you need to set your own class names on the component, you may pass in
 a `classNames` prop.
