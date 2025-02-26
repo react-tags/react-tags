@@ -210,7 +210,7 @@ const ReactTags = (props: ReactTagsProps) => {
   const handleTagClick = (
     index: number,
     tag: Tag,
-    event: React.MouseEvent<HTMLSpanElement> | React.TouchEvent<HTMLSpanElement>
+    event: React.MouseEvent<HTMLSpanElement> | React.TouchEvent<HTMLSpanElement> | React.KeyboardEvent<HTMLSpanElement>
   ) => {
     if (readOnly) {
       return;
@@ -471,6 +471,7 @@ const ReactTags = (props: ReactTagsProps) => {
                 ref={(input: HTMLInputElement) => {
                   tagInput.current = input;
                 }}
+                autoFocus
                 onFocus={handleFocus}
                 value={query}
                 onChange={handleChange}
@@ -498,6 +499,7 @@ const ReactTags = (props: ReactTagsProps) => {
                 event:
                   | React.MouseEvent<HTMLSpanElement>
                   | React.TouchEvent<HTMLSpanElement>
+                  | React.KeyboardEvent<HTMLSpanElement>
               ) => handleTagClick(index, tag, event)}
               readOnly={readOnly}
               classNames={allClassNames}

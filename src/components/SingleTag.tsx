@@ -24,7 +24,7 @@ export interface TagProps {
   moveTag?: (dragIndex: number, hoverIndex: number) => void;
   removeComponent?: React.ComponentType<any>;
   onTagClicked: (
-    event: React.MouseEvent<HTMLSpanElement> | React.TouchEvent<HTMLSpanElement>
+    event: React.MouseEvent<HTMLSpanElement> | React.TouchEvent<HTMLSpanElement> | React.KeyboardEvent<HTMLSpanElement>
   ) => void;
   classNames: {
     tag: string;
@@ -74,10 +74,21 @@ const SingleTag = (props: TagProps) => {
 
   drag(drop(tagRef));
 
+  // Callback for when the tag is keyboard focused
+  const onTagEdit = (e: React.KeyboardEvent<HTMLSpanElement>) => {    
+    // Enter and Space are the keys that are used to select the tag to edit
+    if (e.key === 'Enter' || e.key === ' ') {
+      props.onTagClicked(e);
+    }
+  };
+
   const label = props.tag[labelField];
   const { className = '' } = tag;
   /* istanbul ignore next */
   const opacity = isDragging ? 0 : 1;
+
+  const ariaLabel = `Tag at index ${index} with value ${tag.id} focussed. Press enter or space to edit.`;
+
   return (
     <span
       ref={tagRef}
@@ -86,7 +97,11 @@ const SingleTag = (props: TagProps) => {
         opacity,
         cursor: canDrag({ moveTag, readOnly, allowDragDrop }) ? 'move' : 'auto',
       }}
+      tabIndex={ readOnly ? -1 : 0}
+      onKeyDown={onTagEdit}
+      role={readOnly ? 'presentation' : 'button'}
       data-testid="tag"
+      aria-label={readOnly ? label : ariaLabel}
       onClick={props.onTagClicked}
       onTouchStart={props.onTagClicked}>
       {label}
