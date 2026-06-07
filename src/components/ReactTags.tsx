@@ -247,6 +247,7 @@ const ReactTags = (props: ReactTagsProps) => {
     if (props.handleInputFocus) {
       props.handleInputFocus(value, event);
     }
+    updateSuggestions();
     setIsFocused(true);
   };
 
