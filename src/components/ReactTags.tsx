@@ -185,8 +185,8 @@ const ReactTags = (props: ReactTagsProps) => {
     if (!reactTagsRef?.current) {
       return;
     }
-    const tagRemoveButtons: NodeListOf<HTMLButtonElement> =
-      reactTagsRef.current.querySelectorAll('.ReactTags__remove');
+    const tagRemoveButtons =
+      reactTagsRef.current.querySelectorAll<HTMLElement>('[data-testid="remove"]');
     let ariaLiveStatus = '';
 
     if (index === 0 && tags.length > 1) {
