@@ -220,6 +220,22 @@ describe('Test ReactTags', () => {
     expect(handleInputFocus.calledWith('Example')).to.be.true;
   });
 
+  it('shows suggestions again when focused after pressing Escape', () => {
+    render(mockItem());
+    const input = screen.getByTestId('input');
+
+    fireEvent.change(input, { target: { value: 'ap' } });
+    fireEvent.focus(input);
+    expect(screen.queryByTestId('suggestions')).to.exist;
+
+    fireEvent.keyDown(input, { key: 'Escape', keyCode: KEYS.ESCAPE });
+    expect(screen.queryByTestId('suggestions')).to.not.exist;
+
+    fireEvent.blur(input);
+    fireEvent.focus(input);
+    expect(screen.queryByTestId('suggestions')).to.exist;
+  });
+
   it('invokes the onBlur event when input has value', () => {
     const handleInputBlur = spy();
     const { rerender } = render(mockItem({ inputValue: 'Example' }));
