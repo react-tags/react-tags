@@ -194,6 +194,25 @@ describe('Test ReactTags', () => {
     expect(screen.getByText('Apple')).to.exist;
   });
 
+  it('focuses the next remove button after deleting with a custom remove class', () => {
+    const handleDelete = spy();
+    render(
+      mockItem({
+        classNames: { remove: 'custom-remove' },
+        handleDelete,
+        tags: [
+          { className: '', id: 'Apple', text: 'Apple' },
+          { className: '', id: 'Banana', text: 'Banana' },
+        ],
+      })
+    );
+
+    fireEvent.click(screen.getAllByTestId('remove')[0]);
+
+    expect(handleDelete.calledOnce).to.be.true;
+    expect(document.activeElement).to.equal(screen.getAllByTestId('remove')[0]);
+  });
+
   it('invokes the onBlur event', () => {
     const handleInputBlur = spy();
     const { rerender } = render(mockItem());
