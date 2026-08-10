@@ -54,4 +54,25 @@ describe('Tag', () => {
     fireEvent.touchStart(tag);
     expect(onTagClickedStub.calledOnce).to.be.true;
   });
+
+  it('defaults readOnly to false and allowDragDrop to true when they are not provided', () => {
+    const props = {
+      tag: { id: '1', text: 'FooBar', className: 'action' },
+      onDelete: noop,
+      onTagClicked: noop,
+      moveTag: noop,
+      classNames: {
+        tag: 'tag',
+        remove: 'remove',
+      },
+      index: 0,
+    } as unknown as TagProps;
+    render(
+      <DndProvider backend={HTML5Backend}>
+        <SingleTag {...props} />
+      </DndProvider>
+    );
+    const tag = screen.getByTestId('tag') as HTMLElement;
+    expect(tag.style.cursor).to.equal('move');
+  });
 });
