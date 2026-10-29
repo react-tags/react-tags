@@ -207,7 +207,8 @@ Option | Type | Default | Description
 |[`clearAll`](#clearAll) | `boolean` | `false` | Implies whether 'clear all' button should be shown.
 |[`onClearAll`](#onClearAll) | `Function` |  | This callback if present is triggered when clear all button is clicked.
 | [`maxTags`](#maxTags) | `number` | | The maximum count of tags to be added
-| [`ariaAttrs`](#ariaAttrs) | Object |`{clearAllLabel: "clear all tags"}` | An object containing custom ARIA attributes to enhance screen reader support and improve accessibility
+| [`clearAllBtnAriaAttrs`](#clearAllBtnAriaAttrs) | Object |`{aria-label: "clear all tags"}` | An object containing custom ARIA attributes to enhance screen reader support and improve accessibility for clear all button
+| [`inputAriaAttrs`](#inputAriaAttrs) | Object | | Accessibility-related attributes for the input tag
 
 ## Styling
 `<ReactTags>` does not come up with any styles. However, it is very easy to customize the look of the component the way you want it. By default, the component provides the following classes with which you can style -
@@ -701,13 +702,29 @@ This callback is if present is triggered when "clear all" button is clicked. You
 ### maxTags
 This prop specifies the maximum count of tags to be added. Incase the tags exceed, error will show up to convey the maximum tag limit has reached.
 
-### ariaAttrs
+### clearAllBtnAriaAttrs
 
-An object containing custom ARIA attributes to enhance screen reader support and improve accessibility. 
+An object containing custom ARIA attributes to enhance screen reader support and improve accessibility for clear all button. 
 It accepts the below attributes
 ```js
 {
-  clearAllLabel?: string // Optional accessible label for a "clear all tags" button improving accessibility by providing a clear, descriptive action label.
+  aria-label?: string // Optional accessible label for a "clear all tags" button improving accessibility by providing a clear, descriptive action label.
 }
+```
 
 
+### inputAriaAttrs
+
+An object containing accessibility-related attributes for the `<input>` field and tags container, designed to improve screen reader compatibility and enhance user experience for individuals using assistive technologies.
+
+`aria-labelledby` (optional): The ID of the label associated with both the input field and the tags container. This attribute links the label and input, providing context to screen readers on what the input represents.
+
+`titleLabel` (optional): A label string that alerts screen reader users when they are editing a tag associated with a specific heading. This helps users understand the context of the tag they’re currently editing.
+
+``` js 
+{
+
+    'aria-labelledby'?: string;  
+     titleLabel?:string
+}
+```
