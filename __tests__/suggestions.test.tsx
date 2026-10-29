@@ -163,6 +163,28 @@ describe('Suggestions', () => {
     expect(onTagClickedStub.calledOnce).to.be.true;
   });
 
+  it('scrolls the suggestions container up when the newly active suggestion sits above the visible area', () => {
+    const { container, rerender } = render(mockItem({ selectedIndex: 0 }));
+    const suggestionsContainer = container.querySelector(
+      '[data-testid="suggestions"]'
+    ) as HTMLElement;
+    const suggestionItems = suggestionsContainer.querySelectorAll('li');
+
+    suggestionItems.forEach((li) => {
+      Object.defineProperty(li, 'offsetTop', { value: 50, configurable: true });
+      Object.defineProperty(li, 'offsetHeight', { value: 20, configurable: true });
+    });
+    Object.defineProperty(suggestionsContainer, 'offsetHeight', {
+      value: 200,
+      configurable: true,
+    });
+    suggestionsContainer.scrollTop = 100;
+
+    rerender(mockItem({ selectedIndex: 1 }));
+
+    expect(suggestionsContainer.scrollTop).to.equal(50);
+  });
+
   describe('Test arePropsEqual', () => {
     const prevProps = {
       query: 'ang',
