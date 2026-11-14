@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClearAllTags should render with base structure 1`] = `
+<div>
+  <button
+    class="ReactTags__clearAll"
+  >
+    Clear all
+  </button>
+</div>
+`;
