@@ -12,6 +12,7 @@ const KeyCodes = {
   colon: 58,
   forwardSlash: 47,
   period: 46,
+  semicolon: 186,
 };
 
 /**
@@ -35,6 +36,7 @@ describe('Test buildRegExpFromDelimiters', () => {
     const input = 'https:/www.lodash.com';
     const delimiters = [KeyCodes.forwardSlash];
     const expected = ['https:', 'www.lodash.com'];
+
     testRegex(input, delimiters, expected);
   });
 
@@ -42,19 +44,42 @@ describe('Test buildRegExpFromDelimiters', () => {
     const input = 'https:///www.lodash.com';
     const delimiters = [KeyCodes.forwardSlash];
     const expected = ['https:', 'www.lodash.com'];
+
     testRegex(input, delimiters, expected);
   });
 
   test('handles multiple delimiters', () => {
     const input = 'https://www.lodash.com';
-    const delimiters = [KeyCodes.colon, KeyCodes.forwardSlash, KeyCodes.period];
+    const delimiters = [
+      KeyCodes.colon,
+      KeyCodes.forwardSlash,
+      KeyCodes.period,
+    ];
     const expected = ['https', 'www', 'lodash', 'com'];
+
+    testRegex(input, delimiters, expected);
+  });
+
+  test('handles semicolon delimiter', () => {
+    const input = 'apple;banana;cherry';
+    const delimiters = [KeyCodes.semicolon];
+    const expected = ['apple', 'banana', 'cherry'];
+
+    testRegex(input, delimiters, expected);
+  });
+
+  test('does not split on asterisk when semicolon is the delimiter', () => {
+    const input = 'apple*banana';
+    const delimiters = [KeyCodes.semicolon];
+    const expected = ['apple*banana'];
+
     testRegex(input, delimiters, expected);
   });
 });
 
 describe('Test canDrag', () => {
   const input = { readOnly: false, allowDragDrop: true, moveTag: noop };
+
   test('should return false when readOnly set to true', () => {
     const result = canDrag({ ...input, readOnly: true });
     expect(result).to.equal(false);
@@ -78,6 +103,7 @@ describe('Test canDrag', () => {
 
 describe('Test canDrop', () => {
   const input = { readOnly: false, allowDragDrop: true };
+
   test('should return false when readOnly set to true', () => {
     const result = canDrop({ ...input, readOnly: true });
     expect(result).to.equal(false);
